@@ -1,69 +1,60 @@
-<?php
-// Database connection
-$host = "localhost";  // Your database host
-$user = "root";       // Your database username
-$password = "";       // Your database password
-$dbname = "complaints"; // Your database name
 
-$conn = new mysqli($host, $user, $password, $dbname);
+<?php
+// Database connection (update with your DB credentials)
+$host = 'localhost'; // your DB host
+$dbname = 'complaints'; // your DB name
+$username = 'root'; // your DB username
+$password = ''; // your DB password
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch department from the query string
-$department = isset($_GET['department']) ? $_GET['department'] : '';
+// Query to count the number of 8's in the status column with type_of_problem = "Electrical Work"
+$sql = "SELECT COUNT(*) AS count_of_8 FROM complaints_detail WHERE (status = 8 OR status = 9) AND type_of_problem = 'ELECTRICAL'";
+$result = $conn->query($sql);
 
-// Initialize task counts
-$completedTasksCount = 0;
-$pendingTasksCount = 0;
-$inProgressTasksCount = 0;
-$waitingTasksCount = 0;
-
-// Fetch counts based on the department
-if (!empty($department)) {
-    $department = $conn->real_escape_string($department);
-
-    // Query to count the number of completed tasks for the given department
-    $sql_completed = "SELECT COUNT(*) AS count_of_12 FROM complaints_detail WHERE status = 12 AND type_of_problem = ?";
-    $stmt_completed = $conn->prepare($sql_completed);
-    $stmt_completed->bind_param("s", $department);
-    $stmt_completed->execute();
-    $result_completed = $stmt_completed->get_result();
-    $completedTasksCount = $result_completed->fetch_assoc()['count_of_12'];
-
-    // Query to count the number of pending tasks for the given department
-    $sql_pending = "SELECT COUNT(*) AS count_of_8 FROM complaints_detail WHERE (status = 8 OR status = 9) AND type_of_problem = ?";
-    $stmt_pending = $conn->prepare($sql_pending);
-    $stmt_pending->bind_param("s", $department);
-    $stmt_pending->execute();
-    $result_pending = $stmt_pending->get_result();
-    $pendingTasksCount = $result_pending->fetch_assoc()['count_of_8'];
-
-    // Query to count the number of in-progress tasks for the given department
-    $sql_inprogress = "SELECT COUNT(*) AS count_of_10 FROM complaints_detail WHERE status = 10 AND type_of_problem = ?";
-    $stmt_inprogress = $conn->prepare($sql_inprogress);
-    $stmt_inprogress->bind_param("s", $department);
-    $stmt_inprogress->execute();
-    $result_inprogress = $stmt_inprogress->get_result();
-    $inProgressTasksCount = $result_inprogress->fetch_assoc()['count_of_10'];
-
-    // Query to count the number of waiting tasks for the given department
-    $sql_waiting = "SELECT COUNT(*) AS count_of_11 FROM complaints_detail WHERE status = 11 AND type_of_problem = ?";
-    $stmt_waiting = $conn->prepare($sql_waiting);
-    $stmt_waiting->bind_param("s", $department);
-    $stmt_waiting->execute();
-    $result_waiting = $stmt_waiting->get_result();
-    $waitingTasksCount = $result_waiting->fetch_assoc()['count_of_11'];
+// Fetch the result
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $pendingTasksCount = $row['count_of_8'];
+} else {
+    $pendingTasksCount = 0; // default if no records found
 }
-
+// Query to count the number of 10's for type_of_problem = "ELECTRICAL"
+$sql_inprogress = "SELECT COUNT(*) AS count_of_10 FROM complaints_detail WHERE status = 10 AND type_of_problem = 'ELECTRICAL'";
+$result_inprogress = $conn->query($sql_inprogress);
+if ($result_inprogress->num_rows > 0) {
+    $row_inprogress = $result_inprogress->fetch_assoc();
+    $inProgressTasksCount = $row_inprogress['count_of_10'];
+} else {
+    $inProgressTasksCount = 0; // default if no records found
+}
+// Query to count the number of 11's for type_of_problem = "ELECTRICAL"
+$sql_waiting = "SELECT COUNT(*) AS count_of_11 FROM complaints_detail WHERE status = 11 AND type_of_problem = 'ELECTRICAL'";
+$result_waiting = $conn->query($sql_waiting);
+if ($result_waiting->num_rows > 0) {
+    $row_waiting = $result_waiting->fetch_assoc();
+    $waitingTasksCount = $row_waiting['count_of_11'];
+} else {
+    $waitingTasksCount = 0; // default if no records found
+}
+// Query to count the number of 12's for type_of_problem = "ELECTRICAL"
+$sql_completed = "SELECT COUNT(*) AS count_of_12 FROM complaints_detail WHERE status = 12 AND type_of_problem = 'ELECTRICAL'";
+$result_completed = $conn->query($sql_completed);
+if ($result_completed->num_rows > 0) {
+    $row_completed = $result_completed->fetch_assoc();
+    $completedTasksCount = $row_completed['count_of_12'];
+} else {
+    $completedTasksCount = 0; // default if no records found
+}
 // Close the database connection
 $conn->close();
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -169,7 +160,7 @@ $conn->close();
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.php" aria-expanded="false"><i class="mdi mdi-account-circle"></i><span class="hide-menu">Profile</span></a></li>
                         <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="worker_taskhistory.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Task History</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="worker_helpline.html" aria-expanded="false"><i class="mdi mdi-phone"></i><span class="hide-menu">Helpline</span></a></li>
@@ -264,9 +255,10 @@ $conn->close();
                 <!-- ============================================================== -->
                 <!-- Sales chart -->
                 <!-- ============================================================== -->
+                 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card" style="height:500px">
+                        <div class="card">
                             <div class="card-body">
                                 <div class="d-md-flex align-items-center">
                                     <div>
@@ -274,49 +266,81 @@ $conn->close();
                                         <h5 class="card-subtitle">Latest Overview of Task History</h5>
                                     </div>
                                 </div>
-                                <div class="row" style="padding-left:15%">
+                                <div class="row">
                                     <!-- column -->
-                                    <div class="col-lg-10">
+                                     
+                                    <div class="col-lg-8">
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="bg-dark p-10 text-white text-center">
-                                                    <i class="mdi mdi-checkbox-multiple-marked m-b-5 font-22"></i>
-                                                    <h2 class="m-b-0 m-t-5"><?php echo $completedTasksCount; ?></h2>
-                                                    <h5 class="font-light">Task Completed</h5>
+                                                   <i class="mdi mdi-checkbox-multiple-marked m-b-5 font-22"></i>
+                                                   <h2 class="m-b-0 m-t-5"><?php echo $completedTasksCount; ?></h2>
+                                                   <h5 class="font-light">Task Completed</h5>
                                                 </div>
                                             </div>
                                             <div class="col-6">
-                                                <div class="bg-dark p-10 text-white text-center" >
-                                                    <i class="mdi mdi-book m-b-5 font-22"></i>
-                                                    <h2 class="m-b-0 m-t-5"><?php echo $pendingTasksCount; ?></h2>
-                                                    <h5 class="font-light">Pending Task & Not Approved</h5>
-                                                </div>
-                                            </div>
-                                            
+                                <div class="bg-dark p-10 text-white text-center">
+                                    <i class="mdi mdi-book m-b-5 font-22"></i>
+                                    <h2 class="m-b-0 m-t-5"><?php echo $pendingTasksCount; ?></h2>
+                                    <h5 class="font-light">Pending Task & Not Approved</h5>
+                                </div>
+                            </div>
                                             <div class="col-6 m-t-15">
                                                 <div class="bg-dark p-10 text-white text-center">
-                                                    <i class="mdi mdi-chart-bar m-b-5 font-22"></i>
-                                                    <h2 class="m-b-0 m-t-5"><?php echo $inProgressTasksCount; ?></h2>
-                                                    <h5 class="font-light">Task in Progress</h5>
+                                                   <i class="mdi mdi-chart-bar m-b-5 font-22"></i>
+                                                   <h2 class="m-b-0 m-t-5"><?php echo $inProgressTasksCount; ?></h2>
+                                                   <h5 class="font-light">Task in Progress</h5>
                                                 </div>
                                             </div>
-                                          
-                                            <div class="col-6 m-t-15">
-                                                <div class="bg-dark p-10 text-white text-center" >
-                                                    <i class="mdi mdi-chart-arc m-b-5 font-22"></i>
-                                                    <h2 class="m-b-0 m-t-5"><?php echo $waitingTasksCount; ?></h2>
-                                                    <h5 class="font-light">Task waiting for Approval</h5>
+                                             <div class="col-6 m-t-15">
+                                                <div class="bg-dark p-10 text-white text-center">
+                                                   <i class="mdi mdi-chart-arc m-b-5 font-22"></i>
+                                                   <h2 class="m-b-0 m-t-5"><?php echo $waitingTasksCount; ?></h2>
+                                                   <h5 class="font-light">Task waiting for Approval</h5>
                                                 </div>
+                                            </div>
+                                            <div class="col-6 m-t-15">
+                                              
+                                            </div>
+                                            <div class="col-6 m-t-15">
+                                                
                                             </div>
                                         </div>
                                     </div>
-
-                                  
+                                    <div class="col-lg-4">
+                                        <div class="box bg-danger text-center d-flex ">
+                                            <!-- 60% Column -->
+                                            <div class="col-8 text-left">
+                                                <h3 class="text-white" style="margin-top: 10px;">Task Completed</h3><br>
+                                                <h3 class="text-white">Task Incomplete</h3>
+                                                <h5 class="text-white">(Pending+Progress+Waiting for Approval+Task not Approved)</h5><br>
+                                                <h3 class="text-white">Total</h3>
+                                            </div>
+                                            <!-- 10% Column -->
+                                            <div class="col-1 text-center">
+                                                <h3 class="text-white" style="margin-top: 10px;"><b>:</b></h3><br>
+                                                <h3 class="text-white"><b>:</b></h3><br><br><br><br>
+                                                <h3 class="text-white"><b>:</b></h3>
+                                            </div>
+                                            <!-- 30% Column -->
+                                            <div class="col-3 text-center" style="margin-top: 10px;">
+                                                <h3 class="text-white"><b><?php echo $completedTasksCount; ?></b></h3><br>
+                                                <h3 class="text-white"><b><?php echo $pendingTasksCount+$inProgressTasksCount+$waitingTasksCount; ?></b></h3><br><br><br><br>
+                                                <h3 class="text-white"><b><?php echo $completedTasksCount+$pendingTasksCount+$inProgressTasksCount+$waitingTasksCount; ?></b></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- column -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+                <!-- ============================================================== -->
+                <!-- Recent comment and chats -->
+                <!-- ============================================================== -->
+        </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
@@ -365,23 +389,20 @@ Developed and Maintained by Technology Innovation Hub.</b>
     <script src="assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="dist/js/pages/chart/chart-page-init.js"></script>
     <script>
-        
-        $(document).ready(function() {
+
+$(document).ready(function() {
     $.ajax({
-        url: 'fetch_data.php',
+        url: 'backend.php', // Path to your PHP script
         type: 'GET',
         data: {
-            department: $("#workerdepartment").text().trim(), // Pass the department value to PHP
+            department: true,
         },
         success: function(data) {
-            if (typeof data === "string") {
-                data = JSON.parse(data);  // Parse if data is returned as a string
-            }
             console.log(data); // Ensure the data is being fetched correctly
             
             // Update the dashboard with the fetched data
-            $("#workerName").html('<span style="font-weight: 900;">' + data.name + '</span>');
-            $("#employmentType").html('<span style="font-weight: 900;">' + data.employment_type + '</span>');
+            $(".card-hover .box.bg-cyan .font-light").html('<span style="font-weight: 900;">' + data.name + '</span>');
+            $(".card-hover .box.bg-success .font-light").html('<span style="font-weight: 900;">' + data.employment_type + '</span>');
             $("#workerdepartment").html('<span style="font-weight: 900;">' + data.department + '</span>');
 
             // Attach a click event to redirect when 'Task History' is clicked
@@ -413,9 +434,13 @@ Developed and Maintained by Technology Innovation Hub.</b>
     });
 });
 
-
 </script>
 
 </body>
 
 </html>
+
+
+
+
+

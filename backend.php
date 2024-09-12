@@ -89,9 +89,9 @@ if (isset($_POST['update_status'])) {
 } 
 
 $conn->close();
-
 ?>
-<?php
+
+ <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -100,7 +100,6 @@ error_reporting(E_ALL);
 if (isset($_POST['update'])) {
     $taskId = $_POST['task_id'];
     $completionStatus = $_POST['completion_status'];
-    $reason = isset($_POST['reason']) ? $_POST['reason'] : null;
 
     // Database connection
     $servername = "localhost";
@@ -112,26 +111,21 @@ if (isset($_POST['update'])) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Update status, task_completion, and reason in the complaints_detail table
+    // Update status and task_completion in the complaints_detail table
     $updateComplaintSql = "UPDATE complaints_detail 
-                           SET status = 11, task_completion = ?, reason = ?, date_of_completion = NOW()
+                           SET status = 11, task_completion = ?,date_of_completion = NOW()
                            WHERE id = (SELECT problem_id FROM manager WHERE task_id = ?)";
-    
     if ($stmt = $conn->prepare($updateComplaintSql)) {
-        $stmt->bind_param("ssi", $completionStatus, $reason, $taskId);
+        $stmt->bind_param("si", $completionStatus, $taskId);
         if (!$stmt->execute()) {
             echo "Update failed: (" . $stmt->errno . ") " . $stmt->error;
         } else {
-            echo "Complaint status, task completion, and reason updated successfully.";
+            echo "Complaint status and task completion updated successfully.";
         }
         $stmt->close();
     } else {
         echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
     }
-
-
-
-
 
     // Handle file upload
     $imgAfterName = null;
@@ -272,4 +266,43 @@ if (isset($_POST['get_image'])) {
     $conn->close();
     exit;
 }
+?>
+
+<?php
+// Database connection
+$host = "localhost";  // Your database host
+$user = "root";       // Your database username
+$password = "";       // Your database password
+$dbname = "complaints"; // Your database name
+
+$conn = new mysqli($host, $user, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if (isset($_GET['department'])) {
+// Fetch data from the worker_details table
+$sql = "SELECT worker_first_name, worker_last_name, worker_emp_type, worker_dept FROM worker_details WHERE id = id"; // Adjust WHERE clause as necessary
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // Output data of each row
+    $row = $result->fetch_assoc();
+    echo json_encode([
+        'name' => $row['worker_first_name'] . ' ' . $row['worker_last_name'],
+        'employment_type' => $row['worker_emp_type'],
+        'department' => $row['worker_dept'],
+    ]);
+} else {
+    echo json_encode([
+        'name' => '',
+        'employment_type' => '',
+        'department' => '',
+    ]);
+}
+}
+$conn->close();
+
 ?>

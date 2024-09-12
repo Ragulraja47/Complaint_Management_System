@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .auth-wrapper {
             height: 100vh;
         }
-       
+
         .auth-box {
             width: 400px;
             padding: 30px;
@@ -100,8 +100,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             box-shadow: none;
         }
 
-      
-      
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
 
         .btn-info:hover {
             background-color: #138496;
@@ -136,11 +148,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
-            <div class=" bg-dark border-top border-secondary">
+            <div class="auth-box bg-dark border-top border-secondary">
                 <div id="loginform">
-                    <div class="text-center ">
-                        <h1 class="text-light p-t-20">Worker login</h1>
-                        <span class="db"><img src="assets/images/clglogo.jpg" style="border-radius:50%" alt="logo" /></span>
+                    <div class="text-center p-t-20 p-b-20">
+                        <h1 class="text-light">Worker login</h1>
+                        <span class="db"><img src="assets/images/mkcelogo2.png" alt="logo" /></span>
                     </div>
 
                     <form class="form-horizontal m-t-20" id="loginform" action="login.php" method="POST">
@@ -153,16 +165,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </div>
                                     <input type="text" class="form-control form-control-lg" placeholder="Username"
                                         name="username" aria-label="Username" id="username"
-                                        aria-describedby="basic-addon1" required="" style="background-color:white">
+                                        aria-describedby="basic-addon1" required="">
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-warning text-white" id="basic-addon2"><i
-                                                class="ti-pencil" style="background-color:white"></i></span>
+                                                class="ti-pencil"></i></span>
                                     </div>
                                     <input type="password" class="form-control form-control-lg" placeholder="Password"
                                         name="password" aria-label="Password" id="password"
-                                        aria-describedby="basic-addon2" required="" style="background-color:white; ">
+                                        aria-describedby="basic-addon2" required="">
                                 </div>
                             </div>
                         </div>
@@ -205,8 +217,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div><br>
                 <footer class="text-light ">
-                    <center><b>All Rights Reserved by M.Kumarasamy College of <br>Engineering, Karur.</b></center><br>
-                    <center style="color:yellow"><b>Version 2.0</b></center>
+                    <center>All Rights Reserved by M.Kumarasamy College of <br>Engineering, Karur.</center>
                 </footer>
             </div>
         </div>
@@ -228,11 +239,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 text: 'Invalid login credentials!',
             });
         <?php endif; ?>
-        
+
         <?php if ($success_flag): ?>
             Swal.fire({
                 icon: 'success',
-                title: 'Success',
+                title: 'Login Successful!',
                 text: 'Redirecting to your dashboard...',
                 timer: 2000,
                 showConfirmButton: false,
