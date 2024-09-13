@@ -1,9 +1,9 @@
 <?php
 include("db.php");
 $sql = "SELECT * FROM complaints_detail WHERE status = 2";
-$sql1 = "SELECT * FROM complaints_detail WHERE status IN (4, 6, 7, 8, 9, 10, 12)";
-$sql2 = "SELECT * FROM complaints_detail WHERE status = 11";
-$sql3 = "SELECT * FROM complaints_detail WHERE status IN (5, 16, 17)";
+$sql1 = "SELECT * FROM complaints_detail WHERE status IN (4, 6, 7, 11)";
+$sql2 = "SELECT * FROM complaints_detail WHERE status = 16";
+$sql3 = "SELECT * FROM complaints_detail WHERE status IN (5, 19, 20)";
 $result = mysqli_query($conn, $sql);
 $result1 = mysqli_query($conn, $sql1);
 $result2 = mysqli_query($conn, $sql2);

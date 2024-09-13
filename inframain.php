@@ -9,7 +9,7 @@ $procount = mysqli_num_rows($result1);
 $sql2 = "SELECT * FROM complaints_detail where status in (3,5,18,19)";
 $result2 = mysqli_query($conn, $sql2);
 $rejcount = mysqli_num_rows($result2);
-$sql3 = "SELECT complaints_detail.*,worker_taskdet.after_photo FROM complaints_detail LEFT JOIN worker_taskdet on complaints_detail.id=worker_taskdet.task_id WHERE complaints_detail.status = 13";
+$sql3 = "SELECT complaints_detail.*,worker_taskdet.after_photo FROM complaints_detail LEFT JOIN worker_taskdet on complaints_detail.id=worker_taskdet.task_id WHERE complaints_detail.status = 16";
 $result3 = mysqli_query($conn, $sql3);
 $comcount = mysqli_num_rows($result3);
 
