@@ -405,33 +405,8 @@ $(document).ready(function() {
             $(".card-hover .box.bg-success .font-light").html('<span style="font-weight: 900;">' + data.employment_type + '</span>');
             $("#workerdepartment").html('<span style="font-weight: 900;">' + data.department + '</span>');
 
-            // Attach a click event to redirect when 'Task History' is clicked
-            $('#view-work-task-history').click(function() {
-                if (data.department) {
-                    // Make an AJAX request to update the session with the new department value
-                    $.ajax({
-                        url: 'update_session.php',
-                        type: 'POST',
-                        data: { department: data.department },
-                        success: function(response) {
-                            console.log("Session updated: " + response);
-                            // Redirect to the task history page after session update
-                            var url = 'worker_taskhistory.php';
-                            window.location.href = url;
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("Error updating session: " + error);
-                        }
-                    });
-                } else {
-                    console.log("No department found.");
-                }
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error("Error fetching data: " + error);
         }
-    });
+    })
 });
 
 </script>
