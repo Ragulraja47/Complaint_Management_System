@@ -253,7 +253,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                 <a class="nav-link" data-toggle="tab" href="#completed" role="tab"
                                                     aria-selected="false"><span class="hidden-sm-up"></span> <span
                                                         class="hidden-xs-down"><i
-                                                            class="mdi mdi-check-all"></i><b>&nbsp Completed ( <?php $query2 = "SELECT COUNT(*) as completed FROM complaints_detail WHERE  status ='11'";
+                                                            class="mdi mdi-check-all"></i><b>&nbsp Completed ( <?php $query2 = "SELECT COUNT(*) as completed FROM complaints_detail WHERE  status ='16'";
                                                                                                                 $output2 = mysqli_query($conn, $query2);
                                                                                                                 $row2 = mysqli_fetch_assoc($output2);
                                                                                                                 $pendingCount = $row2['completed'];
@@ -356,7 +356,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                             <div class="stats-box text-center p-3" style="background-color:rgb(70, 160, 70);">
                                                                                 <i class="mdi mdi-check-all"></i>
                                                                                 <h1 class="font-light text-white">
-                                                                                    <?php $query2 = "SELECT COUNT(*) as completed FROM complaints_detail WHERE  status ='11'";
+                                                                                    <?php $query2 = "SELECT COUNT(*) as completed FROM complaints_detail WHERE  status ='16'";
                                                                                     $output2 = mysqli_query($conn, $query2);
                                                                                     $row2 = mysqli_fetch_assoc($output2);
                                                                                     $pendingCount = $row2['completed'];
@@ -672,8 +672,8 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                             13 => 'Work completed',
                                                                                             14 => 'Reassign',
                                                                                             15 => 'Sent to manager for rework',
-                                                                                            16 => 'Rejected by manager',
-                                                                                            17 => 'Rejected by principal',
+                                                                                            20 => 'Rejected by manager',
+                                                                                            19 => 'Rejected by principal',
                                                                                         ];
 
                                                                                         // Get the status from the row and display the corresponding message
