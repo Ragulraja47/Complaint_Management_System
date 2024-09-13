@@ -41,7 +41,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
- cd.status = '8'";
+ cd.status = '7'";
 // Filter by department
 $stmt = $conn->prepare($sql);
 $stmt->execute();
@@ -144,7 +144,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-cd.status = '12'";
+cd.status = '16'";
 // Filter by department
 $stmt = $conn->prepare($sql3);
 $stmt->execute();
@@ -178,7 +178,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-cd.status = '9'";
+cd.status = '15'";
 // Filter by department
 $stmt = $conn->prepare($sql4);
 $stmt->execute();
