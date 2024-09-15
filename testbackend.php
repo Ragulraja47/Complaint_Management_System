@@ -147,10 +147,13 @@ if (isset($_POST['submit_comment_reply'])) {
 if (isset($_POST['id']) && isset($_POST['status'])) {
     $id = $_POST['id'];
     $status = $_POST['status'];
-    // Update the status in complaints_detail table
-    $sql = "UPDATE complaints_detail SET status='$status' WHERE id='$id'";
+    $current_date = date('Y-m-d'); // Get the current date in the format YYYY-MM-DD
+    
+    // Update the status and reassign_date in complaints_details table
+    $sql = "UPDATE complaints_detail SET status='$status', reassign_date='$current_date' WHERE id='$id'";
+    
     if (mysqli_query($conn, $sql)) {
-        echo "Status updated successfully";
+        echo "Status and updated successfully";
     } else {
         echo "Error updating status: " . mysqli_error($conn);
     }

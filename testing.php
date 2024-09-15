@@ -926,7 +926,7 @@ $result8 = mysqli_query($conn, $sql8);
                                                         <th><b>S.No</b></th>
                                                         <th><b>Complaint</b></th>
                                                         <th><b>Worker Details</b></th>
-                                                        <th><b>Date of Completion</b></th>
+                                                        <th><b>Date of Reassigned</b></th>
                                                         <th><b>Picture</b></th>
                                                         <th><b>Faculty Feedback</b></th>
                                                         <!-- <th><b>Status</b></th> -->
@@ -954,7 +954,7 @@ $result8 = mysqli_query($conn, $sql8);
                                                                     Details
                                                                 </button>
                                                             </td>
-                                                            <td><?php echo $row7['date_of_completion'] ?></td>
+                                                            <td><?php echo $row7['reassign_date'] ?></td>
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row7['id']; ?>" data-toggle="modal"

@@ -20,6 +20,9 @@ $(document).ready(function () {
 $(document).ready(function () {
   $("#completed_table").DataTable();
 });
+$(document).ready(function () {
+  $("#record_table").DataTable();
+});
 
 $(document).ready(function () {
   $(".nav-link").click(function (e) {
@@ -430,3 +433,10 @@ $('#afterImageModal').on('hidden.bs.modal', function () {
   // Reset the image source to a default or blank placeholder
   $("#modalImage2").attr("src", "path/to/placeholder_image.jpg");
 });
+document.getElementById('download').addEventListener('click', function () {
+  var wb = XLSX.utils.book_new();
+  var ws = XLSX.utils.table_to_sheet(document.getElementById('record_table'));
+  XLSX.utils.book_append_sheet(wb, ws, "Complaints Data");
+
+  // Create and trigger the download
+  XLSX.writeFile(wb, 'complaints_data.xlsx');});
