@@ -10,11 +10,10 @@ if (isset($_SESSION['department'])) {
 }
 
 
-
 // Database connection
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = ""; 
 $dbname = "complaints";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -50,11 +49,10 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = ? 
+m.worker_id = '$department'
 AND cd.status = '7'";
 // Filter by department
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $department);  // Assuming department is a string
 $stmt->execute();
 $result = $stmt->get_result();
 $newcount = mysqli_num_rows($result);
@@ -87,11 +85,10 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = ? 
+m.worker_id = 'INFRA' 
 AND cd.status = '17' or cd.status = '10'";
 // Filter by department
 $stmt = $conn->prepare($sql1);
-$stmt->bind_param("s", $department);  // Assuming department is a string
 $stmt->execute();
 $result1 = $stmt->get_result();
 $progcount = mysqli_num_rows($result1);
@@ -123,11 +120,9 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = ? 
-AND cd.status = '11'or cd.status = '18'";
+m.worker_id = '$department' AND cd.status = '11'or cd.status = '18'";
 // Filter by department
 $stmt = $conn->prepare($sql2);
-$stmt->bind_param("s", $department);  // Assuming department is a string
 $stmt->execute();
 $result2 = $stmt->get_result();
 $waitcount = mysqli_num_rows($result2);
@@ -159,11 +154,10 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = ? 
+m.worker_id = '$department'
 AND cd.status = '16'";
 // Filter by department
 $stmt = $conn->prepare($sql3);
-$stmt->bind_param("s", $department);  // Assuming department is a string
 $stmt->execute();
 $result3 = $stmt->get_result();
 $compcount = mysqli_num_rows($result3);
@@ -195,11 +189,9 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = ? 
-AND cd.status = '15'";
+m.worker_id = '$department' AND cd.status = '15'";
 // Filter by department
 $stmt = $conn->prepare($sql4);
-$stmt->bind_param("s", $department);  // Assuming department is a string
 $stmt->execute();
 $result4 = $stmt->get_result();
 $notcount = mysqli_num_rows($result4);
