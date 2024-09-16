@@ -24,7 +24,6 @@ $(document).ready(function () {
   $("#record_table").DataTable();
 });
 
-
 $(document).ready(function () {
   $(".nav-link").click(function (e) {
     e.preventDefault(); // Prevent default anchor behavior
@@ -120,26 +119,17 @@ document
       success: function (response) {
         var res = jQuery.parseJSON(response);
         if (res.status == 200) {
-          
+          alert(res.message);
           
           // Close modal
           $("#prioritymodal1").modal("hide");
           
           // Reset the form
           $("#acceptForm")[0].reset();
-             // Reload both the nav section and the table content
-          $("#complain-tab").load(location.href + " #complain-tab > *");  // Reload nav to update counts
-          $("#complain_table").load(location.href + " #complain_table > *"); // Reload table content
-          $('#principal_table').load(location.href + " #principal_table");
-          $('#worker_table').load(location.href + " #worker_table");
-          $("#worker-tab").load(location.href + " #worker-tab > *"); 
-          // Display success message using SweetAlert
-          swal({
-            title: "Success!",
-            text: "Complaint assigned to the worker successfully",
-            icon: "success",
-            button: "OK",
-          });
+          
+          // Refresh the table body only
+          $("#complain_table").load(location.href + " #complain_table");
+          location.reload();
         } else if (res.status == 500) {
           alert("Something went wrong. Please try again.");
         }
@@ -151,71 +141,53 @@ document
     });
   });
   
-  $(document).on("click", "#rejectbutton", function (e) {
-    e.preventDefault();
-    var user_id = $(this).val(); // Get the ID from the button's value
-    console.log("User ID:", user_id);
-    // Set the user_id in the hidden input field within the form
-    $("#complaint_id99").val(user_id);
-  });
+
+//Jquerry to pass the id into reject form
+$(document).on("click", "#rejectbutton", function (e) {
+  e.preventDefault();
+  var user_id = $(this).val(); // Get the ID from the button's value
+  console.log("User ID:", user_id);
+  // Set the user_id in the hidden input field within the form
+  $("#complaint_id99").val(user_id);
+});
+$(document).on("submit", "#rejectForm", function (e) {
+  e.preventDefault();
+  var formData = new FormData(this);
+  formData.append("reject_complaint", true);
   
-  $(document).on("submit", "#rejectForm", function (e) {
-    e.preventDefault();
-    var formData = new FormData(this);
-    formData.append("reject_complaint", true);
-    
-    $.ajax({
-      type: "POST",
-      url: "testbackend.php", // Replace with your actual backend script URL
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function (response) {
-        var res = jQuery.parseJSON(response);
+  $.ajax({
+    type: "POST",
+    url: "testbackend.php", // Replace with your actual backend script URL
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function (response) {
+      var res = jQuery.parseJSON(response);
+      
+      if (res.status == 200) {
+        // Close modal
+        $("#rejectModal").modal("hide");
+
+        // Reset the form
+        $("#rejectForm")[0].reset();
         
-        if (res.status == 200) {
-          // Close modal
-          $("#rejectModal").modal("hide");
-  
-          // Reset the form
-          $("#rejectForm")[0].reset();
-          
-          // Reload both the nav section and the table content
-          $("#complain-tab").load(location.href + " #complain-tab > *");  // Reload nav to update counts
-          $("#complain_table").load(location.href + " #complain_table > *"); // Reload table content
-    
-          // Display success message using SweetAlert
-          swal({
-            title: "Success!",
-            text: "Complaint deleted successfully",
-            icon: "success",
-            button: "OK",
-          });
-        } else if (res.status == 500) {
-          // Close modal and reset form if there's an error
-          $("#rejectModal").modal("hide");
-          $("#rejectForm")[0].reset();
-          
-          swal({
-            title: "Error!",
-            text: "Something went wrong. Please try again.",
-            icon: "error",
-            button: "OK",
-          });
-        }
-      },
-      error: function (xhr, status, error) {
-        // Display error message using SweetAlert
-        swal({
-          title: "Error!",
-          text: "An error occurred while processing your request.",
-          icon: "error",
-          button: "OK",
-        });
-      },
-    });
+        // Force refresh the table body with cache bypass
+        $("#complain_table").load(location.href + " #complain_table > *");
+        location.reload();
+
+        alert(res.message); // Display success message
+      } else if (res.status == 500) {
+        $("#rejectModal").modal("hide");
+        $("#rejectForm")[0].reset();
+        alert("Something went wrong. Please try again.");
+      }
+    },
+    error: function (xhr, status, error) {
+      alert("An error occurred while processing your request.");
+    },
   });
-  
+});
+
 
 //jquerry for view complaint
 $(document).on("click", ".viewcomplaint", function (e) {
@@ -348,12 +320,7 @@ $(document).ready(function () {
       success: function (response) {
         var res = jQuery.parseJSON(response);
         if (res.status == 200) {
-          swal({
-            title: "Success!",
-            text: 'Reply submitted successfully.',
-            icon: "success",
-            button: "OK",
-          });
+          alert(res.message);
           $("#principalQueryModal").modal("hide");
           $("#worker_table").load(location.href + " #worker_table");
         } else {
@@ -466,8 +433,6 @@ $('#afterImageModal').on('hidden.bs.modal', function () {
   // Reset the image source to a default or blank placeholder
   $("#modalImage2").attr("src", "path/to/placeholder_image.jpg");
 });
-
-
 document.getElementById('download').addEventListener('click', function () {
   var wb = XLSX.utils.book_new();
   var ws = XLSX.utils.table_to_sheet(document.getElementById('record_table'));
