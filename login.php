@@ -14,18 +14,18 @@ $error_flag = false; // Error flag to trigger SweetAlert
 $success_flag = false; // Success flag to trigger SweetAlert
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
+    $worker_id = $_POST["worker_id"];
     $password = $_POST["password"];
 
     // Prepare and bind
-    $stmt = $data->prepare("SELECT * FROM worker_login WHERE username = ? AND password = ?");
-    $stmt->bind_param("ss", $username, $password);
+    $stmt = $data->prepare("SELECT * FROM worker_details WHERE worker_id = ? AND password = ?");
+    $stmt->bind_param("ss", $worker_id, $password);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
     if ($row) {
-        $_SESSION["username"] = $username;
+        $_SESSION["worker_id"] = $worker_id;
         $success_flag = true; // Set the success flag for SweetAlert
 
         if ($row["usertype"] == "user") {
@@ -164,7 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 class="ti-user"></i></span>
                                     </div>
                                     <input type="text" class="form-control form-control-lg" placeholder="Username"
-                                        name="username" aria-label="Username" id="username"
+                                        name="worker_id" aria-label="worker_id" id="worker_id"
                                         aria-describedby="basic-addon1" required="">
                                 </div>
                                 <div class="input-group mb-3">
