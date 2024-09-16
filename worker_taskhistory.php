@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+if (isset($_SESSION['department'])) {
+    $department = $_SESSION['department'];
+   
+} else {
+    die("Couldn't find department in session.");
+}
 
 
 
@@ -41,9 +49,11 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
- cd.status = '7'";
+m.worker_id = ? 
+AND cd.status = '8'";
 // Filter by department
 $stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $department);  // Assuming department is a string
 $stmt->execute();
 $result = $stmt->get_result();
 $newcount = mysqli_num_rows($result);
@@ -76,9 +86,11 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
- cd.status = '10'";
+m.worker_id = ? 
+AND cd.status = '10'";
 // Filter by department
 $stmt = $conn->prepare($sql1);
+$stmt->bind_param("s", $department);  // Assuming department is a string
 $stmt->execute();
 $result1 = $stmt->get_result();
 $progcount = mysqli_num_rows($result1);
@@ -110,9 +122,11 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
- cd.status = '11'";
+m.worker_id = ? 
+AND cd.status = '11'";
 // Filter by department
 $stmt = $conn->prepare($sql2);
+$stmt->bind_param("s", $department);  // Assuming department is a string
 $stmt->execute();
 $result2 = $stmt->get_result();
 $waitcount = mysqli_num_rows($result2);
@@ -144,9 +158,11 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-cd.status = '16'";
+m.worker_id = ? 
+AND cd.status = '12'";
 // Filter by department
 $stmt = $conn->prepare($sql3);
+$stmt->bind_param("s", $department);  // Assuming department is a string
 $stmt->execute();
 $result3 = $stmt->get_result();
 $compcount = mysqli_num_rows($result3);
@@ -178,9 +194,11 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-cd.status = '15'";
+m.worker_id = ? 
+AND cd.status = '9'";
 // Filter by department
 $stmt = $conn->prepare($sql4);
+$stmt->bind_param("s", $department);  // Assuming department is a string
 $stmt->execute();
 $result4 = $stmt->get_result();
 $notcount = mysqli_num_rows($result4);
