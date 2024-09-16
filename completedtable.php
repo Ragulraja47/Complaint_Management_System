@@ -18,9 +18,9 @@ $result = mysqli_query($conn, $query);
 
 $sql5 = "SELECT * FROM complaints_detail WHERE status IN (1,2,4,6) AND faculty_id = '$faculty_id'";
 $sql1 = "SELECT * FROM complaints_detail WHERE status IN (7,10,11,15,17) AND faculty_id = '$faculty_id'";
-$sql2 = "SELECT * FROM complaints_detail WHERE status = 13 AND faculty_id = '$faculty_id'";
+$sql2 = "SELECT * FROM complaints_detail WHERE status = 16 AND faculty_id = '$faculty_id'";
 $sql3 = "SELECT * FROM complaints_detail WHERE status IN (3,5,16,18,19) AND faculty_id = '$faculty_id'";
-$sql4 = "SELECT * FROM complaints_detail WHERE status = 14 AND faculty_id = '$faculty_id'";
+$sql4 = "SELECT * FROM complaints_detail WHERE status = 15 AND faculty_id = '$faculty_id'";
 
 $result5 = mysqli_query($conn, $sql5);
 $result1 = mysqli_query($conn, $sql1);
@@ -458,7 +458,7 @@ $result4 = mysqli_query($conn, $sql4);
                                                     <div class="circle circle4">
                                                         <div style="padding-top: 20px;">
                                                             <h1 class="font-light text-white">
-                                                                <?php $query4 = "SELECT COUNT(*) as completed FROM complaints_detail WHERE status ='13' AND faculty_id = '$faculty_id'";
+                                                                <?php $query4 = "SELECT COUNT(*) as completed FROM complaints_detail WHERE status ='16' AND faculty_id = '$faculty_id'";
                                                                 $output4 = mysqli_query($conn, $query4);
                                                                 $row4 = mysqli_fetch_assoc($output4);
                                                                 $completedCount = $row4['completed'];
@@ -569,8 +569,8 @@ $result4 = mysqli_query($conn, $sql4);
                                                                 <input type="file" class="form-control" name="images" id="images" onchange="validateSize(this)" required>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="date_of_reg" class="form-label">Date of submission</label>
-                                                                <input type="date" class="form-control" name="date_of_reg" id="date_of_reg" required>
+                                                               <!--  <label for="date_of_reg" class="form-label">Date of submission</label> -->
+                                                                <input type="date" class="form-control" name="date_of_reg" id="date_of_reg" required hidden>
                                                             </div>
                                                         </div>
                                                         <input type="hidden" name="status" value="1">
@@ -674,16 +674,16 @@ $result4 = mysqli_query($conn, $sql4);
                                                                             $statusMessage = ' ';
                                                                             break;
                                                                         case 13:
-                                                                            $statusMessage = 'Work Completed';
+                                                                            $statusMessage = 'Work Response';
                                                                             break;
                                                                         case 14:
-                                                                            $statusMessage = 'Sent to Manager for Rework';
+                                                                            $statusMessage = 'Feedback Sent to Manager';
                                                                             break;
                                                                         case 15:
-                                                                            $statusMessage = 'Rework Details';
+                                                                            $statusMessage = 'Reassigned';
                                                                             break;
                                                                         case 16:
-                                                                            $statusMessage = 'Rejected by Manager (Reassign)';
+                                                                            $statusMessage = 'Work Completed';
                                                                             break;
                                                                         case 17:
                                                                             $statusMessage = 'Inprogress';
@@ -1059,12 +1059,18 @@ $result4 = mysqli_query($conn, $sql4);
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script>
+  <script>
         // Get today's date in the format 'YYYY-MM-DD'
         var today = new Date().toISOString().split('T')[0];
 
-        // Set the minimum date for the input field
-        document.getElementById('date_of_reg').setAttribute('min', today);
+        // Get the date input element
+        var dateInput = document.getElementById('date_of_reg');
+
+        // Set the minimum and maximum date for the input field to today's date
+        dateInput.setAttribute('min', today);
+        dateInput.setAttribute('max', today);
+         // Set the value of the input field to today's date
+         dateInput.value = today;
     </script>
 
 
