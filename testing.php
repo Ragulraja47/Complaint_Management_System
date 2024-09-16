@@ -26,9 +26,6 @@ $result6 = mysqli_query($conn, $sql6);
 $sql7 = "SELECT * FROM complaints_detail WHERE status IN ('15','17','18')";
 $result7 = mysqli_query($conn, $sql7);
 $row_count7 = mysqli_num_rows($result7);
-//reports table
-$sql8 = "SELECT * FROM complaints_detail WHERE status='16' AND MONTH(date_of_completion) = MONTH(CURDATE()) AND YEAR(date_of_completion) = YEAR(CURDATE())";
-$result8 = mysqli_query($conn, $sql8);
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -394,9 +391,23 @@ $result8 = mysqli_query($conn, $sql8);
                                 <!-- Tables Start -->
                                 <div class="tab-content tabcontent-border">
 
+                                    <?php
+                                    // Set default month as the current month if no input is provided
+                                    $selectedMonth = isset($_POST['selectmonth']) ? $_POST['selectmonth'] : date('m');
+
+                                    // Fetch data based on the selected month
+                                    $sql8 = "SELECT * FROM complaints_detail WHERE status='16' AND MONTH(date_of_completion) = $selectedMonth AND YEAR(date_of_completion) = YEAR(CURDATE())";
+                                    $result8 = mysqli_query($conn, $sql8);
+                                    ?>
+
                                     <!-- Record Table -->
                                     <div class="tab-pane" id="record" role="tabpanel">
-                                        <button id="download" class="btn btn-success">Download as Excel</button>
+                                        <form method="POST" action="">
+                                            <label for="selectmonth">Select Month (1-12): </label>
+                                            <input type="number" name="selectmonth" min="1" max="12" value="<?php echo $selectedMonth; ?>" required>
+                                            <button type="submit" class="btn btn-primary">Enter</button>
+                                        </form><span>
+                                        <button id="download" class="btn btn-success">Download as Excel</button></span>
 
                                         <div class="table-responsive">
                                             <table id="record_table" class="table table-striped table-bordered">
@@ -415,28 +426,27 @@ $result8 = mysqli_query($conn, $sql8);
                                                     $s = 1;
                                                     while ($row = mysqli_fetch_assoc($result8)) {
                                                         $pid = $row['id'];
-                                                        ?>
+                                                    ?>
                                                         <tr>
                                                             <td><?php echo $s ?></td>
                                                             <td><?php echo $row['id'] ?></td>
-                                                            <td>Venue:<?php echo $row['venue_name'] ?><br>Problem:<?php echo $row['problem_description'] ?>
-                                                            </td>
+                                                            <td>Venue:<?php echo $row['venue_name'] ?><br>Problem:<?php echo $row['problem_description'] ?></td>
                                                             <td>
-                                                                <?php $id = "SELECT * FROM manager WHERE problem_id=$pid";
+                                                                <?php
+                                                                $id = "SELECT * FROM manager WHERE problem_id=$pid";
                                                                 $query_run1 = mysqli_query($conn, $id);
                                                                 $roww = mysqli_fetch_array($query_run1);
                                                                 $worker_id = $roww['worker_id'];
-                                                                //data only for editing
+
+                                                                // Fetch worker details
                                                                 $query = "SELECT * FROM worker_details WHERE worker_dept='$worker_id'";
                                                                 $query_run = mysqli_query($conn, $query);
-                                                                $User_data = mysqli_fetch_array($query_run); ?>Completed by:
-                                                                <?php echo $User_data['worker_dept'] ?>
+                                                                $User_data = mysqli_fetch_array($query_run); ?>
+                                                                Completed by: <?php echo $User_data['worker_dept'] ?>
                                                             </td>
                                                             <td><?php echo $row['date_of_completion'] ?></td>
-
-
                                                         </tr>
-                                                        <?php
+                                                    <?php
                                                         $s++;
                                                     }
                                                     ?>
@@ -444,7 +454,6 @@ $result8 = mysqli_query($conn, $sql8);
                                             </table>
                                         </div>
                                     </div>
-
                                     <!-- Complaint Table -->
                                     <div class="tab-pane active" id="complain" role="tabpanel">
                                         <div class="table-responsive">
@@ -466,7 +475,7 @@ $result8 = mysqli_query($conn, $sql8);
                                                     <?php
                                                     $s = 1;
                                                     while ($row = mysqli_fetch_assoc($result1)) {
-                                                        ?>
+                                                    ?>
                                                         <tr>
                                                             <td><?php echo $s ?></td>
                                                             <td><?php echo $row['date_of_reg'] ?></td>
@@ -524,7 +533,7 @@ $result8 = mysqli_query($conn, $sql8);
                                                                     data-target="#rejectModal">Reject</button>
                                                             </td>
                                                         </tr>
-                                                        <?php
+                                                    <?php
                                                         $s++;
                                                     }
                                                     ?>
@@ -690,11 +699,11 @@ $result8 = mysqli_query($conn, $sql8);
                                                     <?php
                                                     $s = 1;
                                                     $current_date = date('Y-m-d'); // Get current date in 'YYYY-MM-DD' format
-                                                    
+
                                                     while ($row3 = mysqli_fetch_assoc($result3)) {
                                                         $deadline = $row3['days_to_complete']; // Assuming this is the deadline date field in 'YYYY-MM-DD' format
                                                         $h = $row3['id']; // This is the complaint id from complaints_detail table
-                                                    
+
                                                         // Fetch query from manager table
                                                         $querydisplay = "SELECT * FROM manager WHERE problem_id=$h";
                                                         $resultdisplay = mysqli_query($conn, $querydisplay);
@@ -702,13 +711,13 @@ $result8 = mysqli_query($conn, $sql8);
                                                         $comment_query = $rowdis['comment_query'];
                                                         $comment_reply = $rowdis['comment_reply'];
                                                         $task_id = $rowdis['task_id']; // Unique ID from manager table
-                                                    
+
                                                         // Check if comment_reply has a value to assign the green color class
                                                         $buttonClass = empty($comment_reply) ? 'btn-primary' : 'btn-success';
 
                                                         // Check if current date is equal to or greater than the deadline
                                                         $rowBackground = ($current_date >= $deadline) ? 'background-color: #ffcccc;' : '';
-                                                        ?>
+                                                    ?>
                                                         <tr style="<?php echo $rowBackground; ?>">
                                                             <td><?php echo $s ?></td>
                                                             <td>
@@ -743,7 +752,7 @@ $result8 = mysqli_query($conn, $sql8);
                                                                 </button>
                                                             </td>
                                                         </tr>
-                                                        <?php
+                                                    <?php
                                                         $s++;
                                                     }
                                                     ?>
@@ -805,7 +814,7 @@ $result8 = mysqli_query($conn, $sql8);
                                                     <?php
                                                     $s = 1;
                                                     while ($row4 = mysqli_fetch_assoc($result4)) {
-                                                        ?>
+                                                    ?>
                                                         <tr>
                                                             <td><?php echo $s ?></td>
                                                             <td>
@@ -835,7 +844,7 @@ $result8 = mysqli_query($conn, $sql8);
                                                                 <span class="btn btn-danger">Pending</span>
                                                             </td>
                                                         </tr>
-                                                        <?php
+                                                    <?php
                                                         $s++;
                                                     }
                                                     ?>
@@ -864,7 +873,7 @@ $result8 = mysqli_query($conn, $sql8);
                                                     <?php
                                                     $s = 1;
                                                     while ($row5 = mysqli_fetch_assoc($result5)) {
-                                                        ?>
+                                                    ?>
                                                         <tr>
                                                             <td><?php echo $s ?></td>
                                                             <td>
@@ -907,7 +916,7 @@ $result8 = mysqli_query($conn, $sql8);
                                                                     class="btn btn-success"><?php echo $row5['task_completion'] ?></span>
                                                             </td>
                                                         </tr>
-                                                        <?php
+                                                    <?php
                                                         $s++;
                                                     }
                                                     ?>
@@ -936,7 +945,7 @@ $result8 = mysqli_query($conn, $sql8);
                                                     <?php
                                                     $s = 1;
                                                     while ($row7 = mysqli_fetch_assoc($result7)) {
-                                                        ?>
+                                                    ?>
                                                         <tr>
                                                             <td><?php echo $s ?></td>
                                                             <td>
@@ -974,7 +983,7 @@ $result8 = mysqli_query($conn, $sql8);
                                                                 <span class="btn btn-warning">Reassigned</span>
                                                             </td> -->
                                                         </tr>
-                                                        <?php
+                                                    <?php
                                                         $s++;
                                                     }
                                                     ?>
@@ -1003,7 +1012,7 @@ $result8 = mysqli_query($conn, $sql8);
                                                     <?php
                                                     $s = 1;
                                                     while ($row6 = mysqli_fetch_assoc($result6)) {
-                                                        ?>
+                                                    ?>
                                                         <tr>
                                                             <td><?php echo $s ?></td>
                                                             <td>
@@ -1041,7 +1050,7 @@ $result8 = mysqli_query($conn, $sql8);
                                                                 <span class="btn btn-success">Completed</span>
                                                             </td> -->
                                                         </tr>
-                                                        <?php
+                                                    <?php
                                                         $s++;
                                                     }
                                                     ?>
