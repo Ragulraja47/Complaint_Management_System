@@ -1,21 +1,27 @@
 
 <?php
 // Database connection
-$host = "localhost";  // Your database host
-$user = "root";       // Your database username
-$password = "";       // Your database password
-$dbname = "complaints"; // Your database name
-
-$conn = new mysqli($host, $user, $password, $dbname);
+$host = "localhost";
+$user = "root";
+$password = "";
+$db = "complaints";
+session_start();
+$conn = new mysqli($host, $user, $password, $db);
+if (isset($_SESSION['worker_id'])) {
+    $worker_id = $_SESSION['worker_id'];
+   
+} else {
+    die("Couldn't find department in session.");
+}
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-if (isset($_GET['department'])) {
+if (isset($_POST['department'])){
 // Fetch data from the worker_details table
-$sql = "SELECT worker_first_name, worker_last_name, worker_emp_type, worker_dept FROM worker_details WHERE id = id"; // Adjust WHERE clause as necessary
+$sql = "SELECT worker_first_name, worker_last_name, worker_emp_type, worker_dept FROM worker_details WHERE worker_id = '$worker_id'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -33,7 +39,7 @@ if ($result->num_rows > 0) {
         'department' => '',
     ]);
 }
-}
-$conn->close();
 
+
+}
 ?>

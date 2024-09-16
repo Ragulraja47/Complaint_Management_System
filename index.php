@@ -369,29 +369,28 @@ Developed and Maintained by Technology Innovation Hub.</b>
         $(document).ready(function() {
     $.ajax({
         url: 'fetch_data.php',
-        type: 'GET',
+        type: 'POST',
         data: {
-            department: $("#workerdepartment").text().trim(), // Pass the department value to PHP
+            department:true// Pass the department value to PHP
         },
         success: function(data) {
-            if (typeof data === "string") {
-                data = JSON.parse(data);  // Parse if data is returned as a string
-            }
-            console.log(data); // Ensure the data is being fetched correctly
+            var res = jQuery.parseJSON(data);
+        
+            console.log(res); // Ensure the data is being fetched correctly
             
             // Update the dashboard with the fetched data
-            $("#workerName").html('<span style="font-weight: 900;">' + data.name + '</span>');
-            $("#employmentType").html('<span style="font-weight: 900;">' + data.employment_type + '</span>');
-            $("#workerdepartment").html('<span style="font-weight: 900;">' + data.department + '</span>');
+            $("#workerName").html('<span style="font-weight: 900;">' + res.name + '</span>');
+            $("#employmentType").html('<span style="font-weight: 900;">' + res.employment_type + '</span>');
+            $("#workerdepartment").html('<span style="font-weight: 900;">' + res.department + '</span>');
 
             // Attach a click event to redirect when 'Task History' is clicked
             $('#view-work-task-history').click(function() {
-                if (data.department) {
+                if (res.department) {
                     // Make an AJAX request to update the session with the new department value
                     $.ajax({
                         url: 'update_session.php',
                         type: 'POST',
-                        data: { department: data.department },
+                        data: { department: res.department },
                         success: function(response) {
                             console.log("Session updated: " + response);
                             // Redirect to the task history page after session update

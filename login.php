@@ -16,6 +16,7 @@ $success_flag = false; // Success flag to trigger SweetAlert
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $worker_id = $_POST["worker_id"];
     $password = $_POST["password"];
+    $_SESSION['worker_id'] = $worker_id;
 
     // Prepare and bind
     $stmt = $data->prepare("SELECT * FROM worker_details WHERE worker_id = ? AND password = ?");
