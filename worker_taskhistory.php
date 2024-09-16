@@ -438,7 +438,8 @@ $notcount = mysqli_num_rows($result4);
                                                         echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                     ?>
                                                         <td class='text-center'>
-                                                            <button type='button' class='btn btn-primary margin-5 view-complaint-btn'
+                                                            <button type='button' class='btn btn-primary margin-5 view-complaint
+                                                            '
                                                                 data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                 View Complaint
                                                             </button>
@@ -516,7 +517,7 @@ $notcount = mysqli_num_rows($result4);
                                                                 echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                             ?>
                                                                 <td class='text-center'>
-                                                                    <button type='button' class='btn btn-primary margin-5 view-complaint-btn'
+                                                                    <button type='button' class='btn btn-primary margin-5 view-complaint'
                                                                         data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                         View Complaint
                                                                     </button>
@@ -616,7 +617,7 @@ $notcount = mysqli_num_rows($result4);
                                                                     echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                                 ?>
                                                                     <td class='text-center'>
-                                                                        <button type='button' class='btn btn-primary margin-5 view-complaint-btn'
+                                                                        <button type='button' class='btn btn-primary margin-5 view-complaint'
                                                                             data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                             View Complaint
                                                                         </button>
@@ -703,7 +704,7 @@ $notcount = mysqli_num_rows($result4);
 
                                                                 </tr>
                                                             </thead>
-                                                            <tbody>
+                                                            <tbody id = "progbody">
                                                                 <?php
                                                                 $count = 1;
                                                                 while ($row = $result1->fetch_assoc()) {
@@ -714,7 +715,7 @@ $notcount = mysqli_num_rows($result4);
                                                                     echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                                 ?>
                                                                     <td class='text-center'>
-                                                                        <button type='button' class='btn btn-primary margin-5 view-complaint-btn'
+                                                                        <button type='button' class='view-complaint btn btn-primary margin-5 '
                                                                             data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                             View Complaint
                                                                         </button>
@@ -733,7 +734,7 @@ $notcount = mysqli_num_rows($result4);
                                                                     echo "<td class='text-center'>In Progress</td>";
                                                                     ?>
                                                                     <td class='text-center'>
-                                                                        <button type='button' class='btn btn-primary margin-5 work-comp '
+                                                                        <button type='button' class='work-comp btn btn-primary margin-5 '
                                                                             data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                             Work Completion
                                                                         </button>
@@ -756,46 +757,48 @@ $notcount = mysqli_num_rows($result4);
                                 <!--Task Completion--><!--Id:Modal2-->
                                 <!-- Modal -->
                                 <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Task Completion</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <!--form-->
-                                                <div class="mb-3">
-                                                    <label class="form-label">Task ID</label>
-                                                    <input type="text" class="form-control" id="taskid" disabled readonly>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Add Image-Proof</label>
-                                                    <input onchange="validateSize(this)" class="form-control" type="file" id="imgafter">
-                                                </div>
-                                                <label class="form-label">Task Completion</label><br>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="completionStatus" id="inlineRadio1" value="Fully Completed">
-                                                    <label class="form-check-label" for="inlineRadio1">Fully Completed</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="completionStatus" id="inlineRadio2" value="Partially Completed">
-                                                    <label class="form-check-label" for="inlineRadio2">Partially Completed</label>
-                                                </div>
-                                                <!-- Hidden input field for reason -->
-                                                <div class="mb-3 mt-3" id="reason-container" style="display: none;">
-                                                    <label class="form-label">Reason</label>
-                                                    <input type="text" class="form-control" id="reason" name="reason" placeholder="Enter reason for partial completion">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button id="save-btn" type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Task Completion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!--form-->
+                <form id="taskCompletionForm">
+                    <div class="mb-3">
+                        <label class="form-label">Task ID</label>
+                        <input type="text" class="form-control" id="taskid" disabled readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Add Image-Proof</label>
+                        <input onchange="validateSize(this)" class="form-control" type="file" id="imgafter">
+                    </div>
+                    <label class="form-label">Task Completion</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="completionStatus" id="inlineRadio1" value="Fully Completed">
+                        <label class="form-check-label" for="inlineRadio1">Fully Completed</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="completionStatus" id="inlineRadio2" value="Partially Completed">
+                        <label class="form-check-label" for="inlineRadio2">Partially Completed</label>
+                    </div>
+                    <!-- Hidden input field for reason -->
+                    <div class="mb-3 mt-3" id="reason-container" style="display: none;">
+                        <label class="form-label">Reason</label>
+                        <input type="text" class="form-control" id="reason" name="reason" placeholder="Enter reason for partial completion">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="save-btn" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 
                                 <!-- JavaScript -->
 
@@ -856,7 +859,7 @@ $notcount = mysqli_num_rows($result4);
                                                         echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                     ?>
                                                         <td class='text-center'>
-                                                            <button type='button' class='btn btn-primary margin-5 view-complaint-btn'
+                                                            <button type='button' class='btn btn-primary margin-5 view-complaint'
                                                                 data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                 View Complaint
                                                             </button>
@@ -1086,86 +1089,49 @@ $notcount = mysqli_num_rows($result4);
         });
     </script>
     <script>
-        //viewing complaint common button
-        $(document).ready(function() {
-            $('.view-complaint-btn').click(function(e) {
-                e.preventDefault();
-                var taskId = $(this).data('task-id');
+    $(document).on('click', '.view-complaint', function(e) {
+    e.preventDefault();
+    var taskId = $(this).data('task-id');
 
-                $.ajax({
-                    url: 'backend.php',
-                    type: 'POST', // Ensure jQuery parses the response as JSON
-                    data: {
-                        fetch_details: true, // Proper action parameter
-                        task_id: taskId
-                    },
-                    success: function(response) {
-                        console.log("Raw response:", response);
-                        var response = jQuery.parseJSON(response);
+    $.ajax({
+        url: 'backend.php',
+        type: 'POST',
+        data: {
+            fetch_details: true,
+            task_id: taskId
+        },
+        success: function(response) {
+            console.log("Raw response:", response);
 
-                        if (response.error) {
-                            alert(response.error);
-                        } else {
+            // If response is a JSON string, parse it
+            var data = typeof response === "string" ? JSON.parse(response) : response;
 
-                            $('#faculty_name').text(response.faculty_name);
-                            $('#contact').text(response.faculty_contact);
-                            $('#block-content').text(response.block_venue);
-                            $('#venue-content').text(response.venue_name);
-                            $('#problem-description-content').text(response.problem_description);
-                            $('#days-remaining-content').text(response.days_to_complete);
-                            $('#Modal1').modal('show');
-                        }
+            if (data.error) {
+                alert(data.error);
+            } else {
+               
 
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log("AJAX error:", textStatus, errorThrown);
-                        alert('Failed to fetch details');
-                    }
-                });
-            });
-        });
+                // Update modal content with data
+                $('#faculty_name').text(data.faculty_name);
+                $('#contact').text(data.faculty_contact);
+                $('#block-content').text(data.block_venue);
+                $('#venue-content').text(data.venue_name);
+                $('#problem-description-content').text(data.problem_description);
+                $('#days-remaining-content').text(data.days_to_complete);
 
-        //viweing complaint ends
-    </script>
+                // Show modal
+                $('#Modal1').modal('show');
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("AJAX error:", textStatus, errorThrown);
+            alert('Failed to fetch details');
+        }
+    });
+});
+
+</script>
     <script>
-        //content for fetching before image(common)
-        $(document).ready(function() {
-            $('.view-bimg-btn').click(function(e) {
-                e.preventDefault();
-                var taskId2 = $(this).data('task-id');
-
-                // Send an AJAX request to fetch the image details
-                $.ajax({
-                    url: 'backend.php',
-                    type: 'POST',
-                    data: {
-                        action: 'fetch_images',
-                        task_id2: taskId2
-                    },
-                    success: function(response) {
-                        console.log("Raw response:", response); // Log raw response
-
-                        // Assume response is an object or text format
-                        var data = response; // No parsing needed
-
-                        // Check for an error or handle the response directly
-                        if (data.error) {
-                            alert(data.error);
-                        } else {
-                            // Set the src of the image to display it in the modal
-                            $('#Modal3 img').attr('src', data.bimg);
-
-                            $('#Modal3').modal('show');
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log("AJAX error:", textStatus, errorThrown);
-                        alert('Failed to fetch details');
-                    }
-                });
-            });
-        });
-
         //start work in new task table
         $(document).ready(function() {
             $('.start-work-btn').click(function(e) {
@@ -1188,10 +1154,7 @@ $notcount = mysqli_num_rows($result4);
                             if (data.error) {
                                 alert(data.error);
                             } else {
-                                $('#statusinprogress').load(location.href + "#statusinprogress");
-                                $('#reload-table-btn').click(function() {
-                                    reloadTable();
-                                });
+                                $('#statusinprogress').load(location.href + "#statusinprogress >*");
                                 $('#addnewtask').load(location.href + ' #addnewtask');
                                 $('#navref').load(location.href + ' #navref');
 
@@ -1208,80 +1171,86 @@ $notcount = mysqli_num_rows($result4);
                 });
             });
         });
-
+        </script>
+<script>
         //work completed status in inprogress table
         $(document).ready(function() {
-            $('.work-comp').on('click', function(e) {
-                e.preventDefault(); // Prevent form submission
-                var taskId = $(this).data('task-id');
-                $('#taskid').val(taskId);
-                $('#Modal2').modal('show');
+    // Trigger modal and populate taskId field
+    $('.work-comp').on('click', function(e) {
+        e.preventDefault();
+        var taskId = $(this).data('task-id');
+        $('#taskid').val(taskId);
+    });
+
+    // Handle save button click for work completion
+    $('#save-btn').on('click', function() {
+        var taskId = $('#taskid').val();
+        var completionStatus = $('input[name="completionStatus"]:checked').val();
+        var imgAfter = $('#imgafter')[0].files[0];
+        var reason = $('#reason').val(); // Capture reason from the input field
+
+        if (!taskId || !completionStatus) {
+            Swal.fire({
+                title: "Invalid!",
+                text: "Please provide all required information.",
+                icon: "error"
             });
+            return;
+        }
 
-            $('#save-btn').on('click', function() {
-                var taskId = $('#taskid').val();
-                var completionStatus = $('input[name="completionStatus"]:checked').val();
-                var imgAfter = $('#imgafter')[0].files[0];
-                var reason = $('#reason').val(); // Capture reason from the input field
+        // Prepare form data for submission
+        var formData = new FormData();
+        formData.append("update", true);
+        formData.append('task_id', taskId);
+        formData.append('completion_status', completionStatus);
+        formData.append('reason', reason); // Append reason to form data
 
-                if (!taskId || !completionStatus) {
-                    Swal.fire({
-                            title: "Invalid!",
-                            text: "Please provide all required information.",
-                            icon: "error"
-                        });
-                    return;
-                }
+        if (imgAfter) {
+            formData.append('img_after', imgAfter);
+        }
 
-                var formData = new FormData();
-                formData.append("update", true);
-
-                formData.append('task_id', taskId);
-                formData.append('completion_status', completionStatus);
-                formData.append('reason', reason); // Append reason to form data
-
-                if (imgAfter) {
-                    formData.append('img_after', imgAfter);
-                }
-
-                $.ajax({
-                    url: 'backend.php',
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-
-                        Swal.fire({
-                            title: "Updated!",
-                            text: "Work is Completed",
-                            icon: "success"
-                        });
-                        $('#Modal2').modal('hide');
-                        $('#statusinprogress').load(location.href + ' #statusinprogress > *');
-                        $('#approval').load(location.href + ' #approval > *');
-                        $('#navref').load(location.href + ' #navref > *');
-                    },
-                    error: function() {
-                       
-                        Swal.fire({
-                            title: "Invalid!",
-                            text: "An error occurred. Please try again.",
-                            icon: "error"
-                        });
-                    }
+        // AJAX request to submit the form data
+        $.ajax({
+            url: 'backend.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                Swal.fire({
+                    title: "Updated!",
+                    text: "Work is Completed",
+                    icon: "success"
                 });
-            });
+                $('#Modal2').modal('hide');
 
-            // Show the reason input field only when 'Partially Completed' is selected
-            $('input[name="completionStatus"]').on('change', function() {
-                if ($(this).val() === 'Partially Completed') {
-                    $('#reason-container').show();
-                } else {
-                    $('#reason-container').hide();
-                }
-            });
+                // Refresh specific sections dynamically
+                setTimeout(function() {
+                    $('#approval').load(location.href + ' #approval > *');
+                    $('#navref').load(location.href + ' #navref > *');
+                    $('#statusinprogress').load(location.href + ' #statusinprogress > *');
+                }, 500); // Adding a delay to ensure the sections are reloaded after the update
+            },
+            error: function() {
+                Swal.fire({
+                    title: "Invalid!",
+                    text: "An error occurred. Please try again.",
+                    icon: "error"
+                });
+            }
         });
+    });
+
+    // Show the reason input field only when 'Partially Completed' is selected
+    $('input[name="completionStatus"]').on('change', function() {
+        if ($(this).val() === 'Partially Completed') {
+            $('#reason-container').show();
+        } else {
+            $('#reason-container').hide();
+        }
+    });
+});
+
     </script>
     <script>
         //after image showing
