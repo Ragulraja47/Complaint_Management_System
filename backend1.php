@@ -121,7 +121,7 @@ if (isset($_POST['save_edituser'])) {
     $query = mysqli_real_escape_string($conn, $_POST['comment_query']);
     $reply = mysqli_real_escape_string($conn, $_POST['comment_reply']);
 
-    $query = "UPDATE manager SET comment_query='$query' WHERE task_id='$customer_id'";
+    $query = "UPDATE manager SET comment_query='$query',query_date=NOW() WHERE task_id='$customer_id'";
     $query_run = mysqli_query($conn, $query);
 
     if ($query_run) {
@@ -140,7 +140,6 @@ if (isset($_POST['save_edituser'])) {
         return;
     }
 }
-
 
 //get image
 if (isset($_POST['get_image'])) {

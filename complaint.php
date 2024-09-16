@@ -449,6 +449,11 @@ $compcount3 = mysqli_num_rows($result5);
                                                                     $is_deadline_exceeded = ($current_date > $deadline_date) ? true : false;
 
                                                                     // Apply the background color if the deadline is exceeded
+
+                                                                    $row_style = $is_deadline_exceeded ? 'background-color: rgba(255, 0, 0, 0.2);' : '';
+
+
+                                                                    /*
                                                                     if ($row['query_date'] != '0000-00-00') {
                                                                         // Calculate the difference in days
                                                                         $query_date = $row['query_date'];
@@ -460,6 +465,7 @@ $compcount3 = mysqli_num_rows($result5);
                                                                         // No style change for invalid or empty query_date
                                                                         $row_style = '';
                                                                     }
+                                                                        */
                                                                 ?>
                                                                     <tr style="<?php echo $row_style; ?>">
                                                                         <td class="text-center"><?php echo $s ?></td>
@@ -491,12 +497,11 @@ $compcount3 = mysqli_num_rows($result5);
                                                                                                                                                         echo 'btn-success'; // Green if both query and reply exist
                                                                                                                                                     } elseif (!empty($row['comment_query']) && empty($row['comment_reply'])) {
                                                                                                                                                         echo 'btn-warning'; // Yellow if only query exists
-                                                                                                                                                    } elseif (!$is_deadline_exceeded) {
-                                                                                                                                                        echo 'btn-secondary'; // Yellow if only query exists
-                                                                                                                                                    } else {
+                                                                                                                                                    } // Yellow if only query exists
+                                                                                                                                                     else {
                                                                                                                                                         echo 'btn-info'; // Default blue if neither query nor reply exists
                                                                                                                                                     }
-                                                                                                                                                    ?> details " data-toggle="modal" data-target="#comment" <?php echo (!$is_deadline_exceeded) ? 'disabled' : ''; ?>>Comment</button>
+                                                                                                                                                    ?> details " data-toggle="modal" data-target="#comment">Comment</button>
                                                                         </td>
                                                                         <!-- Comment Modal -->
                                                                         <div class="modal fade" id="comment" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
