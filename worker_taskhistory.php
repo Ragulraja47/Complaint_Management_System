@@ -1174,13 +1174,16 @@ $notcount = mysqli_num_rows($result4);
         </script>
 <script>
         //work completed status in inprogress table
-        $(document).ready(function() {
-    // Trigger modal and populate taskId field
-    $('.work-comp').on('click', function(e) {
+        $(document).on('click', '.work-comp', function(e) {
         e.preventDefault();
         var taskId = $(this).data('task-id');
+        $('#Modal2').modal('show');
+
         $('#taskid').val(taskId);
+
     });
+    </script>
+    <script>
 
     // Handle save button click for work completion
     $('#save-btn').on('click', function() {
