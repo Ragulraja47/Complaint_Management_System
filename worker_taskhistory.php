@@ -50,7 +50,7 @@ JOIN
 manager AS m ON cd.id = m.problem_id
 WHERE 
 m.worker_id = ? 
-AND cd.status = '8'";
+AND cd.status = '7'";
 // Filter by department
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $department);  // Assuming department is a string
@@ -87,7 +87,7 @@ JOIN
 manager AS m ON cd.id = m.problem_id
 WHERE 
 m.worker_id = ? 
-AND cd.status = '10'";
+AND cd.status = '17' or cd.status = '10'";
 // Filter by department
 $stmt = $conn->prepare($sql1);
 $stmt->bind_param("s", $department);  // Assuming department is a string
@@ -123,7 +123,7 @@ JOIN
 manager AS m ON cd.id = m.problem_id
 WHERE 
 m.worker_id = ? 
-AND cd.status = '11'";
+AND cd.status = '11'or cd.status = '18'";
 // Filter by department
 $stmt = $conn->prepare($sql2);
 $stmt->bind_param("s", $department);  // Assuming department is a string
@@ -159,7 +159,7 @@ JOIN
 manager AS m ON cd.id = m.problem_id
 WHERE 
 m.worker_id = ? 
-AND cd.status = '12'";
+AND cd.status = '16'";
 // Filter by department
 $stmt = $conn->prepare($sql3);
 $stmt->bind_param("s", $department);  // Assuming department is a string
@@ -195,7 +195,7 @@ JOIN
 manager AS m ON cd.id = m.problem_id
 WHERE 
 m.worker_id = ? 
-AND cd.status = '9'";
+AND cd.status = '15'";
 // Filter by department
 $stmt = $conn->prepare($sql4);
 $stmt->bind_param("s", $department);  // Assuming department is a string
@@ -1270,7 +1270,7 @@ $notcount = mysqli_num_rows($result4);
             $('#reason-container').hide();
         }
     });
-});
+
 
     </script>
     <script>

@@ -17,9 +17,9 @@ $query = "SELECT * FROM complaints_detail WHERE faculty_id = '$faculty_id'";
 $result = mysqli_query($conn, $query);
 
 $sql5 = "SELECT * FROM complaints_detail WHERE status IN (1,2,4,6) AND faculty_id = '$faculty_id'";
-$sql1 = "SELECT * FROM complaints_detail WHERE status IN (7,10,11,15,17) AND faculty_id = '$faculty_id'";
+$sql1 = "SELECT * FROM complaints_detail WHERE status IN (7,10,11,15,17,18) AND faculty_id = '$faculty_id'";
 $sql2 = "SELECT * FROM complaints_detail WHERE status = 16 AND faculty_id = '$faculty_id'";
-$sql3 = "SELECT * FROM complaints_detail WHERE status IN (3,5,16,18,19) AND faculty_id = '$faculty_id'";
+$sql3 = "SELECT * FROM complaints_detail WHERE status IN (3,5,16,19,20) AND faculty_id = '$faculty_id'";
 $sql4 = "SELECT * FROM complaints_detail WHERE status = 15 AND faculty_id = '$faculty_id'";
 
 $result5 = mysqli_query($conn, $sql5);
