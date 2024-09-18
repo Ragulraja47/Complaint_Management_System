@@ -1195,9 +1195,21 @@ $notcount = mysqli_num_rows($result4);
     });
     </script>
     <script>
+          $('input[id="inlineRadio1"]').on('change', function() {
+        if ($(this).val() === 'Fully Completed') {
+            $('#reason-container').hide();
+        } 
+    });
+    
+          $('input[id="inlineRadio2"]').on('change', function() {
+        if ($(this).val() === 'Partially Completed') {
+            $('#reason-container').show();
+        } 
+    });
+  
 
     // Handle save button click for work completion
-    $('#save-btn').on('click', function() {
+    $(document).on('click', '#save-btn', function(e) {
         var taskId = $('#taskid').val();
         var completionStatus = $('input[name="completionStatus"]:checked').val();
         var imgAfter = $('#imgafter')[0].files[0];
@@ -1256,13 +1268,7 @@ $notcount = mysqli_num_rows($result4);
     });
 
     // Show the reason input field only when 'Partially Completed' is selected
-    $('input[name="completionStatus"]').on('change', function() {
-        if ($(this).val() === 'Partially Completed') {
-            $('#reason-container').show();
-        } else {
-            $('#reason-container').hide();
-        }
-    });
+  
 
 
     </script>

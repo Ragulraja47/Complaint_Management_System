@@ -100,6 +100,7 @@ error_reporting(E_ALL);
 if (isset($_POST['update'])) {
     $taskId = $_POST['task_id'];
     $completionStatus = $_POST['completion_status'];
+    $reason = $_POST['reason'];
 
     // Database connection
     $servername = "localhost";
@@ -113,10 +114,10 @@ if (isset($_POST['update'])) {
 
     // Update status and task_completion in the complaints_detail table
     $updateComplaintSql = "UPDATE complaints_detail 
-                           SET status = 11, task_completion = ?,date_of_completion = NOW()
+                           SET status = 11, task_completion = ?,reason = ?,date_of_completion = NOW()
                            WHERE id = (SELECT problem_id FROM manager WHERE task_id = ?)";
     if ($stmt = $conn->prepare($updateComplaintSql)) {
-        $stmt->bind_param("si", $completionStatus, $taskId);
+        $stmt->bind_param("ssi", $completionStatus,$reason,$taskId);
         if (!$stmt->execute()) {
             echo "Update failed: (" . $stmt->errno . ") " . $stmt->error;
         } else {
