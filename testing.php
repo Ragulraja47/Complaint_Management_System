@@ -407,7 +407,7 @@ $row_count7 = mysqli_num_rows($result7);
                                             <input type="number" name="selectmonth" min="1" max="12" value="<?php echo $selectedMonth; ?>" required>
                                             <button type="submit" class="btn btn-primary">Enter</button>
                                         </form><span>
-                                        <button id="download" class="btn btn-success">Download as Excel</button></span>
+                                            <button id="download" class="btn btn-success">Download as Excel</button></span>
 
                                         <div class="table-responsive">
                                             <table id="record_table" class="table table-striped table-bordered">
@@ -693,6 +693,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                         <th><b>Picture</b></th>
                                                         <th><b>Status</b></th>
                                                         <th><b>Principal Query</b></th>
+                                                        <th><b>Your Reply</b></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -701,15 +702,16 @@ $row_count7 = mysqli_num_rows($result7);
                                                     $current_date = date('Y-m-d'); // Get current date in 'YYYY-MM-DD' format
 
                                                     while ($row3 = mysqli_fetch_assoc($result3)) {
-                                                        $deadline = $row3['days_to_complete']; // Assuming this is the deadline date field in 'YYYY-MM-DD' format
-                                                        $h = $row3['id']; // This is the complaint id from complaints_detail table
+                                                        $deadline = $row3['days_to_complete'];
+                                                        $h = $row3['id']; // complaint id
 
                                                         // Fetch query from manager table
                                                         $querydisplay = "SELECT * FROM manager WHERE problem_id=$h";
                                                         $resultdisplay = mysqli_query($conn, $querydisplay);
                                                         $rowdis = mysqli_fetch_assoc($resultdisplay);
                                                         $comment_query = $rowdis['comment_query'];
-                                                        $comment_reply = $rowdis['comment_reply'];
+                                                        $comment_reply = $rowdis['comment_reply']; // Fetch the reply
+                                                        $reply_date = $rowdis['reply_date']; // Fetch the reply date
                                                         $task_id = $rowdis['task_id']; // Unique ID from manager table
 
                                                         // Check if comment_reply has a value to assign the green color class
@@ -741,15 +743,28 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td><span class="btn btn-warning">In Progress</span></td>
+
                                                             <!-- Principal Query Column with Button -->
                                                             <td>
                                                                 <button type="button"
                                                                     class="btn <?php echo $buttonClass; ?> openQueryModal"
                                                                     data-task-id="<?php echo $task_id; ?>"
-                                                                    data-comment-query="<?php echo $comment_query; ?>" <?php echo empty($comment_query) ? 'disabled' : ''; ?>
-                                                                    data-toggle="modal" data-target="#principalQueryModal">
+                                                                    data-comment-query="<?php echo $comment_query; ?>"
+                                                                    data-toggle="modal"
+                                                                    data-target="#principalQueryModal">
                                                                     <?php echo empty($comment_query) ? 'No Query' : 'View Query'; ?>
                                                                 </button>
+                                                            </td>
+
+                                                            <!-- Display Comment Reply and Date if available -->
+                                                            <td>
+                                                                <?php if (!empty($comment_reply)): ?>
+                                                                    <span> <?php echo $comment_reply; ?></span>
+                                                                    <br>
+                                                                    <span class="">Reply Date: <?php echo $reply_date; ?></span>
+                                                                <?php else: ?>
+                                                                    <span class="badge badge-secondary">No Reply Yet</span>
+                                                                <?php endif; ?>
                                                             </td>
                                                         </tr>
                                                     <?php
@@ -757,6 +772,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                     }
                                                     ?>
                                                 </tbody>
+
+
                                             </table>
                                         </div>
                                     </div>

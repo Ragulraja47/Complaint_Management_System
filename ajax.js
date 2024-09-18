@@ -292,8 +292,7 @@ $(document).on("click", ".showImage", function () {
   });
 });
 
-//principal question jquerry
-$(document).ready(function () {
+//principal question jquerry$(document).ready(function () {
   // When the button is clicked, populate the modal with the query
   $(".openQueryModal").on("click", function () {
     var commentQuery = $(this).data("comment-query");
@@ -308,6 +307,7 @@ $(document).ready(function () {
   $("#submitReply").on("click", function () {
     var taskId = $(this).data("task-id");
     var commentReply = $("#commentReply").val();
+
     // AJAX request to send the reply to the backend
     $.ajax({
       url: "testbackend.php", // Your backend file
@@ -322,6 +322,7 @@ $(document).ready(function () {
         if (res.status == 200) {
           alert(res.message);
           $("#principalQueryModal").modal("hide");
+          // Reload the table to reflect changes
           $("#worker_table").load(location.href + " #worker_table");
         } else {
           alert("Something went wrong. Please try again.");
@@ -333,7 +334,8 @@ $(document).ready(function () {
       },
     });
   });
-});
+
+
 
 $(document).on("click", ".facfeed", function (e) {
   e.preventDefault();

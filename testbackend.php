@@ -126,17 +126,18 @@ if (isset($_POST['id'])) {
     echo $feedback;
 } 
 
-
 // Handle reply submission for principal's query
 if (isset($_POST['submit_comment_reply'])) {
     $task_id = $_POST['task_id'];
     $comment_reply = $_POST['comment_reply'];
-    // Update the comment_reply field for the corresponding task_id
-    $query = "UPDATE manager SET comment_reply=? WHERE task_id=?";
+    $reply_date = date('Y-m-d'); // Get current date
+
+    // Update the comment_reply and reply_date fields for the corresponding task_id
+    $query = "UPDATE manager SET comment_reply=?, reply_date=? WHERE task_id=?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('si', $comment_reply, $task_id);
+    $stmt->bind_param('ssi', $comment_reply, $reply_date, $task_id);
     if ($stmt->execute()) {
-        $response = ['status' => 200];
+        $response = ['status' => 200, 'message' => 'Reply submitted successfully!'];
     } else {
         $response = ['status' => 500, 'message' => 'Failed to submit reply.'];
     }
