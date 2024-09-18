@@ -1,6 +1,6 @@
 <?php
 //session for department
-session_start();
+
 
 if (isset($_SESSION['department'])) {
     $department = $_SESSION['department'];
