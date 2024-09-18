@@ -1,14 +1,4 @@
 <?php
-//session for department
-session_start();
-
-if (isset($_SESSION['department'])) {
-    $department = $_SESSION['department'];
-
-   
-} else {
-    die("Couldn't find department in session.");
-}
 // Database connection
 $host = "localhost";  // Your database host
 $user = "root";       // Your database username
@@ -16,32 +6,62 @@ $password = "";       // Your database password
 $dbname = "complaints"; // Your database name
 
 $conn = new mysqli($host, $user, $password, $dbname);
-//completed count
-$count = "SELECT COUNT(*) AS count FROM complaints_detail WHERE status = '16' AND type_of_problem ='$department'";
 
-$result = mysqli_query($conn, $count);
-$row = mysqli_fetch_assoc($result);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-//in progress count
-$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status IN (17,10)  AND type_of_problem='$department'";
+// Fetch department from the query string
+$department = isset($_GET['department']) ? $_GET['department'] : '';
 
-$result1 = mysqli_query($conn, $count1);
-$row1 = mysqli_fetch_assoc($result1);
+// Initialize task counts
+$completedTasksCount = 0;
+$pendingTasksCount = 0;
+$inProgressTasksCount = 0;
+$waitingTasksCount = 0;
 
-//count of waiting for approval
-$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status IN (18,11)  AND type_of_problem='$department'";
+// Fetch counts based on the department
+if (!empty($department)) {
+    $department = $conn->real_escape_string($department);
 
-$result2 = mysqli_query($conn, $count2);
-$row2 = mysqli_fetch_assoc($result2);
+    // Query to count the number of completed tasks for the given department
+    $sql_completed = "SELECT COUNT(*) AS count_of_12 FROM complaints_detail WHERE status = 12 AND type_of_problem = ?";
+    $stmt_completed = $conn->prepare($sql_completed);
+    $stmt_completed->bind_param("s", $department);
+    $stmt_completed->execute();
+    $result_completed = $stmt_completed->get_result();
+    $completedTasksCount = $result_completed->fetch_assoc()['count_of_12'];
 
-//new task count
+    // Query to count the number of pending tasks for the given department
+    $sql_pending = "SELECT COUNT(*) AS count_of_8 FROM complaints_detail WHERE (status = 8 OR status = 9) AND type_of_problem = ?";
+    $stmt_pending = $conn->prepare($sql_pending);
+    $stmt_pending->bind_param("s", $department);
+    $stmt_pending->execute();
+    $result_pending = $stmt_pending->get_result();
+    $pendingTasksCount = $result_pending->fetch_assoc()['count_of_8'];
 
-$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status = '7'  AND type_of_problem='$department'";
+    // Query to count the number of in-progress tasks for the given department
+    $sql_inprogress = "SELECT COUNT(*) AS count_of_10 FROM complaints_detail WHERE status = 10 AND type_of_problem = ?";
+    $stmt_inprogress = $conn->prepare($sql_inprogress);
+    $stmt_inprogress->bind_param("s", $department);
+    $stmt_inprogress->execute();
+    $result_inprogress = $stmt_inprogress->get_result();
+    $inProgressTasksCount = $result_inprogress->fetch_assoc()['count_of_10'];
 
-$result3 = mysqli_query($conn, $count3);
-$row3 = mysqli_fetch_assoc($result3);
+    // Query to count the number of waiting tasks for the given department
+    $sql_waiting = "SELECT COUNT(*) AS count_of_11 FROM complaints_detail WHERE status = 11 AND type_of_problem = ?";
+    $stmt_waiting = $conn->prepare($sql_waiting);
+    $stmt_waiting->bind_param("s", $department);
+    $stmt_waiting->execute();
+    $result_waiting = $stmt_waiting->get_result();
+    $waitingTasksCount = $result_waiting->fetch_assoc()['count_of_11'];
+}
 
+// Close the database connection
+$conn->close();
 ?>
+
 
 
 
@@ -261,22 +281,22 @@ $row3 = mysqli_fetch_assoc($result3);
                                             <div class="col-6">
                                                 <div class="bg-dark p-10 text-white text-center">
                                                     <i class="mdi mdi-checkbox-multiple-marked m-b-5 font-22"></i>
-                                                    <h2 class="m-b-0 m-t-5"><?php echo $row['count'] ?></h2>
+                                                    <h2 class="m-b-0 m-t-5"><?php echo $completedTasksCount; ?></h2>
                                                     <h5 class="font-light">Task Completed</h5>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="bg-dark p-10 text-white text-center" >
                                                     <i class="mdi mdi-book m-b-5 font-22"></i>
-                                                    <h2 class="m-b-0 m-t-5"><?php echo $row3['count3'] ?></h2>
-                                                    <h5 class="font-light">New Task</h5>
+                                                    <h2 class="m-b-0 m-t-5"><?php echo $pendingTasksCount; ?></h2>
+                                                    <h5 class="font-light">Pending Task & Not Approved</h5>
                                                 </div>
                                             </div>
                                             
                                             <div class="col-6 m-t-15">
                                                 <div class="bg-dark p-10 text-white text-center">
                                                     <i class="mdi mdi-chart-bar m-b-5 font-22"></i>
-                                                    <h2 class="m-b-0 m-t-5"><?php echo $row1['count1'] ?></h2>
+                                                    <h2 class="m-b-0 m-t-5"><?php echo $inProgressTasksCount; ?></h2>
                                                     <h5 class="font-light">Task in Progress</h5>
                                                 </div>
                                             </div>
@@ -284,7 +304,7 @@ $row3 = mysqli_fetch_assoc($result3);
                                             <div class="col-6 m-t-15">
                                                 <div class="bg-dark p-10 text-white text-center" >
                                                     <i class="mdi mdi-chart-arc m-b-5 font-22"></i>
-                                                    <h2 class="m-b-0 m-t-5"><?php echo $row2['count2'] ?></h2>
+                                                    <h2 class="m-b-0 m-t-5"><?php echo $waitingTasksCount; ?></h2>
                                                     <h5 class="font-light">Task waiting for Approval</h5>
                                                 </div>
                                             </div>
