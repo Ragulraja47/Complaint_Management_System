@@ -7,7 +7,7 @@ if (isset($_SESSION['department'])) {
 
    
 } else {
-    die("Couldn't find department in session.");
+    die("Couldn't find department in session");
 }
 // Database connection
 $host = "localhost";  // Your database host
