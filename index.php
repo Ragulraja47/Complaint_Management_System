@@ -2,13 +2,6 @@
 //session for department
 
 
-if (isset($_SESSION['department'])) {
-    $department = $_SESSION['department'];
-
-   
-} else {
-    die("Couldn't find department in session");
-}
 // Database connection
 $host = "localhost";  // Your database host
 $user = "root";       // Your database username
@@ -17,26 +10,26 @@ $dbname = "complaints"; // Your database name
 
 $conn = new mysqli($host, $user, $password, $dbname);
 //completed count
-$count = "SELECT COUNT(*) AS count FROM complaints_detail WHERE status = '16' AND type_of_problem ='$department'";
+$count = "SELECT COUNT(*) AS count FROM complaints_detail WHERE status = '16'";
 
 $result = mysqli_query($conn, $count);
 $row = mysqli_fetch_assoc($result);
 
 //in progress count
-$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status IN (17,10)  AND type_of_problem='$department'";
+$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status IN (17,10)";
 
 $result1 = mysqli_query($conn, $count1);
 $row1 = mysqli_fetch_assoc($result1);
 
 //count of waiting for approval
-$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status IN (18,11)  AND type_of_problem='$department'";
+$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status IN (18,11)";
 
 $result2 = mysqli_query($conn, $count2);
 $row2 = mysqli_fetch_assoc($result2);
 
 //new task count
 
-$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status = '7'  AND type_of_problem='$department'";
+$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status = '7'";
 
 $result3 = mysqli_query($conn, $count3);
 $row3 = mysqli_fetch_assoc($result3);
