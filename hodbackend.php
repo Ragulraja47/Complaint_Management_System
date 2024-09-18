@@ -132,7 +132,7 @@ if (isset($_POST['seedetailsapr'])) {
 if (isset($_POST['seedetailscomp'])) {
     $student_id3 = mysqli_real_escape_string($conn, $_POST['user_idcomp']);
     
-    $query = "SELECT * FROM complaints_detail WHERE id='$student_id3' and status='11'";
+    $query = "SELECT * FROM complaints_detail WHERE id='$student_id3' and status='16'";
     $query_run = mysqli_query($conn, $query);
     //data only for editing
     $User_data = mysqli_fetch_array($query_run);
@@ -221,7 +221,7 @@ if (isset($_POST['seefeedback'])) {
         }
     
         // Query to fetch the image based on task_id
-        $query = "SELECT image FROM complaints_detail WHERE id = ?";
+        $query = "SELECT images FROM complaints_detail WHERE id = ?";
         $stmt = $conn->prepare($query);
 
         if (!$stmt) {
@@ -235,11 +235,11 @@ if (isset($_POST['seefeedback'])) {
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            $image_path = 'uploads/' . $row['image']; // Assuming 'image' column stores the correct filename
+            $image_path = 'uploads/' . $row['images']; // Assuming 'image' column stores the correct filename
 
             // Check if the image file exists on the server
             if (file_exists($image_path)) {
-                echo json_encode(['status' => 200, 'data' => ['image' => $image_path]]);
+                echo json_encode(['status' => 200, 'data' => ['images' => $image_path]]);
             } else {
                 echo json_encode(['status' => 404, 'message' => 'Image file not found on the server']);
             }
@@ -263,7 +263,7 @@ if (isset($_POST['after_image'])) {
     }
 
     // Query to fetch the image based on task_id
-    $query = "SELECT after_photo FROM workertaskdet WHERE id = ?";
+    $query = "SELECT after_photo FROM worker_taskdet WHERE id = ?";
     $stmt = $conn->prepare($query);
 
     if (!$stmt) {
@@ -277,11 +277,11 @@ if (isset($_POST['after_image'])) {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $image_path = 'imgafter/' . $row['image']; // Assuming 'image' column stores the correct filename
+        $image_path = 'imgafter/' . $row['after_photo']; // Assuming 'image' column stores the correct filename
 
         // Check if the image file exists on the server
         if (file_exists($image_path)) {
-            echo json_encode(['status' => 200, 'data' => ['image' => $image_path]]);
+            echo json_encode(['status' => 200, 'data' => ['after_photo' => $image_path]]);
         } else {
             echo json_encode(['status' => 404, 'message' => 'Image file not found on the server']);
         }

@@ -1,7 +1,7 @@
 <?php
 include("db.php");
 $sql = "SELECT * FROM complaints_detail WHERE status = 2";
-$sql1 = "SELECT * FROM complaints_detail WHERE status IN (4, 6, 7, 11)";
+$sql1 = "SELECT * FROM complaints_detail WHERE status IN (4, 6, 7, 10, 11, 13, 14, 15, 17, 18)";
 $sql2 = "SELECT * FROM complaints_detail WHERE status = 16";
 $sql3 = "SELECT * FROM complaints_detail WHERE status IN (5, 19, 20)";
 $result = mysqli_query($conn, $sql);
@@ -38,8 +38,9 @@ $result3 = mysqli_query($conn, $sql3);
 
         .table-container {
             overflow: auto;
-            /* width: 100%; */
+            width: 100%;
             height: 100%;
+            
         }
 
         .fixed-size-table {
@@ -62,6 +63,9 @@ $result3 = mysqli_query($conn, $sql3);
             background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
             color: white;
         }
+
+        
+        
     </style>
 
 </head>
@@ -86,14 +90,14 @@ $result3 = mysqli_query($conn, $sql3);
                         <b class="logo-icon p-l-10" style="padding-left:0px; border-left:0px;">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="" width="50px" alt="homepage" class="light-logo" />
+                            <img src="assets/images/logo-icon.png" width="50px" alt="homepage" class="light-logo" />
 
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span class="logo-text">
                             <!-- dark Logo text -->
-                            <img src="" alt="homepage" class="light-logo" />
+                            <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" />
 
                         </span>
                         <!-- Logo icon -->
@@ -241,7 +245,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                 <a class="nav-link" data-toggle="tab" href="#approved" role="tab"
                                                     aria-selected="false"><span class="hidden-sm-up"></span> <span
                                                         class="hidden-xs-down"><i
-                                                            class="fas fa-check"></i><b>&nbsp Approved ( <?php $query2 = "SELECT COUNT(*) as approved FROM complaints_detail WHERE   (status ='4' or status ='6' or status='7' or status='8' or status='9' or status='10' or status='12')";
+                                                            class="fas fa-check"></i><b>&nbsp Approved ( <?php $query2 = "SELECT COUNT(*) as approved FROM complaints_detail WHERE (status ='4' or status ='6' or status='7' or status='10' or status='11' or status='13' or status='14' or status='15' or status='17' or status='18')";
                                                                                                             $output2 = mysqli_query($conn, $query2);
                                                                                                             $row2 = mysqli_fetch_assoc($output2);
                                                                                                             $pendingCount = $row2['approved'];
@@ -264,7 +268,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                 <a class="nav-link" data-toggle="tab" href="#rejected" role="tab"
                                                     aria-selected="false"><span class="hidden-sm-up"></span> <span
                                                         class="hidden-xs-down"><i
-                                                            class="mdi mdi-close-circle"></i><b>&nbsp Rejected ( <?php $query2 = "SELECT COUNT(*) as rejected FROM complaints_detail WHERE  status ='5'";
+                                                            class="mdi mdi-close-circle"></i><b>&nbsp Rejected ( <?php $query2 = "SELECT COUNT(*) as rejected FROM complaints_detail WHERE (status ='5' or status ='19' or status='20')";
                                                                                                                     $output2 = mysqli_query($conn, $query2);
                                                                                                                     $row2 = mysqli_fetch_assoc($output2);
                                                                                                                     $pendingCount = $row2['rejected'];
@@ -334,7 +338,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                             <div class="stats-box text-center p-3" style="background-color:rgb(14, 86, 239);">
                                                                                 <i class="fas fa-check"></i>
                                                                                 <h1 class="font-light text-white">
-                                                                                    <?php $query2 = "SELECT COUNT(*) as approved FROM complaints_detail WHERE   (status ='4' or status ='6' or status='7' or status='8' or status='9' or status='10' or status='12')";
+                                                                                    <?php $query2 = "SELECT COUNT(*) as approved FROM complaints_detail WHERE (status ='4' or status ='6' or status='7' or status='10' or status='11' or status='13' or status='14' or status='15' or status='17' or status='18')";
                                                                                     $output2 = mysqli_query($conn, $query2);
                                                                                     $row2 = mysqli_fetch_assoc($output2);
                                                                                     $pendingCount = $row2['approved'];
@@ -356,7 +360,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                             <div class="stats-box text-center p-3" style="background-color:rgb(70, 160, 70);">
                                                                                 <i class="mdi mdi-check-all"></i>
                                                                                 <h1 class="font-light text-white">
-                                                                                    <?php $query2 = "SELECT COUNT(*) as completed FROM complaints_detail WHERE  status ='16'";
+                                                                                    <?php $query2 = "SELECT COUNT(*) as completed FROM complaints_detail WHERE status ='16'";
                                                                                     $output2 = mysqli_query($conn, $query2);
                                                                                     $row2 = mysqli_fetch_assoc($output2);
                                                                                     $pendingCount = $row2['completed'];
@@ -378,7 +382,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                             <div class="stats-box text-center p-3" style="background-color: rgb(241, 0, 0);">
                                                                                 <i class="mdi mdi-close-circle"></i>
                                                                                 <h1 class="font-light text-white">
-                                                                                    <?php $query2 = "SELECT COUNT(*) as rejected FROM complaints_detail WHERE  status ='5'";
+                                                                                    <?php $query2 = "SELECT COUNT(*) as rejected FROM complaints_detail WHERE (status ='5' or status ='19' or status='20')";
                                                                                     $output2 = mysqli_query($conn, $query2);
                                                                                     $row2 = mysqli_fetch_assoc($output2);
                                                                                     $pendingCount = $row2['rejected'];
@@ -661,19 +665,15 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                             2 => 'Approved by infra',
                                                                                             3 => 'Rejected by infra',
                                                                                             4 => 'Forwaded to Manager',
-                                                                                            5 => 'Rejected by HOD',
                                                                                             6 => 'Sent to principal for approval',
                                                                                             7 => 'Assigned to worker',
-                                                                                            8 => 'Worker pending',
-                                                                                            9 => 'Worker started to work',
-                                                                                            10 => 'Worker in progress',
+                                                                                            10 => 'Work in progress',
                                                                                             11 => 'Waiting for approval',
-                                                                                            12 => 'Sent to infra for completion',
-                                                                                            13 => 'Work completed',
-                                                                                            14 => 'Reassign',
-                                                                                            15 => 'Sent to manager for rework',
-                                                                                            20 => 'Rejected by manager',
-                                                                                            19 => 'Rejected by principal',
+                                                                                            13 => 'Sent to infra for completion',
+                                                                                            14 => 'Waiting to be Reassigned',
+                                                                                            15 => 'Work is Reassigned',
+                                                                                            17 => 'Work in Progress',
+                                                                                            18 => 'Waiting for Approval',
                                                                                         ];
 
                                                                                         // Get the status from the row and display the corresponding message
@@ -1374,7 +1374,7 @@ $result3 = mysqli_query($conn, $sql3);
                 dataType: "json",
                 success: function(response) {
                     if (response.status == 200) {
-                        $('#modalImage').attr('src', response.data.image).show();
+                        $('#modalImage').attr('src', response.data.images).show();
                     } else {
                         $('#modalImage').hide();
                         alert(response.message);
@@ -1404,7 +1404,7 @@ $result3 = mysqli_query($conn, $sql3);
                 dataType: "json",
                 success: function(response) {
                     if (response.status == 200) {
-                        $('#imgapr').attr('src', response.data.image).show();
+                        $('#imgapr').attr('src', response.data.images).show();
                     } else {
                         $('#imgapr').hide();
                         alert(response.message);
@@ -1434,7 +1434,7 @@ $result3 = mysqli_query($conn, $sql3);
                 dataType: "json",
                 success: function(response) {
                     if (response.status == 200) {
-                        $('#imgcomp').attr('src', response.data.image).show();
+                        $('#imgcomp').attr('src', response.data.images).show();
                     } else {
                         $('imgcomp').hide();
                         alert(response.message);
