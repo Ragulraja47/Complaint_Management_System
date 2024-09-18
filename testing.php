@@ -287,14 +287,8 @@ $row_count7 = mysqli_num_rows($result7);
                                 href="manager_dash.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="manager.html" aria-expanded="false"><i class="fas fa-user"></i><span
-                                    class="hide-menu">Profile</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="testing.php" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
                                     class="hide-menu">Complaints</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="password.html" aria-expanded="false"><i class="mdi mdi-pencil"></i><span
-                                    class="hide-menu">Change Password</span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
