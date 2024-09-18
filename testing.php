@@ -284,7 +284,7 @@ $row_count7 = mysqli_num_rows($result7);
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="dashboard.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                                href="manager_dash.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="manager.html" aria-expanded="false"><i class="fas fa-user"></i><span
@@ -406,8 +406,8 @@ $row_count7 = mysqli_num_rows($result7);
                                             <label for="selectmonth">Select Month (1-12): </label>
                                             <input type="number" name="selectmonth" min="1" max="12" value="<?php echo $selectedMonth; ?>" required>
                                             <button type="submit" class="btn btn-primary">Enter</button>
-                                        </form><span>
-                                            <button id="download" class="btn btn-success">Download as Excel</button></span>
+                                        </form><span style="float:right">
+                                            <button id="download" class="btn btn-success">Download as Excel</button></span><br><br>
 
                                         <div class="table-responsive">
                                             <table id="record_table" class="table table-striped table-bordered">
