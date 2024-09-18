@@ -90,7 +90,7 @@ $result3 = mysqli_query($conn, $sql3);
                         <b class="logo-icon p-l-10" style="padding-left:0px; border-left:0px;">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="assets/images/logo2.png" width="50px" alt="homepage" class="light-logo" />
+                            <img src="assets/images/logo-icon.png" width="50px" alt="homepage" class="light-logo" />
 
                         </b>
                         <!--End Logo icon -->
