@@ -293,3 +293,20 @@ if (isset($_POST['id'])) {
     $conn->close();
     exit;
 }
+
+// Fetch faculty details if faculty_id is provided
+if (isset($_POST['action']) && $_POST['action'] === 'fetch_faculty_details') {
+    $faculty_id = mysqli_real_escape_string($conn, $_POST['faculty_id']);
+    
+    $query = "SELECT * FROM faculty WHERE faculty_id = '$faculty_id'";
+    $result = mysqli_query($conn, $query);
+    
+    if ($result && mysqli_num_rows($result) > 0) {
+        $faculty = mysqli_fetch_assoc($result);
+        echo json_encode(['status' => 200, 'data' => $faculty]);
+    } else {
+        echo json_encode(['status' => 404, 'message' => 'Faculty not found']);
+    }
+    exit;
+}
+?>

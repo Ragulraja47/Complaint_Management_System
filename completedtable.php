@@ -302,41 +302,7 @@ $result4 = mysqli_query($conn, $sql4);
                                 href="index.html" aria-expanded="false"><img src="assets/images/dashboard.png"
                                     class="custom-svg-icon" alt="Dashboard Icon"><span
                                     class="hide-menu">&nbsp;Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="profile.html" aria-expanded="false"><img src="assets/images/profile.png"
-                                    class="custom-svg-icon" alt="Dashboard Icon"><span
-                                    class="hide-menu">&nbsp;Profile</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                href="javascript:void(0)" aria-expanded="false"><img src="assets/images/eprofile.png"
-                                    class="custom-svg-icon" alt="Dashboard Icon"><span class="hide-menu">&nbsp;Edit
-                                    Profile</span></a>
-                            <ul aria-expanded="false" class="collapse  first-level" style="background-color: #30302f ;">
-                                <li class="sidebar-item  active show"><a href="widgets.html" class="sidebar-link"><img
-                                            src="assets/images/basic.png" class="custom-svg-icon"
-                                            alt="Dashboard Icon"><span class="hide-menu"> &nbsp;Basic Details
-                                        </span></a></li>
-                                <li class="sidebar-item"><a href="academic.html" class="sidebar-link"><img
-                                            src="assets/images/academic.png" class="custom-svg-icon"
-                                            alt="Dashboard Icon"><span class="hide-menu"> &nbsp;Academic Details
-                                        </span></a></li>
-                                <li class="sidebar-item"><a href="exam.html" class="sidebar-link"><img
-                                            src="assets/images/exam.png" class="custom-svg-icon"
-                                            alt="Dashboard Icon"><span class="hide-menu"> &nbsp;Exams Details
-                                        </span></a></li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="bus.html" aria-expanded="false"><img src="assets/images/bus.png"
-                                    class="custom-svg-icon" alt="Bus"><span class="hide-menu">&nbsp;Bus
-                                    Booking</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="password.html" aria-expanded="false"><img src="assets/images/pass.png"
-                                    class="custom-svg-icon" alt="Password"><span class="hide-menu">&nbsp;Change
-                                    Password</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="password.html" aria-expanded="false"><img src="assets/images/pass.png"
-                                    class="custom-svg-icon" alt="Password"><span
-                                    class="hide-menu">&nbsp;Complaint</span></a></li>
+                        
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -476,9 +442,8 @@ $result4 = mysqli_query($conn, $sql4);
                                 </div>
 
                                 <!---------------------------DashBoard Ends-------------------------->
-
-                                <!------------------pending work----------------->
-                                <div class="tab-pane p-20" id="home" role="tabpanel">
+<!------------------pending work----------------->
+<div class="tab-pane p-20" id="home" role="tabpanel">
                                     <div class="modal fade" id="cmodal" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -493,36 +458,29 @@ $result4 = mysqli_query($conn, $sql4);
                                                         <div class="modal-body">
                                                             <div class="mb-3">
                                                                 <label for="id" class="form-label">Faculty ID</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="faculty_id" id="faculty_id"
-                                                                    placeholder="Enter Faculty id" required>
+                                                                <input type="hidden" id="hidden_faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>">
+                                                                <input type="text" class="form-control" name="faculty_id" id="faculty_id" placeholder="Faculty ID" readonly>
+
+
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="faculty_name" class="form-label">Faculty
                                                                     Name</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="faculty_name" placeholder="Enter Faculty Name"
-                                                                    required>
+                                                                    <input type="text" class="form-control" name="faculty_name" placeholder="Enter Faculty Name" required readonly>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="department"
                                                                     class="form-label">department</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="department" placeholder="Enter department"
-                                                                    required>
+                                                                    <input type="text" class="form-control" name="department" placeholder="Enter Department" required readonly>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="contact" class="form-label">Mobile
                                                                     No</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="faculty_contact" placeholder="Enter Mobile no"
-                                                                    required>
+                                                                    <input type="text" class="form-control" name="faculty_contact" placeholder="Enter Mobile No" required readonly>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="mail" class="form-label">Mail id</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="faculty_mail" placeholder="Enter mail id"
-                                                                    required>
+                                                                <input type="text" class="form-control" name="faculty_mail" placeholder="Enter Mail ID" required readonly>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="block" class="form-label">Block</label>
@@ -565,12 +523,11 @@ $result4 = mysqli_query($conn, $sql4);
                                                                     placeholder="Enter Description" required>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="images" class="form-label">Upload Image</label>
-                                                                <input type="file" class="form-control" name="images" id="images" onchange="validateSize(this)" required>
+                                                                <label for="images" class="form-label">Image</label>
+                                                                <input type="file" class="form-control" name="images" id="images" onchange="validateSize(this)">
                                                             </div>
                                                             <div class="mb-3">
-                                                               <!--  <label for="date_of_reg" class="form-label">Date of submission</label> -->
-                                                                <input type="date" class="form-control" name="date_of_reg" id="date_of_reg" required hidden>
+                                                                <input type="hidden" class="form-control" name="date_of_reg" id="date_of_reg" required>
                                                             </div>
                                                         </div>
                                                         <input type="hidden" name="status" value="1">
@@ -1400,6 +1357,42 @@ $result4 = mysqli_query($conn, $sql4);
                 }
             });
         });
+
+        // display user
+        
+        $(document).ready(function() {
+        $('#cmodal').on('show.bs.modal', function() {
+        var faculty_id = $('#hidden_faculty_id').val();
+        $('#faculty_id').val(faculty_id);
+
+        if (faculty_id) {
+            $.ajax({
+                type: 'POST',
+                url: 'fbackend.php',
+                data: { action: 'fetch_faculty_details', faculty_id: faculty_id },
+                success: function(response) {
+                    var res = typeof response === 'string' ? JSON.parse(response) : response;
+                    if (res.status === 200) {
+                        var faculty = res.data;
+                        $('input[name="faculty_name"]').val(faculty.faculty_name);
+                        $('input[name="department"]').val(faculty.department);
+                        $('input[name="faculty_contact"]').val(faculty.faculty_contact);
+                        $('input[name="faculty_mail"]').val(faculty.faculty_mail);
+                    } else {
+                        console.error("Error:", res.message);
+                        alert("Faculty details could not be retrieved. Please check the Faculty ID.");
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX Error:", textStatus, errorThrown);
+                    alert("Failed to retrieve faculty details. Please try again.");
+                }
+            });
+        }
+    });
+});
+
+
     </script>
 
 
