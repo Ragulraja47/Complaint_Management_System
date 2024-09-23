@@ -47,6 +47,11 @@ $row_count7 = mysqli_num_rows($result7);
     <link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="dist/css/style.min.css" rel="stylesheet">
 
+        <!-- CSS Alertify-->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
+<!-- Bootstrap theme alertify-->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css"/>
+
 
 
 
@@ -1266,7 +1271,13 @@ $row_count7 = mysqli_num_rows($result7);
     <script src="dist/js/custom.min.js"></script>
     <script src="assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
     <script src="assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="ajax.js"></script>
+
+
+<!-- JavaScript Alertify-->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+
 
 </body>
 

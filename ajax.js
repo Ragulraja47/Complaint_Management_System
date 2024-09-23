@@ -119,7 +119,13 @@ document
       success: function (response) {
         var res = jQuery.parseJSON(response);
         if (res.status == 200) {
-          alert(res.message);
+          swal({
+            title: "success!",
+            text: "Complaint accepted sucessfully!",
+            icon: "success",
+            button: "Ok",
+            timer: null
+          });
           
           // Close modal
           $("#prioritymodal1").modal("hide");
@@ -129,7 +135,9 @@ document
           
           // Refresh the table body only
           $("#complain_table").load(location.href + " #complain_table");
-          location.reload();
+          $("#principal_table").load(location.href + " #principal_table > *");
+          $("#worker_table").load(location.href + " #worker_table > *");
+          $("#navrefresh").load(location.href + " #navrefresh");
         } else if (res.status == 500) {
           alert("Something went wrong. Please try again.");
         }
@@ -165,6 +173,9 @@ $(document).on("submit", "#rejectForm", function (e) {
       var res = jQuery.parseJSON(response);
       
       if (res.status == 200) {
+
+        alertify.set('notifier','position', 'bottom-right');
+        alertify.error('Rejected');
         // Close modal
         $("#rejectModal").modal("hide");
 
@@ -173,9 +184,7 @@ $(document).on("submit", "#rejectForm", function (e) {
         
         // Force refresh the table body with cache bypass
         $("#complain_table").load(location.href + " #complain_table > *");
-        location.reload();
-
-        alert(res.message); // Display success message
+        $("#navrefresh").load(location.href + " #navrefresh > *"); // Display success message
       } else if (res.status == 500) {
         $("#rejectModal").modal("hide");
         $("#rejectForm")[0].reset();
