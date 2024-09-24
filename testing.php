@@ -19,6 +19,7 @@ $result4 = mysqli_query($conn, $sql4);
 //work finished table
 $sql5 = "SELECT * FROM complaints_detail WHERE status = '14'";
 $result5 = mysqli_query($conn, $sql5);
+$row_count5 =mysqli_num_rows($result5);
 //work completed table
 $sql6 = "SELECT * FROM complaints_detail WHERE status='16'";
 $result6 = mysqli_query($conn, $sql6);
@@ -355,7 +356,7 @@ $row_count7 = mysqli_num_rows($result7);
                                             <a class="nav-link" id="finished-tab" href="#finished" role="tab"
                                                 aria-selected="false">
                                                 <span class="hidden-xs-down">
-                                                    <i class="bi bi-repeat"></i><b>Worker Response</b>
+                                                    <i class="bi bi-repeat"></i><b>Worker Response(<?php echo $row_count5;?>)</b>
                                                 </span>
                                             </a>
                                         </li>
