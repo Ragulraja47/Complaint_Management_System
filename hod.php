@@ -40,7 +40,7 @@ $result3 = mysqli_query($conn, $sql3);
             overflow: auto;
             width: 100%;
             height: 100%;
-            
+
         }
 
         .fixed-size-table {
@@ -63,9 +63,6 @@ $result3 = mysqli_query($conn, $sql3);
             background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
             color: white;
         }
-
-        
-        
     </style>
 
 </head>
@@ -287,7 +284,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                         <br>
                                                         <div class="row">
                                                             <!-- Pending -->
-                                                            <div class="col-12 col-md-2 ml-5" style="margin-bottom: 40px">
+                                                            <div class="col-12 col-md-3" style="margin-bottom: 40px">
                                                                 <div class="cir">
                                                                     <div class="bo">
                                                                         <div class="content1">
@@ -309,12 +306,12 @@ $result3 = mysqli_query($conn, $sql3);
                                                             </div>
 
                                                             <!-- Faculty infra Pending -->
-                                                            <div class="col-12 col-md-2 ml-4">
+                                                            <div class="col-12 col-md-3">
                                                                 <div class="cir">
                                                                     <div class="bo">
                                                                         <div class="content1">
-                                                                            <div class="stats-box text-center p-3" style="background-color:magenta;">
-                                                                                <i class="fas fa-clock"></i>
+                                                                            <div class="stats-box text-center p-3" style="background-color:red;">
+                                                                                <i class="fas fa-exclamation"></i>
                                                                                 <h1 class="font-light text-white">
                                                                                     <?php $query2 = "SELECT COUNT(*) as pending FROM complaints_detail WHERE  status ='1'";
                                                                                     $output2 = mysqli_query($conn, $query2);
@@ -331,7 +328,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                             </div>
 
                                                             <!-- Approved -->
-                                                            <div class="col-12 col-md-2 ml-4">
+                                                            <div class="col-12 col-md-3">
                                                                 <div class="cir">
                                                                     <div class="bo">
                                                                         <div class="content1">
@@ -353,7 +350,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                             </div>
 
                                                             <!-- Completed -->
-                                                            <div class="col-12 col-md-2 ml-4">
+                                                            <div class="col-12 col-md-3">
                                                                 <div class="cir">
                                                                     <div class="bo">
                                                                         <div class="content1">
@@ -375,11 +372,11 @@ $result3 = mysqli_query($conn, $sql3);
                                                             </div>
 
                                                             <!-- Rejected -->
-                                                            <div class="col-12 col-md-2 ml-4">
+                                                            <!-- <div class="col-12 col-md-3">
                                                                 <div class="cir">
                                                                     <div class="bo">
                                                                         <div class="content1">
-                                                                            <div class="stats-box text-center p-3" style="background-color: rgb(241, 0, 0);">
+                                                                            <div class="stats-box text-center p-3" style="background-color:;">
                                                                                 <i class="mdi mdi-close-circle"></i>
                                                                                 <h1 class="font-light text-white">
                                                                                     <?php $query2 = "SELECT COUNT(*) as rejected FROM complaints_detail WHERE (status ='5' or status ='19' or status='20')";
@@ -394,9 +391,8 @@ $result3 = mysqli_query($conn, $sql3);
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
-                                                        <!-- </div> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -1080,19 +1076,19 @@ $result3 = mysqli_query($conn, $sql3);
                                             </div>
                                         </div>
                                     </div>
-                                    <footer class="footer text-center">
-                                        <b>
-                                            2024 © M.Kumarasamy College of Engineering All Rights Reserved.<br>
-                                            Developed and Maintained by Technology Innovation Hub.
-                                        </b>
-                                    </footer>
                                 </div>
-                        </div>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        <footer class="footer text-center">
+            <b>
+                2024 © M.Kumarasamy College of Engineering All Rights Reserved.<br>
+                Developed and Maintained by Technology Innovation Hub.
+            </b>
+        </footer>
     </div>
     </div>
 
@@ -1159,7 +1155,7 @@ $result3 = mysqli_query($conn, $sql3);
 
         $(document).on('click', '.btnapproveall', function(e) {
             e.preventDefault();
-        
+
 
             if (confirm('Are you sure you want to Approve all complaints?')) {
                 var updated_id = $(this).val();
