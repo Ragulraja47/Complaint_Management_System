@@ -138,6 +138,7 @@ document
           
           // Refresh the table body only
           $("#complain_table").load(location.href + " #complain_table");
+          $("#navrefresh").load(location.href + " #navrefresh");
           $("#principal_table").load(location.href + " #principal_table > *");
           $("#worker_table").load(location.href + " #worker_table > *");
           
