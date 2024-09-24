@@ -72,6 +72,7 @@ document
     }
   });
 
+
 //Jquery to pass id into accept and priority form
 $(document).on("click", ".acceptcomplaint", function (e) {
   e.preventDefault();
@@ -91,6 +92,7 @@ document.querySelectorAll(".worker-option").forEach(function (element) {
   });
 });
 
+
 // Toggle reason input based on Principal Approval checkbox
 document
   .getElementById("flexSwitchCheckDefault")
@@ -102,6 +104,7 @@ document
       reasonInput.style.display = "none";
     }
   });
+
   $(document).on("submit", "#acceptForm", function (e) {
     e.preventDefault();
     
@@ -137,8 +140,9 @@ document
           $("#complain_table").load(location.href + " #complain_table");
           $("#principal_table").load(location.href + " #principal_table > *");
           $("#worker_table").load(location.href + " #worker_table > *");
-          $("#navrefresh").load(location.href + " #navrefresh");
-        } else if (res.status == 500) {
+          
+        } 
+        else if (res.status == 500) {
           alert("Something went wrong. Please try again.");
         }
       },
@@ -148,7 +152,7 @@ document
       }
     });
   });
-  
+
 
 //Jquerry to pass the id into reject form
 $(document).on("click", "#rejectbutton", function (e) {
@@ -177,14 +181,16 @@ $(document).on("submit", "#rejectForm", function (e) {
         alertify.set('notifier','position', 'bottom-right');
         alertify.error('Rejected');
         // Close modal
+        $("#navrefresh").load(location.href + " #navrefresh > *"); 
+
         $("#rejectModal").modal("hide");
 
         // Reset the form
         $("#rejectForm")[0].reset();
-        
         // Force refresh the table body with cache bypass
         $("#complain_table").load(location.href + " #complain_table > *");
-        $("#navrefresh").load(location.href + " #navrefresh > *"); // Display success message
+        
+        // Display success message
       } else if (res.status == 500) {
         $("#rejectModal").modal("hide");
         $("#rejectForm")[0].reset();

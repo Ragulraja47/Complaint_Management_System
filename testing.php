@@ -322,9 +322,9 @@ $row_count7 = mysqli_num_rows($result7);
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body">
-                                <div class="card" id="navrefresh">
-                                    <ul class="nav nav-tabs mb-3" role="tablist">
+                            <div class="card-body" >
+                                <div class="card" >
+                                    <ul class="nav nav-tabs mb-3" role="tablist" id="navrefresh">
                                         <li class="nav-item">
                                             <a class="nav-link active show" id="complain-tab" href="#complain"
                                                 role="tab" aria-selected="true">
