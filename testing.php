@@ -954,6 +954,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                         <th><b>Complaint</b></th>
                                                         <th><b>Worker Details</b></th>
                                                         <th><b>Date of Reassigned</b></th>
+                                                        <th><b>Deadline</b></th>
                                                         <th><b>Picture</b></th>
                                                         <th><b>Faculty Feedback</b></th>
                                                         <!-- <th><b>Status</b></th> -->
@@ -982,6 +983,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td><?php echo $row7['reassign_date'] ?></td>
+                                                            <td><?php echo $row7['days_to_complete'] ?></td>
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row7['id']; ?>" data-toggle="modal"
