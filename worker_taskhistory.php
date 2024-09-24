@@ -1359,7 +1359,7 @@ $notcount = mysqli_num_rows($result4);
             const fileSize = input.files[0].size / 1024;
             var ext = input.value.split(".");
             ext = ext[ext.length - 1].toLowerCase();
-            var arrayExtensions = ["png","jpg", "jpeg"];
+            var arrayExtensions = ["jpg", "jpeg","png"];
             if (arrayExtensions.lastIndexOf(ext) == -1) {
                 alert("Invalid file type");
                 $(input).val('');

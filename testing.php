@@ -19,6 +19,7 @@ $result4 = mysqli_query($conn, $sql4);
 //work finished table
 $sql5 = "SELECT * FROM complaints_detail WHERE status = '14'";
 $result5 = mysqli_query($conn, $sql5);
+$row_count5 =mysqli_num_rows($result5);
 //work completed table
 $sql6 = "SELECT * FROM complaints_detail WHERE status='16'";
 $result6 = mysqli_query($conn, $sql6);
@@ -47,10 +48,10 @@ $row_count7 = mysqli_num_rows($result7);
     <link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="dist/css/style.min.css" rel="stylesheet">
 
-        <!-- CSS Alertify-->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
-<!-- Bootstrap theme alertify-->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css"/>
+    <!-- CSS Alertify-->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css" />
+    <!-- Bootstrap theme alertify-->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css" />
 
 
 
@@ -355,7 +356,7 @@ $row_count7 = mysqli_num_rows($result7);
                                             <a class="nav-link" id="finished-tab" href="#finished" role="tab"
                                                 aria-selected="false">
                                                 <span class="hidden-xs-down">
-                                                    <i class="bi bi-repeat"></i><b>Worker Response</b>
+                                                    <i class="bi bi-repeat"></i><b>Worker Response(<?php echo $row_count5;?>)</b>
                                                 </span>
                                             </a>
                                         </li>
@@ -743,17 +744,18 @@ $row_count7 = mysqli_num_rows($result7);
                                                             </td>
                                                             <td><span class="btn btn-warning">In Progress</span></td>
 
-                                                            <!-- Principal Query Column with Button -->
                                                             <td>
                                                                 <button type="button"
                                                                     class="btn <?php echo $buttonClass; ?> openQueryModal"
                                                                     data-task-id="<?php echo $task_id; ?>"
                                                                     data-comment-query="<?php echo $comment_query; ?>"
                                                                     data-toggle="modal"
-                                                                    data-target="#principalQueryModal">
+                                                                    data-target="#principalQueryModal"
+                                                                    <?php echo empty($comment_query) ? 'disabled' : ''; ?>>
                                                                     <?php echo empty($comment_query) ? 'No Query' : 'View Query'; ?>
                                                                 </button>
                                                             </td>
+
 
                                                             <!-- Display Comment Reply and Date if available -->
                                                             <td>
@@ -952,6 +954,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                         <th><b>Complaint</b></th>
                                                         <th><b>Worker Details</b></th>
                                                         <th><b>Date of Reassigned</b></th>
+                                                        <th><b>Deadline</b></th>
                                                         <th><b>Picture</b></th>
                                                         <th><b>Faculty Feedback</b></th>
                                                         <!-- <th><b>Status</b></th> -->
@@ -980,6 +983,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td><?php echo $row7['reassign_date'] ?></td>
+                                                            <td><?php echo $row7['days_to_complete'] ?></td>
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row7['id']; ?>" data-toggle="modal"
@@ -1214,6 +1218,29 @@ $row_count7 = mysqli_num_rows($result7);
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- Date Picker Modal -->
+<div class="modal fade" id="datePickerModal" tabindex="-1" role="dialog" aria-labelledby="datePickerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="datePickerModalLabel">Set Reassign Deadline</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="reassign_deadline">Reassign Deadline Date:</label>
+                <input type="date" id="reassign_deadline" name="reassign_deadline" required>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveDeadline">Set Deadline</button>
+            </div>
+        </div>
+    </div>
+</div>
+
                                     <!-- Completed Table Feedback Modal -->
                                     <div class="modal fade" id="completedfeedbackModal" tabindex="-1" role="dialog"
                                         aria-labelledby="completedfeedbackModalLabel" aria-hidden="true">
@@ -1275,8 +1302,8 @@ $row_count7 = mysqli_num_rows($result7);
     <script src="ajax.js"></script>
 
 
-<!-- JavaScript Alertify-->
-<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+    <!-- JavaScript Alertify-->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
 
 
 </body>

@@ -140,9 +140,14 @@ document
           $("#complain_table").load(location.href + " #complain_table");
           $("#principal_table").load(location.href + " #principal_table > *");
           $("#worker_table").load(location.href + " #worker_table > *");
+<<<<<<< HEAD
           
         } 
         else if (res.status == 500) {
+=======
+
+        } else if (res.status == 500) {
+>>>>>>> da6615612ac532d7838f56225636e8884c3ca8b7
           alert("Something went wrong. Please try again.");
         }
       },
@@ -169,7 +174,7 @@ $(document).on("submit", "#rejectForm", function (e) {
   
   $.ajax({
     type: "POST",
-    url: "testbackend.php", // Replace with your actual backend script URL
+    url: "testbackend.php", 
     data: formData,
     processData: false,
     contentType: false,
@@ -189,8 +194,12 @@ $(document).on("submit", "#rejectForm", function (e) {
         $("#rejectForm")[0].reset();
         // Force refresh the table body with cache bypass
         $("#complain_table").load(location.href + " #complain_table > *");
+<<<<<<< HEAD
         
         // Display success message
+=======
+    
+>>>>>>> da6615612ac532d7838f56225636e8884c3ca8b7
       } else if (res.status == 500) {
         $("#rejectModal").modal("hide");
         $("#rejectForm")[0].reset();
@@ -307,9 +316,15 @@ $(document).on("click", ".showImage", function () {
   });
 });
 
-//principal question jquerry$(document).ready(function () {
+//principal question jquerry
+$(document).ready(function () {
   // When the button is clicked, populate the modal with the query
   $(".openQueryModal").on("click", function () {
+    // Check if the button is disabled
+    if ($(this).is(':disabled')) {
+      return; // Do nothing if the button is disabled
+    }
+
     var commentQuery = $(this).data("comment-query");
     var taskId = $(this).data("task-id");
     // Set the comment query text in the modal
@@ -349,6 +364,7 @@ $(document).on("click", ".showImage", function () {
       },
     });
   });
+});
 
 
 
@@ -378,45 +394,96 @@ $(document).on("click", ".facfeed", function (e) {
 });
 
 $(document).ready(function () {
-  // Open the feedback modal and set the complaintfeed ID
-  $(".facfeed").click(function () {
-    var complaintfeedId = $(this).val();
-    $("#complaintfeed_id").val(complaintfeedId); // Store the complaintfeed ID in the hidden input
+  var complaintfeedId = null; // Store complaintfeed_id globally
+
+  // Open the feedback modal and set the complaintfeed ID (Event Delegation)
+  $(document).on("click", ".facfeed", function () {
+      complaintfeedId = $(this).val();
+      $("#complaintfeed_id").val(complaintfeedId); // Store complaintfeed ID in the hidden input
   });
 
-  // When 'Done' is clicked
-  $(".done").click(function () {
-    var complaintfeedId = $("#complaintfeed_id").val(); // Get the complaintfeed ID
-    updateComplaintStatus(complaintfeedId, 16); // Status '30' for Done
-  });
-  // When 'Reassign' is clicked
-  $(".reass").click(function () {
-    var complaintfeedId = $("#complaintfeed_id").val(); // Get the complaintfeed ID
-    updateComplaintStatus(complaintfeedId, 15); // Status '20' for Reassign
-    // Close the modal explicitly after reassign
-    $("#exampleModal").modal("hide");
+  // When 'Done' is clicked (Event Delegation)
+  $(document).on("click", ".done", function () {
+      var complaintfeedId = $("#complaintfeed_id").val();
+      updateComplaintStatus(complaintfeedId, 16); // Status '16' for Done
+      refreshTables(); // Refresh the tables after action
   });
 
-  // Function to send AJAX request
-  function updateComplaintStatus(complaintfeedId, status) {
-    $.ajax({
-      url: "testbackend.php", // PHP file to handle the request
-      type: "POST",
-      data: {
-        id: complaintfeedId,
-        status: status,
-      },
-      success: function (response) {
-        // Handle the response, like showing a success message or updating the UI
-        alert("Status updated successfully!");
-        location.reload(); // Reload the page to see the updated status
-      },
-      error: function () {
-        alert("Error updating status.");
-      },
-    });
+  // When 'Reassign' is clicked (Event Delegation)
+  $(document).on("click", ".reass", function () {
+      $("#datePickerModal").modal("show"); // Show the modal to select deadline
+  });
+
+  // When 'Set Deadline' is clicked in the date picker modal
+  $(document).on("click", "#saveDeadline", function () {
+      var reassign_deadline = $("#reassign_deadline").val(); // Get the selected deadline
+
+      if (!reassign_deadline) {
+          alert("Please select a deadline date.");
+          return;
+      }
+
+      var complaintfeedId = $("#complaintfeed_id").val();
+      updateComplaintStatus(complaintfeedId, 15, reassign_deadline); // Status '15' for Reassign with deadline
+
+      $("#datePickerModal").modal("hide"); // Close the date picker modal
+      $("#exampleModal").modal("hide"); // Close the feedback modal
+      refreshTables(); // Refresh the tables after action
+  });
+
+  // Function to update the complaint status
+  function updateComplaintStatus(complaintfeedId, status, reassign_deadline = null) {
+      $.ajax({
+          type: "POST",
+          url: "testbackend.php",
+          data: {
+              complaintfeed_id: complaintfeedId,
+              status: status,
+              reassign_deadline: reassign_deadline, // Only pass this if status is 'reassign'
+          },
+          success: function (response) {
+              var res = jQuery.parseJSON(response);
+              if (res.status == 500) {
+                  alert(res.message);
+              } else {
+                  alert("Status updated successfully!");
+              }
+          },
+          error: function () {
+              alert("An error occurred while updating the status.");
+          }
+      });
+  }
+
+  // Function to refresh tables after actions
+  function refreshTables() {
+      $("#finished_table").load(location.href + " #finished_table");
+      $("#reassigned_table").load(location.href + " #reassigned_table");
+      $("#completed_table").load(location.href + " #completed_table");
+      
   }
 });
+
+
+// Function to update the complaint status
+function updateComplaintStatus(complaintfeedId, status, reassign_deadline = null) {
+    $.ajax({
+        type: "POST",
+        url: "testbackend.php",
+        data: {
+            complaintfeed_id: complaintfeedId,
+            status: status,
+            reassign_deadline: reassign_deadline, // Only pass this if status is 'reassign'
+        },
+        success: function (response) {
+            var res = jQuery.parseJSON(response);
+            alert(res.message);
+            if (res.status == 500) {
+              alert(res.message);
+            }
+        }
+    });
+}
 
 $(document).on("click", ".imgafter", function () {
   var problem_id = $(this).val(); // Get the problem_id from button value
