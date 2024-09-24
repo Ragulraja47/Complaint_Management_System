@@ -74,22 +74,28 @@ document
 
 
 //Jquery to pass id into accept and priority form
+// When the "Accept" button is clicked, open the modal and reset the worker details
 $(document).on("click", ".acceptcomplaint", function (e) {
   e.preventDefault();
+  
   var user_id = $(this).val(); // Get the ID from the button's value
   console.log("User ID:", user_id);
-  // Set the user_id in the hidden input field within the form
+  
+  // Set the complaint ID in the hidden input field within the form
   $("#complaint_id77").val(user_id);
+
+  // Reset the worker selection and the text in the modal
+  $("#worker_id").val(''); // Reset the worker ID
+  $("#assignedWorker").text('Assigned Worker: '); // Reset the assigned worker text
 });
 
-// Store selected worker value in hidden input field and update assigned worker text
-document.querySelectorAll(".worker-option").forEach(function (element) {
-  element.addEventListener("click", function () {
-    var worker = this.getAttribute("data-value");
-    document.getElementById("worker_id").value = worker;
-    document.getElementById("assignedWorker").textContent =
-      "Assigned Worker: " + worker;
-  });
+// Store selected worker value in hidden input field and update assigned worker text using event delegation
+$(document).on("click", ".worker-option", function () {
+  var worker = $(this).data('value');
+  
+  // Set the selected worker in the hidden input and update the text
+  $("#worker_id").val(worker);
+  $("#assignedWorker").text("Assigned Worker: " + worker);
 });
 
 
