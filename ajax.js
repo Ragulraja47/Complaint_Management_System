@@ -140,14 +140,9 @@ document
           $("#complain_table").load(location.href + " #complain_table");
           $("#principal_table").load(location.href + " #principal_table > *");
           $("#worker_table").load(location.href + " #worker_table > *");
-<<<<<<< HEAD
           
         } 
         else if (res.status == 500) {
-=======
-
-        } else if (res.status == 500) {
->>>>>>> da6615612ac532d7838f56225636e8884c3ca8b7
           alert("Something went wrong. Please try again.");
         }
       },
@@ -194,12 +189,8 @@ $(document).on("submit", "#rejectForm", function (e) {
         $("#rejectForm")[0].reset();
         // Force refresh the table body with cache bypass
         $("#complain_table").load(location.href + " #complain_table > *");
-<<<<<<< HEAD
         
         // Display success message
-=======
-    
->>>>>>> da6615612ac532d7838f56225636e8884c3ca8b7
       } else if (res.status == 500) {
         $("#rejectModal").modal("hide");
         $("#rejectForm")[0].reset();
