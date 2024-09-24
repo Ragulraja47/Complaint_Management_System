@@ -141,7 +141,7 @@ document
           $("#navrefresh").load(location.href + " #navrefresh");
           $("#principal_table").load(location.href + " #principal_table > *");
           $("#worker_table").load(location.href + " #worker_table > *");
-          
+          updateNavbar();
         } 
         else if (res.status == 500) {
           alert("Something went wrong. Please try again.");
@@ -190,6 +190,7 @@ $(document).on("submit", "#rejectForm", function (e) {
         $("#rejectForm")[0].reset();
         // Force refresh the table body with cache bypass
         $("#complain_table").load(location.href + " #complain_table > *");
+        updateNavbar(); // Call this function initially if needed
         
         // Display success message
       } else if (res.status == 500) {
@@ -398,7 +399,8 @@ $(document).ready(function () {
   $(document).on("click", ".done", function () {
       var complaintfeedId = $("#complaintfeed_id").val();
       updateComplaintStatus(complaintfeedId, 16); // Status '16' for Done
-      refreshTables(); // Refresh the tables after action
+      refreshTables(); 
+      updateNavbar();
   });
 
   // When 'Reassign' is clicked (Event Delegation)
@@ -421,6 +423,7 @@ $(document).ready(function () {
       $("#datePickerModal").modal("hide"); // Close the date picker modal
       $("#exampleModal").modal("hide"); // Close the feedback modal
       refreshTables(); // Refresh the tables after action
+      updateNavbar();
   });
 
   // Function to update the complaint status
@@ -516,3 +519,47 @@ document.getElementById('download').addEventListener('click', function () {
 
   // Create and trigger the download
   XLSX.writeFile(wb, 'complaints_data.xlsx');});
+
+  $(document).ready(function() {
+    // Set the last active tab if available, or default to the first one
+    var lastActiveTab = localStorage.getItem('lastActiveTab') || '#complain'; // Default to the first tab
+
+    // Set the last active tab on page load
+    activateTab(lastActiveTab);
+
+    // Event delegation for dynamic elements
+    $(document).on('click', '.nav-link', function(e) {
+        e.preventDefault(); // Prevent default behavior
+
+        // Get the target tab and store it as the last active tab
+        var target = $(this).attr('href');
+        localStorage.setItem('lastActiveTab', target); // Store the active tab in localStorage
+
+        // Activate the clicked tab
+        activateTab(target);
+    });
+
+    // Function to activate a tab
+    function activateTab(tabId) {
+        // Hide all tabs and show the selected tab
+        $('.tab-content .tab-pane').removeClass('show active');
+        $(tabId).addClass('show active');
+
+        // Remove "active" class from all nav links and add it to the clicked link
+        $('.nav-link').removeClass('active');
+        $('.nav-link[href="' + tabId + '"]').addClass('active');
+    }
+
+    // Update navbar and reapply the last active tab
+    function updateNavbar() {
+        $("#navrefresh").load(location.href + " #navrefresh", function() {
+            // Rebind click events and reapply the last active tab
+            var lastActiveTab = localStorage.getItem('lastActiveTab') || '#complain';
+            
+            // Ensure the correct tab is active after reload
+            activateTab(lastActiveTab);
+        });
+    }
+
+});
+

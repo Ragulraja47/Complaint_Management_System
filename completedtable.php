@@ -649,8 +649,11 @@ $result4 = mysqli_query($conn, $sql4);
                                                                             $statusMessage = 'Rejected by Principal';
                                                                             break;
                                                                         case 19:
-                                                                            $statusMessage = 'Rejected by manager';
+                                                                            $statusMessage = 'Rejected by Principal';
                                                                             break;
+                                                                            case 20:
+                                                                                $statusMessage = 'Rejected by Manager';
+                                                                                break;
                                                                         default:
                                                                             $statusMessage = 'Unknown Status';
                                                                     }
@@ -952,10 +955,13 @@ $result4 = mysqli_query($conn, $sql4);
                                                                             $statusMessage = 'Inprogress';
                                                                             break;
                                                                         case 18:
-                                                                            $statusMessage = 'Rejected by Principal';
+                                                                            $statusMessage = 'Waiting for approval';
                                                                             break;
-                                                                        case 19:
-                                                                            $statusMessage = 'Rejected by manager';
+                                                                            case 19:
+                                                                                $statusMessage = 'Rejected by Principal';
+                                                                                break;
+                                                                        case 20:
+                                                                            $statusMessage = 'Rejected by Manager';
                                                                             break;
                                                                         default:
                                                                             $statusMessage = 'Unknown Status';

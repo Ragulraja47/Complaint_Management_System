@@ -356,7 +356,7 @@ $row_count7 = mysqli_num_rows($result7);
                                             <a class="nav-link" id="finished-tab" href="#finished" role="tab"
                                                 aria-selected="false">
                                                 <span class="hidden-xs-down">
-                                                    <i class="bi bi-repeat"></i><b>Worker Response(<?php echo $row_count5; ?>)</b>
+                                                    <i class="bi bi-repeat"></i><b>Worker Response</b>
                                                 </span>
                                             </a>
                                         </li>
@@ -365,7 +365,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                 aria-selected="false">
                                                 <span class="hidden-xs-down">
                                                     <i class="bi bi-repeat"></i><b>Work Re-assigned
-                                                        (<?php echo $row_count7; ?>)</b>
+                                                    </b>
                                                 </span>
                                             </a>
                                         </li>
