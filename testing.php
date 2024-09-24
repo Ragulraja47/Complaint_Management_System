@@ -47,10 +47,10 @@ $row_count7 = mysqli_num_rows($result7);
     <link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="dist/css/style.min.css" rel="stylesheet">
 
-        <!-- CSS Alertify-->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
-<!-- Bootstrap theme alertify-->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css"/>
+    <!-- CSS Alertify-->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css" />
+    <!-- Bootstrap theme alertify-->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css" />
 
 
 
@@ -743,17 +743,18 @@ $row_count7 = mysqli_num_rows($result7);
                                                             </td>
                                                             <td><span class="btn btn-warning">In Progress</span></td>
 
-                                                            <!-- Principal Query Column with Button -->
                                                             <td>
                                                                 <button type="button"
                                                                     class="btn <?php echo $buttonClass; ?> openQueryModal"
                                                                     data-task-id="<?php echo $task_id; ?>"
                                                                     data-comment-query="<?php echo $comment_query; ?>"
                                                                     data-toggle="modal"
-                                                                    data-target="#principalQueryModal">
+                                                                    data-target="#principalQueryModal"
+                                                                    <?php echo empty($comment_query) ? 'disabled' : ''; ?>>
                                                                     <?php echo empty($comment_query) ? 'No Query' : 'View Query'; ?>
                                                                 </button>
                                                             </td>
+
 
                                                             <!-- Display Comment Reply and Date if available -->
                                                             <td>
@@ -1275,8 +1276,8 @@ $row_count7 = mysqli_num_rows($result7);
     <script src="ajax.js"></script>
 
 
-<!-- JavaScript Alertify-->
-<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+    <!-- JavaScript Alertify-->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
 
 
 </body>

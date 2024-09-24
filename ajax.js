@@ -301,9 +301,15 @@ $(document).on("click", ".showImage", function () {
   });
 });
 
-//principal question jquerry$(document).ready(function () {
+//principal question jquerry
+$(document).ready(function () {
   // When the button is clicked, populate the modal with the query
   $(".openQueryModal").on("click", function () {
+    // Check if the button is disabled
+    if ($(this).is(':disabled')) {
+      return; // Do nothing if the button is disabled
+    }
+
     var commentQuery = $(this).data("comment-query");
     var taskId = $(this).data("task-id");
     // Set the comment query text in the modal
@@ -343,6 +349,7 @@ $(document).on("click", ".showImage", function () {
       },
     });
   });
+});
 
 
 
