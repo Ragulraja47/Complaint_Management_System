@@ -1215,6 +1215,29 @@ $row_count7 = mysqli_num_rows($result7);
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- Date Picker Modal -->
+<div class="modal fade" id="datePickerModal" tabindex="-1" role="dialog" aria-labelledby="datePickerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="datePickerModalLabel">Set Reassign Deadline</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="reassign_deadline">Reassign Deadline Date:</label>
+                <input type="date" id="reassign_deadline" name="reassign_deadline" required>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveDeadline">Set Deadline</button>
+            </div>
+        </div>
+    </div>
+</div>
+
                                     <!-- Completed Table Feedback Modal -->
                                     <div class="modal fade" id="completedfeedbackModal" tabindex="-1" role="dialog"
                                         aria-labelledby="completedfeedbackModalLabel" aria-hidden="true">

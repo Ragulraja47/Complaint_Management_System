@@ -379,45 +379,64 @@ $(document).on("click", ".facfeed", function (e) {
 });
 
 $(document).ready(function () {
-  // Open the feedback modal and set the complaintfeed ID
-  $(".facfeed").click(function () {
-    var complaintfeedId = $(this).val();
-    $("#complaintfeed_id").val(complaintfeedId); // Store the complaintfeed ID in the hidden input
-  });
+    var complaintfeedId = null; // Store complaintfeed_id globally
 
-  // When 'Done' is clicked
-  $(".done").click(function () {
-    var complaintfeedId = $("#complaintfeed_id").val(); // Get the complaintfeed ID
-    updateComplaintStatus(complaintfeedId, 16); // Status '30' for Done
-  });
-  // When 'Reassign' is clicked
-  $(".reass").click(function () {
-    var complaintfeedId = $("#complaintfeed_id").val(); // Get the complaintfeed ID
-    updateComplaintStatus(complaintfeedId, 15); // Status '20' for Reassign
-    // Close the modal explicitly after reassign
-    $("#exampleModal").modal("hide");
-  });
-
-  // Function to send AJAX request
-  function updateComplaintStatus(complaintfeedId, status) {
-    $.ajax({
-      url: "testbackend.php", // PHP file to handle the request
-      type: "POST",
-      data: {
-        id: complaintfeedId,
-        status: status,
-      },
-      success: function (response) {
-        // Handle the response, like showing a success message or updating the UI
-        alert("Status updated successfully!");
-        location.reload(); // Reload the page to see the updated status
-      },
-      error: function () {
-        alert("Error updating status.");
-      },
+    // Open the feedback modal and set the complaintfeed ID
+    $(".facfeed").click(function () {
+        complaintfeedId = $(this).val();
+        $("#complaintfeed_id").val(complaintfeedId); // Store complaintfeed ID in the hidden input
     });
-  }
+
+    // When 'Done' is clicked
+    $(".done").click(function () {
+        var complaintfeedId = $("#complaintfeed_id").val();
+        updateComplaintStatus(complaintfeedId, 16); // Status '16' for Done
+    });
+
+    // When 'Reassign' is clicked
+    $(".reass").click(function () {
+        $("#datePickerModal").modal("show"); // Show the modal to select deadline
+    });
+
+    // When 'Set Deadline' is clicked in the date picker modal
+    $("#saveDeadline").click(function () {
+        var reassign_deadline = $("#reassign_deadline").val(); // Get the selected deadline
+
+        if (!reassign_deadline) {
+            alert("Please select a deadline date.");
+            return;
+        }
+
+        var complaintfeedId = $("#complaintfeed_id").val();
+        updateComplaintStatus(complaintfeedId, 15, reassign_deadline); // Status '15' for Reassign with deadline
+
+        $("#datePickerModal").modal("hide"); // Close the date picker modal
+        $("#exampleModal").modal("hide"); // Close the feedback modal
+        $("#finished_table").load(location.href + " #finished_table");
+        $("#reassigned_table").load(location.href + " #reassigned_table");
+        $("#completed_table").load(location.href + " #completed_table");
+    });
 });
+
+// Function to update the complaint status
+function updateComplaintStatus(complaintfeedId, status, reassign_deadline = null) {
+    $.ajax({
+        type: "POST",
+        url: "testbackend.php",
+        data: {
+            complaintfeed_id: complaintfeedId,
+            status: status,
+            reassign_deadline: reassign_deadline, // Only pass this if status is 'reassign'
+        },
+        success: function (response) {
+            var res = jQuery.parseJSON(response);
+            alert(res.message);
+            if (res.status == 500) {
+              alert(res.message);
+            }
+        }
+    });
+}
 
 $(document).on("click", ".imgafter", function () {
   var problem_id = $(this).val(); // Get the problem_id from button value

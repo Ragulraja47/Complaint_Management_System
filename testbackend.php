@@ -144,21 +144,37 @@ if (isset($_POST['submit_comment_reply'])) {
     echo json_encode($response);
 }
 
-
-if (isset($_POST['id']) && isset($_POST['status'])) {
-    $id = $_POST['id'];
+if (isset($_POST['complaintfeed_id']) && isset($_POST['status'])) {
+    $id = $_POST['complaintfeed_id']; // Get the complaint ID from the POST request
     $status = $_POST['status'];
     $current_date = date('Y-m-d'); // Get the current date in the format YYYY-MM-DD
-    
-    // Update the status and reassign_date in complaints_details table
-    $sql = "UPDATE complaints_detail SET status='$status', reassign_date='$current_date' WHERE id='$id'";
-    
-    if (mysqli_query($conn, $sql)) {
-        echo "Status and updated successfully";
+
+    // Check if a reassign deadline is provided (only when status is 'reassign')
+    $reassign_deadline = isset($_POST['reassign_deadline']) ? $_POST['reassign_deadline'] : null;
+
+    // Prepare the SQL query based on the provided status and deadline
+    if ($status == 15 && $reassign_deadline) {
+        // Status '15' for Reassign, update reassign_date and reassign_deadline
+        $sql = "UPDATE complaints_detail SET status='$status', reassign_date='$current_date', days_to_complete='$reassign_deadline' WHERE id='$id'";
     } else {
-        echo "Error updating status: " . mysqli_error($conn);
+        // For other statuses, only update status and reassign_date (no reassign_deadline)
+        $sql = "UPDATE complaints_detail SET status='$status', reassign_date='$current_date' WHERE id='$id'";
+    }
+
+    // Execute the query
+    if (mysqli_query($conn, $sql)) {
+        echo json_encode([
+            'status' => 200,
+            'message' => "Status and updates saved successfully."
+        ]);
+    } else {
+        echo json_encode([
+            'status' => 500,
+            'message' => "Error updating status: " . mysqli_error($conn)
+        ]);
     }
 }
+
 
 
 
