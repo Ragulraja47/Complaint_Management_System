@@ -153,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div id="loginform">
                     <div class="text-center p-t-20 p-b-20">
                         <h1 class="text-light">Worker login</h1>
-                        <span class="db"><img src="assets/images/mkcelogo2.png" alt="logo" /></span>
+                        
                     </div>
 
                     <form class="form-horizontal m-t-20" id="loginform" action="login.php" method="POST">
