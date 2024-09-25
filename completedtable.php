@@ -723,7 +723,7 @@ $result4 = mysqli_query($conn, $sql4);
                                                                     <button type="button" class="btn btn-info showWorkerDetails" value="<?php echo $row['id']; ?>">View</button>
                                                                 </td>
                                                                 <td>
-                                                                    <?php if ($row['status'] == 11) { ?>
+                                                                    <?php if ($row['status'] == 11 || $row['status'] == 18) { ?>
                                                                         <!-- Button to open the feedback modal -->
                                                                         <button type="button" class="btn btn-info feedbackBtn" data-problem-id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#feedback_modal">Feedback</button>
                                                                     <?php } else { ?>
