@@ -530,6 +530,11 @@ $row_count7 = mysqli_num_rows($result7);
                                                                     id="rejectbutton" value="<?php echo $row['id']; ?>"
                                                                     data-toggle="modal"
                                                                     data-target="#rejectModal">Reject</button>
+
+                                                                    <button type="button" class="btn btn-primary principalcomplaint"
+                                                                    id="principalbutton" value="<?php echo $row['id']; ?>"
+                                                                    data-toggle="modal"
+                                                                    data-target="#principalModal">need approve</button>
                                                             </td>
                                                         </tr>
                                                     <?php
@@ -538,6 +543,39 @@ $row_count7 = mysqli_num_rows($result7);
                                                     ?>
                                                 </tbody>
                                             </table>
+                                        </div>
+                                    </div>
+
+                                    <!--Principal | Need Approve Modal -->
+                                    <div class="modal fade" id="principalModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="principalModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="principalModalLabel">Need Approval</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="principal_Form">
+                                                        <input type="hidden" name="id" id="complaint_id89">
+                                                        <div class="form-group">
+                                                            <label for="approvalReason" class="form-label">Reason for
+                                                                Approval</label>
+                                                            <textarea class="form-control" name="reason"
+                                                                id="approvalReason" rows="3"
+                                                                placeholder="Type the reason here..."></textarea>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-danger">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -621,7 +659,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <label class="form-check-label">Low</label>
                                                         </div>
                                                         <br>
-                                                        
+
                                                        <!--  <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
                                                                 id="flexSwitchCheckDefault" name="principal_approval">

@@ -145,7 +145,6 @@ $(document).on("click", ".worker-option", function () {
           // Refresh the table body only
           $("#complain_table").load(location.href + " #complain_table");
           $("#navrefresh").load(location.href + " #navrefresh");
-          $("#principal_table").load(location.href + " #principal_table > *");
           $("#worker_table").load(location.href + " #worker_table > *");
           updateNavbar();
         } 
@@ -159,6 +158,70 @@ $(document).on("click", ".worker-option", function () {
       }
     });
   });
+
+
+
+
+
+//Jquerry to pass the id into principal form
+$(document).on("click", "#principalbutton", function (e) {
+  e.preventDefault();
+  var user_id = $(this).val(); // Get the ID from the button's value
+  console.log("User ID:", user_id);
+  // Set the user_id in the hidden input field within the form
+  $("#complaint_id89").val(user_id);
+});
+$(document).on("submit", "#principal_Form", function (e) {
+  e.preventDefault();
+  var formData = new FormData(this);
+  formData.append("principal_complaint", true);
+  
+  $.ajax({
+    type: "POST",
+    url: "testbackend.php", 
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function (response) {
+      var res = jQuery.parseJSON(response);
+      
+      if (res.status == 200) {
+
+        alertify.set('notifier','position', 'bottom-right');
+        alertify.success('Sent to Principal');
+        // Close modal
+        $("#principalModal").modal("hide");
+
+        // Reset the form
+        $("#principal_Form")[0].reset();
+        // Force refresh the table body with cache bypass
+        $("#complain_table").load(location.href + " #complain_table > *");
+        $("#navrefresh").load(location.href + " #navrefresh");
+        updateNavbar(); // Call this function initially if needed
+        
+        // Display success message
+      } else if (res.status == 500) {
+        $("#principalModal").modal("hide");
+        $("#principal_Form")[0].reset();
+        alert("Something went wrong. Please try again.");
+      }
+    },
+    error: function (xhr, status, error) {
+      alert("An error occurred while processing your request.");
+    },
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 //Jquerry to pass the id into reject form

@@ -299,3 +299,32 @@ if (isset($_POST['facfeedview'])) {
         return;
     }
 }
+
+
+//Accept reason
+if (isset($_POST['principal_complaint'])) {
+    $problem_id = $_POST['id'];
+    $reason = $_POST['reason'];
+/*     $principal_approval = isset($_POST['principal_approval']) ? 6 : 7;
+    $reason = isset($_POST['reason11']) ? $_POST['reason11'] : ''; */
+    // Insert into manager table
+    $insertQuery = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason')";
+    if (mysqli_query($conn, $insertQuery)) {
+        // Update status in complaints_detail table
+        $updateQuery = "UPDATE complaints_detail SET status='6' WHERE id='$problem_id'";
+        if (mysqli_query($conn, $updateQuery)) {
+            $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
+          /*   $updateQuery7 = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason') ";
+            if (mysqli_query($conn, $updateQuery7)) {
+                $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
+            } else {
+                $response = ['status' => 500, 'message' => 'Failed to update comments table.'];
+            } */
+        } else {
+            $response = ['status' => 500, 'message' => 'Failed to update complaint status.'];
+        }
+    } else {
+        $response = ['status' => 500, 'message' => 'Failed to insert data into manager table.'];
+    }
+    echo json_encode($response);
+}
