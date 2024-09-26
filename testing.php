@@ -548,7 +548,7 @@ input[type="text"]:focus {
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row['id']; ?>" data-toggle="modal"
-                                                                    data-target="#imageModal">
+                                                                    >
                                                                     <i class="fas fa-image"></i> Before
                                                                 </button>
                                                             </td>
@@ -835,7 +835,7 @@ input[type="text"]:focus {
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row3['id']; ?>" data-toggle="modal"
-                                                                    data-target="#imageModal">
+                                                                    >
                                                                     <i class="fas fa-image"></i> Before
                                                                 </button>
                                                             </td>
@@ -947,7 +947,7 @@ input[type="text"]:focus {
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row4['id']; ?>" data-toggle="modal"
-                                                                    data-target="#imageModal">
+                                                                    >
                                                                     <i class="fas fa-image"></i> Before
                                                                 </button>
                                                             </td>
@@ -1041,12 +1041,12 @@ input[type="text"]:focus {
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row5['id']; ?>" data-toggle="modal"
-                                                                    data-target="#imageModal">
+                                                                    >
                                                                     <i class="fas fa-image"></i> Before
                                                                 </button>
                                                                 <button value="<?php echo $row5['id']; ?>" type="button"
                                                                     class="btn btn-light btn-sm imgafter"
-                                                                    data-toggle="modal" data-target="#afterImageModal">
+                                                                    data-toggle="modal" >
                                                                     <i class="fas fa-image"></i> After
                                                                 </button>
                                                             </td>
@@ -1115,12 +1115,12 @@ input[type="text"]:focus {
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row7['id']; ?>" data-toggle="modal"
-                                                                    data-target="#imageModal">
+                                                                    >
                                                                     <i class="fas fa-image"></i> Before
                                                                 </button>
                                                                 <button value="<?php echo $row7['id']; ?>" type="button"
                                                                     class="btn btn-light btn-sm imgafter"
-                                                                    data-toggle="modal" data-target="#afterImageModal">
+                                                                    data-toggle="modal" >
                                                                     <i class="fas fa-image"></i> After
                                                                 </button>
                                                             </td>
@@ -1182,12 +1182,12 @@ input[type="text"]:focus {
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row6['id']; ?>" data-toggle="modal"
-                                                                    data-target="#imageModal">
+                                                                    >
                                                                     <i class="fas fa-image"></i> Before
                                                                 </button>
                                                                 <button value="<?php echo $row6['id']; ?>" type="button"
                                                                     class="btn btn-light btn-sm imgafter"
-                                                                    data-toggle="modal" data-target="#afterImageModal">
+                                                                    data-toggle="modal" >
                                                                     <i class="fas fa-image"></i> After
                                                                 </button>
                                                             </td>
