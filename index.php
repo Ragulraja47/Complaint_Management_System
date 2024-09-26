@@ -135,7 +135,7 @@ $row3 = mysqli_fetch_assoc($result3);
                         <div class="card card-hover">
                             <div class="box bg-cyan text-center">
                                 <h1 class="font-light text-white"><i class="fas fa-user"></i></h1>
-                                <h6 class="text-white"><b> Worker Name <br></b></h6>
+                                <h3 class="text-white"><b> Worker Name <br></b></h3>
                                 <h5 class="text-white" id="workerName" ></h5>
 
                             </div>
@@ -145,7 +145,7 @@ $row3 = mysqli_fetch_assoc($result3);
                         <div class="card card-hover">
                             <div class="box bg-success text-center">
                                 <h1 class="font-light text-white"><i class="mdi mdi-account-multiple"></i></h1>
-                                <h6 class="text-white"><b>Employment Type<br></b></h6>
+                                <h3 class="text-white"><b>Employment Type<br></b></h3>
                                 <h5 class="text-white" id="employmentType"></h5>
 
                             </div>
@@ -155,7 +155,7 @@ $row3 = mysqli_fetch_assoc($result3);
                         <div class="card card-hover">
                             <div class="box bg-warning text-center">
                                 <h1 class="font-light text-white"><i class="mdi mdi-account-card-details"></i></h1>
-                                <h6 class="text-white"><b>Department<br></b></h6>
+                                <h3 class="text-white"><b>Department<br></b></h3>
                                 <h5 id="workerdepartment" class="text-white" ></h5>
 
 
@@ -165,7 +165,7 @@ $row3 = mysqli_fetch_assoc($result3);
                 </div><br>
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title m-b-0">Issue Analysis</h4><br>
+                        <h4 class="card-title m-b-0"></h4><br>
                         <div class="row">
                             <div class="col-12 col-md-3 mb-3">
                                 <div class="cir">
