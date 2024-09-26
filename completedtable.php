@@ -56,17 +56,26 @@ $row_count4 = mysqli_num_rows($result4);
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    
+
     <link rel="icon" href="assets/images/favicon.png">
     <link rel="stylesheet" href="assets/css/styles.css">
     <style>
+        .nav-tabs .nav-link {
+            color: #0033cc;
+        }
+
+        .nav-tabs .nav-link.active {
+            background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
+            color: white;
+        }
+
         th {
             background-color: #7460ee;
             background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
-            color: white
-        }
+            color: white;
+        } 
 
-        
+
         .text-right {
             text-align: right;
         }
@@ -200,9 +209,11 @@ $row_count4 = mysqli_num_rows($result4);
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30 in">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="completedtable.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
+                        
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completedtable.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                                    class="hide-menu">Complaints</span></a>
+                        </li>
 
                     </ul>
                 </nav>
@@ -214,7 +225,6 @@ $row_count4 = mysqli_num_rows($result4);
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Edit Profile</h4>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -234,10 +244,21 @@ $row_count4 = mysqli_num_rows($result4);
                         <div class="card">
                             <ul class="nav nav-tabs mb-3" role="tablist">
                                 <li class="nav-item">
+                                    <a class="nav-link active show" data-toggle="tab" href="#dashboard" role="tab" aria-selected="false">
+                                        <span class="hidden-sm-up"></span>
+                                        <span class="hidden-xs-down">
+                                            <i class="bi bi-people-fill"></i><b>Dashboard</b>
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#home" role="tab" aria-selected="false">
                                         <span class="hidden-sm-up"></span>
                                         <span class="hidden-xs-down">
-                                            <i class="bi bi-people-fill"></i><b>Pending Work (<?php echo $row_count5; ?>)</b>
+                                            <i class="bi bi-people-fill"></i>
+                                            <i class="fas fa-exclamation"></i>
+                                            <b>&nbsp Pending Work (<?php echo $row_count5; ?>)</b>
                                         </span>
                                     </a>
                                 </li>
@@ -246,7 +267,9 @@ $row_count4 = mysqli_num_rows($result4);
                                     <a class="nav-link" data-toggle="tab" href="#inprogress" role="tab" aria-selected="false">
                                         <span class="hidden-sm-up"></span>
                                         <span class="hidden-xs-down">
-                                            <i class="bi bi-people-fill"></i><b>Work-In Progress (<?php echo $row_count1; ?>)</b>
+                                            <i class="bi bi-people-fill"></i>
+                                            <i class="fas fa-clock"></i>
+                                            <b>&nbsp Work-In Progress (<?php echo $row_count1; ?>)</b>
                                         </span>
                                     </a>
                                 </li>
@@ -255,7 +278,9 @@ $row_count4 = mysqli_num_rows($result4);
                                     <a class="nav-link" data-toggle="tab" href="#completed" role="tab">
                                         <span class="hidden-sm-up"></span>
                                         <span class="hidden-xs-down">
-                                            <i class="bi bi-house-door-fill"></i><b>Completed Work (<?php echo $row_count2; ?>)</b>
+                                            <i class="bi bi-house-door-fill"></i>
+                                            <i class="mdi mdi-check-all"></i>
+                                            <b>&nbsp Completed Work (<?php echo $row_count2; ?>)</b>
                                         </span>
                                     </a>
                                 </li>
@@ -264,7 +289,9 @@ $row_count4 = mysqli_num_rows($result4);
                                     <a class="nav-link" data-toggle="tab" href="#parents" role="tab">
                                         <span class="hidden-sm-up"></span>
                                         <span class="hidden-xs-down">
-                                            <i class="bi bi-house-door-fill"></i><b>Rejected Work (<?php echo $row_count3; ?>)</b>
+                                            <i class="bi bi-house-door-fill"></i>
+                                            <i class="mdi mdi-close-circle"></i>
+                                            <b>&nbsp Rejected Work (<?php echo $row_count3; ?>)</b>
                                         </span>
                                     </a>
                                 </li>
@@ -273,7 +300,9 @@ $row_count4 = mysqli_num_rows($result4);
                                     <a class="nav-link" data-toggle="tab" href="#reassign" role="tab">
                                         <span class="hidden-sm-up"></span>
                                         <span class="hidden-xs-down">
-                                            <i class="bi bi-house-door-fill"></i><b>Reassigned Work (<?php echo $row_count4; ?>)</b>
+                                            <i class="bi bi-house-door-fill"></i>
+                                            <i class="fas fa-redo"></i>
+                                            <b>&nbsp Reassigned Work (<?php echo $row_count4; ?>)</b>
                                         </span>
                                     </a>
                                 </li>
@@ -283,30 +312,7 @@ $row_count4 = mysqli_num_rows($result4);
                                 <!-----------------------------------DashBoard---------------------------------------->
                                 <div class="tab-pane p-20 active show" id="dashboard" role="tabpanel">
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="card card-hover">
-                                                <div class="box bg-cyan text-center">
-                                                    <h1 class="font-light text-white"><i class="fas fa-user"></i></h1>
-                                                    <h6 class="text-white"><b>Name<br>FACULTY NAME</b></h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="card card-hover">
-                                                <div class="box bg-success text-center">
-                                                    <h1 class="font-light text-white"><i class="mdi mdi-account-multiple"></i></h1>
-                                                    <h6 class="text-white"><b>Role<br>FACULTY</b></h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="card card-hover">
-                                                <div class="box bg-warning text-center">
-                                                    <h1 class="font-light text-white"><i class="mdi mdi-account-card-details"></i></h1>
-                                                    <h6 class="text-white"><b>Branch<br></b>M.KUMARASAMY COLLEGE OF ENGINEERING</h6>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div><br>
                                     <div class="card">
                                         <div class="card-body">
@@ -319,7 +325,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                                     style="background-color:rgb(252, 119, 71);">
                                                                     <i class="fas fa-bell m-b-5 font-20"></i>
                                                                     <h1 class="m-b-0 m-t-5"><?php echo $row_count5; ?></h1>
-                                                                    <small class="font-light">Total</small>
+                                                                    <small class="font-light">Pending</small>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -332,20 +338,6 @@ $row_count4 = mysqli_num_rows($result4);
                                                                 <div class="stats-box text-center p-3"
                                                                     style="background-color:rgb(241, 74, 74);">
                                                                     <i class="fas fa-exclamation m-b-5 font-16"></i>
-                                                                    <h1 class="m-b-0 m-t-5"><?php echo $row_count5; ?></h1>
-                                                                    <small class="font-light">Pending</small>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-md-3 mb-3">
-                                                    <div class="cir">
-                                                        <div class="bo">
-                                                            <div class="content1">
-                                                                <div class="stats-box text-center p-3"
-                                                                    style="background-color:rgb(70, 160, 70);">
-                                                                    <i class="fas fa-check m-b-5 font-20"></i>
                                                                     <h1 class="m-b-0 m-t-5"><?php echo $row_count1; ?></h1>
                                                                     <small class="font-light">work in progress</small>
                                                                 </div>
@@ -358,10 +350,24 @@ $row_count4 = mysqli_num_rows($result4);
                                                         <div class="bo">
                                                             <div class="content1">
                                                                 <div class="stats-box text-center p-3"
-                                                                    style="background-color: rgb(187, 187, 35);">
-                                                                    <i class="fas fa-redo m-b-5 font-20"></i>
+                                                                    style="background-color:rgb(70, 160, 70);">
+                                                                    <i class="fas fa-check m-b-5 font-20"></i>
                                                                     <h1 class="m-b-0 m-t-5"><?php echo $row_count2; ?></h1>
                                                                     <small class="font-light">Completed</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-3 mb-3">
+                                                    <div class="cir">
+                                                        <div class="bo">
+                                                            <div class="content1">
+                                                                <div class="stats-box text-center p-3"
+                                                                    style="background-color: rgb(187, 187, 35);">
+                                                                    <i class="fas fa-redo m-b-5 font-20"></i>
+                                                                    <h1 class="m-b-0 m-t-5"><?php echo $row_count4; ?></h1>
+                                                                    <small class="font-light">Re-assigned</small>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1328,7 +1334,7 @@ $row_count4 = mysqli_num_rows($result4);
 
 
 </body>
-<div scrible-ignore="" id="skribel__annotation_ignore_browserExtensionFlag" class="skribel__chromeExtension"
+<div scrible-ignore="" id="skribel_annotation_ignore_browserExtensionFlag" class="skribel_chromeExtension"
     style="display: none"></div>
 
 </html>
