@@ -8,7 +8,7 @@ if (isset($_POST['approve_user'])) {
     mysqli_begin_transaction($conn);
 
     // First query: Update the status in complaints_detail table
-    $query = "UPDATE complaints_detail SET status='7' WHERE id='$customer_id'";
+    $query = "UPDATE complaints_detail SET status='9' WHERE id='$customer_id'";
     $query_run = mysqli_query($conn, $query);
 
     // Second query: Delete from comments table
