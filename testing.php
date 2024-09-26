@@ -339,7 +339,7 @@ $row_count7 = mysqli_num_rows($result7);
                                             <a class="nav-link" id="principal-tab" href="#principal" role="tab"
                                                 aria-selected="false">
                                                 <span class="hidden-xs-down">
-                                                    <i class="bi bi-people-fill"></i><b>Principal Approval</b>
+                                                    <i class="bi bi-people-fill"></i><b>Principal Approved</b>
                                                 </span>
                                             </a>
                                         </li>
@@ -466,7 +466,6 @@ $row_count7 = mysqli_num_rows($result7);
                                                         <th><b>Dept Name</b></th>
                                                         <th><b>Venue</b></th>
                                                         <th><b>Complaint</b></th>
-
                                                         <th><b>Picture</b></th>
                                                         <th><b>Action</b></th>
                                                     </tr>
@@ -820,11 +819,12 @@ $row_count7 = mysqli_num_rows($result7);
                                                 <thead
                                                     style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                     <tr>
-                                                        <th><b>S.No</b></th>
+                                                    <th><b>S.No</b></th>
+                                                        <th><b>Raised Date</b></th>                                            
+                                                        <th><b>Venue</b></th>
                                                         <th><b>Complaint</b></th>
-                                                        <th><b>Worker Details</b></th>
-                                                        <th><b>Deadline</b></th>
                                                         <th><b>Picture</b></th>
+                                                        <th><b>Action</b></th>
                                                         <th><b>Status</b></th>
                                                     </tr>
                                                 </thead>
@@ -835,6 +835,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $s ?></td>
+                                                            <td><?php echo $row4['date_of_reg'] ?></td>
+                                                            <td><?php echo $row4['block_venue'] ?></td>
                                                             <td>
                                                                 <button type="button" value="<?php echo $row4['id']; ?>"
                                                                     class="btn btn-primary viewcomplaint"
@@ -842,15 +844,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                                     data-target="#complaintDetailsModal">
                                                                     See More
                                                                 </button>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-primary"
-                                                                    value="<?php echo $row4['id']; ?>" id="seeworker"
-                                                                    data-toggle="modal" data-target="#detailsModal">
-                                                                    Details
-                                                                </button>
-                                                            </td>
-                                                            <td><?php echo $row4['days_to_complete'] ?></td>
+                                                            </td>                                                          
+                                                        
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row4['id']; ?>" data-toggle="modal"
@@ -859,7 +854,45 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td>
-                                                                <span class="btn btn-danger">Pending</span>
+                                                                <button type="button"
+                                                                    class="btn btn-success dropdown-toggle acceptcomplaint"
+                                                                    value="<?php echo $row4['id']; ?>"
+                                                                    data-toggle="dropdown">Accept</button>
+                                                                <ul class="dropdown-menu">
+                                                                    <center>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="CARPENTRY">CARPENTRY</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="ELECTRICAL">ELECTRICAL</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="CIVIL">CIVIL</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="PARTITION">PARTITION</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="PLUMBING">PLUMBING</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="IT INFRA">IT INFRA</a></li>
+                                                                    </center>
+                                                                </ul>
+                                                                <button type="button" class="btn btn-danger rejectcomplaint"
+                                                                    id="rejectbutton" value="<?php echo $row4['id']; ?>"
+                                                                    data-toggle="modal"
+                                                                    data-target="#rejectModal">Reject</button>
+                                                            </td>
+                                                            <td>
+                                                                <span class="btn btn-success">Approved</span>
                                                             </td>
                                                         </tr>
                                                     <?php
