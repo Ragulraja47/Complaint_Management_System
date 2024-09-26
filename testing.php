@@ -86,38 +86,160 @@ $row_count7 = mysqli_num_rows($result7);
 
     <!-- Additional CSS for Modal -->
     <style>
-        .modal-content {
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+        .close span {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+}
 
-        .modal-header {
-            border-bottom: none;
-        }
+.close:hover span {
+    transform: rotate(45deg);
+    color:white;
+}
+/* Close Button */
+.modal-header .close {
+    font-size: 1.5rem;
+    color: white;
+    opacity: 1;
+    transition: transform 0.3s ease;
+    outline: none; /* Removes the focus outline */
+    border: none;   /* Ensures no border around the button */
+}
 
-        .modal-body {
-            padding: 2rem;
-            background: #f9f9f9;
-        }
+.modal-header .close:focus {
+    outline: none; /* Removes focus outline when the button is clicked */
+    box-shadow: none; /* Ensures no shadow or box effect appears */
+}
 
-        .modal-footer {
-            border-top: none;
-        }
+.modal-header .close:hover {
+    transform: rotate(90deg);
+    color: #ff8080;
+}
 
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
 
-        .btn-secondary {
-            background-color: #0033cc;
-            border-color: #0033cc;
-        }
+/* priority modal */
+/* Modal Background */
+.modal-content {
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    background-color: #f5f5f5;
+   
+    border: none;
+}
 
-        .btn-secondary:hover {
-            background-color: #002a80;
-            border-color: #002a80;
-        }
+/* Header Styling with Gradient */
+.modal-header {
+    background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
+    color: white;
+    border-bottom: none;
+    padding: 10px 20px;
+    border-radius: 12px 12px 0 0;
+}
+
+.modal-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+/* Close Button */
+.modal-header .close {
+    font-size: 1.5rem;
+    color: white;
+    opacity: 1;
+    transition: transform 0.3s ease;
+}
+
+.modal-header .close:hover {
+    transform: rotate(90deg);
+    color: #ff8080;
+}
+
+/* Modal Body */
+.modal-body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Form Inputs and Labels */
+label {
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="date"],
+input[type="text"] {
+    border: none; /* Removed border */
+    border-radius: 8px;
+    padding: 5px;
+    width: 100%;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+input[type="date"]:focus,
+input[type="text"]:focus {
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Radio Buttons */
+.form-check-input[type="radio"] {
+    transform: scale(1.2);
+    margin-right: 10px;
+    outline: none; /* Removes the focus outline */
+    box-shadow: none !important; /* Removes the box-like effect when clicked */
+}
+
+.form-check-input[type="radio"]:focus {
+    box-shadow: none; /* Ensures no shadow appears when focused */
+}
+
+/* Checkbox (No toggle effect) */
+#flexSwitchCheckDefault {
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    cursor: pointer;
+    transition: none;
+    position: relative;
+}
+
+#flexSwitchCheckDefault:checked {
+    background-color: transparent;
+}
+
+#flexSwitchCheckDefault::after {
+    content: none;
+}
+
+/* Reason Input */
+#reasonInput {
+    margin-top: 10px;
+}
+
+/* Modal Footer Buttons */
+.modal-footer .btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #5a6268;
+}
 
 
 
