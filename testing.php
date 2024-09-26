@@ -513,69 +513,6 @@ input[type="text"]:focus {
                                 <!-- Tables Start -->
                                 <div class="tab-content tabcontent-border">
 
-                                    <?php
-                                    // Set default month as the current month if no input is provided
-                                    $selectedMonth = isset($_POST['selectmonth']) ? $_POST['selectmonth'] : date('m');
-
-                                    // Fetch data based on the selected month
-                                    $sql8 = "SELECT * FROM complaints_detail WHERE status='16' AND MONTH(date_of_completion) = $selectedMonth AND YEAR(date_of_completion) = YEAR(CURDATE())";
-                                    $result8 = mysqli_query($conn, $sql8);
-                                    ?>
-
-                                    <!-- Record Table -->
-                                    <div class="tab-pane" id="record" role="tabpanel">
-                                        <form method="POST" action="">
-                                            <label for="selectmonth">Select Month (1-12): </label>
-                                            <input type="number" name="selectmonth" min="1" max="12" value="<?php echo $selectedMonth; ?>" required>
-                                            <button type="submit" class="btn btn-primary">Enter</button>
-                                        </form><span style="float:right">
-                                            <button id="download" class="btn btn-success">Download as Excel</button></span><br><br>
-
-                                        <div class="table-responsive">
-                                            <table id="record_table" class="table table-striped table-bordered">
-                                                <thead
-                                                    style=" background-color: #7460ee;  background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                    <tr>
-                                                        <th><b>S.No</b></th>
-                                                        <th><b>Work ID</b></th>
-                                                        <th><b>Venue Details</b></th>
-                                                        <th><b>Completed by</b></th>
-                                                        <th><b>Completed On</b></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $s = 1;
-                                                    while ($row = mysqli_fetch_assoc($result8)) {
-                                                        $pid = $row['id'];
-                                                    ?>
-                                                        <tr>
-                                                            <td><?php echo $s ?></td>
-                                                            <td><?php echo $row['id'] ?></td>
-                                                            <td>Venue:<?php echo $row['venue_name'] ?><br>Problem:<?php echo $row['problem_description'] ?></td>
-                                                            <td>
-                                                                <?php
-                                                                $id = "SELECT * FROM manager WHERE problem_id=$pid";
-                                                                $query_run1 = mysqli_query($conn, $id);
-                                                                $roww = mysqli_fetch_array($query_run1);
-                                                                $worker_id = $roww['worker_id'];
-
-                                                                // Fetch worker details
-                                                                $query = "SELECT * FROM worker_details WHERE worker_dept='$worker_id'";
-                                                                $query_run = mysqli_query($conn, $query);
-                                                                $User_data = mysqli_fetch_array($query_run); ?>
-                                                                Completed by: <?php echo $User_data['worker_dept'] ?>
-                                                            </td>
-                                                            <td><?php echo $row['date_of_completion'] ?></td>
-                                                        </tr>
-                                                    <?php
-                                                        $s++;
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
                                     <!-- Complaint Table -->
                                     <div class="tab-pane active show" id="complain" role="tabpanel">
                                         <div class="table-responsive">
@@ -651,7 +588,7 @@ input[type="text"]:focus {
                                                                 <button type="button" class="btn btn-danger rejectcomplaint"
                                                                     id="rejectbutton" value="<?php echo $row['id']; ?>"
                                                                     data-toggle="modal"
-                                                                    data-target="#rejectModal">Reject</button>
+                                                                    data-target="#rejectModal">X</button>
 
                                                                     <button type="button" class="btn btn-primary principalcomplaint"
                                                                     id="principalbutton" value="<?php echo $row['id']; ?>"
@@ -1018,7 +955,7 @@ input[type="text"]:focus {
                                                                 <button type="button"
                                                                     class="btn btn-success dropdown-toggle acceptcomplaint"
                                                                     value="<?php echo $row4['id']; ?>"
-                                                                    data-toggle="dropdown">Accept</button>
+                                                                    data-toggle="dropdown">Assign</button>
                                                                 <ul class="dropdown-menu">
                                                                     <center>
                                                                         <li><a href="#" class="worker-option"
@@ -1047,10 +984,7 @@ input[type="text"]:focus {
                                                                                 data-value="IT INFRA">IT INFRA</a></li>
                                                                     </center>
                                                                 </ul>
-                                                                <button type="button" class="btn btn-danger rejectcomplaint"
-                                                                    id="rejectbutton" value="<?php echo $row4['id']; ?>"
-                                                                    data-toggle="modal"
-                                                                    data-target="#rejectModal">Reject</button>
+                                                               
                                                             </td>
                                                             <td>
                                                                 <span class="btn btn-success">Approved</span>
@@ -1263,6 +1197,71 @@ input[type="text"]:focus {
                                                             <!-- <td>
                                                                 <span class="btn btn-success">Completed</span>
                                                             </td> -->
+                                                        </tr>
+                                                    <?php
+                                                        $s++;
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <?php
+                                    // Set default month as the current month if no input is provided
+                                    $selectedMonth = isset($_POST['selectmonth']) ? $_POST['selectmonth'] : date('m');
+
+                                    // Fetch data based on the selected month
+                                    $sql8 = "SELECT * FROM complaints_detail WHERE status='16' AND MONTH(date_of_completion) = $selectedMonth AND YEAR(date_of_completion) = YEAR(CURDATE())";
+                                    $result8 = mysqli_query($conn, $sql8);
+                                    ?>
+
+                                    <!-- Record Table -->
+                                    <div class="tab-pane" id="record" role="tabpanel">
+                                        <form method="POST" action="">
+                                            <label for="selectmonth">Select Month (1-12): </label>
+                                            <input type="number" name="selectmonth" min="1" max="12" value="<?php echo $selectedMonth; ?>" required>
+                                            <button type="submit" class="btn btn-primary">Enter</button>
+                                        </form><span style="float:right">
+                                            <button id="download" class="btn btn-success">Download as Excel</button></span><br><br>
+
+                                        <div class="table-responsive">
+                                            <table id="record_table" class="table table-striped table-bordered">
+                                                <thead
+                                                    style=" background-color: #7460ee;  background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                    <tr>
+                                                        <th><b>S.No</b></th>
+                                                        <th><b>Work ID</b></th>
+                                                        <th><b>Venue Details</b></th>
+                                                        <th><b>Completed by</b></th>
+                                                        <th><b>Completed On</b></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $s = 1;
+                                                    while ($row = mysqli_fetch_assoc($result8)) {
+                                                        $pid = $row['id'];
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $s ?></td>
+                                                            <td><?php echo $row['id'] ?></td>
+                                                            <td>Venue:<?php echo $row['venue_name'] ?><br>Problem:<?php echo $row['problem_description'] ?></td>
+                                                            <td>
+                                                                <?php
+                                                                $id = "SELECT * FROM manager WHERE problem_id=$pid";
+                                                                $query_run1 = mysqli_query($conn, $id);
+                                                                $roww = mysqli_fetch_array($query_run1);
+                                                                $worker_id = $roww['worker_id'];
+
+                                                                // Fetch worker details
+                                                                $query = "SELECT * FROM worker_details WHERE worker_dept='$worker_id'";
+                                                                $query_run = mysqli_query($conn, $query);
+                                                                $User_data = mysqli_fetch_array($query_run); ?>
+                                                                Completed by: <?php echo $User_data['worker_dept'] ?>
+                                                            </td>
+                                                            <td><?php echo $row['date_of_completion'] ?></td>
                                                         </tr>
                                                     <?php
                                                         $s++;
