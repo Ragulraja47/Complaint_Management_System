@@ -621,7 +621,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <label class="form-check-label">Low</label>
                                                         </div>
                                                         <br>
-                                                        <div class="form-check">
+                                                        
+                                                       <!--  <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
                                                                 id="flexSwitchCheckDefault" name="principal_approval">
                                                             <label class="form-check-label"
@@ -631,7 +632,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <label for="reason">Reason:</label>
                                                             <input type="text" id="reason11" name="reason11"
                                                                 class="form-control" placeholder="Enter reason">
-                                                        </div>
+                                                        </div> -->
                                                     </form>
                                                 </div>
                                                 <div class="modal-footer">

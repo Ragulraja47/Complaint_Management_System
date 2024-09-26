@@ -87,20 +87,21 @@ if (isset($_POST['accept_complaint'])) {
     $worker_id = $_POST['worker_id'];
     $priority = $_POST['priority'];
     $deadline = $_POST['deadline'];
-    $principal_approval = isset($_POST['principal_approval']) ? 6 : 7;
-    $reason = isset($_POST['reason11']) ? $_POST['reason11'] : '';
+/*     $principal_approval = isset($_POST['principal_approval']) ? 6 : 7;
+    $reason = isset($_POST['reason11']) ? $_POST['reason11'] : ''; */
     // Insert into manager table
     $insertQuery = "INSERT INTO manager (problem_id, worker_id, priority) VALUES ('$problem_id', '$worker_id', '$priority')";
     if (mysqli_query($conn, $insertQuery)) {
         // Update status in complaints_detail table
-        $updateQuery = "UPDATE complaints_detail SET status='$principal_approval', days_to_complete='$deadline' WHERE id='$problem_id'";
+        $updateQuery = "UPDATE complaints_detail SET status='7', days_to_complete='$deadline' WHERE id='$problem_id'";
         if (mysqli_query($conn, $updateQuery)) {
-            $updateQuery7 = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason') ";
+            $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
+          /*   $updateQuery7 = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason') ";
             if (mysqli_query($conn, $updateQuery7)) {
                 $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
             } else {
                 $response = ['status' => 500, 'message' => 'Failed to update comments table.'];
-            }
+            } */
         } else {
             $response = ['status' => 500, 'message' => 'Failed to update complaint status.'];
         }

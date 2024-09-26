@@ -61,7 +61,7 @@ document.querySelectorAll(".modal-body button").forEach(function (element) {
 });
 
 // JS code for getting reason from the manager when principal approval toggle is ON
-document
+/* document
   .getElementById("flexSwitchCheckDefault")
   .addEventListener("change", function () {
     var reasonInput = document.getElementById("reasonInput");
@@ -71,7 +71,7 @@ document
       reasonInput.style.display = "none";
     }
   });
-
+ */
 
 //Jquery to pass id into accept and priority form
 // When the "Accept" button is clicked, open the modal and reset the worker details
@@ -100,7 +100,7 @@ $(document).on("click", ".worker-option", function () {
 
 
 // Toggle reason input based on Principal Approval checkbox
-document
+/* document
   .getElementById("flexSwitchCheckDefault")
   .addEventListener("change", function () {
     var reasonInput = document.getElementById("reasonInput");
@@ -109,7 +109,7 @@ document
     } else {
       reasonInput.style.display = "none";
     }
-  });
+  }); */
 
   $(document).on("submit", "#acceptForm", function (e) {
     e.preventDefault();
