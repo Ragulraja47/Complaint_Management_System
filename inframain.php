@@ -307,12 +307,6 @@ $comcount = mysqli_num_rows($result3);
                                                                 <th class="col-md-2 text-center"><b>
                                                                         <h5>Faculty ID</h5>
                                                                     </b></th>
-                                                                <th class="text-center"><b>
-                                                                        <h5>Faculty Name</h5>
-                                                                    </b></th>
-                                                                <th class="text-center"><b>
-                                                                        <h5>Faculty number</h5>
-                                                                    </b></th>
                                                                 <th class="col-md-2 text-center"><b>
                                                                         <h5>Block name</h5>
                                                                     </b></th>
@@ -349,8 +343,6 @@ $comcount = mysqli_num_rows($result3);
                                                                 <tr>
                                                                     <td scope="row"><?php echo $s; ?> </td>
                                                                     <td class="text-center"><?php echo $row["faculty_id"]; ?></td>
-                                                                    <td class="text-center"><?php echo $row["faculty_name"]; ?></td>
-                                                                    <td class="text-center"><?php echo $row["faculty_contact"]; ?></td>
                                                                     <td class="text-center"><?php echo $row["block_venue"]; ?></td>
                                                                     <td class="text-center"><?php echo $row["venue_name"]; ?></td>
                                                                     <td class="text-center"><?php echo $row["type_of_problem"]; ?></td>
