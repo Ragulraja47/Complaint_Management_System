@@ -1,5 +1,10 @@
 <?php
 //session for department
+session_start();
+
+    $department1 = $_SESSION['department'];
+   
+
 
 
 // Database connection
@@ -10,26 +15,26 @@ $dbname = "complaints"; // Your database name
 
 $conn = new mysqli($host, $user, $password, $dbname);
 //completed count
-$count = "SELECT COUNT(*) AS count FROM complaints_detail WHERE status = '16'";
+$count = "SELECT COUNT(*) AS count FROM complaints_detail WHERE status = '16' And type_of_problem = '$department1'";
 
 $result = mysqli_query($conn, $count);
 $row = mysqli_fetch_assoc($result);
 
 //in progress count
-$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status IN (17,10)";
+$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status IN (17,10) And type_of_problem = '$department1'";
 
 $result1 = mysqli_query($conn, $count1);
 $row1 = mysqli_fetch_assoc($result1);
 
 //count of waiting for approval
-$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status IN (18,11)";
+$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status IN (18,11) And type_of_problem = '$department1'";
 
 $result2 = mysqli_query($conn, $count2);
 $row2 = mysqli_fetch_assoc($result2);
 
 //new task count
 
-$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status = '7'";
+$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status = '7' And type_of_problem = '$department1'";
 
 $result3 = mysqli_query($conn, $count3);
 $row3 = mysqli_fetch_assoc($result3);
@@ -277,6 +282,7 @@ $row3 = mysqli_fetch_assoc($result3);
                             console.log("Session updated: " + response);
                             // Redirect to the task history page after session update
                             var url = 'worker_taskhistory.php';
+
                             window.location.href = url;
                         },
                         error: function(xhr, status, error) {
