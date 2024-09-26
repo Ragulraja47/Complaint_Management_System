@@ -27,6 +27,13 @@ $result1 = mysqli_query($conn, $sql1);
 $result2 = mysqli_query($conn, $sql2);
 $result3 = mysqli_query($conn, $sql3);
 $result4 = mysqli_query($conn, $sql4);
+
+$row_count5 = mysqli_num_rows($result5);
+$row_count1 = mysqli_num_rows($result1);
+$row_count2 = mysqli_num_rows($result2);
+$row_count3 = mysqli_num_rows($result3);
+$row_count4 = mysqli_num_rows($result4);
+
 ?>
 
 
@@ -49,12 +56,9 @@ $result4 = mysqli_query($conn, $sql4);
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9] >
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    
+    <link rel="icon" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="assets/css/styles.css">
     <style>
         th {
             background-color: #7460ee;
@@ -62,87 +66,7 @@ $result4 = mysqli_query($conn, $sql4);
             color: white
         }
 
-        .circle-container {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 30px 0;
-        }
-
-        .circle {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            display: block;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .circle h1 {
-            text-align: center;
-            justify-content: center;
-            display: block;
-            align-items: center;
-
-        }
-
-
-        .circle1 {
-            background-color: #3498db;
-            /* Blue */
-        }
-
-        .circle2 {
-            background-color: #e74c3c;
-            /* Orange */
-        }
-
-        .circle3 {
-            background-color: #2ecc71;
-            /* Green */
-        }
-
-        .circle4 {
-            background-color: #f1c40f;
-            /* Purple */
-        }
-
-        .circle>h5 {
-            color: white;
-            margin: 0;
-            text-align: center;
-        }
-
-        .border-animation {
-            position: absolute;
-            top: -25px;
-            left: -25px;
-            width: 200px;
-            height: 200px;
-            border: 5px dotted transparent;
-            border-top-color: #ff5733;
-            border-right-color: #33ff57;
-            border-bottom-color: #3357ff;
-            border-left-color: #f1c40f;
-            border-radius: 50%;
-            animation: rotateBorder 4s linear infinite;
-        }
-
-        .circle-container:hover .border-animation {
-            border-style: solid;
-        }
-
-        @keyframes rotateBorder {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
+        
         .text-right {
             text-align: right;
         }
@@ -276,10 +200,10 @@ $result4 = mysqli_query($conn, $sql4);
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30 in">
-                                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="completedtable.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
-                        
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -309,118 +233,150 @@ $result4 = mysqli_query($conn, $sql4);
                         <h6 class="card-subtitle"></h6>
                         <div class="card">
                             <ul class="nav nav-tabs mb-3" role="tablist">
-                                <li class="nav-item"> <a class="nav-link active show" data-toggle="tab"
-                                        href="#dashboard" role="tab" aria-selected="true"><span
-                                            class="hidden-sm-up"></span> <span class="hidden-xs-down"><i
-                                                class="bi-person"></i><b>Dashboard</b></span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#home" role="tab"
-                                        aria-selected="false"><span class="hidden-sm-up"></span> <span
-                                            class="hidden-xs-down"><i class="bi bi-people-fill"></i><b>Pending
-                                                work</b></span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#inprogress"
-                                        role="tab" aria-selected="false"><span class="hidden-sm-up"></span> <span
-                                            class="hidden-xs-down"><i class="bi bi-people-fill"></i><b>Work-In
-                                                Progress</b></span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#completed"
-                                        role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down"><i
-                                                class="bi bi-house-door-fill"></i><b>Completed Work</b></span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#parents"
-                                        role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down"><i
-                                                class="bi bi-house-door-fill"></i><b>Rejected Work</b></span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#reassign"
-                                        role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down"><i
-                                                class="bi bi-house-door-fill"></i><b>Reassigned Work</b></span></a> </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#home" role="tab" aria-selected="false">
+                                        <span class="hidden-sm-up"></span>
+                                        <span class="hidden-xs-down">
+                                            <i class="bi bi-people-fill"></i><b>Pending Work (<?php echo $row_count5; ?>)</b>
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#inprogress" role="tab" aria-selected="false">
+                                        <span class="hidden-sm-up"></span>
+                                        <span class="hidden-xs-down">
+                                            <i class="bi bi-people-fill"></i><b>Work-In Progress (<?php echo $row_count1; ?>)</b>
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#completed" role="tab">
+                                        <span class="hidden-sm-up"></span>
+                                        <span class="hidden-xs-down">
+                                            <i class="bi bi-house-door-fill"></i><b>Completed Work (<?php echo $row_count2; ?>)</b>
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#parents" role="tab">
+                                        <span class="hidden-sm-up"></span>
+                                        <span class="hidden-xs-down">
+                                            <i class="bi bi-house-door-fill"></i><b>Rejected Work (<?php echo $row_count3; ?>)</b>
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#reassign" role="tab">
+                                        <span class="hidden-sm-up"></span>
+                                        <span class="hidden-xs-down">
+                                            <i class="bi bi-house-door-fill"></i><b>Reassigned Work (<?php echo $row_count4; ?>)</b>
+                                        </span>
+                                    </a>
+                                </li>
                             </ul>
 
                             <div class="tab-content tabcontent-border">
                                 <!-----------------------------------DashBoard---------------------------------------->
                                 <div class="tab-pane p-20 active show" id="dashboard" role="tabpanel">
                                     <div class="row">
-                                        <div class="col-lg-6 col-sm-12">
-                                            <div class="d-flex flex-column align-items-center">
-                                                <div class="circle-container">
-                                                    <div class="border-animation"></div>
-                                                    <div class="circle circle1">
-                                                        <div style="padding-top: 20px;">
-                                                            <h1 class="font-light text-white">
-                                                                <?php $query1 = "SELECT COUNT(*) as total FROM complaints_detail WHERE status IN (1,2,3,4,5,6,7,10,11,13,14,15,16,17,18,19) AND faculty_id = '$faculty_id'";
-                                                                $output1 = mysqli_query($conn, $query1);
-                                                                $row1 = mysqli_fetch_assoc($output1);
-                                                                $totalCount = $row1['total'];
-                                                                echo $totalCount;
-                                                                ?>
-                                                            </h1>
-                                                        </div>
-                                                        <h5>Total Complaints</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="d-flex flex-column align-items-center">
-                                                <div class="circle-container">
-                                                    <div class="border-animation"></div>
-                                                    <div class="circle circle3">
-                                                        <div style="padding-top: 20px;">
-                                                            <h1 class="font-light text-white">
-                                                                <?php $query3 = "SELECT COUNT(*) as progress FROM complaints_detail WHERE status IN (7,10,11,15,17) AND faculty_id = '$faculty_id'";
-                                                                $output3 = mysqli_query($conn, $query3);
-                                                                $row3 = mysqli_fetch_assoc($output3);
-                                                                $progressCount = $row3['progress'];
-                                                                echo $progressCount;
-                                                                ?>
-                                                            </h1>
-                                                        </div>
-                                                        <h5>Progress</h5>
-                                                    </div>
+                                        <div class="col-md-4">
+                                            <div class="card card-hover">
+                                                <div class="box bg-cyan text-center">
+                                                    <h1 class="font-light text-white"><i class="fas fa-user"></i></h1>
+                                                    <h6 class="text-white"><b>Name<br>FACULTY NAME</b></h6>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-sm-12">
-                                            <div class="d-flex flex-column align-items-center">
-                                                <div class="circle-container">
-                                                    <div class="border-animation"></div>
-                                                    <div class="circle circle2">
-                                                        <div style="padding-top: 20px;">
-                                                            <h1 class="font-light text-white">
-                                                                <?php $query2 = "SELECT COUNT(*) as pending FROM complaints_detail WHERE status IN (1,2,4,6) AND faculty_id = '$faculty_id'";
-                                                                $output2 = mysqli_query($conn, $query2);
-                                                                $row2 = mysqli_fetch_assoc($output2);
-                                                                $pendingCount = $row2['pending'];
-                                                                echo $pendingCount;
-                                                                ?>
-                                                            </h1>
-                                                        </div>
-                                                        <h5>Pending</h5>
-                                                    </div>
+                                        <div class="col-md-4">
+                                            <div class="card card-hover">
+                                                <div class="box bg-success text-center">
+                                                    <h1 class="font-light text-white"><i class="mdi mdi-account-multiple"></i></h1>
+                                                    <h6 class="text-white"><b>Role<br>FACULTY</b></h6>
                                                 </div>
                                             </div>
-                                            <div class="d-flex flex-column align-items-center">
-                                                <div class="circle-container">
-                                                    <div class="border-animation"></div>
-                                                    <div class="circle circle4">
-                                                        <div style="padding-top: 20px;">
-                                                            <h1 class="font-light text-white">
-                                                                <?php $query4 = "SELECT COUNT(*) as completed FROM complaints_detail WHERE status ='16' AND faculty_id = '$faculty_id'";
-                                                                $output4 = mysqli_query($conn, $query4);
-                                                                $row4 = mysqli_fetch_assoc($output4);
-                                                                $completedCount = $row4['completed'];
-                                                                echo $completedCount;
-                                                                ?>
-
-                                                            </h1>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card card-hover">
+                                                <div class="box bg-warning text-center">
+                                                    <h1 class="font-light text-white"><i class="mdi mdi-account-card-details"></i></h1>
+                                                    <h6 class="text-white"><b>Branch<br></b>M.KUMARASAMY COLLEGE OF ENGINEERING</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><br>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-12 col-md-3 mb-3">
+                                                    <div class="cir">
+                                                        <div class="bo">
+                                                            <div class="content1">
+                                                                <div class="stats-box text-center p-3"
+                                                                    style="background-color:rgb(252, 119, 71);">
+                                                                    <i class="fas fa-bell m-b-5 font-20"></i>
+                                                                    <h1 class="m-b-0 m-t-5"><?php echo $row_count5; ?></h1>
+                                                                    <small class="font-light">Total</small>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <h5>Completed</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-3 mb-3">
+                                                    <div class="cir">
+                                                        <div class="bo">
+                                                            <div class="content1">
+                                                                <div class="stats-box text-center p-3"
+                                                                    style="background-color:rgb(241, 74, 74);">
+                                                                    <i class="fas fa-exclamation m-b-5 font-16"></i>
+                                                                    <h1 class="m-b-0 m-t-5"><?php echo $row_count5; ?></h1>
+                                                                    <small class="font-light">Pending</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-3 mb-3">
+                                                    <div class="cir">
+                                                        <div class="bo">
+                                                            <div class="content1">
+                                                                <div class="stats-box text-center p-3"
+                                                                    style="background-color:rgb(70, 160, 70);">
+                                                                    <i class="fas fa-check m-b-5 font-20"></i>
+                                                                    <h1 class="m-b-0 m-t-5"><?php echo $row_count1; ?></h1>
+                                                                    <small class="font-light">work in progress</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-3 mb-3">
+                                                    <div class="cir">
+                                                        <div class="bo">
+                                                            <div class="content1">
+                                                                <div class="stats-box text-center p-3"
+                                                                    style="background-color: rgb(187, 187, 35);">
+                                                                    <i class="fas fa-redo m-b-5 font-20"></i>
+                                                                    <h1 class="m-b-0 m-t-5"><?php echo $row_count2; ?></h1>
+                                                                    <small class="font-light">Completed</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
 
+
                                 <!---------------------------DashBoard Ends-------------------------->
-<!------------------pending work----------------->
-<div class="tab-pane p-20" id="home" role="tabpanel">
+                                <!------------------pending work----------------->
+                                <div class="tab-pane p-20" id="home" role="tabpanel">
                                     <div class="modal fade" id="cmodal" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -434,30 +390,20 @@ $result4 = mysqli_query($conn, $sql4);
                                                     <form id="addnewuser" enctype="multipart/form-data">
                                                         <div class="modal-body">
                                                             <div class="mb-3">
-                                                                <label for="id" class="form-label">Faculty ID</label>
                                                                 <input type="hidden" id="hidden_faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>">
-                                                                <input type="text" class="form-control" name="faculty_id" id="faculty_id" placeholder="Faculty ID" readonly>
-
-
+                                                                <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" placeholder="Faculty ID" readonly>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="faculty_name" class="form-label">Faculty
-                                                                    Name</label>
-                                                                    <input type="text" class="form-control" name="faculty_name" placeholder="Enter Faculty Name" required readonly>
+                                                                <input type="hidden" class="form-control" name="faculty_name" placeholder="Enter Faculty Name" required readonly>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="department"
-                                                                    class="form-label">department</label>
-                                                                    <input type="text" class="form-control" name="department" placeholder="Enter Department" required readonly>
+                                                                <input type="hidden" class="form-control" name="department" placeholder="Enter Department" required readonly>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="contact" class="form-label">Mobile
-                                                                    No</label>
-                                                                    <input type="text" class="form-control" name="faculty_contact" placeholder="Enter Mobile No" required readonly>
+                                                                <input type="hidden" class="form-control" name="faculty_contact" placeholder="Enter Mobile No" required readonly>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="mail" class="form-label">Mail id</label>
-                                                                <input type="text" class="form-control" name="faculty_mail" placeholder="Enter Mail ID" required readonly>
+                                                                <input type="hidden" class="form-control" name="faculty_mail" placeholder="Enter Mail ID" required readonly>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="block" class="form-label">Block</label>
@@ -628,9 +574,9 @@ $result4 = mysqli_query($conn, $sql4);
                                                                         case 19:
                                                                             $statusMessage = 'Rejected by Principal';
                                                                             break;
-                                                                            case 20:
-                                                                                $statusMessage = 'Rejected by Manager';
-                                                                                break;
+                                                                        case 20:
+                                                                            $statusMessage = 'Rejected by Manager';
+                                                                            break;
                                                                         default:
                                                                             $statusMessage = 'Unknown Status';
                                                                     }
@@ -874,77 +820,77 @@ $result4 = mysqli_query($conn, $sql4);
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            <?php
-                                                                $s = 1;
-                                                                while ($row = mysqli_fetch_assoc($result3)) {
-                                                                    // Map the numeric status to a message
-                                                                    $statusMessage = '';
-                                                                    switch ($row['status']) {
-                                                                        case 1:
-                                                                            $statusMessage = 'Pending';
-                                                                            break;
-                                                                        case 2:
-                                                                            $statusMessage = 'Approved by Infra';
-                                                                            break;
-                                                                        case 3:
-                                                                            $statusMessage = 'Rejected by Infra';
-                                                                            break;
-                                                                        case 4:
-                                                                            $statusMessage = 'Approved by HOD';
-                                                                            break;
-                                                                        case 5:
-                                                                            $statusMessage = 'Rejected by HOD';
-                                                                            break;
-                                                                        case 6:
-                                                                            $statusMessage = 'Sent to Principal for Approval';
-                                                                            break;
-                                                                        case 7:
-                                                                            $statusMessage = 'Assigned to Worker';
-                                                                            break;
-                                                                        case 8:
-                                                                            $statusMessage = ' ';
-                                                                            break;
-                                                                        case 9:
-                                                                            $statusMessage = ' ';
-                                                                            break;
-                                                                        case 10:
-                                                                            $statusMessage = 'Worker In Progress';
-                                                                            break;
-                                                                        case 11:
-                                                                            $statusMessage = 'Waiting for Approval';
-                                                                            break;
-                                                                        case 12:
-                                                                            $statusMessage = ' ';
-                                                                            break;
-                                                                        case 13:
-                                                                            $statusMessage = 'Work Response';
-                                                                            break;
-                                                                        case 14:
-                                                                            $statusMessage = 'Feedback Sent to Manager';
-                                                                            break;
-                                                                        case 15:
-                                                                            $statusMessage = 'Reassigned';
-                                                                            break;
-                                                                        case 16:
-                                                                            $statusMessage = 'Work Completed';
-                                                                            break;
-                                                                        case 17:
-                                                                            $statusMessage = 'Inprogress';
-                                                                            break;
-                                                                        case 18:
-                                                                            $statusMessage = 'Waiting for approval';
-                                                                            break;
-                                                                            case 19:
-                                                                                $statusMessage = 'Rejected by Principal';
-                                                                                break;
-                                                                        case 20:
-                                                                            $statusMessage = 'Rejected by Manager';
-                                                                            break;
-                                                                        default:
-                                                                            $statusMessage = 'Unknown Status';
-                                                                    }
-                                                                ?>
-                                                
+                                                <?php
+                                                $s = 1;
+                                                while ($row = mysqli_fetch_assoc($result3)) {
+                                                    // Map the numeric status to a message
+                                                    $statusMessage = '';
+                                                    switch ($row['status']) {
+                                                        case 1:
+                                                            $statusMessage = 'Pending';
+                                                            break;
+                                                        case 2:
+                                                            $statusMessage = 'Approved by Infra';
+                                                            break;
+                                                        case 3:
+                                                            $statusMessage = 'Rejected by Infra';
+                                                            break;
+                                                        case 4:
+                                                            $statusMessage = 'Approved by HOD';
+                                                            break;
+                                                        case 5:
+                                                            $statusMessage = 'Rejected by HOD';
+                                                            break;
+                                                        case 6:
+                                                            $statusMessage = 'Sent to Principal for Approval';
+                                                            break;
+                                                        case 7:
+                                                            $statusMessage = 'Assigned to Worker';
+                                                            break;
+                                                        case 8:
+                                                            $statusMessage = ' ';
+                                                            break;
+                                                        case 9:
+                                                            $statusMessage = ' ';
+                                                            break;
+                                                        case 10:
+                                                            $statusMessage = 'Worker In Progress';
+                                                            break;
+                                                        case 11:
+                                                            $statusMessage = 'Waiting for Approval';
+                                                            break;
+                                                        case 12:
+                                                            $statusMessage = ' ';
+                                                            break;
+                                                        case 13:
+                                                            $statusMessage = 'Work Response';
+                                                            break;
+                                                        case 14:
+                                                            $statusMessage = 'Feedback Sent to Manager';
+                                                            break;
+                                                        case 15:
+                                                            $statusMessage = 'Reassigned';
+                                                            break;
+                                                        case 16:
+                                                            $statusMessage = 'Work Completed';
+                                                            break;
+                                                        case 17:
+                                                            $statusMessage = 'Inprogress';
+                                                            break;
+                                                        case 18:
+                                                            $statusMessage = 'Waiting for approval';
+                                                            break;
+                                                        case 19:
+                                                            $statusMessage = 'Rejected by Principal';
+                                                            break;
+                                                        case 20:
+                                                            $statusMessage = 'Rejected by Manager';
+                                                            break;
+                                                        default:
+                                                            $statusMessage = 'Unknown Status';
+                                                    }
+                                                ?>
+
                                                     <tr>
                                                         <td>
                                                             <?php echo $s; ?>
@@ -959,8 +905,8 @@ $result4 = mysqli_query($conn, $sql4);
                                                             <?php echo $row['problem_description']; ?>
                                                         </td>
                                                         <td>
-                                                        <?php echo $statusMessage; ?>
-                                                </td>
+                                                            <?php echo $statusMessage; ?>
+                                                        </td>
                                                         <td>
                                                             <?php echo $row['feedback']; ?>
                                                         </td>
@@ -1067,7 +1013,7 @@ $result4 = mysqli_query($conn, $sql4);
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-  <script>
+    <script>
         // Get today's date in the format 'YYYY-MM-DD'
         var today = new Date().toISOString().split('T')[0];
 
@@ -1077,8 +1023,8 @@ $result4 = mysqli_query($conn, $sql4);
         // Set the minimum and maximum date for the input field to today's date
         dateInput.setAttribute('min', today);
         dateInput.setAttribute('max', today);
-         // Set the value of the input field to today's date
-         dateInput.value = today;
+        // Set the value of the input field to today's date
+        dateInput.value = today;
     </script>
 
 
@@ -1089,7 +1035,7 @@ $result4 = mysqli_query($conn, $sql4);
 
             var ext = input.value.split(".");
             ext = ext[ext.length - 1].toLowerCase();
-            var arrayExtensions = ["jpg", "jpeg" , "png"];
+            var arrayExtensions = ["jpg", "jpeg", "png"];
 
             // Check file extension
             if (arrayExtensions.lastIndexOf(ext) == -1) {
@@ -1132,7 +1078,7 @@ $result4 = mysqli_query($conn, $sql4);
                             $('#cmodal').modal('hide');
                             $('#addnewuser')[0].reset(); // Reset the form
                             $('#user').load(location.href + " #user");
-                             // Optional: refresh the page to reflect changes
+                            // Optional: refresh the page to reflect changes
                         } else {
                             console.error("Error:", res.message);
                             alert("Something went wrong! Try again.");
@@ -1342,40 +1288,41 @@ $result4 = mysqli_query($conn, $sql4);
         });
 
         // display user
-        
-        $(document).ready(function() {
-        $('#cmodal').on('show.bs.modal', function() {
-        var faculty_id = $('#hidden_faculty_id').val();
-        $('#faculty_id').val(faculty_id);
 
-        if (faculty_id) {
-            $.ajax({
-                type: 'POST',
-                url: 'fbackend.php',
-                data: { action: 'fetch_faculty_details', faculty_id: faculty_id },
-                success: function(response) {
-                    var res = typeof response === 'string' ? JSON.parse(response) : response;
-                    if (res.status === 200) {
-                        var faculty = res.data;
-                        $('input[name="faculty_name"]').val(faculty.faculty_name);
-                        $('input[name="department"]').val(faculty.department);
-                        $('input[name="faculty_contact"]').val(faculty.faculty_contact);
-                        $('input[name="faculty_mail"]').val(faculty.faculty_mail);
-                    } else {
-                        console.error("Error:", res.message);
-                        alert("Faculty details could not be retrieved. Please check the Faculty ID.");
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("AJAX Error:", textStatus, errorThrown);
-                    alert("Failed to retrieve faculty details. Please try again.");
+        $(document).ready(function() {
+            $('#cmodal').on('show.bs.modal', function() {
+                var faculty_id = $('#hidden_faculty_id').val();
+                $('#faculty_id').val(faculty_id);
+
+                if (faculty_id) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'fbackend.php',
+                        data: {
+                            action: 'fetch_faculty_details',
+                            faculty_id: faculty_id
+                        },
+                        success: function(response) {
+                            var res = typeof response === 'string' ? JSON.parse(response) : response;
+                            if (res.status === 200) {
+                                var faculty = res.data;
+                                $('input[name="faculty_name"]').val(faculty.faculty_name);
+                                $('input[name="department"]').val(faculty.department);
+                                $('input[name="faculty_contact"]').val(faculty.faculty_contact);
+                                $('input[name="faculty_mail"]').val(faculty.faculty_mail);
+                            } else {
+                                console.error("Error:", res.message);
+                                alert("Faculty details could not be retrieved. Please check the Faculty ID.");
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.error("AJAX Error:", textStatus, errorThrown);
+                            alert("Failed to retrieve faculty details. Please try again.");
+                        }
+                    });
                 }
             });
-        }
-    });
-});
-
-
+        });
     </script>
 
 

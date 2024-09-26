@@ -4,6 +4,7 @@ session_start();
 if (isset($_SESSION['department'])) {
     $department = $_SESSION['department'];
 
+
    
 } else {
     die("Couldn't find department in session.");
