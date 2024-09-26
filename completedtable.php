@@ -224,14 +224,21 @@ $result4 = mysqli_query($conn, $sql4);
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="https://www.mkce.ac.in">
                         <!-- Logo icon -->
-                        <b class="logo-icon p-l-8">
+                        <b class="logo-icon p-l-10" style="padding-left:0px; border-left:0px;">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="assets/images/mkce.png" alt="homepage" class="light-logo" />
+                            <img src="assets/images/logo-icon.png" width="50px" alt="homepage" class="light-logo" />
+
                         </b>
                         <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span class="logo-text">
+                            <!-- dark Logo text -->
+                            <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" />
+
+                        </span>
                         <!-- Logo icon -->
                         <!-- <b class="logo-icon"> -->
                         <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->

@@ -508,4 +508,4 @@ document.getElementById('download').addEventListener('click', function () {
   XLSX.utils.book_append_sheet(wb, ws, "Complaints Data");
 
   // Create and trigger the download
-  XLSX.writeFile(wb, 'complaints_data.xlsx');});
+  XLSX.writeFile(wb, 'complaints_data.xlsx');});  
