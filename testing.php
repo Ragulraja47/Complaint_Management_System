@@ -412,7 +412,7 @@ $row_count7 = mysqli_num_rows($result7);
                                         <div class="table-responsive">
                                             <table id="record_table" class="table table-striped table-bordered">
                                                 <thead
-                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                    style=" background-color: #7460ee;  background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                     <tr>
                                                         <th><b>S.No</b></th>
                                                         <th><b>Work ID</b></th>
@@ -455,7 +455,7 @@ $row_count7 = mysqli_num_rows($result7);
                                         </div>
                                     </div>
                                     <!-- Complaint Table -->
-                                    <div class="tab-pane active" id="complain" role="tabpanel">
+                                    <div class="tab-pane active show" id="complain" role="tabpanel">
                                         <div class="table-responsive">
                                             <table id="complain_table" class="table table-striped table-bordered">
                                                 <thead
