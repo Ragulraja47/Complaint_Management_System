@@ -52,12 +52,6 @@ $row_count7 = mysqli_num_rows($result7);
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css" />
     <!-- Bootstrap theme alertify-->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css" />
-
-
-
-
-
-
     <style>
         .nav-tabs .nav-link {
             color: #0033cc;
