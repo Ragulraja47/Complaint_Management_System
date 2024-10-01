@@ -21,13 +21,13 @@ $result = mysqli_query($conn, $count);
 $row = mysqli_fetch_assoc($result);
 
 //in progress count
-$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status IN (17,10)";
+$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status IN '10'";
 
 $result1 = mysqli_query($conn, $count1);
 $row1 = mysqli_fetch_assoc($result1);
 
 //count of waiting for approval
-$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status IN (18,11)";
+$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status IN  '18'";
 
 $result2 = mysqli_query($conn, $count2);
 $row2 = mysqli_fetch_assoc($result2);
