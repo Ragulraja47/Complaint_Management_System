@@ -15,26 +15,26 @@ $dbname = "complaints"; // Your database name
 
 $conn = new mysqli($host, $user, $password, $dbname);
 //completed count
-$count = "SELECT COUNT(*) AS count FROM complaints_detail WHERE status = '16'";
+$count = "SELECT COUNT(*) AS count FROM complaints_detail WHERE status = '16' And type_of_problem = '$department1'";
 
 $result = mysqli_query($conn, $count);
 $row = mysqli_fetch_assoc($result);
 
 //in progress count
-$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status IN (17,10)";
+$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status IN (17,10) And type_of_problem = '$department1'";
 
 $result1 = mysqli_query($conn, $count1);
 $row1 = mysqli_fetch_assoc($result1);
 
 //count of waiting for approval
-$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status IN (18,11)";
+$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status IN (18,11) And type_of_problem = '$department1'";
 
 $result2 = mysqli_query($conn, $count2);
 $row2 = mysqli_fetch_assoc($result2);
 
 //new task count
 
-$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status = '7'";
+$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status = '7' And type_of_problem = '$department1'";
 
 $result3 = mysqli_query($conn, $count3);
 $row3 = mysqli_fetch_assoc($result3);
@@ -104,15 +104,13 @@ $row3 = mysqli_fetch_assoc($result3);
             <div class="scroll-sidebar"><br>
                 <nav class="sidebar-nav">
                 <ul id="sidebarnav" class="p-t-30">
-                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
-                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
-
-                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="civil.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CIVIL</span></a></li>
-                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="carpenter.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CARPENTER</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="electrical.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">ELECTRICAL</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="infra.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">IT INFRA</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="partition.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PARTITION</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="plumbing.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PLUMBING</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="worker_taskhistory.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CARPENTER</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="worker_taskhistory.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CIVIL</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="worker_taskhistory.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">ELECTRICAL</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="worker_taskhistory.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">IT INFRA</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="worker_taskhistory.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PARTITION</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="worker_taskhistory.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PLUMBING</span></a></li>
 
 
 

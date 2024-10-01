@@ -50,7 +50,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = '$department'
+m.worker_id = 'ELECTRICAL'
 AND cd.status = '7'";
 // Filter by department
 $stmt = $conn->prepare($sql);
@@ -86,8 +86,8 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = '$department'
-AND cd.status = '17' or cd.status = '10'";
+m.worker_id = 'ELECTRICAL'
+AND cd.status = '10'";
 // Filter by department
 $stmt = $conn->prepare($sql1);
 $stmt->execute();
@@ -121,7 +121,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = '$department' AND cd.status = '11'or cd.status = '18'";
+m.worker_id = 'ELECTRICAL' AND cd.status = '11'or cd.status = '18'";
 // Filter by department
 $stmt = $conn->prepare($sql2);
 $stmt->execute();
@@ -155,7 +155,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = '$department'
+m.worker_id = 'ELECTRICAL'
 AND cd.status = '16'";
 // Filter by department
 $stmt = $conn->prepare($sql3);
@@ -190,7 +190,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = '$department' AND cd.status = '15'";
+m.worker_id = 'ELECTRICAL' AND cd.status = '15'";
 // Filter by department
 $stmt = $conn->prepare($sql4);
 $stmt->execute();
@@ -326,10 +326,21 @@ $notcount = mysqli_num_rows($result4);
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
-                    <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.php" aria-expanded="false"><i class="mdi mdi-account-circle"></i><span class="hide-menu">Profile</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="worker_taskhistory.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Task History</span></a></li>
+                <ul id="sidebarnav" class="p-t-30">
+                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
+                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
+
+                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="civil.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CIVIL</span></a></li>
+                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="carpenter.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CARPENTER</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="electrical.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">ELECTRICAL</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="infra.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">IT INFRA</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="partition.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PARTITION</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="plumbing.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PLUMBING</span></a></li>
+
+
+
+
+
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="worker_helpline.html" aria-expanded="false"><i class="mdi mdi-phone"></i><span class="hide-menu">Helpline</span></a></li>
                     </ul>
                 </nav>
@@ -377,7 +388,8 @@ $notcount = mysqli_num_rows($result4);
                     <div class="col-md-12">
 
                         <!-- Tabs -->
-                        <div class="card" id="navref">
+                        <div class="card" >
+                            <div id="navref">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist" id="navli">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#completed"
@@ -396,6 +408,9 @@ $notcount = mysqli_num_rows($result4);
                                         role="tab"><span class="hidden-sm-up"></span> <span
                                             class="hidden-xs-down"><b>WaitingForApproval(<?php echo $waitcount ?>)</b></span></a> </li>
                             </ul>
+                            </div>
+
+    
                             <!-- Tab panes -->
                             <div class="tab-content tabcontent-border">
                                 <!--completed start-->
@@ -1163,6 +1178,8 @@ $notcount = mysqli_num_rows($result4);
                         if(res.status == 200) {
                             $('#addnewtask').load(location.href + " #addnewtask");
                             $('#statusinprogress').load(location.href + " #statusinprogress");
+                            $('#navref').load(location.href + " #navref");
+
 
 
 
@@ -1248,6 +1265,8 @@ $notcount = mysqli_num_rows($result4);
                 // Refresh specific sections dynamically
                 setTimeout(function() {
                     $('#approval').load(location.href + ' #approval > *');
+                    $('#navref').load(location.href + " #navref");
+
                     $('#statusinprogress').load(location.href + ' #statusinprogress > *');
                 }, 500); // Adding a delay to ensure the sections are reloaded after the update
             },
