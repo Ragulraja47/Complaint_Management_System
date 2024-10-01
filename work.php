@@ -639,7 +639,7 @@ input[type="text"]:focus {
                                                                         <li><a href="#" class="worker-option"
                                                                                 data-toggle="modal"
                                                                                 data-target="#prioritymodal1"
-                                                                                data-value="IT INFRA">IT INFRA</a></li>
+                                                                                data-value="IT INFRA">INFRA</a></li>
                                                                     </center>
                                                                 </ul>
                                                                
