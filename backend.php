@@ -63,30 +63,35 @@ if (isset($_POST['fetch_details'])) {
 
 }  
 
-if (isset($_POST['update_status'])) {
-    $task_id = isset($_POST['task_id']) ? intval($_POST['task_id']) : null;
+if (isset($_POST['start_work'])) {
+    $id = $_POST['task_id'];
 
-    if ($task_id === null) {
-        echo json_encode(['error' => 'Task ID not provided']);
-        exit;
-    }
+   
 
     $sql = "UPDATE complaints_detail 
             SET status = 10 
-            WHERE id = (SELECT problem_id FROM manager WHERE task_id = ?)";
+            WHERE id = (SELECT problem_id FROM manager WHERE task_id = '$id')";
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $task_id);
+$query_run = mysqli_query($conn, $sql);
+if($query_run){
+    $res =[
+        "status" => 200,
+        "message" => "Work started successfully"
+    ];
+    echo json_encode($res);
+}
+else{
+    $res =[
+        "status" => 500,
+        "message" => "Work could not be started"
+    ];
+    echo json_encode($res);
+}
+}
 
-    if ($stmt->execute()) {
-        echo json_encode(['success' => 'Status updated successfully']);
-    } else {
-        echo json_encode(['error' => 'Failed to update status']);
-    }
+   
 
-    $stmt->close();
 
-} 
 
 $conn->close();
 ?>

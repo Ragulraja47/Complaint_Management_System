@@ -1155,34 +1155,28 @@ $notcount = mysqli_num_rows($result4);
                     url: 'backend.php',
                     type: 'POST',
                     data: {
-                        update_status: true,
+                        start_work: true,
                         task_id: taskId
                     },
                     success: function(response) {
-
-                        try {
-                            var data = JSON.parse(response); // Parse JSON response
-
-                            if (data.error) {
-                                alert(data.error);
-                            } else {
-                                $('#statusinprogress').load(location.href + "#statusinprogress >*");
-                                $('#addnewtask').load(location.href + ' #addnewtask');
-                                $('#navref').load(location.href + ' #navref');
+                        var res = jQuery.parseJSON(response);
+                        if(res.status == 200) {
+                            $('#addnewtask').load(location.href + " #addnewtask");
+                            $('#statusinprogress').load(location.href + " #statusinprogress");
 
 
 
-                            }
-                        } catch (e) {
-                            alert('Error parsing JSON response.');
+
                         }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        alert('AJAX request failed: ' + textStatus);
+                        else{
+                            alert('Something went wrong')
+                        }
                     }
                 });
             });
         });
+
+            
         </script>
 <script>
         //work completed status in inprogress table
@@ -1254,7 +1248,6 @@ $notcount = mysqli_num_rows($result4);
                 // Refresh specific sections dynamically
                 setTimeout(function() {
                     $('#approval').load(location.href + ' #approval > *');
-                    $('#navref').load(location.href + ' #navref > *');
                     $('#statusinprogress').load(location.href + ' #statusinprogress > *');
                 }, 500); // Adding a delay to ensure the sections are reloaded after the update
             },
