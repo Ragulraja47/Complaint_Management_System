@@ -2,7 +2,7 @@
 //session for department
 session_start();
 
-    $department1 = $_SESSION['department'];
+    $department1 = $_SESSION['worker_id'];
    
 
 
