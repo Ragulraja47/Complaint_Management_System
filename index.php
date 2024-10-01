@@ -1,8 +1,5 @@
 <?php
-//session for department
-session_start();
 
-    $department1 = $_SESSION['worker_id'];
    
 
 
@@ -21,20 +18,20 @@ $result = mysqli_query($conn, $count);
 $row = mysqli_fetch_assoc($result);
 
 //in progress count
-$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status IN '10'";
+$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status = '10'";
 
 $result1 = mysqli_query($conn, $count1);
 $row1 = mysqli_fetch_assoc($result1);
 
 //count of waiting for approval
-$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status IN  '18'";
+$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status ='18'";
 
 $result2 = mysqli_query($conn, $count2);
 $row2 = mysqli_fetch_assoc($result2);
 
 //new task count
 
-$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status = '7'";
+$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status  ='7'";
 
 $result3 = mysqli_query($conn, $count3);
 $row3 = mysqli_fetch_assoc($result3);
