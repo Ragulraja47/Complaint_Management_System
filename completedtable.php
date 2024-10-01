@@ -1,3 +1,4 @@
+
 <?php
 session_start(); // Start the session
 
@@ -73,7 +74,7 @@ $row_count4 = mysqli_num_rows($result4);
             background-color: #7460ee;
             background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
             color: white;
-        } 
+        }
 
 
         .text-right {
@@ -209,7 +210,7 @@ $row_count4 = mysqli_num_rows($result4);
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30 in">
-                        
+
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completedtable.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Complaints</span></a>
@@ -222,91 +223,79 @@ $row_count4 = mysqli_num_rows($result4);
             <!-- End Sidebar scroll-->
         </aside>
         <div class="page-wrapper">
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-12 d-flex no-block align-items-center">
-                        <div class="ml-auto text-right">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Profile Information</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-body wizard-content">
                         <h4 class="card-title">Work Information</h4>
                         <h6 class="card-subtitle"></h6>
                         <div class="card">
-                            <ul class="nav nav-tabs mb-3" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active show" data-toggle="tab" href="#dashboard" role="tab" aria-selected="false">
-                                        <span class="hidden-sm-up"></span>
-                                        <span class="hidden-xs-down">
-                                            <i class="bi bi-people-fill"></i><b>Dashboard</b>
-                                        </span>
-                                    </a>
-                                </li>
+                            <div id="navref">
+                                <ul class="nav nav-tabs mb-3" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active show" data-toggle="tab" href="#dashboard" role="tab" aria-selected="false">
+                                            <span class="hidden-sm-up"></span>
+                                            <span class="hidden-xs-down">
+                                                <i class="bi bi-people-fill"></i><b>Dashboard</b>
+                                            </span>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#home" role="tab" aria-selected="false">
-                                        <span class="hidden-sm-up"></span>
-                                        <span class="hidden-xs-down">
-                                            <i class="bi bi-people-fill"></i>
-                                            <i class="fas fa-exclamation"></i>
-                                            <b>&nbsp Pending Work (<?php echo $row_count5; ?>)</b>
-                                        </span>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#home" role="tab" aria-selected="false">
+                                            <span class="hidden-sm-up"></span>
+                                            <span class="hidden-xs-down">
+                                                <i class="bi bi-people-fill"></i>
+                                                <i class="fas fa-exclamation"></i>
+                                                <b>&nbsp Pending Work (<?php echo $row_count5; ?>)</b>
+                                            </span>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#inprogress" role="tab" aria-selected="false">
-                                        <span class="hidden-sm-up"></span>
-                                        <span class="hidden-xs-down">
-                                            <i class="bi bi-people-fill"></i>
-                                            <i class="fas fa-clock"></i>
-                                            <b>&nbsp Work-In Progress (<?php echo $row_count1; ?>)</b>
-                                        </span>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#inprogress" role="tab" aria-selected="false">
+                                            <span class="hidden-sm-up"></span>
+                                            <span class="hidden-xs-down">
+                                                <i class="bi bi-people-fill"></i>
+                                                <i class="fas fa-clock"></i>
+                                                <b>&nbsp Work-In Progress (<?php echo $row_count1; ?>)</b>
+                                            </span>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#completed" role="tab">
-                                        <span class="hidden-sm-up"></span>
-                                        <span class="hidden-xs-down">
-                                            <i class="bi bi-house-door-fill"></i>
-                                            <i class="mdi mdi-check-all"></i>
-                                            <b>&nbsp Completed Work (<?php echo $row_count2; ?>)</b>
-                                        </span>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#completed" role="tab">
+                                            <span class="hidden-sm-up"></span>
+                                            <span class="hidden-xs-down">
+                                                <i class="bi bi-house-door-fill"></i>
+                                                <i class="mdi mdi-check-all"></i>
+                                                <b>&nbsp Completed Work (<?php echo $row_count2; ?>)</b>
+                                            </span>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#parents" role="tab">
-                                        <span class="hidden-sm-up"></span>
-                                        <span class="hidden-xs-down">
-                                            <i class="bi bi-house-door-fill"></i>
-                                            <i class="mdi mdi-close-circle"></i>
-                                            <b>&nbsp Rejected Work (<?php echo $row_count3; ?>)</b>
-                                        </span>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#parents" role="tab">
+                                            <span class="hidden-sm-up"></span>
+                                            <span class="hidden-xs-down">
+                                                <i class="bi bi-house-door-fill"></i>
+                                                <i class="mdi mdi-close-circle"></i>
+                                                <b>&nbsp Rejected Work (<?php echo $row_count3; ?>)</b>
+                                            </span>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#reassign" role="tab">
-                                        <span class="hidden-sm-up"></span>
-                                        <span class="hidden-xs-down">
-                                            <i class="bi bi-house-door-fill"></i>
-                                            <i class="fas fa-redo"></i>
-                                            <b>&nbsp Reassigned Work (<?php echo $row_count4; ?>)</b>
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#reassign" role="tab">
+                                            <span class="hidden-sm-up"></span>
+                                            <span class="hidden-xs-down">
+                                                <i class="bi bi-house-door-fill"></i>
+                                                <i class="fas fa-redo"></i>
+                                                <b>&nbsp Reassigned Work (<?php echo $row_count4; ?>)</b>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
 
                             <div class="tab-content tabcontent-border">
                                 <!-----------------------------------DashBoard---------------------------------------->
@@ -316,58 +305,60 @@ $row_count4 = mysqli_num_rows($result4);
                                     </div><br>
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-12 col-md-3 mb-3">
-                                                    <div class="cir">
-                                                        <div class="bo">
-                                                            <div class="content1">
-                                                                <div class="stats-box text-center p-3"
-                                                                    style="background-color:rgb(252, 119, 71);">
-                                                                    <i class="fas fa-bell m-b-5 font-20"></i>
-                                                                    <h1 class="m-b-0 m-t-5"><?php echo $row_count5; ?></h1>
-                                                                    <small class="font-light">Pending</small>
+                                            <div id="dashref">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-3 mb-3">
+                                                        <div class="cir">
+                                                            <div class="bo">
+                                                                <div class="content1">
+                                                                    <div class="stats-box text-center p-3"
+                                                                        style="background-color:rgb(252, 119, 71);">
+                                                                        <i class="fas fa-bell m-b-5 font-20"></i>
+                                                                        <h1 class="m-b-0 m-t-5"><?php echo $row_count5; ?></h1>
+                                                                        <small class="font-light">Pending</small>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 col-md-3 mb-3">
-                                                    <div class="cir">
-                                                        <div class="bo">
-                                                            <div class="content1">
-                                                                <div class="stats-box text-center p-3"
-                                                                    style="background-color:rgb(241, 74, 74);">
-                                                                    <i class="fas fa-exclamation m-b-5 font-16"></i>
-                                                                    <h1 class="m-b-0 m-t-5"><?php echo $row_count1; ?></h1>
-                                                                    <small class="font-light">work in progress</small>
+                                                    <div class="col-12 col-md-3 mb-3">
+                                                        <div class="cir">
+                                                            <div class="bo">
+                                                                <div class="content1">
+                                                                    <div class="stats-box text-center p-3"
+                                                                        style="background-color:rgb(241, 74, 74);">
+                                                                        <i class="fas fa-exclamation m-b-5 font-16"></i>
+                                                                        <h1 class="m-b-0 m-t-5"><?php echo $row_count1; ?></h1>
+                                                                        <small class="font-light">work in progress</small>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 col-md-3 mb-3">
-                                                    <div class="cir">
-                                                        <div class="bo">
-                                                            <div class="content1">
-                                                                <div class="stats-box text-center p-3"
-                                                                    style="background-color:rgb(70, 160, 70);">
-                                                                    <i class="fas fa-check m-b-5 font-20"></i>
-                                                                    <h1 class="m-b-0 m-t-5"><?php echo $row_count2; ?></h1>
-                                                                    <small class="font-light">Completed</small>
+                                                    <div class="col-12 col-md-3 mb-3">
+                                                        <div class="cir">
+                                                            <div class="bo">
+                                                                <div class="content1">
+                                                                    <div class="stats-box text-center p-3"
+                                                                        style="background-color:rgb(70, 160, 70);">
+                                                                        <i class="fas fa-check m-b-5 font-20"></i>
+                                                                        <h1 class="m-b-0 m-t-5"><?php echo $row_count2; ?></h1>
+                                                                        <small class="font-light">Completed</small>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 col-md-3 mb-3">
-                                                    <div class="cir">
-                                                        <div class="bo">
-                                                            <div class="content1">
-                                                                <div class="stats-box text-center p-3"
-                                                                    style="background-color: rgb(187, 187, 35);">
-                                                                    <i class="fas fa-redo m-b-5 font-20"></i>
-                                                                    <h1 class="m-b-0 m-t-5"><?php echo $row_count4; ?></h1>
-                                                                    <small class="font-light">Re-assigned</small>
+                                                    <div class="col-12 col-md-3 mb-3">
+                                                        <div class="cir">
+                                                            <div class="bo">
+                                                                <div class="content1">
+                                                                    <div class="stats-box text-center p-3"
+                                                                        style="background-color: rgb(187, 187, 35);">
+                                                                        <i class="fas fa-redo m-b-5 font-20"></i>
+                                                                        <h1 class="m-b-0 m-t-5"><?php echo $row_count4; ?></h1>
+                                                                        <small class="font-light">Re-assigned</small>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -513,7 +504,6 @@ $row_count4 = mysqli_num_rows($result4);
                                                                     <th><b>Date Of submission</b></th>
                                                                     <th><b>Photo</b></th>
                                                                     <th><b>Status</b></th>
-                                                                    <th><b>Action</b></th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -596,13 +586,11 @@ $row_count4 = mysqli_num_rows($result4);
                                                                         <td>
                                                                             <button type="button" class="btn btn-info showImage" value="<?php echo $row['id']; ?>">View</button>
                                                                         </td>
-                                                                        <!-- Display the status message instead of numeric status -->
-                                                                        <td><?php echo $statusMessage; ?></td>
                                                                         <td>
                                                                             <?php if ($row['status'] == 1) { ?>
                                                                                 <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-danger btndelete">Delete</button>
                                                                             <?php } else { ?>
-                                                                                <button type="button" disabled>Delete</button>
+                                                                                <?php echo $statusMessage; ?>
                                                                             <?php } ?>
                                                                         </td>
                                                                     </tr>
@@ -1084,6 +1072,8 @@ $row_count4 = mysqli_num_rows($result4);
                             $('#cmodal').modal('hide');
                             $('#addnewuser')[0].reset(); // Reset the form
                             $('#user').load(location.href + " #user");
+                            $('#navref').load(location.href + " #navref");
+                            $('#dashref').load(location.href + " #dashref");
                             // Optional: refresh the page to reflect changes
                         } else {
                             console.error("Error:", res.message);
@@ -1119,6 +1109,9 @@ $row_count4 = mysqli_num_rows($result4);
                             } else {
                                 swal("User deleted successfully", "", "success");
                                 $('#user').load(location.href + " #user>*", ""); // Reload the table content
+                                $('#navref').load(location.href + " #navref");
+                                
+                            $('#dashref').load(location.href + " #dashref");
                             }
 
                         },
@@ -1282,6 +1275,9 @@ $row_count4 = mysqli_num_rows($result4);
                         $('#ProgressTable').load(location.href + " #ProgressTable");
                         $('#completedTable').load(location.href + " #completedTable");
                         $('#reassignTable').load(location.href + " #reassignTable");
+                        $('#navref').load(location.href + " #navref");
+                        
+                        $('#dashref').load(location.href + " #dashref");
                     } else {
                         alert(response.message || 'An error occurred while submitting feedback.');
                     }
