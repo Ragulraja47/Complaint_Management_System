@@ -1,16 +1,4 @@
 <?php
-session_start();
-
-if (isset($_SESSION['department'])) {
-    $department = $_SESSION['department'];
-
-
-   
-} else {
-    die("Couldn't find department in session.");
-}
-
-
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -26,6 +14,7 @@ if ($conn->connect_error) {
 
 // Prepare and execute the query to filter by department
 //New task query
+
 $sql = "SELECT 
 cd.id,
 cd.faculty_id,
@@ -214,7 +203,7 @@ $notcount = mysqli_num_rows($result4);
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-    <title>MKCE_CMS</title>
+    <title>Plumbing</title>
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -362,12 +351,12 @@ $notcount = mysqli_num_rows($result4);
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Task History</h4>
+                        <h4 class="page-title">Plumbing</h4>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Task History</li>
+                                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Plumbing</li>
                                 </ol>
                             </nav>
                         </div>
