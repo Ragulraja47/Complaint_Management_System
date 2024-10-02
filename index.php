@@ -143,7 +143,7 @@ $row3 = mysqli_fetch_assoc($result3);
                         <div class="card card-hover">
                             <div class="box bg-cyan text-center">
                                 <h1 class="font-light text-white"><i class="fas fa-user"></i></h1>
-                                <h3 class="text-white"><b> Worker Name <br></b></h3>
+                                <h3 class="text-white"><b> Name <br></b></h3>
                                 <h5 class="text-white" id="workerName" ></h5>
 
                             </div>
@@ -163,7 +163,7 @@ $row3 = mysqli_fetch_assoc($result3);
                         <div class="card card-hover">
                             <div class="box bg-warning text-center">
                                 <h1 class="font-light text-white"><i class="mdi mdi-account-card-details"></i></h1>
-                                <h3 class="text-white"><b>Department<br></b></h3>
+                                <h3 class="text-white"><b>Designation<br></b></h3>
                                 <h5 id="workerdepartment" class="text-white" ></h5>
 
 
