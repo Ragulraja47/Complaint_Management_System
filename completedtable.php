@@ -1,4 +1,3 @@
-
 <?php
 session_start(); // Start the session
 
@@ -61,75 +60,159 @@ $row_count4 = mysqli_num_rows($result4);
     <link rel="icon" href="assets/images/favicon.png">
     <link rel="stylesheet" href="assets/css/styles.css">
     <style>
-        .nav-tabs .nav-link {
-            color: #0033cc;
-        }
+    .nav-tabs .nav-link {
+    color: #0033cc;
+}
 
-        .nav-tabs .nav-link.active {
-            background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
-            color: white;
-        }
+.nav-tabs .nav-link.active {
+    background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
+    color: white;
+}
 
-        th {
-            background-color: #7460ee;
-            background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
-            color: white;
-        }
+th {
+    background-color: #7460ee;
+    background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
+    color: white;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+/* Button styling */
+.btn span {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: all .4s ease;
+}
+
+button svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.btn span:nth-child(2),
+.btn span:nth-child(3) {
+    position: absolute;
+    top: 40px;
+    color: #fff;
+}
+
+.btn span:nth-child(2) {
+    background-color: #488aec;
+}
+
+.btn span:nth-child(3) {
+    background-color: #488aec;
+}
+
+.btn:hover {
+    box-shadow: 0 10px 15px -3px #488aec4f, 0 4px 6px -2px #488aec17;
+}
+
+.btn:hover span:nth-child(2),
+.btn:focus span:nth-child(3) {
+    top: 0;
+}
+
+.btn:focus {
+    box-shadow: none;
+}
 
 
-        .text-right {
-            text-align: right;
-        }
+/* Close button (X) styling */
+.modal-header .modal-title {
+  color: white;
+}
+.spbutton {
+    position: relative;
+    width: 2em;
+    height: 2em;
+    border: none;
+    background: rgba(180, 83, 107, 0.11);
+    border-radius: 5px;
+    transition: background 0.5s;
+}
 
-        .text-left {
-            text-align: left;
-        }
+.spbutton::before,
+.spbutton::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1em;
+    height: 1.5px;
+    background-color: white;
+    transform: translateX(-50%) rotate(45deg);
+}
 
+.spbutton::after {
+    transform: translateX(-50%) rotate(-45deg);
+}
 
+.spbutton:hover {
+    background-color: rgb(211, 21, 21);
+}
 
-        .btn span {
-            height: 100%;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            transition: all .4s ease;
-        }
+.spbutton:active {
+    background-color: rgb(130, 0, 0);
+}
+/* delete button */
+/* From Uiverse.io by boryanakrasteva */ 
+.fbtn {
+  background-color: transparent;
+  position: relative;
+  border: none;
+}
 
-        button svg {
-            width: 1.25rem;
-            height: 1.25rem;
-        }
+.fbtn::after {
+  content: 'delete';
+  position: absolute;
+  top: -130%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(168, 7, 7);
+  padding: 4px 8px;
+  border-radius: 5px;
+  transition: .2s linear;
+  transition-delay: .2s;
+  color: white;
+  text-transform: uppercase;
+  font-size: 12px;
+  opacity: 0;
+  visibility: hidden;
+}
 
-        .btn span:nth-child(2),
-        .btn span:nth-child(3) {
-            position: absolute;
-            top: 40px;
-            color: #fff;
-        }
+.icon {
+  transform: scale(1.2);
+  transition: .2s linear;
+}
 
-        .btn span:nth-child(2) {
-            background-color: #488aec;
-        }
+.fbtn:hover > .icon {
+  transform: scale(1.5);
+}
 
-        .btn span:nth-child(3) {
-            background-color: #488aec;
-        }
+.fbtn:hover > .icon path {
+  fill: rgb(168, 7, 7);
+}
 
-        .btn:hover {
-            box-shadow: 0 10px 15px -3px #488aec4f, 0 4px 6px -2px #488aec17;
-        }
+.btn:hover::after {
+  visibility: visible;
+  opacity: 1;
+  top: -160%;
+}
 
-        .btn:hover span:nth-child(2),
-        .btn:focus span:nth-child(3) {
-            top: 0;
-        }
-
-        .btn:focus {
-            box-shadow: none;
-        }
-    </style>
+</style>
 </head>
 
 <body>
@@ -378,10 +461,10 @@ $row_count4 = mysqli_num_rows($result4);
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <div class="modal-header">
+                                                <div class="modal-header" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);background-color:#7460ee;">
                                                     <h5 class="modal-title" id="exampleModalLabel">Raise Complaint</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"><i class="mdi mdi-close"></i></button>
+                                                    <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close">
                                                 </div>
                                                 <div>
                                                     <form id="addnewuser" enctype="multipart/form-data">
@@ -470,9 +553,10 @@ $row_count4 = mysqli_num_rows($result4);
                                     <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <div class="modal-header">
+                                                <div class="modal-header" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);background-color:#7460ee;">
                                                     <h5 class="modal-title" id="statusModalLabel">Status</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close">
                                                 </div>
                                                 <div class="modal-body">
                                                     <p id="statusDetails"></p> <!-- Status message will be displayed here -->
@@ -518,19 +602,19 @@ $row_count4 = mysqli_num_rows($result4);
                                                                             break;
                                                                         case 2:
                                                                             $statusMessage = 'Approved by Infra';
-                                                                            break;                                                                        
+                                                                            break;
                                                                         case 4:
                                                                             $statusMessage = 'Approved by HOD';
-                                                                            break;                                                                      
+                                                                            break;
                                                                         case 6:
                                                                             $statusMessage = 'Sent to Principal for Approval';
-                                                                            break;                                                                        
+                                                                            break;
                                                                         case 8:
                                                                             $statusMessage = 'Approved by Principal ';
                                                                             break;
                                                                         case 9:
                                                                             $statusMessage = ' Approved by Manager';
-                                                                            break;                                                                    
+                                                                            break;
                                                                         default:
                                                                             $statusMessage = 'Unknown Status';
                                                                     }
@@ -546,7 +630,15 @@ $row_count4 = mysqli_num_rows($result4);
                                                                         </td>
                                                                         <td>
                                                                             <?php if ($row['status'] == 1) { ?>
-                                                                                <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-danger btndelete">Delete</button>
+                                                                                <center>
+<button class="fbtn btndelete" type="button" value="<?php echo $row['id']; ?>">
+  <svg viewBox="0 0 15 17.5" height="17.5" width="15" xmlns="http://www.w3.org/2000/svg" class="icon">
+  <path transform="translate(-2.5 -1.25)" d="M15,18.75H5A1.251,1.251,0,0,1,3.75,17.5V5H2.5V3.75h15V5H16.25V17.5A1.251,1.251,0,0,1,15,18.75ZM5,5V17.5H15V5Zm7.5,10H11.25V7.5H12.5V15ZM8.75,15H7.5V7.5H8.75V15ZM12.5,2.5h-5V1.25h5V2.5Z" id="Fill"></path>
+</svg>
+</button>
+                                                                                    
+                                                                                </center>
+
                                                                             <?php } else { ?>
                                                                                 <?php echo $statusMessage; ?>
                                                                             <?php } ?>
@@ -571,9 +663,10 @@ $row_count4 = mysqli_num_rows($result4);
                                 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div class="modal-header" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);background-color:#7460ee;">
                                                 <h5 class="modal-title" id="imageModalLabel">Image</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="mdi mdi-close"></i></button>
+                                                <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close">
                                             </div>
                                             <div class="modal-body">
                                                 <img id="modalImage" src="" alt="Image" class="img-fluid" style="width: 100%; height: auto;">
@@ -641,34 +734,48 @@ $row_count4 = mysqli_num_rows($result4);
                                 </div>
                                 <!------------------Work in Progress Ends----------------->
 
-                                <!-- Worker Details Modal -->
-                                <div class="modal fade" id="workerModal" tabindex="-1" aria-labelledby="workerModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="workerModalLabel">Worker Details</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="mdi mdi-close"></i></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p><strong>Name:</strong> <span id="workerName"></span></p>
-                                                <p><strong>Contact:</strong> <span id="workerContact"></span></p>
-                                                <p><strong>Email:</strong> <span id="workerEmail"></span></p>
-                                                <!-- Call button -->
-                                                <div class="d-flex justify-content-end">
-                                                    <a href="#" id="callWorkerBtn" class="btn btn-success">Call Worker</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                               <!-- Worker Details Modal -->
+<div class="modal fade" id="workerModal" tabindex="-1" aria-labelledby="workerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); background-color: #7460ee; color: white;">
+                <h5 class="modal-title" id="workerModalLabel">Worker Details</h5>
+                <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Name Box -->
+                <div class="box" style="background-color: #f7f7f7; border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 5px;">
+                    <p><strong>Name:</strong> <span id="workerName"></span></p>
+                </div>
+                
+                <!-- Contact Box -->
+                <div class="box" style="background-color: #f7f7f7; border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 5px;">
+                    <p><strong>Contact:</strong> <span id="workerContact"></span></p>
+                </div>
+
+                <!-- Email Box -->
+                <div class="box" style="background-color: #f7f7f7; border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 5px;">
+                    <p><strong>Email:</strong> <span id="workerEmail"></span></p>
+                </div>
+
+                <!-- Call button -->
+                <div class="d-flex justify-content-end">
+                    <a href="#" id="callWorkerBtn" class="btn btn-success">Call Worker</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
                                 <!-- Feedback Modal -->
                                 <div class="modal fade" id="feedback_modal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div class="modal-header" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);background-color:#7460ee;">
                                                 <h5 class="modal-title" id="feedbackModalLabel">Feedback Form</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="mdi mdi-close"></i></button>
+                                                <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close">
                                             </div>
                                             <div class="modal-body">
                                                 <form id="add_feedback">
@@ -783,7 +890,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                             break;
                                                         case 5:
                                                             $statusMessage = 'Rejected by HOD';
-                                                            break;                                                       
+                                                            break;
                                                         case 19:
                                                             $statusMessage = 'Rejected by Principal';
                                                             break;
@@ -1017,11 +1124,11 @@ $row_count4 = mysqli_num_rows($result4);
                             if (res.status === 500) {
                                 alert(res.message);
                             } else {
-                                swal("User deleted successfully", "", "success");
+                                swal("Complaint deleted successfully", "", "success");
                                 $('#user').load(location.href + " #user>*", ""); // Reload the table content
                                 $('#navref').load(location.href + " #navref");
-                                
-                            $('#dashref').load(location.href + " #dashref");
+
+                                $('#dashref').load(location.href + " #dashref");
                             }
 
                         },
@@ -1186,7 +1293,7 @@ $row_count4 = mysqli_num_rows($result4);
                         $('#completedTable').load(location.href + " #completedTable");
                         $('#reassignTable').load(location.href + " #reassignTable");
                         $('#navref').load(location.href + " #navref");
-                        
+
                         $('#dashref').load(location.href + " #dashref");
                     } else {
                         alert(response.message || 'An error occurred while submitting feedback.');
