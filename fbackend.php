@@ -199,15 +199,15 @@ if (isset($_POST['get_status_details'])) {
         } elseif ($status == 7) {
             $statusMessage = 'Assigned to worker';
         } elseif ($status == 8) {
-            $statusMessage = ' ';
+            $statusMessage = 'Approved by Principal ';
         } elseif ($status == 9) {
-            $statusMessage = ' ';
+            $statusMessage = 'Approved by Manager ';
         } elseif ($status == 10) {
             $statusMessage = 'worker inprogress';
         } elseif ($status == 11) {
             $statusMessage = 'waiting for approval';
         } elseif ($status == 12) {
-            $statusMessage = ' ';
+            $statusMessage = 'Satisfied by Faculty';
         } elseif ($status == 13) {
             $statusMessage = 'Work completed';
         } elseif ($status == 14) {
