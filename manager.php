@@ -14,7 +14,7 @@ $result3 = mysqli_query($conn, $sql3);
 $row_count3 = mysqli_num_rows($result3);
 
 //Principal Approval
-$sql4 = "SELECT * FROM complaints_detail WHERE status IN ('9','19')";
+$sql4 = "SELECT * FROM complaints_detail WHERE status IN ('8','19')";
 $result4 = mysqli_query($conn, $sql4);
 $row_count4 = mysqli_num_rows($result4);
 //work finished table
@@ -462,7 +462,7 @@ $row_count7 = mysqli_num_rows($result7);
                                         <a class="nav-link" id="principal-tab" href="#principal" role="tab"
                                             aria-selected="false">
                                             <span class="hidden-xs-down">
-                                                <i class="bi bi-people-fill"></i><b>Principal Approved(<?php echo $row_count4; ?>)</b>
+                                                <i class="bi bi-people-fill"></i><b>Principal Approval(<?php echo $row_count4; ?>)</b>
                                             </span>
                                         </a>
                                     </li>
@@ -862,7 +862,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                     <th><b>Complaint</b></th>
                                                     <th><b>Picture</b></th>
                                                     <th><b>Action</b></th>
-                                                    <th><b>Status</b></th>
+                                                   <!--  <th><b>Status</b></th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -890,15 +890,21 @@ $row_count7 = mysqli_num_rows($result7);
                                                             </button>
                                                         </td>
                                                         <td>
-                                                            <button type="button"
-                                                                class="btn btn-success dropdown-toggle acceptcomplaint"
-                                                                value="<?php echo $row4['id']; ?>"
-                                                                data-toggle="dropdown">Assign</button>
+                                                            <?php if ($row4['status'] == '8') { ?>
+                                                        <button type="button"
+                                                                class="btn btn-success managerapprove"
+                                                                value="<?php echo $row4['id']; ?>" data-toggle="modal"
+                                                                data-target="#managerapproveModal">
+                                                                Accept</button>
+
+                                                                <?php } else { ?>
+                                                                    <p>Rejected by principal</p>
+                                                                    <?php }?>
 
                                                         </td>
-                                                        <td>
+                                                        <!-- <td>
                                                             <span class="btn btn-success">Approved</span>
-                                                        </td>
+                                                        </td> -->
                                                     </tr>
                                                 <?php
                                                     $s++;
