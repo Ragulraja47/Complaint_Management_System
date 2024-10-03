@@ -460,10 +460,10 @@ input[type="text"]:focus {
                             <div class="card-body">
                                 <div class="card">
                                     <ul class="nav nav-tabs mb-3" role="tablist" id="navrefresh">
-                                        <li class="nav-item">
+                                        <li class="nav-item active">
                                             <a class="nav-link active show" id="principal-tab" href="#principal" role="tab"
-                                                aria-selected="false">
-                                                <span class="hidden-xs-down">
+                                                aria-selected="true">
+                                                <span class="   ">
                                                     <i class="bi bi-people-fill"></i><b>Assigned Complaints</b>
                                                 </span>
                                             </a>
@@ -471,8 +471,8 @@ input[type="text"]:focus {
                                     
                                         <li class="nav-item">
                                             <a class="nav-link" id="record-tab" href="#record" role="tab"
-                                                aria-selected="false">
-                                                <span class="hidden-xs-down">
+                                                aria-selected="true">
+                                                <span class="">
                                                     <i class="bi bi-repeat"></i><b>Work Record</b>
                                                 </span>
                                             </a>
@@ -543,8 +543,8 @@ input[type="text"]:focus {
                                                         <p id="assignedWorker">Assigned Worker: </p>
                                                        
                                                         <select name="worker" id="worker">
-    <option>Select Worker</option>
-</select>
+                                                                <option>Select Worker</option>
+                                                            </select>
                                                         <br>
 
                                                         
@@ -967,32 +967,12 @@ input[type="text"]:focus {
     <script src="assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    <script>
-        // Get today's date in the format 'YYYY-MM-DD'
-        var today = new Date().toISOString().split('T')[0];
 
-        // Get the date input element
-        var dateInput = document.getElementById('deadline01');
-
-        // Set the minimum and maximum date for the input field to today's date
-        dateInput.setAttribute('min', today);
-    </script>
-
-    <script>
-        // Get today's date in the format 'YYYY-MM-DD'
-        var today = new Date().toISOString().split('T')[0];
-
-        // Get the date input element
-        var dateInput = document.getElementById('reassign_deadline');
-
-        // Set the minimum and maximum date for the input field to today's date
-        dateInput.setAttribute('min', today);
-    </script>
+   
     <script src="ajax.js"></script>
     <script>
    $(document).on("click", ".worker-option", function () {
         var worker = $(this).data('value');
-        console.log(worker);
         $.ajax({
             url: "work.php",  // PHP file handling the request
             method: "POST",
