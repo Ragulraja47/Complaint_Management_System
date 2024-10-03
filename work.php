@@ -27,6 +27,26 @@ $result6 = mysqli_query($conn, $sql6);
 $sql7 = "SELECT * FROM complaints_detail WHERE status IN ('15','17','18')";
 $result7 = mysqli_query($conn, $sql7);
 $row_count7 = mysqli_num_rows($result7);
+
+
+
+
+if (isset($_POST["work"])) {
+    $mem = $_POST["worker"];
+    $query = "SELECT name FROM workers WHERE dept = '$mem'";
+    $res = mysqli_query($conn, $query);
+
+    if ($res) {
+        while ($row = mysqli_fetch_assoc($res)) {
+            echo '<option value="' . $row["name"] . '">' . $row["name"] . '</option>';
+        }
+    } else {
+        echo "Error: " . mysqli_error($conn);  
+    }
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -519,17 +539,14 @@ input[type="text"]:focus {
                                                     <form id="acceptForm">
                                                         <input type="hidden" name="problem_id" id="complaint_id77"
                                                             value="">
-                                                        <input type="hidden" name="worker_id" id="worker_id" value="">
+                                                        <input type="hidden" name="worker_id" id="worker_id">
                                                         <p id="assignedWorker">Assigned Worker: </p>
+                                                       
                                                         <select name="worker" id="worker">
-                                                            <option value="worker1">worker1</option>
-                                                            <option value="worker2">worker2</option>
-                                                            <option value="worker3">worker3</option>
-                                                        
-                                                        </select>
+    <option>Select Worker</option>
+</select>
                                                         <br>
 
-                                                        <!--deadline code-->
                                                         
 
 
@@ -882,7 +899,6 @@ input[type="text"]:focus {
                                                 </div>
                                                 <div class="modal-body">
                                                     <label for="reassign_deadline">Reassign Deadline Date:</label>
-                                                    <input type="date" id="reassign_deadline" name="reassign_deadline" required>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -973,6 +989,26 @@ input[type="text"]:focus {
         dateInput.setAttribute('min', today);
     </script>
     <script src="ajax.js"></script>
+    <script>
+   $(document).on("click", ".worker-option", function () {
+        var worker = $(this).data('value');
+        console.log(worker);
+        $.ajax({
+            url: "work.php",  // PHP file handling the request
+            method: "POST",
+            data: {
+                "work": true,  // Flag to tell the PHP code to execute the block
+                "worker": worker  // Pass the worker value
+            },
+            success: function(data) {
+                $('#worker').html(data);  // Update the select element with the options
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log("Error: " + textStatus + ": " + errorThrown);  // Error handling
+            }
+        });
+    });
+</script>
 
 
     <!-- JavaScript Alertify-->

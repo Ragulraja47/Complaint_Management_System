@@ -39,7 +39,8 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = 'PLUMBING'
+m.worker_id = 'PLU01' or m.worker_id = 'PLU02'
+
 AND cd.status = '7'";
 // Filter by department
 $stmt = $conn->prepare($sql);
@@ -75,7 +76,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = 'PLUMBING'
+m.worker_id = 'PLU01' or m.worker_id = 'PLU02'
 AND cd.status = '10'";
 // Filter by department
 $stmt = $conn->prepare($sql1);
@@ -110,7 +111,8 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = 'PLUMBING' AND cd.status = '11'or cd.status = '18'";
+m.worker_id = 'PLU01' or m.worker_id = 'PLU02'
+ AND cd.status = '11'or cd.status = '18'";
 // Filter by department
 $stmt = $conn->prepare($sql2);
 $stmt->execute();
@@ -144,7 +146,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = 'PLUMBING'
+m.worker_id = 'PLU01' or m.worker_id = 'PLU02'
 AND cd.status = '16'";
 // Filter by department
 $stmt = $conn->prepare($sql3);
@@ -179,7 +181,8 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = 'PLUMBING' AND cd.status = '15'";
+m.worker_id = 'PLU01' or m.worker_id = 'PLU02'
+ AND cd.status = '15'";
 // Filter by department
 $stmt = $conn->prepare($sql4);
 $stmt->execute();
