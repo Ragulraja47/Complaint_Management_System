@@ -441,7 +441,7 @@ input[type="text"]:focus {
                                 <div class="card">
                                     <ul class="nav nav-tabs mb-3" role="tablist" id="navrefresh">
                                         <li class="nav-item">
-                                            <a class="nav-link" id="principal-tab" href="#principal" role="tab"
+                                            <a class="nav-link active show" id="principal-tab" href="#principal" role="tab"
                                                 aria-selected="false">
                                                 <span class="hidden-xs-down">
                                                     <i class="bi bi-people-fill"></i><b>Assigned Complaints</b>
@@ -521,10 +521,16 @@ input[type="text"]:focus {
                                                             value="">
                                                         <input type="hidden" name="worker_id" id="worker_id" value="">
                                                         <p id="assignedWorker">Assigned Worker: </p>
+                                                        <select name="worker" id="worker">
+                                                            <option value="worker1">worker1</option>
+                                                            <option value="worker2">worker2</option>
+                                                            <option value="worker3">worker3</option>
+                                                        
+                                                        </select>
+                                                        <br>
 
                                                         <!--deadline code-->
-                                                        <label for="deadline">Set Deadline:</label> <br>
-                                                        <input type="date" id="deadline01" name="deadline"> <br> <br>
+                                                        
 
 
                                                         <span>Set Priority: </span>
