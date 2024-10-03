@@ -17,7 +17,7 @@ $faculty_id = $_SESSION['faculty_id']; // Assuming 'faculty_id' is stored in ses
 $query = "SELECT * FROM complaints_detail WHERE faculty_id = '$faculty_id'";
 $result = mysqli_query($conn, $query);
 
-$sql5 = "SELECT * FROM complaints_detail WHERE status IN (1,2,4,6) AND faculty_id = '$faculty_id'";
+$sql5 = "SELECT * FROM complaints_detail WHERE status IN (1,2,4,6,8,9) AND faculty_id = '$faculty_id'";
 $sql1 = "SELECT * FROM complaints_detail WHERE status IN (7,10,11,15,17,18) AND faculty_id = '$faculty_id'";
 $sql2 = "SELECT * FROM complaints_detail WHERE status = 16 AND faculty_id = '$faculty_id'";
 $sql3 = "SELECT * FROM complaints_detail WHERE status IN (3,5,19,20) AND faculty_id = '$faculty_id'";
@@ -518,61 +518,19 @@ $row_count4 = mysqli_num_rows($result4);
                                                                             break;
                                                                         case 2:
                                                                             $statusMessage = 'Approved by Infra';
-                                                                            break;
-                                                                        case 3:
-                                                                            $statusMessage = 'Rejected by Infra';
-                                                                            break;
+                                                                            break;                                                                        
                                                                         case 4:
                                                                             $statusMessage = 'Approved by HOD';
-                                                                            break;
-                                                                        case 5:
-                                                                            $statusMessage = 'Rejected by HOD';
-                                                                            break;
+                                                                            break;                                                                      
                                                                         case 6:
                                                                             $statusMessage = 'Sent to Principal for Approval';
-                                                                            break;
-                                                                        case 7:
-                                                                            $statusMessage = 'Assigned to Worker';
-                                                                            break;
+                                                                            break;                                                                        
                                                                         case 8:
-                                                                            $statusMessage = ' ';
+                                                                            $statusMessage = 'Approved by Principal ';
                                                                             break;
                                                                         case 9:
-                                                                            $statusMessage = ' ';
-                                                                            break;
-                                                                        case 10:
-                                                                            $statusMessage = 'Worker In Progress';
-                                                                            break;
-                                                                        case 11:
-                                                                            $statusMessage = 'Waiting for Approval';
-                                                                            break;
-                                                                        case 12:
-                                                                            $statusMessage = ' ';
-                                                                            break;
-                                                                        case 13:
-                                                                            $statusMessage = 'Work Response';
-                                                                            break;
-                                                                        case 14:
-                                                                            $statusMessage = 'Feedback Sent to Manager';
-                                                                            break;
-                                                                        case 15:
-                                                                            $statusMessage = 'Reassigned';
-                                                                            break;
-                                                                        case 16:
-                                                                            $statusMessage = 'Work Completed';
-                                                                            break;
-                                                                        case 17:
-                                                                            $statusMessage = 'Inprogress';
-                                                                            break;
-                                                                        case 18:
-                                                                            $statusMessage = 'Rejected by Principal';
-                                                                            break;
-                                                                        case 19:
-                                                                            $statusMessage = 'Rejected by Principal';
-                                                                            break;
-                                                                        case 20:
-                                                                            $statusMessage = 'Rejected by Manager';
-                                                                            break;
+                                                                            $statusMessage = ' Approved by Manager';
+                                                                            break;                                                                    
                                                                         default:
                                                                             $statusMessage = 'Unknown Status';
                                                                     }
@@ -820,60 +778,12 @@ $row_count4 = mysqli_num_rows($result4);
                                                     // Map the numeric status to a message
                                                     $statusMessage = '';
                                                     switch ($row['status']) {
-                                                        case 1:
-                                                            $statusMessage = 'Pending';
-                                                            break;
-                                                        case 2:
-                                                            $statusMessage = 'Approved by Infra';
-                                                            break;
                                                         case 3:
                                                             $statusMessage = 'Rejected by Infra';
                                                             break;
-                                                        case 4:
-                                                            $statusMessage = 'Approved by HOD';
-                                                            break;
                                                         case 5:
                                                             $statusMessage = 'Rejected by HOD';
-                                                            break;
-                                                        case 6:
-                                                            $statusMessage = 'Sent to Principal for Approval';
-                                                            break;
-                                                        case 7:
-                                                            $statusMessage = 'Assigned to Worker';
-                                                            break;
-                                                        case 8:
-                                                            $statusMessage = ' ';
-                                                            break;
-                                                        case 9:
-                                                            $statusMessage = ' ';
-                                                            break;
-                                                        case 10:
-                                                            $statusMessage = 'Worker In Progress';
-                                                            break;
-                                                        case 11:
-                                                            $statusMessage = 'Waiting for Approval';
-                                                            break;
-                                                        case 12:
-                                                            $statusMessage = ' ';
-                                                            break;
-                                                        case 13:
-                                                            $statusMessage = 'Work Response';
-                                                            break;
-                                                        case 14:
-                                                            $statusMessage = 'Feedback Sent to Manager';
-                                                            break;
-                                                        case 15:
-                                                            $statusMessage = 'Reassigned';
-                                                            break;
-                                                        case 16:
-                                                            $statusMessage = 'Work Completed';
-                                                            break;
-                                                        case 17:
-                                                            $statusMessage = 'Inprogress';
-                                                            break;
-                                                        case 18:
-                                                            $statusMessage = 'Waiting for approval';
-                                                            break;
+                                                            break;                                                       
                                                         case 19:
                                                             $statusMessage = 'Rejected by Principal';
                                                             break;

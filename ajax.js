@@ -39,6 +39,42 @@ $(document).ready(function () {
   });
 });
 
+//Jquery to approve by manager
+$(document).on("click", ".managerapprove", function (e) {
+  e.preventDefault();
+  var user_id = $(this).val(); // Get the ID from the button's value
+  console.log("User ID:", user_id);
+  // Set the user_id in the hidden input field within the form
+  $("#complaint_id56").val(user_id);
+});
+
+$(document).on("submit","#managerapproveForm",function(e) {
+  e.preventDefault(); 
+  var data = new FormData(this);
+  console.log(data);
+  data.append("manager_approve",true);
+    
+  $.ajax({
+    url: "testbackend.php",
+    type: "POST",
+    data:data,
+    processData: false,
+    contentType: false,
+    success: function (response) {
+      var res = jQuery.parseJSON(response);
+      console.log(res);
+      if (res.status == 200) {
+        alert("Complaint accepted by manager");
+        $("#complain_table").load(location.href + " #complain_table");
+        $("#navrefresh").load(location.href + " #navrefresh");
+        $("#worker_table").load(location.href + " #worker_table > *");
+      } else {
+        alert("Failed to accept complaint");
+      }
+    },
+  });
+});
+
 // JS code for displaying assigned worker on priority modal box
 document.querySelectorAll(".worker-option").forEach(function (element) {
   element.addEventListener("click", function () {
@@ -146,7 +182,7 @@ $(document).on("click", ".worker-option", function () {
           $("#complain_table").load(location.href + " #complain_table");
           $("#navrefresh").load(location.href + " #navrefresh");
           $("#worker_table").load(location.href + " #worker_table > *");
-          updateNavbar();
+
         } 
         else if (res.status == 500) {
           alert("Something went wrong. Please try again.");
@@ -211,17 +247,6 @@ $(document).on("submit", "#principal_Form", function (e) {
     },
   });
 });
-
-
-
-
-
-
-
-
-
-
-
 
 
 //Jquerry to pass the id into reject form
