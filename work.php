@@ -521,10 +521,16 @@ input[type="text"]:focus {
                                                             value="">
                                                         <input type="hidden" name="worker_id" id="worker_id" value="">
                                                         <p id="assignedWorker">Assigned Worker: </p>
+                                                        <select name="worker" id="worker">
+                                                            <option value="worker1">worker1</option>
+                                                            <option value="worker2">worker2</option>
+                                                            <option value="worker3">worker3</option>
+                                                        
+                                                        </select>
+                                                        <br>
 
                                                         <!--deadline code-->
-                                                        <label for="deadline">Set Deadline:</label> <br>
-                                                        <input type="date" id="deadline01" name="deadline"> <br> <br>
+                                                        
 
 
                                                         <span>Set Priority: </span>
