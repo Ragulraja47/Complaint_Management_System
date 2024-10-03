@@ -328,3 +328,22 @@ if (isset($_POST['principal_complaint'])) {
     }
     echo json_encode($response);
 }
+
+
+if(isset($_POST["manager_approve"])){
+  $deadline = $_POST["deadline"];
+  $id = $_POST["problem_id"];
+  $query = "UPDATE complaints_detail SET days_to_complete='$deadline' , status='9' WHERE id= $id";
+
+  if(mysqli_query($conn, $query)){
+    $res = [
+        "status" => 200,
+        "msg" => "complaint accepted sucessfully"
+    ];
+    echo json_encode($res);
+  }else{
+    echo 'Error updating status';
+  }
+}
+
+?>
