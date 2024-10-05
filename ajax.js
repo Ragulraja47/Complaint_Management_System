@@ -65,9 +65,14 @@ $(document).on("submit","#managerapproveForm",function(e) {
       console.log(res);
       if (res.status == 200) {
         alert("Complaint accepted by manager");
+        $("#managerapproveModal").modal("hide");
+          
+        // Reset the form
+        $("#managerapproveForm")[0].reset();
         $("#complain_table").load(location.href + " #complain_table");
-        $("#navrefresh").load(location.href + " #navrefresh");
-        $("#worker_table").load(location.href + " #worker_table > *");
+        /* $("#navrefresh").load(location.href + " #navrefresh"); */
+
+   
       } else {
         alert("Failed to accept complaint");
       }
