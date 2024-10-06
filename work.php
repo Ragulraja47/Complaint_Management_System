@@ -30,21 +30,53 @@ $row_count7 = mysqli_num_rows($result7);
 
 
 
+if (isset($_POST['work'])) {
+    $work = $_POST['worker_id'];  // The department value
+    $sql8 = "SELECT name FROM workers WHERE dept = '$work'";
+    $result8 = mysqli_query($conn, $sql8);
 
-if (isset($_POST["work"])) {
-    $mem = $_POST["worker"];
-    $query = "SELECT name FROM workers WHERE dept = '$mem'";
-    $res = mysqli_query($conn, $query);
+    // Prepare to output options directly
+    $options = '';
 
-    if ($res) {
-        while ($row = mysqli_fetch_assoc($res)) {
-            echo '<option value="' . $row["name"] . '">' . $row["name"] . '</option>';
-        }
-    } else {
-        echo "Error: " . mysqli_error($conn);  
+    while ($row = mysqli_fetch_assoc($result8)) {
+        // Echo each worker's name as an option element
+        $options .= '<option value="' . $row['name'] . '">' . $row['name'] . '</option>';
     }
+
+    // Return the options to the AJAX request
+    echo $options;
+    exit();  // Stop script execution after output
 }
 
+if (isset($_POST['form'])) {
+    $problem_id = $_POST['problem_id'];
+    $priority = $_POST['priority'];
+    $worker = $_POST['worker'];
+
+
+/*     $principal_approval = isset($_POST['principal_approval']) ? 6 : 7;
+    $reason = isset($_POST['reason11']) ? $_POST['reason11'] : ''; */
+    // Insert into manager table
+    $insertQuery = "INSERT INTO manager (problem_id, worker_id, priority) VALUES ('$problem_id', '$worker', '$priority')";
+    if (mysqli_query($conn, $insertQuery)) {
+        // Update status in complaints_detail table
+        $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
+        if (mysqli_query($conn, $updateQuery)) {
+            $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
+          /*   $updateQuery7 = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason') ";
+            if (mysqli_query($conn, $updateQuery7)) {
+                $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
+            } else {
+                $response = ['status' => 500, 'message' => 'Failed to update comments table.'];
+            } */
+        } else {
+            $response = ['status' => 500, 'message' => 'Failed to update complaint status.'];
+        }
+    } else {
+        $response = ['status' => 500, 'message' => 'Failed to insert data into manager table.'];
+    }
+    echo json_encode($response);
+}
 
 
 ?>
@@ -369,73 +401,75 @@ input[type="text"]:focus {
     </div>
 
     <div id="main-wrapper">
-    <header class="topbar" data-navbarbg="skin5">
+        <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin5">
-                    <!-- Sidebar toggle for mobile -->
-                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-
-                    <!-- Logo -->
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+                            class="ti-menu ti-close"></i></a>
                     <a class="navbar-brand" href="index.html">
-
+                        <!-- Logo icon -->
+                        <b class="logo-icon p-l-8">
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                            <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo" />
+                        </b>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
                         <span class="logo-text">
-                            <img src="assets/images/mkcenavlogo.png" alt="homepage" class="light-logo" />
+                            <!-- dark Logo text -->
+                            <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" />
                         </span>
                     </a>
-
-                    <!-- Toggle for mobile -->
-                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+                        data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
+                            class="ti-more"></i></a>
                 </div>
 
-                <!-- Navbar items -->
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
                     <ul class="navbar-nav float-left mr-auto">
-                        <li class="nav-item d-none d-md-block">
-                            <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
-                        </li>
-                        <!-- Additional items can be added here -->
+                        <li class="nav-item d-none d-md-block"><a
+                                class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
+                                data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
                     </ul>
-                    <a href="login.php" class="btn btn-danger">
-                        <i class=" fas fa-sign-out-alt" style="font-size: 15px;"></i>
-                    </a>
-
-
+                    <ul class="navbar-nav float-right">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
+                                    src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i>
+                                    My Profile</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i
+                                        class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </nav>
         </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
+
         <aside class="left-sidebar" data-sidebarbg="skin5">
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
-                <ul id="sidebarnav" class="p-t-30">
-                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
-                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
-
-                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="civil.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CIVIL</span></a></li>
-                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="carpenter.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CARPENTER</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="electrical.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">ELECTRICAL</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="infra.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">IT INFRA</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="partition.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PARTITION</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="plumbing.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PLUMBING</span></a></li>
-
-
-
-
-
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="worker_helpline.html" aria-expanded="false"><i class="mdi mdi-phone"></i><span class="hide-menu">Helpline</span></a></li>
+                    <ul id="sidebarnav" class="p-t-30">
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="manager_dash.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                                    class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="testing.php" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
+                                    class="hide-menu">Complaints</span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
         </aside>
+
         <div class="page-wrapper">
             <div class="page-breadcrumb">
                 <div class="row">
@@ -460,19 +494,19 @@ input[type="text"]:focus {
                             <div class="card-body">
                                 <div class="card">
                                     <ul class="nav nav-tabs mb-3" role="tablist" id="navrefresh">
-                                        <li class="nav-item active">
-                                            <a class="nav-link active show" id="principal-tab" href="#principal" role="tab"
-                                                aria-selected="true">
-                                                <span class="   ">
-                                                    <i class="bi bi-people-fill"></i><b>Assigned Complaints</b>
+                                       
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="principal-tab" href="#principal" role="tab"
+                                                aria-selected="false">
+                                                <span class="hidden-xs-down">
+                                                    <i class="bi bi-people-fill"></i><b>Principal Approved</b>
                                                 </span>
                                             </a>
-                                          </li>                                          
-                                    
-                                        <li class="nav-item">
+                                        </li>
+                                                                               <li class="nav-item">
                                             <a class="nav-link" id="record-tab" href="#record" role="tab"
-                                                aria-selected="true">
-                                                <span class="">
+                                                aria-selected="false">
+                                                <span class="hidden-xs-down">
                                                     <i class="bi bi-repeat"></i><b>Work Record</b>
                                                 </span>
                                             </a>
@@ -483,7 +517,131 @@ input[type="text"]:focus {
                                 <!-- Tables Start -->
                                 <div class="tab-content tabcontent-border">
 
-                                  
+                                    <!-- Complaint Table -->
+                                    <div class="tab-pane active show" id="complain" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <table id="complain_table" class="table table-striped table-bordered">
+                                                <thead
+                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                    <tr>
+                                                        <th><b>S.No</b></th>
+                                                        <th><b>Raised Date</b></th>
+                                                        <th><b>Dept Name</b></th>
+                                                        <th><b>Venue</b></th>
+                                                        <th><b>Complaint</b></th>
+                                                        <th><b>Picture</b></th>
+                                                        <th><b>Action</b></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $s = 1;
+                                                    while ($row = mysqli_fetch_assoc($result1)) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $s ?></td>
+                                                            <td><?php echo $row['date_of_reg'] ?></td>
+                                                            <td><?php echo $row['department'] ?></td>
+                                                            <td><?php echo $row['block_venue'] ?></td>
+                                                            <td><button type="button" value="<?php echo $row['id']; ?>"
+                                                                    class="btn btn-primary viewcomplaint"
+                                                                    data-toggle="modal"
+                                                                    data-target="#complaintDetailsModal">See More</button>
+                                                            </td>
+
+                                                            <td>
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
+                                                                    value="<?php echo $row['id']; ?>" data-toggle="modal"
+                                                                    >
+                                                                    <i class="fas fa-image"></i> Before
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button"
+                                                                    class="btn btn-success dropdown-toggle acceptcomplaint"
+                                                                    value="<?php echo $row['id']; ?>"
+                                                                    data-toggle="dropdown">Accept</button>
+                                                                <ul class="dropdown-menu">
+                                                                    <center>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="CARPENTRY">CARPENTRY</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="ELECTRICAL">ELECTRICAL</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="CIVIL">CIVIL</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="PARTITION">PARTITION</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="PLUMBING">PLUMBING</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="IT INFRA">IT INFRA</a></li>
+                                                                    </center>
+                                                                </ul>
+                                                                <button type="button" class="btn btn-danger rejectcomplaint"
+                                                                    id="rejectbutton" value="<?php echo $row['id']; ?>"
+                                                                    data-toggle="modal"
+                                                                    data-target="#rejectModal">X</button>
+
+                                                                    <button type="button" class="btn btn-primary principalcomplaint"
+                                                                    id="principalbutton" value="<?php echo $row['id']; ?>"
+                                                                    data-toggle="modal"
+                                                                    data-target="#principalModal">need approve</button>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                        $s++;
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!--Principal | Need Approve Modal -->
+                                    <div class="modal fade" id="principalModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="principalModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="principalModalLabel">Need Approval</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="principal_Form">
+                                                        <input type="hidden" name="id" id="complaint_id89">
+                                                        <div class="form-group">
+                                                            <label for="approvalReason" class="form-label">Reason for
+                                                                Approval</label>
+                                                            <textarea class="form-control" name="reason"
+                                                                id="approvalReason" rows="3"
+                                                                placeholder="Type the reason here..."></textarea>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-danger">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <!-- Complaint Details Modal -->
                                     <div class="modal fade" id="complaintDetailsModal" tabindex="-1" role="dialog"
                                         aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
@@ -536,19 +694,17 @@ input[type="text"]:focus {
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form id="acceptForm">
+                                                    <form id="form20">
+
+                                               
                                                         <input type="hidden" name="problem_id" id="complaint_id77"
                                                             value="">
-                                                        <input type="hidden" name="worker_id" id="worker_id">
-                                                        <p id="assignedWorker">Assigned Worker: </p>
+                                                       
                                                        
                                                         <select name="worker" id="worker">
                                                                 <option>Select Worker</option>
                                                             </select>
-                                                        <br>
-
-                                                        
-
+                                                        <br>      
 
                                                         <span>Set Priority: </span>
                                                         <div class="form-check">
@@ -566,26 +722,182 @@ input[type="text"]:focus {
                                                                 value="Low">
                                                             <label class="form-check-label">Low</label>
                                                         </div>
-                                                        <br>
-
-                                                       <!--  <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                id="flexSwitchCheckDefault" name="principal_approval">
-                                                            <label class="form-check-label"
-                                                                for="flexSwitchCheckDefault">Principal Approval</label>
-                                                        </div>
-                                                        <div id="reasonInput" style="display: none;">
-                                                            <label for="reason">Reason:</label>
-                                                            <input type="text" id="reason11" name="reason11"
-                                                                class="form-control" placeholder="Enter reason">
-                                                        </div> -->
-                                                    </form>
+                                                        <br>                                                
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-primary" form="acceptForm"
-                                                        id="submitButton">Submit</button>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+    </form>
+                                                </div>
+                                           
+
+
+                                    <!-- Reject Modal -->
+                                    <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="rejectModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="rejectModalLabel">Reject Complaint</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="rejectForm">
+                                                        <input type="hidden" name="id" id="complaint_id99">
+                                                        <div class="form-group">
+                                                            <label for="rejectReason" class="form-label">Reason for
+                                                                rejection</label>
+                                                            <textarea class="form-control" name="feedback"
+                                                                id="rejectReason" rows="3"
+                                                                placeholder="Type the reason here..."></textarea>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-danger">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Worker Table -->
+                                    <div class="tab-pane" id="worker" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <table id="worker_table" class="table table-striped table-bordered">
+                                                <thead
+                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                    <tr>
+                                                        <th><b>S.No</b></th>
+                                                        <th><b>Complaint</b></th>
+                                                        <th><b>Worker Details</b></th>
+                                                        <th><b>Deadline</b></th>
+                                                        <th><b>Picture</b></th>
+                                                        <th><b>Status</b></th>
+                                                        <th><b>Principal Query</b></th>
+                                                        <th><b>Your Reply</b></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $s = 1;
+                                                    $current_date = date('Y-m-d'); // Get current date in 'YYYY-MM-DD' format
+
+                                                    while ($row3 = mysqli_fetch_assoc($result3)) {
+                                                        $deadline = $row3['days_to_complete'];
+                                                        $h = $row3['id']; // complaint id
+
+                                                        // Fetch query from manager table
+                                                        $querydisplay = "SELECT * FROM manager WHERE problem_id=$h";
+                                                        $resultdisplay = mysqli_query($conn, $querydisplay);
+                                                        $rowdis = mysqli_fetch_assoc($resultdisplay);
+                                                        $comment_query = $rowdis['comment_query'];
+                                                        $comment_reply = $rowdis['comment_reply']; // Fetch the reply
+                                                        $reply_date = $rowdis['reply_date']; // Fetch the reply date
+                                                        $task_id = $rowdis['task_id']; // Unique ID from manager table
+
+                                                        // Check if comment_reply has a value to assign the green color class
+                                                        $buttonClass = empty($comment_reply) ? 'btn-primary' : 'btn-success';
+
+                                                        // Check if current date is equal to or greater than the deadline
+                                                        $rowBackground = ($current_date >= $deadline) ? 'background-color: #ffcccc;' : '';
+                                                    ?>
+                                                        <tr style="<?php echo $rowBackground; ?>">
+                                                            <td><?php echo $s ?></td>
+                                                            <td>
+                                                                <button type="button" value="<?php echo $row3['id']; ?>"
+                                                                    class="btn btn-primary viewcomplaint"
+                                                                    data-toggle="modal"
+                                                                    data-target="#complaintDetailsModal">See More</button>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary"
+                                                                    value="<?php echo $row3['id']; ?>" id="seeworker"
+                                                                    data-toggle="modal"
+                                                                    data-target="#detailsModal">Details</button>
+                                                            </td>
+                                                            <td><?php echo $row3['days_to_complete'] ?></td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
+                                                                    value="<?php echo $row3['id']; ?>" data-toggle="modal"
+                                                                    >
+                                                                    <i class="fas fa-image"></i> Before
+                                                                </button>
+                                                            </td>
+                                                            <td><span class="btn btn-warning">In Progress</span></td>
+
+                                                            <td>
+                                                                <button type="button"
+                                                                    class="btn <?php echo $buttonClass; ?> openQueryModal"
+                                                                    data-task-id="<?php echo $task_id; ?>"
+                                                                    data-comment-query="<?php echo $comment_query; ?>"
+                                                                    data-toggle="modal"
+                                                                    data-target="#principalQueryModal"
+                                                                    <?php echo empty($comment_query) ? 'disabled' : ''; ?>>
+                                                                    <?php echo empty($comment_query) ? 'No Query' : 'View Query'; ?>
+                                                                </button>
+                                                            </td>
+
+
+                                                            <!-- Display Comment Reply and Date if available -->
+                                                            <td>
+                                                                <?php if (!empty($comment_reply)): ?>
+                                                                    <span> <?php echo $comment_reply; ?></span>
+                                                                    <br>
+                                                                    <span class="">Reply Date: <?php echo $reply_date; ?></span>
+                                                                <?php else: ?>
+                                                                    <span class="badge badge-secondary">No Reply Yet</span>
+                                                                <?php endif; ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                        $s++;
+                                                    }
+                                                    ?>
+                                                </tbody>
+
+
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Principal Question Modal -->
+                                    <div class="modal fade" id="principalQueryModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="principalQueryLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="principalQueryLabel">Principal's Query
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- Question from comment_query -->
+                                                    <p id="commentQueryText"></p>
+                                                    <!-- Input for reply -->
+                                                    <div class="form-group">
+                                                        <label for="commentReply">Your Reply</label>
+                                                        <input type="text" class="form-control" id="commentReply"
+                                                            placeholder="Enter your reply">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary"
+                                                        id="submitReply">Submit Reply</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -639,30 +951,30 @@ input[type="text"]:focus {
                                                                     data-toggle="dropdown">Assign</button>
                                                                 <ul class="dropdown-menu">
                                                                     <center>
-                                                                        <li><a href="#" class="worker-option"
+                                                                        <li><a href="#" class="worker"
                                                                                 data-toggle="modal"
                                                                                 data-target="#prioritymodal1"
                                                                                 data-value="CARPENTRY">CARPENTRY</a></li>
-                                                                        <li><a href="#" class="worker-option"
+                                                                        <li><a href="#" class="worker"
                                                                                 data-toggle="modal"
                                                                                 data-target="#prioritymodal1"
                                                                                 data-value="ELECTRICAL">ELECTRICAL</a></li>
-                                                                        <li><a href="#" class="worker-option"
+                                                                        <li><a href="#" class="worker"
                                                                                 data-toggle="modal"
                                                                                 data-target="#prioritymodal1"
                                                                                 data-value="CIVIL">CIVIL</a></li>
-                                                                        <li><a href="#" class="worker-option"
+                                                                        <li><a href="#" class="worker"
                                                                                 data-toggle="modal"
                                                                                 data-target="#prioritymodal1"
                                                                                 data-value="PARTITION">PARTITION</a></li>
-                                                                        <li><a href="#" class="worker-option"
+                                                                        <li><a href="#" class="worker"
                                                                                 data-toggle="modal"
                                                                                 data-target="#prioritymodal1"
                                                                                 data-value="PLUMBING">PLUMBING</a></li>
-                                                                        <li><a href="#" class="worker-option"
+                                                                        <li><a href="#" class="worker"
                                                                                 data-toggle="modal"
                                                                                 data-target="#prioritymodal1"
-                                                                                data-value="IT INFRA">INFRA</a></li>
+                                                                                data-value="IT INFRA">IT INFRA</a></li>
                                                                     </center>
                                                                 </ul>
                                                                
@@ -680,8 +992,214 @@ input[type="text"]:focus {
                                         </div>
                                     </div>
 
-                                  
-                                
+                                    <!-- Work Finished Table -->
+                                    <div class="tab-pane" id="finished" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <table id="finished_table" class="table table-striped table-bordered">
+                                                <thead
+                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                    <tr>
+                                                        <th><b>S.No</b></th>
+                                                        <th><b>Complaint</b></th>
+                                                        <th><b>Worker Details</b></th>
+                                                        <th><b>Date of Completion</b></th>
+                                                        <th><b>Picture</b></th>
+                                                        <th><b>Faculty Feedback/Action</b></th>
+                                                        <th><b>Status</b></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $s = 1;
+                                                    while ($row5 = mysqli_fetch_assoc($result5)) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $s ?></td>
+                                                            <td>
+                                                                <button type="button" value="<?php echo $row5['id']; ?>"
+                                                                    class="btn btn-primary viewcomplaint"
+                                                                    data-toggle="modal"
+                                                                    data-target="#complaintDetailsModal">
+                                                                    See More
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary"
+                                                                    value="<?php echo $row5['id']; ?>" id="seeworker"
+                                                                    data-toggle="modal" data-target="#detailsModal">
+                                                                    Details
+                                                                </button>
+                                                            </td>
+                                                            <td><?php echo $row5['date_of_completion'] ?></td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
+                                                                    value="<?php echo $row5['id']; ?>" data-toggle="modal"
+                                                                    >
+                                                                    <i class="fas fa-image"></i> Before
+                                                                </button>
+                                                                <button value="<?php echo $row5['id']; ?>" type="button"
+                                                                    class="btn btn-light btn-sm imgafter"
+                                                                    data-toggle="modal" >
+                                                                    <i class="fas fa-image"></i> After
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary facfeed"
+                                                                    value="<?php echo $row5['id']; ?>" data-toggle="modal"
+                                                                    data-target="#exampleModal">
+                                                                    Feedback
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <span
+                                                                    class="btn btn-success"><?php echo $row5['task_completion'] ?></span>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                        $s++;
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Resigned Table -->
+                                    <div class="tab-pane" id="reassigned" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <table id="reassigned_table" class="table table-striped table-bordered">
+                                                <thead
+                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                    <tr>
+                                                        <th><b>S.No</b></th>
+                                                        <th><b>Complaint</b></th>
+                                                        <th><b>Worker Details</b></th>
+                                                        <th><b>Date of Reassigned</b></th>
+                                                        <th><b>Deadline</b></th>
+                                                        <th><b>Picture</b></th>
+                                                        <th><b>Faculty Feedback</b></th>
+                                                        <!-- <th><b>Status</b></th> -->
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $s = 1;
+                                                    while ($row7 = mysqli_fetch_assoc($result7)) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $s ?></td>
+                                                            <td>
+                                                                <button type="button" value="<?php echo $row7['id']; ?>"
+                                                                    class="btn btn-primary viewcomplaint"
+                                                                    data-toggle="modal"
+                                                                    data-target="#complaintDetailsModal">
+                                                                    See More
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary"
+                                                                    value="<?php echo $row7['id']; ?>" id="seeworker"
+                                                                    data-toggle="modal" data-target="#detailsModal">
+                                                                    Details
+                                                                </button>
+                                                            </td>
+                                                            <td><?php echo $row7['reassign_date'] ?></td>
+                                                            <td><?php echo $row7['days_to_complete'] ?></td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
+                                                                    value="<?php echo $row7['id']; ?>" data-toggle="modal"
+                                                                    >
+                                                                    <i class="fas fa-image"></i> Before
+                                                                </button>
+                                                                <button value="<?php echo $row7['id']; ?>" type="button"
+                                                                    class="btn btn-light btn-sm imgafter"
+                                                                    data-toggle="modal" >
+                                                                    <i class="fas fa-image"></i> After
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <?php echo $row7['feedback']; ?>
+                                                            </td>
+                                                            <!-- <td>
+                                                                <span class="btn btn-warning">Reassigned</span>
+                                                            </td> -->
+                                                        </tr>
+                                                    <?php
+                                                        $s++;
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Completed Table -->
+                                    <div class="tab-pane" id="completed" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <table id="completed_table" class="table table-striped table-bordered">
+                                                <thead
+                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                    <tr>
+                                                        <th><b>S.No</b></th>
+                                                        <th><b>Complaint</b></th>
+                                                        <th><b>Worker Details</b></th>
+                                                        <th><b>Date of Completion</b></th>
+                                                        <th><b>Picture</b></th>
+                                                        <th><b>Faculty Feedback</b></th>
+                                                        <!-- <th><b>Status</b></th> -->
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $s = 1;
+                                                    while ($row6 = mysqli_fetch_assoc($result6)) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $s ?></td>
+                                                            <td>
+                                                                <button type="button" value="<?php echo $row6['id']; ?>"
+                                                                    class="btn btn-primary viewcomplaint"
+                                                                    data-toggle="modal"
+                                                                    data-target="#complaintDetailsModal">
+                                                                    See More
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary"
+                                                                    value="<?php echo $row6['id']; ?>" id="seeworker"
+                                                                    data-toggle="modal" data-target="#detailsModal">
+                                                                    Details
+                                                                </button>
+                                                            </td>
+                                                            <td><?php echo $row6['date_of_completion'] ?></td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
+                                                                    value="<?php echo $row6['id']; ?>" data-toggle="modal"
+                                                                    >
+                                                                    <i class="fas fa-image"></i> Before
+                                                                </button>
+                                                                <button value="<?php echo $row6['id']; ?>" type="button"
+                                                                    class="btn btn-light btn-sm imgafter"
+                                                                    data-toggle="modal" >
+                                                                    <i class="fas fa-image"></i> After
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <?php echo $row6['feedback']; ?>
+                                                            </td>
+                                                            <!-- <td>
+                                                                <span class="btn btn-success">Completed</span>
+                                                            </td> -->
+                                                        </tr>
+                                                    <?php
+                                                        $s++;
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
                                     
                                     <?php
                                     // Set default month as the current month if no input is provided
@@ -899,6 +1417,7 @@ input[type="text"]:focus {
                                                 </div>
                                                 <div class="modal-body">
                                                     <label for="reassign_deadline">Reassign Deadline Date:</label>
+                                                    <input type="date" id="reassign_deadline" name="reassign_deadline" required>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -966,29 +1485,107 @@ input[type="text"]:focus {
     <script src="assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
     <script src="assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-
-   
-    <script src="ajax.js"></script>
     <script>
-   $(document).on("click", ".worker-option", function () {
-        var worker = $(this).data('value');
-        $.ajax({
-            url: "work.php",  // PHP file handling the request
-            method: "POST",
-            data: {
-                "work": true,  // Flag to tell the PHP code to execute the block
-                "worker": worker  // Pass the worker value
-            },
-            success: function(data) {
-                $('#worker').html(data);  // Update the select element with the options
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log("Error: " + textStatus + ": " + errorThrown);  // Error handling
-            }
-        });
-    });
+
+    $(document).ready(function () {
+  $("#principal_table").DataTable();
+});
+$(document).ready(function () {
+  $("#complain_table").DataTable();
+});
+$(document).ready(function () {
+  $("#worker_table").DataTable();
+});
+$(document).ready(function () {
+  $("#finished_table").DataTable();
+});
+$(document).ready(function () {
+  $("#reassigned_table").DataTable();
+});
+$(document).ready(function () {
+  $("#completed_table").DataTable();
+});
+$(document).ready(function () {
+  $("#record_table").DataTable();
+});
+
+$(document).ready(function () {
+  $(".nav-link").click(function (e) {
+    e.preventDefault(); // Prevent default anchor behavior
+    // Remove 'active show' class from all nav links
+    $(".nav-link").removeClass("active show");
+    // Add 'active show' class to the clicked nav link
+    $(this).addClass("active show");
+    // Hide all tab panes
+    $(".tab-pane").removeClass("active show");
+    // Show the associated tab pane
+    var target = $(this).attr("href");
+    $(target).addClass("active show");
+  });
+});
 </script>
+    <script>
+$(document).on("click", ".worker", function(e) {
+    e.preventDefault();
+    var worker_id = $(this).data("value");
+
+    $.ajax({
+        url: "work.php",
+        type: "POST",
+        data: {
+            "work": true,
+            "worker_id": worker_id
+        },
+        success: function(response) {
+            // Inject the received HTML options into the <select> element
+            $('#worker').html(response);
+        }
+    });
+});
+
+
+
+$(document).on("submit","#form20",function(e){
+    e.preventDefault();
+    var dt = new FormData(this);
+    dt.append("form",true);
+    $.ajax({
+        url: "work.php",
+        type: "POST",
+        data: dt,
+        processData: false,
+        contentType: false,
+        success: function(response){
+            var res = jQuery.parseJSON(response);
+            if(res == 200) {
+                alertify.success("success");
+                window.location.reload();
+            } else {
+                alertify.error("Failed to assign");
+            }
+        }
+    });
+});
+
+
+
+$(document).on("click", ".acceptcomplaint", function (e) {
+  e.preventDefault();
+  
+  var user_id = $(this).val(); // Get the ID from the button's value
+  console.log("User ID:", user_id);
+  
+  // Set the complaint ID in the hidden input field within the form
+  $("#complaint_id77").val(user_id);
+
+  // Reset the worker selection and the text in the modal
+  $("#worker_id").val(''); // Reset the worker ID
+  $("#assignedWorker").text('Assigned Worker: '); // Reset the assigned worker text
+});
+</script>
+
+
+
 
 
     <!-- JavaScript Alertify-->
