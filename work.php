@@ -1545,27 +1545,37 @@ $(document).on("click", ".worker", function(e) {
 
 
 
-$(document).on("submit","#form20",function(e){
+$(document).on("submit", "#form20", function(e) {
     e.preventDefault();
     var dt = new FormData(this);
-    dt.append("form",true);
+    dt.append("form", true);
+
     $.ajax({
         url: "work.php",
         type: "POST",
         data: dt,
         processData: false,
         contentType: false,
-        success: function(response){
-            var res = jQuery.parseJSON(response);
-            if(res == 200) {
-                alertify.success("success");
-                window.location.reload();
-            } else {
-                alertify.error("Failed to assign");
+        success: function(response) {
+            try {
+                var res = jQuery.parseJSON(response); // Parse the JSON response
+                if (res.status == 200) { // Check the status field
+                    window.location.reload(); // Reload the page on success
+                } else {
+                    alertify.error(res.message || "Failed to assign");
+                }
+            } catch (error) {
+                console.error("Parsing error:", error);
+                alertify.error("An error occurred while processing the response.");
             }
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX error:", status, error);
+            alertify.error("An error occurred during the AJAX request.");
         }
     });
 });
+
 
 
 
