@@ -457,12 +457,15 @@ input[type="text"]:focus {
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="manager_dash.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="testing.php" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
-                                    class="hide-menu">Complaints</span></a></li>
+                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
+                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
+
+                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="civil.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CIVIL</span></a></li>
+                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="carpenter.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CARPENTER</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="electrical.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">ELECTRICAL</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="infra.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">IT INFRA</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="partition.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PARTITION</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="plumbing.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PLUMBING</span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -1594,9 +1597,128 @@ $(document).on("click", ".acceptcomplaint", function (e) {
 });
 </script>
 
+<script>
+$(document).ready(function () {
+  $(".nav-link").click(function (e) {
+    e.preventDefault(); // Prevent default anchor behavior
+    // Remove 'active show' class from all nav links
+    $(".nav-link").removeClass("active show");
+    // Add 'active show' class to the clicked nav link
+    $(this).addClass("active show");
+    // Hide all tab panes
+    $(".tab-pane").removeClass("active show");
+    // Show the associated tab pane
+    var target = $(this).attr("href");
+    $(target).addClass("active show");
+  });
+});
 
 
+$(document).on("click", ".viewcomplaint", function (e) {
+  e.preventDefault();
+  var user_id = $(this).val();
+  console.log(user_id);
+  $.ajax({
+    type: "POST",
+    url: "testbackend.php",
+    data: {
+      view_complaint: true,
+      user_id: user_id,
+    },
+    success: function (response) {
+      var res = jQuery.parseJSON(response);
+      console.log(res);
+      if (res.status == 500) {
+        alert(res.message);
+      } else {
+        //$('#student_id2').val(res.data.uid);
+        $("#id").val(res.data.id);
+        $("#type_of_problem").text(res.data.type_of_problem);
+        $("#problem_description").text(res.data.problem_description);
+        $("#faculty_name").text(res.data.faculty_name);
+        $("#faculty_mail").text(res.data.faculty_mail);
+        $("#faculty_contact").text(res.data.faculty_contact);
+        $("#block_venue").text(res.data.block_venue);
+        $("#venue_name").text(res.data.venue_name);
+        $("#complaintDetailsModal").modal("show");
+      }
+    },
+  });
+});
 
+
+$(document).on("click", ".showImage", function () {
+  var problem_id = $(this).val(); // Get the problem_id from button value
+  console.log(problem_id); // Ensure this logs correctly
+  $.ajax({
+    type: "POST",
+    url: "testbackend.php",
+    data: {
+      get_image: true,
+      problem_id: problem_id, // Correct POST key
+    },
+    dataType: "json", // Automatically parses JSON responses
+    success: function (response) {
+      console.log(response); // Log the parsed JSON response
+      if (response.status == 200) {
+        // Dynamically set the image source
+        $("#modalImage").attr("src", "uploads/" + response.data.images);
+        // Show the modal
+        $("#imageModal").modal("show");
+      } else {
+        // Handle case where no image is found
+        alert(
+          response.message || "An error occurred while retrieving the image."
+        );
+      }
+    },
+    error: function (xhr, status, error) {
+      // Log the full error details for debugging
+      console.error("AJAX Error: ", xhr.responseText);
+      alert(
+        "An error occurred: " +
+          error +
+          "\nStatus: " +
+          status +
+          "\nDetails: " +
+          xhr.responseText
+      );
+    },
+  });
+});
+
+
+$(document).on("click", ".imgafter", function () {
+  var problem_id = $(this).val(); // Get the problem_id from button value
+  console.log(problem_id); // Ensure this logs correctly
+  $.ajax({
+      type: "POST",
+      url: "testbackend.php",
+      data: {
+          get_aimage: true,
+          problem2_id: problem_id, // Correct POST key
+      },
+      dataType: "json", // Automatically parses JSON responses
+      success: function (response) {
+          console.log(response); // Log the parsed JSON response
+          if (response.status == 200) { // Use 'response' instead of 'res'
+              // Dynamically set the image source
+              $("#modalImage2").attr("src", response.data.after_photo);
+              // Show the modal
+              $("#afterImageModal").modal("show");
+          } else {
+              // Handle case where no image is found
+              alert(response.message || "An error occurred while retrieving the image.");
+          }
+      },
+      error: function(xhr, status, error) {
+          console.error("AJAX Error: ", status, error);
+      }
+  });
+});
+
+
+</script>
 
     <!-- JavaScript Alertify-->
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
