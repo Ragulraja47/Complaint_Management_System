@@ -48,34 +48,35 @@ if (isset($_POST['work'])) {
     exit();  // Stop script execution after output
 }
 
-if (isset($_POST['form'])) {
-    $problem_id = $_POST['problem_id'];
-    $priority = $_POST['priority'];
-    $worker = $_POST['worker'];
 
 
-/*     $principal_approval = isset($_POST['principal_approval']) ? 6 : 7;
-    $reason = isset($_POST['reason11']) ? $_POST['reason11'] : ''; */
-    // Insert into manager table
-    $insertQuery = "INSERT INTO manager (problem_id, worker_id, priority) VALUES ('$problem_id', '$worker', '$priority')";
-    if (mysqli_query($conn, $insertQuery)) {
-        // Update status in complaints_detail table
-        $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
-        if (mysqli_query($conn, $updateQuery)) {
-            $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
-          /*   $updateQuery7 = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason') ";
-            if (mysqli_query($conn, $updateQuery7)) {
+
+
+if(isset($_POST['form'])) {
+    $problem_id = $_POST['problem_id'] ?? null;
+    $priority = $_POST['priority'] ?? null;
+    $worker = $_POST['worker'] ?? null;
+
+    if ($problem_id && $priority && $worker) {
+        $insertQuery = "INSERT INTO manager (problem_id, worker_id, priority) VALUES ('$problem_id', '$worker', '$priority')";
+        if (mysqli_query($conn, $insertQuery)) {
+            $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
+            if (mysqli_query($conn, $updateQuery)) {
                 $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
+                header('Content-Type: application/json');
+                echo json_encode($response);
+                exit;
             } else {
-                $response = ['status' => 500, 'message' => 'Failed to update comments table.'];
-            } */
+                $response = ['status' => 500, 'message' => 'Failed to update complaint status.'];
+            }
         } else {
-            $response = ['status' => 500, 'message' => 'Failed to update complaint status.'];
+            $response = ['status' => 500, 'message' => 'Failed to insert data into manager table.'];
         }
     } else {
-        $response = ['status' => 500, 'message' => 'Failed to insert data into manager table.'];
+        $response = ['status' => 400, 'message' => 'Required fields are missing.'];
     }
-    echo json_encode($response);
+
+  
 }
 
 
@@ -1560,22 +1561,20 @@ $(document).on("submit", "#form20", function(e) {
         processData: false,
         contentType: false,
         success: function(response) {
-            try {
-                var res = jQuery.parseJSON(response); // Parse the JSON response
-                if (res.status == 200) { // Check the status field
-                    window.location.reload(); // Reload the page on success
-                } else {
-                    alertify.error(res.message || "Failed to assign");
-                }
-            } catch (error) {
-                console.error("Parsing error:", error);
-                alertify.error("An error occurred while processing the response.");
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("AJAX error:", status, error);
-            alertify.error("An error occurred during the AJAX request.");
+    try {
+        var res = jQuery.parseJSON(response);
+        if (res.status == 200) {
+            alert("Success");
+            window.location.reload(); 
+        } else {
+            alert("Error: " + res.message);
         }
+    } catch (e) {
+        console.error("Invalid JSON response:", response);
+        alert("Failed to process response. Please try again.");
+    }
+}
+        
     });
 });
 
