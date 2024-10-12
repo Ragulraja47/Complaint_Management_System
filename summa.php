@@ -505,11 +505,9 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 <h5>Raised Date</h5>
                                                             </b></th>
                                                         <th class="text-center"><b>
-                                                                <h5>Dept Name</h5>
+                                                                <h5>Dept / Venue</h5>
                                                             </b></th>
-                                                        <th class="text-center"><b>
-                                                                <h5>Venue</h5>
-                                                            </b></th>
+                                                    
                                                         <th class="col-md-2 text-center"><b>
                                                                 <h5>Complaint</h5>
                                                             </b></th>
@@ -532,8 +530,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                         <tr>
                                                             <td class="text-center"><?php echo $s ?></td>
                                                             <td class="text-center"><?php echo $row['date_of_reg'] ?></td>
-                                                            <td class="text-center"><?php echo $row['department'] ?></td>
-                                                            <td class="text-center"><?php echo $row['block_venue'] ?></td>
+                                                            <td class="text-center"><?php echo $row['department'] ?> / <?php echo $row['block_venue'] ?></td>
+                                                            <
                                                             <td class="text-center"><button type="button" value="<?php echo $row['id']; ?>"
                                                                     class="btn btn-primary viewcomplaint"
                                                                     data-toggle="modal"
@@ -541,27 +539,28 @@ $row_count7 = mysqli_num_rows($result7);
                                                             </td>
 
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-light btn-sm showImage"
+                                                                <button type="button" class="btn btn-light btn-sm showImage" 
                                                                     value="<?php echo $row['id']; ?>" data-toggle="modal" data-target="#imageModal">
-                                                                    <i class="fas fa-image"></i> Before
+                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="button"
+                                                                <button type="button" id="managerapprovetooltip"
                                                                     class="btn btn-success managerapprove"
                                                                     value="<?php echo $row['id']; ?>" data-toggle="modal"
-                                                                    data-target="#managerapproveModal">
-                                                                    Accept</button>
+                                                                    data-target="#managerapproveModal"><i class="fas fa-check"></i>
+                                                                    </button>
 
                                                                 <button type="button" class="btn btn-danger rejectcomplaint"
                                                                     id="rejectbutton" value="<?php echo $row['id']; ?>"
                                                                     data-toggle="modal"
-                                                                    data-target="#rejectModal">X</button>
+                                                                    data-target="#rejectModal"><i class="fas fa-times"></i></button>
 
                                                                 <button type="button" class="btn btn-primary principalcomplaint"
                                                                     id="principalbutton" value="<?php echo $row['id']; ?>"
                                                                     data-toggle="modal"
-                                                                    data-target="#principalModal">need approve</button>
+                                                                    data-target="#principalModal"><i class="fas fa-paper-plane"></i>                                                                    
+                                                                    </button>
                                                             </td>
                                                         </tr>
                                                     <?php
@@ -1069,11 +1068,11 @@ $row_count7 = mysqli_num_rows($result7);
                                             <h5 class="card-title">Work Completed Records</h5>
 
                                             <form method="POST" action="">
-                                            <label for="selectmonth">Select Month (1-12): </label>
-                                            <input type="number" name="selectmonth" min="1" max="12" value="<?php echo $selectedMonth; ?>" required>
-                                            <button type="submit" class="btn btn-primary">Enter</button>
-                                        </form><span style="float:right">
-                                            <button id="download" class="btn btn-success">Download as Excel</button></span><br><br>
+                                                <label for="selectmonth">Select Month (1-12): </label>
+                                                <input type="number" name="selectmonth" min="1" max="12" value="<?php echo $selectedMonth; ?>" required>
+                                                <button type="submit" class="btn btn-primary">Enter</button>
+                                            </form><span style="float:right">
+                                                <button id="download" class="btn btn-success">Download as Excel</button></span><br><br>
 
                                             <table id="record_table" class="table table-striped table-bordered">
                                                 <thead style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
@@ -1475,6 +1474,53 @@ $row_count7 = mysqli_num_rows($result7);
 
 
         <script>
+
+            //Tool Tip
+            $(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('#rejectbutton').tooltip({
+                    placement: 'top',
+                    title: 'Reject'
+                });
+            });
+
+            $(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('#managerapprovetooltip').tooltip({
+                    placement: 'top',
+                    title: 'Accept'
+                });
+            });
+
+            $(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('#principalbutton').tooltip({
+                    placement: 'top',
+                    title: 'Principal Approval'
+                });
+            });
+
+            $(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('.showImage').tooltip({
+                    placement: 'top',
+                    title: 'Before'
+                });
+            });
+
+
             $(document).ready(function() {
                 $("#principal_table").DataTable();
             });
@@ -1522,10 +1568,12 @@ $row_count7 = mysqli_num_rows($result7);
 
                         if (res.status == 200) {
 
+                            alert("Are you sure? you want to reject it!!");
                             alertify.set('notifier', 'position', 'bottom-right');
                             alertify.error('Rejected');
                             // Close modal
                             $("#navref").load(location.href + " #navref");
+
 
                             $("#rejectModal").modal("hide");
 
@@ -1806,7 +1854,7 @@ $row_count7 = mysqli_num_rows($result7);
                 $(document).on("click", ".done", function() {
                     var complaintfeedId = $("#complaintfeed_id").val();
                     updateComplaintStatus(complaintfeedId, 16); // Status '16' for Done
-                    $("#finished_table").load(location.href + " #finished_table");                    
+                    $("#finished_table").load(location.href + " #finished_table");
                     $("#completed_table").load(location.href + " #completed_table");
                     $("#navref").load(location.href + " #navref");
                 });
@@ -1831,7 +1879,7 @@ $row_count7 = mysqli_num_rows($result7);
                     $("#datePickerModal").modal("hide"); // Close the date picker modal
                     $("#exampleModal").modal("hide"); // Close the feedback modal
                     $("#finished_table").load(location.href + " #finished_table");
-                    $("#reassigned_table").load(location.href + " #reassigned_table");                    
+                    $("#reassigned_table").load(location.href + " #reassigned_table");
                     $("#navref").load(location.href + " #navref");
                 });
 
@@ -1923,27 +1971,27 @@ $row_count7 = mysqli_num_rows($result7);
             });
         </script>
 
-<script>
-        // Get today's date in the format 'YYYY-MM-DD'
-        var today = new Date().toISOString().split('T')[0];
+        <script>
+            // Get today's date in the format 'YYYY-MM-DD'
+            var today = new Date().toISOString().split('T')[0];
 
-        // Get the date input element
-        var dateInput = document.getElementById('deadline01');
+            // Get the date input element
+            var dateInput = document.getElementById('deadline01');
 
-        // Set the minimum and maximum date for the input field to today's date
-        dateInput.setAttribute('min', today);
-    </script>
+            // Set the minimum and maximum date for the input field to today's date
+            dateInput.setAttribute('min', today);
+        </script>
 
-    <script>
-        // Get today's date in the format 'YYYY-MM-DD'
-        var today = new Date().toISOString().split('T')[0];
+        <script>
+            // Get today's date in the format 'YYYY-MM-DD'
+            var today = new Date().toISOString().split('T')[0];
 
-        // Get the date input element
-        var dateInput = document.getElementById('reassign_deadline');
+            // Get the date input element
+            var dateInput = document.getElementById('reassign_deadline');
 
-        // Set the minimum and maximum date for the input field to today's date
-        dateInput.setAttribute('min', today);
-    </script>
+            // Set the minimum and maximum date for the input field to today's date
+            dateInput.setAttribute('min', today);
+        </script>
 
 </body>
 
