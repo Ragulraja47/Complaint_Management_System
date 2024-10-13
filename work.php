@@ -501,7 +501,7 @@ input[type="text"]:focus {
                                             <a class="nav-link" id="principal-tab" href="#principal" role="tab"
                                                 aria-selected="false">
                                                 <span class="hidden-xs-down">
-                                                    <i class="bi bi-people-fill"></i><b>Principal Approved</b>
+                                                    <i class="bi bi-people-fill"></i><b>Assign work</b>
                                                 </span>
                                             </a>
                                         </li>
