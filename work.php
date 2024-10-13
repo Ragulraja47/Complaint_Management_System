@@ -32,7 +32,7 @@ $row_count7 = mysqli_num_rows($result7);
 
 if (isset($_POST['work'])) {
     $work = $_POST['worker_id'];  // The department value
-    $sql8 = "SELECT name FROM workers WHERE dept = '$work'";
+    $sql8 = "SELECT worker_id FROM worker_details WHERE worker_dept = '$work'";
     $result8 = mysqli_query($conn, $sql8);
 
     // Prepare to output options directly
@@ -40,7 +40,7 @@ if (isset($_POST['work'])) {
 
     while ($row = mysqli_fetch_assoc($result8)) {
         // Echo each worker's name as an option element
-        $options .= '<option value="' . $row['name'] . '">' . $row['name'] . '</option>';
+        $options .= '<option value="' . $row['worker_id'] . '">' . $row['worker_id'] . '</option>';
     }
 
     // Return the options to the AJAX request
@@ -1530,6 +1530,7 @@ $(document).ready(function () {
 $(document).on("click", ".worker", function(e) {
     e.preventDefault();
     var worker_id = $(this).data("value");
+    console.log(worker_id);
 
     $.ajax({
         url: "work.php",
