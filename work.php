@@ -50,9 +50,7 @@ if (isset($_POST['work'])) {
 
 
 
-
-
-if(isset($_POST['form'])) {
+if (isset($_POST['form'])) {
     $problem_id = $_POST['problem_id'] ?? null;
     $priority = $_POST['priority'] ?? null;
     $worker = $_POST['worker'] ?? null;
@@ -62,22 +60,22 @@ if(isset($_POST['form'])) {
         if (mysqli_query($conn, $insertQuery)) {
             $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
             if (mysqli_query($conn, $updateQuery)) {
-                $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
-                header('Content-Type: application/json');
-                echo json_encode($response);
+                echo "Success: Complaint accepted and status updated successfully!";
                 exit;
             } else {
-                $response = ['status' => 500, 'message' => 'Failed to update complaint status.'];
+                echo "Error: Failed to update complaint status.";
+                exit;
             }
         } else {
-            $response = ['status' => 500, 'message' => 'Failed to insert data into manager table.'];
+            echo "Error: Failed to insert data into manager table.";
+            exit;
         }
     } else {
-        $response = ['status' => 400, 'message' => 'Required fields are missing.'];
+        echo "Error: Required fields are missing.";
+        exit;
     }
-
-  
 }
+
 
 
 ?>
@@ -522,14 +520,14 @@ input[type="text"]:focus {
                                 <div class="tab-content tabcontent-border">
 
                                     <!-- Complaint Table -->
-                                    <div class="tab-pane active show" id="complain" role="tabpanel">
+                                    <div class="tab-pane" id="complain" role="tabpanel">
                                         <div class="table-responsive">
                                             <table id="complain_table" class="table table-striped table-bordered">
                                                 <thead
                                                     style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                     <tr>
                                                         <th><b>S.No</b></th>
-                                                        <th><b>Raised Date</b></th>
+                                                        <th><b>Raised</b></th>
                                                         <th><b>Dept Name</b></th>
                                                         <th><b>Venue</b></th>
                                                         <th><b>Complaint</b></th>
@@ -908,7 +906,7 @@ input[type="text"]:focus {
                                     </div>
 
                                     <!-- Principal Table -->
-                                    <div class="tab-pane" id="principal" role="tabpanel">
+                                    <div class="tab-pane active show" id="principal" role="tabpanel">
                                         <div class="table-responsive">
                                             <table id="principal_table" class="table table-striped table-bordered">
                                                 <thead
@@ -1561,22 +1559,22 @@ $(document).on("submit", "#form20", function(e) {
         processData: false,
         contentType: false,
         success: function(response) {
-    try {
-        var res = jQuery.parseJSON(response);
-        if (res.status == 200) {
-            alert("Success");
-            window.location.reload(); 
-        } else {
-            alert("Error: " + res.message);
+            // Directly check if response contains "Success" or "Error"
+            if (response.includes("Success")) {
+                alertify.success("asigned successfully!");
+                $('#principal_table').load(location.href + " #principal_table");
+                $('#prioritymodal1').hide();
+
+            } else {
+                alert(response);
+            }
+        },
+        error: function(xhr, status, error) {
+            alert("An error occurred: " + error);
         }
-    } catch (e) {
-        console.error("Invalid JSON response:", response);
-        alert("Failed to process response. Please try again.");
-    }
-}
-        
     });
 });
+
 
 
 
