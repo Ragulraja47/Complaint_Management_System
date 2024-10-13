@@ -348,4 +348,28 @@ if(isset($_POST["manager_approve"])){
   }
 }
 
+//reject reason from principal
+if (isset($_POST['get_reject_reason'])) {
+    $complain_id = mysqli_real_escape_string($conn, $_POST['problem_id']);
+    $query = "SELECT feedback FROM complaints_detail WHERE id='$complain_id'";
+    $query_run = mysqli_query($conn, $query);
+    $User_data = mysqli_fetch_array($query_run);
+    if ($query_run) {
+        $res = [
+            'status' => 200,
+            'message' => 'details Fetch Successfully by id',
+            'data' => $User_data
+        ];
+        echo json_encode($res);
+        return;
+    } else {
+        $res = [
+            'status' => 500,
+            'message' => 'Details Not Deleted'
+        ];
+        echo json_encode($res);
+        return;
+    }
+}
+
 ?>
