@@ -507,7 +507,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                         <th class="text-center"><b>
                                                                 <h5>Dept / Venue</h5>
                                                             </b></th>
-                                                    
+
                                                         <th class="col-md-2 text-center"><b>
                                                                 <h5>Complaint</h5>
                                                             </b></th>
@@ -532,36 +532,36 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center"><?php echo $row['date_of_reg'] ?></td>
                                                             <td class="text-center"><?php echo $row['department'] ?> / <?php echo $row['block_venue'] ?></td>
                                                             <
-                                                            <td class="text-center"><button type="button" value="<?php echo $row['id']; ?>"
+                                                                <td class="text-center"><button type="button" value="<?php echo $row['id']; ?>"
                                                                     class="btn btn-primary viewcomplaint"
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">See More</button>
-                                                            </td>
+                                                                </td>
 
-                                                            <td class="text-center">
-                                                                <button type="button" class="btn btn-light btn-sm showImage" 
-                                                                    value="<?php echo $row['id']; ?>" data-toggle="modal" data-target="#imageModal">
-                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
-                                                                </button>
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <button type="button" id="managerapprovetooltip"
-                                                                    class="btn btn-success managerapprove"
-                                                                    value="<?php echo $row['id']; ?>" data-toggle="modal"
-                                                                    data-target="#managerapproveModal"><i class="fas fa-check"></i>
+                                                                <td class="text-center">
+                                                                    <button type="button" class="btn btn-light btn-sm showImage"
+                                                                        value="<?php echo $row['id']; ?>" data-toggle="modal" data-target="#imageModal">
+                                                                        <i class="fas fa-image" style="font-size: 25px;"></i>
+                                                                    </button>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button type="button" id="managerapprovetooltip"
+                                                                        class="btn btn-success managerapprove"
+                                                                        value="<?php echo $row['id']; ?>" data-toggle="modal"
+                                                                        data-target="#managerapproveModal"><i class="fas fa-check"></i>
                                                                     </button>
 
-                                                                <button type="button" class="btn btn-danger rejectcomplaint"
-                                                                    id="rejectbutton" value="<?php echo $row['id']; ?>"
-                                                                    data-toggle="modal"
-                                                                    data-target="#rejectModal"><i class="fas fa-times"></i></button>
+                                                                    <button type="button" class="btn btn-danger rejectcomplaint"
+                                                                        id="rejectbutton" value="<?php echo $row['id']; ?>"
+                                                                        data-toggle="modal"
+                                                                        data-target="#rejectModal"><i class="fas fa-times"></i></button>
 
-                                                                <button type="button" class="btn btn-primary principalcomplaint"
-                                                                    id="principalbutton" value="<?php echo $row['id']; ?>"
-                                                                    data-toggle="modal"
-                                                                    data-target="#principalModal"><i class="fas fa-paper-plane"></i>                                                                    
+                                                                    <button type="button" class="btn btn-primary principalcomplaint"
+                                                                        id="principalbutton" value="<?php echo $row['id']; ?>"
+                                                                        data-toggle="modal"
+                                                                        data-target="#principalModal"><i class="fas fa-paper-plane"></i>
                                                                     </button>
-                                                            </td>
+                                                                </td>
                                                         </tr>
                                                     <?php
                                                         $s++;
@@ -1471,10 +1471,12 @@ $row_count7 = mysqli_num_rows($result7);
         <!-- JavaScript Alertify-->
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
 
+        <!--Download as XL-Sheet-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
 
 
         <script>
-
             //Tool Tip
             $(function() {
                 // Initialize the tooltip
