@@ -467,14 +467,14 @@ $notcount = mysqli_num_rows($result4);
 
                                                                 <button type='button' class='btn btn-primary margin-5 showbeforeimg'
                                                                     data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                    Before
+                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
 
                                                                 <!-- Align the second button to the right -->
                                                                 <button type="button" class="btn btn-info"
                                                                     style="margin-left:8px;" data-toggle="modal"
                                                                     data-target="#Modal4">
-                                                                    After
+                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
                                                             </div>
                                                         </td>
@@ -544,7 +544,7 @@ $notcount = mysqli_num_rows($result4);
                                                                 <td class='text-center'>
                                                                     <button type='button' class='btn btn-primary margin-5 showbeforeimg'
                                                                         data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                        Before
+                                                                        <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                     </button>
                                                                 </td>
                                                                 <?php
@@ -644,7 +644,7 @@ $notcount = mysqli_num_rows($result4);
                                                                     <td class='text-center'>
                                                                         <button type='button' class='btn btn-primary margin-5 showbeforeimg'
                                                                             data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                            Before
+                                                                            <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                         </button>
                                                                     </td>
                                                                     <?php
@@ -742,7 +742,7 @@ $notcount = mysqli_num_rows($result4);
                                                                     <td class='text-center'>
                                                                         <button type='button' class='btn btn-primary margin-5 showbeforeimg'
                                                                             data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                            Before
+                                                                            <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                         </button>
                                                                     </td>
                                                                     <?php
@@ -889,14 +889,14 @@ $notcount = mysqli_num_rows($result4);
 
                                                                 <button type='button' class='btn btn-primary margin-5 showbeforeimg'
                                                                     data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                    Before
+                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
 
                                                                 <!-- Align the second button to the right -->
                                                                 <button type="button" class="btn btn-info showImage"
                                                                     style="margin-left:-12px;" data-toggle="modal"
                                                                     data-target="#Modal4" data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                    After
+                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
                                                             </div>
                                                         </td>
