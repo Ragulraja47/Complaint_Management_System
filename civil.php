@@ -41,7 +41,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-(m.worker_id = 'CIV01' or m.worker_id = 'CIV02')
+(m.worker_id = 'CIVIL01' or m.worker_id = 'CIVIL02')
 
 AND cd.status = '7'";
 // Filter by department
