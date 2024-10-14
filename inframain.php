@@ -138,7 +138,7 @@ $comcount = mysqli_num_rows($result3);
                     <!-- ============================================================== -->
                     <a class="navbar-brand" href="index.html">
                         <!-- Logo icon -->
-                        
+
                         <b class="logo-icon p-l-8">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
@@ -226,7 +226,7 @@ $comcount = mysqli_num_rows($result3);
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="inframain.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Faculty Coordinator</span></a></li>
-                       
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -305,13 +305,10 @@ $comcount = mysqli_num_rows($result3);
                                                                         <h5>S.No</h5>
                                                                     </b></th>
                                                                 <th class="col-md-2 text-center"><b>
-                                                                        <h5>Faculty ID</h5>
+                                                                        <h5>Faculty Name</h5>
                                                                     </b></th>
                                                                 <th class="col-md-2 text-center"><b>
-                                                                        <h5>Block name</h5>
-                                                                    </b></th>
-                                                                <th class="text-center"><b>
-                                                                        <h5>Venue</h5>
+                                                                        <h5>Block / Venue</h5>
                                                                     </b></th>
                                                                 <th class="col-md-2 text-center"><b>
                                                                         <h5>Type of problem</h5>
@@ -324,15 +321,13 @@ $comcount = mysqli_num_rows($result3);
                                                                     </b></th>
                                                                 <th class="text-center">
                                                                     <b>
-                                                                        <h5>Photos</h5>
+                                                                        <h5>Picture</h5>
                                                                     </b>
                                                                 </th>
                                                                 <th class="text-center"><b>
                                                                         <h5>Action</h5>
                                                                     </b></th>
-                                                                <th class="text-center"><b>
-                                                                        <h5>Remarks</h5>
-                                                                    </b></th>
+
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -342,19 +337,18 @@ $comcount = mysqli_num_rows($result3);
                                                             ?>
                                                                 <tr>
                                                                     <td scope="row"><?php echo $s; ?> </td>
-                                                                    <td class="text-center"><?php echo $row["faculty_id"]; ?></td>
-                                                                    <td class="text-center"><?php echo $row["block_venue"]; ?></td>
-                                                                    <td class="text-center"><?php echo $row["venue_name"]; ?></td>
+                                                                    <td class="text-center"><?php echo $row["faculty_name"]; ?></td>
+                                                                    <td class="text-center"><?php echo $row["block_venue"]; ?> / <?php echo $row["venue_name"]; ?></td>
                                                                     <td class="text-center"><?php echo $row["type_of_problem"]; ?></td>
                                                                     <td class="text-center"><?php echo $row["date_of_reg"]; ?></td>
 
                                                                     <td class="text-center"> <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#Modal1" data-description="<?php echo $row['problem_description']; ?>">
-                                                                            View Details
+                                                                            View
                                                                         </button></span></td>
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-info showImage" data-id="<?php echo $row['id']; ?>">View</button>
+                                                                    <td class="text-center">
+                                                                        <button type="button" class="btn showImage" data-id="<?php echo $row['id']; ?>"> <i class="fas fa-image" style="font-size: 25px;"></i></button>
                                                                     </td>
-                                                                    <td>
+                                                                    <td class="text-center">
                                                                         <div style="display: flex; gap: 10px; align-items: center;">
                                                                             <button type="button" value="<?php echo ($row['id']); ?>" class="btn btn-success approve-btn" id="approve" style="display: flex; align-items: center; justify-content: center;">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
@@ -368,7 +362,7 @@ $comcount = mysqli_num_rows($result3);
                                                                             </button>
                                                                         </div>
                                                                     </td>
-                                                                    <td class="text-center">Pending</td>
+
 
                                                                 </tr>
                                                             <?php
@@ -395,14 +389,11 @@ $comcount = mysqli_num_rows($result3);
                                                                 <th class="text-center"><b>
                                                                         <h5>Name</h5>
                                                                     </b></th>
-                                                                <th class="text-center"><b>
-                                                                        <h5>Block</h5>
-                                                                    </b></th>
-                                                                <th class="text-center"><b>
-                                                                        <h5>Venue</h5>
+                                                                <th class="col-md-2 text-center"><b>
+                                                                        <h5>Block / Venue</h5>
                                                                     </b></th>
                                                                 <th class="col-md-2 text-center"><b>
-                                                                        <h5>Type</h5>
+                                                                        <h5>Type of problem</h5>
                                                                     </b></th>
                                                                 <th class="text-center"><b>
                                                                         <h5>Date of register</h5>
@@ -459,7 +450,7 @@ $comcount = mysqli_num_rows($result3);
                                                                         $statusMessage = 'Sent to Manager for Rework';
                                                                         break;
                                                                     case 15:
-                                                                        $statusMessage = 'Rework Details';
+                                                                        $statusMessage = 'Work Reassigned';
                                                                         break;
                                                                     case 16:
                                                                         $statusMessage = 'Rejected by Manager';
@@ -473,24 +464,23 @@ $comcount = mysqli_num_rows($result3);
 
                                                             ?>
                                                                 <tr>
-                                                                    <td scope="row"><?php echo $s; ?> </td>
+                                                                    <td class="text-center" scope="row"><?php echo $s; ?> </td>
 
                                                                     <td class="text-center"><?php echo $row["faculty_name"]; ?></td>
 
-                                                                    <td class="text-center"><?php echo $row["block_venue"]; ?></td>
-                                                                    <td class="text-center"><?php echo $row["venue_name"]; ?></td>
+                                                                    <td class="text-center"><?php echo $row["block_venue"]; ?> / <?php echo $row["venue_name"]; ?></td>
                                                                     <td class="text-center"><?php echo $row["type_of_problem"]; ?></td>
                                                                     <td class="text-center"><?php echo $row["date_of_reg"]; ?></td>
 
 
 
                                                                     <td class="text-center"> <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#Modal1" data-description="<?php echo $row['problem_description']; ?>">
-                                                                            View Details
+                                                                            View
                                                                         </button></span></td>
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-info showImage" data-id="<?php echo $row['id']; ?>">View</button>
+                                                                    <td class="text-center">
+                                                                        <button type="button" class="btn showImage" data-id="<?php echo $row['id']; ?>"> <i class="fas fa-image" style="font-size: 25px;"></i></button>
                                                                     </td>
-                                                                    <td><?php echo $statusMessage; ?></td>
+                                                                    <td class="text-center"> <span class="btn btn-success"><?php echo $statusMessage; ?> </span></td>
 
                                                                 </tr>
                                                             <?php
@@ -519,13 +509,10 @@ $comcount = mysqli_num_rows($result3);
                                                                     </b></th>
 
                                                                 <th class="text-center"><b>
-                                                                        <h5>Block</h5>
-                                                                    </b></th>
-                                                                <th class="text-center"><b>
-                                                                        <h5>Venue</h5>
+                                                                        <h5>Block / Venue</h5>
                                                                     </b></th>
                                                                 <th class="col-md-2 text-center"><b>
-                                                                        <h5>Type</h5>
+                                                                        <h5>Type of problem</h5>
                                                                     </b></th>
                                                                 <th class="text-center"><b>
                                                                         <h5>Problem description</h5>
@@ -584,10 +571,10 @@ $comcount = mysqli_num_rows($result3);
                                                                     case 15:
                                                                         $statusMessage = 'Rework Details';
                                                                         break;
-                                                                    case 16:
+                                                                    case 20:
                                                                         $statusMessage = 'Rejected by Manager';
                                                                         break;
-                                                                    case 17:
+                                                                    case 19:
                                                                         $statusMessage = 'Rejected by Principal';
                                                                         break;
                                                                     default:
@@ -597,23 +584,23 @@ $comcount = mysqli_num_rows($result3);
 
                                                             ?>
                                                                 <tr>
-                                                                    <td scope="row"><?php echo $s; ?> </td>
+                                                                    <td class="text-center" scope="row"><?php echo $s; ?> </td>
 
                                                                     <td class="text-center"><?php echo $row["faculty_name"]; ?></td>
 
-                                                                    <td class="text-center"><?php echo $row["block_venue"]; ?></td>
-                                                                    <td class="text-center"><?php echo $row["venue_name"]; ?></td>
+                                                                    <td class="text-center"><?php echo $row["block_venue"]; ?> / <?php echo $row["venue_name"]; ?></td>
+
                                                                     <td class="text-center"><?php echo $row["type_of_problem"]; ?></td>
                                                                     <td class="text-center"> <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#Modal1" data-description="<?php echo $row['problem_description']; ?>">
-                                                                            View Details
+                                                                            View
                                                                         </button></span></td>
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-info showImage" data-id="<?php echo $row['id']; ?>">View</button>
+                                                                    <td class="text-center">
+                                                                        <button type="button" class="btn showImage" data-id="<?php echo $row['id']; ?>"> <i class="fas fa-image" style="font-size: 25px;"></i></button>
                                                                     </td>
 
                                                                     <td class="text-center"><?php echo $row["feedback"]; ?></td>
 
-                                                                    <td><?php echo $statusMessage; ?></td>
+                                                                    <td class="text-center"> <span class="btn btn-danger"><?php echo $statusMessage; ?> </span></td>
 
                                                                 </tr>
                                                             <?php
@@ -645,13 +632,11 @@ $comcount = mysqli_num_rows($result3);
                                                                         </b></th>
 
                                                                     <th class="text-center"><b>
-                                                                            <h5>Block</h5>
+                                                                            <h5>Block \ Venue</h5>
                                                                         </b></th>
-                                                                    <th class="text-center"><b>
-                                                                            <h5>Venue</h5>
-                                                                        </b></th>
+                                                                    
                                                                     <th class="col-md-2 text-center"><b>
-                                                                            <h5>Type</h5>
+                                                                            <h5>Type of problem</h5>
                                                                         </b></th>
                                                                     <th class="text-center"><b>
                                                                             <h5>Problem description</h5>
@@ -722,20 +707,20 @@ $comcount = mysqli_num_rows($result3);
 
                                                                 ?>
                                                                     <tr>
-                                                                        <td scope="row"><?php echo $s; ?> </td>
+                                                                        <td class="text-center" scope="row"><?php echo $s; ?> </td>
 
                                                                         <td class="text-center"><?php echo $row["faculty_name"]; ?></td>
 
-                                                                        <td class="text-center"><?php echo $row["block_venue"]; ?></td>
-                                                                        <td class="text-center"><?php echo $row["venue_name"]; ?></td>
+                                                                        <td class="text-center"><?php echo $row["block_venue"]; ?> \ <?php echo $row["venue_name"]; ?></td>
+                                                                        
                                                                         <td class="text-center"><?php echo $row["type_of_problem"]; ?></td>
                                                                         <td class="text-center"> <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#Modal1" data-description="<?php echo $row['problem_description']; ?>">
-                                                                                View Details
+                                                                                View
                                                                             </button></span></td>
-                                                                            <td>
+                                                                        <td class="text-center">
                                                                             <div class="btn-group">
-                                                                                <button type="button" class="btn btn-info showImage" data-toggle="modal" data-target="imageModal" data-id="<?php echo $row['id']; ?>">Before</button>
-                                                                                <button type="button" class="btn btn-info afterImage" data-toggle="modal" data-target="imageModal" data-id="<?php echo $row['id']; ?>" style="margin:0 10px;">After</button>
+                                                                                <button type="button" class="btn btn showImage" data-toggle="modal" data-target="imageModal" data-id="<?php echo $row['id']; ?>"><i class="fas fa-image" style="font-size: 25px;"></i></button>
+                                                                                <button type="button" class="btn btn afterImage" data-toggle="modal" data-target="imageModal" data-id="<?php echo $row['id']; ?>" style="margin:0 10px;"> <i class="fas fa-images" style="font-size: 25px;"></i></button>
                                                                             </div>
                                                                         </td>
 
@@ -788,7 +773,7 @@ $comcount = mysqli_num_rows($result3);
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center" >
+            <footer class="footer text-center">
                 <b>
                     2024 © M.Kumarasamy College of Engineering All Rights Reserved.<br>
                     Developed and Maintained by Technology Innovation Hub.
@@ -884,6 +869,52 @@ $comcount = mysqli_num_rows($result3);
     <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 
     <script>
+        $(function() {
+            // Initialize the tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // You can also set options manually if needed
+            $('.showImage').tooltip({
+                placement: 'top',
+                title: 'Before'
+            });
+        });
+
+        $(function() {
+            // Initialize the tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // You can also set options manually if needed
+            $('.approve-btn').tooltip({
+                placement: 'top',
+                title: 'Approve'
+            });
+        });
+
+        $(function() {
+            // Initialize the tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // You can also set options manually if needed
+            $('.btnreject').tooltip({
+                placement: 'top',
+                title: 'Reject'
+            });
+        });
+        
+        $(function() {
+            // Initialize the tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // You can also set options manually if needed
+            $('.afterImage').tooltip({
+                placement: 'top',
+                title: 'After'
+            });
+        });
+
+
+
         $(document).ready(function() {
             $('#pending1').DataTable({
                 ordering: false
@@ -949,8 +980,8 @@ $comcount = mysqli_num_rows($result3);
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<SCRIPT>
-    $(document).on('click', '.afterImage', function() {
+    <SCRIPT>
+        $(document).on('click', '.afterImage', function() {
             var user_id = $(this).data('id'); // Get the user ID from data attribute
             console.log(user_id);
 
