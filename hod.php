@@ -415,31 +415,28 @@ $result3 = mysqli_query($conn, $sql3);
                                                                     <table id="myTable1" class="table table-bordered table-striped fixed-size-table">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th class="pending status"
+                                                                                <th class="text-center" class="pending status"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>S.No</b>
                                                                                 </th>
-                                                                                <th
-                                                                                    style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                                                    <b>Problem id</b>
-                                                                                </th>
-                                                                                <th
+                                                                                
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Faculty Name</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Problem Description</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Date Registered</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                                                    <b>Image</b>
+                                                                                    <b>Picture</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Action</b>
                                                                                 </th>
@@ -451,45 +448,43 @@ $result3 = mysqli_query($conn, $sql3);
                                                                             while ($row = mysqli_fetch_assoc($result)) {
                                                                             ?>
                                                                                 <tr>
-                                                                                    <td>
+                                                                                    <td class="text-center">
                                                                                         <?php echo $id; ?>
                                                                                     </td>
-                                                                                    <td>
-                                                                                        <?php echo $row['id']; ?>
-                                                                                    </td>
-                                                                                    <td>
+
+                                                                                    <td class="text-center">
                                                                                         <?php echo $row['faculty_name']; ?>
                                                                                     </td>
-                                                                                    <td>
+                                                                                    <td class="text-center">
                                                                                         <button type="button"
                                                                                             data-problemid
-                                                                                            class="btn btn-success btndesc ml-5" id="seeproblem"
+                                                                                            class="btn btn-info btndesc " id="seeproblem"
                                                                                             data-toggle="modal" value='<?php echo $row['id']; ?>'
-                                                                                            data-target="#probdesc">View More</button>
+                                                                                            data-target="#probdesc">View</button>
                                                                                     </td>
-                                                                                    <td>
+                                                                                    <td class="text-center">
                                                                                         <?php echo $row['date_of_reg']; ?>
                                                                                     </td>
-                                                                                    <td>
+                                                                                    <td class="text-center">
                                                                                         <button type="button"
-                                                                                            class="btn btn-success showImage"
+                                                                                            class="btn showImage"
                                                                                             value="<?php echo $row['id']; ?>"
                                                                                             data-toggle="modal"
                                                                                             data-target="#imageModal1"
                                                                                             data-task-id='<?php echo htmlspecialchars($row['id']); ?>'>
-                                                                                            View
+                                                                                            <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                                         </button>
                                                                                     </td>
-                                                                                    <td>
+                                                                                    <td class="text-center">
                                                                                         <button type="button"
                                                                                             value="<?php echo $row['id']; ?>"
                                                                                             id="detail_id"
-                                                                                            class="btn btn-success btnapprove">Approve</button>
+                                                                                            class="btn btn-success btnapprove"><i class="fas fa-check"></i></button>
                                                                                         <button type="button"
                                                                                             value="<?php echo $row['id']; ?>"
                                                                                             class="btn btn-danger btnreject"
                                                                                             data-toggle="modal"
-                                                                                            data-target="#rejectreason">Reject
+                                                                                            data-target="#rejectreason"><i class="fas fa-times"></i>
                                                                                         </button>
                                                                                     </td>
                                                                                 <?php
@@ -1113,6 +1108,42 @@ $result3 = mysqli_query($conn, $sql3);
     <script src="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.min.js"></script>
 
     <script>
+
+                    //Tool Tip
+                    $(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('.btnreject').tooltip({
+                    placement: 'top',
+                    title: 'Reject'
+                });
+            });
+
+            $(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('.btnapprove').tooltip({
+                    placement: 'top',
+                    title: 'Accept'
+                });
+            });
+
+            $(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('.showImage').tooltip({
+                    placement: 'top',
+                    title: 'Before'
+                });
+            });
+
+
         $(document).ready(function() {
             $('#myTable1').DataTable();
             $('#myTable2').DataTable();
