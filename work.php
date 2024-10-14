@@ -90,7 +90,7 @@ if (isset($_POST['form'])) {
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
     <title>MIC - MKCE</title>
-    <link href="dist/css/style.min.css" rel="stylesheet">
+   
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -1574,8 +1574,8 @@ $(document).on("submit", "#form20", function(e) {
             // Directly check if response contains "Success" or "Error"
             if (response.includes("Success")) {
                 alertify.success("asigned successfully!");
-                $('#principal_table').load(location.href + " #principal_table");
                 $('#prioritymodal1').hide();
+                window.location.reload();
 
             } else {
                 alert(response);
