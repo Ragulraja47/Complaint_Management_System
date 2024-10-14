@@ -627,7 +627,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                                         <td class="text-center"><?php echo $row['problem_description']; ?></td>
                                                                         <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
                                                                         <td class="text-center">
-                                                                            <button type="button" class="btn btn-info showImage" value="<?php echo $row['id']; ?>">
+                                                                            <button type="button" class="btn showImage" value="<?php echo $row['id']; ?>">
                                                                                 <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                             </button>
                                                                         </td>
