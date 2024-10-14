@@ -943,14 +943,14 @@ input[type="text"]:focus {
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row4['id']; ?>" data-toggle="modal"
                                                                     >
-                                                                    <i class="fas fa-image"></i> Before
+                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
                                                             </td>
-                                                            <td>
+                                                            <td class="text-center">
                                                                 <button type="button"
                                                                     class="btn btn-success dropdown-toggle acceptcomplaint"
                                                                     value="<?php echo $row4['id']; ?>"
-                                                                    data-toggle="dropdown">Assign</button>
+                                                                    data-toggle="dropdown"><i class="fas fa-check"></i></button>
                                                                 <ul class="dropdown-menu">
                                                                     <center>
                                                                         <li><a href="#" class="worker"
@@ -1527,6 +1527,17 @@ $(document).ready(function () {
 });
 </script>
     <script>
+
+$(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('.acceptcomplaint').tooltip({
+                    placement: 'top',
+                    title: 'Accept'
+                });
+            });
 $(document).on("click", ".worker", function(e) {
     e.preventDefault();
     var worker_id = $(this).data("value");
