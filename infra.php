@@ -462,7 +462,7 @@ $notcount = mysqli_num_rows($result4);
                                                             <button type='button' class='btn btn-primary margin-5 view-complaint
                                                             '
                                                                 data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                View Complaint
+                                                                View
                                                             </button>
                                                         </td>
 
@@ -470,13 +470,13 @@ $notcount = mysqli_num_rows($result4);
                                                             <div class="d-flex justify-content-between">
                                                                 <!-- Align the first button to the left -->
 
-                                                                <button type='button' class='btn btn-primary margin-5 showbeforeimg'
+                                                                <button type='button' class='btn margin-5 showbeforeimg'
                                                                     data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
 
                                                                 <!-- Align the second button to the right -->
-                                                                <button type="button" class="btn btn-info"
+                                                                <button type="button" class="btn"
                                                                     style="margin-left:8px;" data-toggle="modal"
                                                                     data-target="#Modal4">
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
@@ -540,14 +540,14 @@ $notcount = mysqli_num_rows($result4);
                                                                 <td class='text-center'>
                                                                     <button type='button' class='btn btn-primary margin-5 view-complaint'
                                                                         data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                        View Complaint
+                                                                        View
                                                                     </button>
                                                                 </td>
                                                                 <?php
                                                                 echo "<td class='text-center'>" . htmlspecialchars($row['priority']) . "</td>";
                                                                 ?>
                                                                 <td class='text-center'>
-                                                                    <button type='button' class='btn btn-primary margin-5 showbeforeimg'
+                                                                    <button type='button' class='btn margin-5 showbeforeimg'
                                                                         data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                         <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                     </button>
@@ -640,14 +640,14 @@ $notcount = mysqli_num_rows($result4);
                                                                     <td class='text-center'>
                                                                         <button type='button' class='btn btn-primary margin-5 view-complaint'
                                                                             data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                            View Complaint
+                                                                            View
                                                                         </button>
                                                                     </td>
                                                                     <?php
                                                                     echo "<td class='text-center'>" . htmlspecialchars($row['priority']) . "</td>";
                                                                     ?>
                                                                     <td class='text-center'>
-                                                                        <button type='button' class='btn btn-primary margin-5 showbeforeimg'
+                                                                        <button type='button' class='btn margin-5 showbeforeimg'
                                                                             data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                             <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                         </button>
@@ -738,14 +738,14 @@ $notcount = mysqli_num_rows($result4);
                                                                     <td class='text-center'>
                                                                         <button type='button' class='view-complaint btn btn-primary margin-5 '
                                                                             data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                            View Complaint
+                                                                            View
                                                                         </button>
                                                                     </td>
                                                                     <?php
                                                                     echo "<td class='text-center'>" . htmlspecialchars($row['priority']) . "</td>";
                                                                     ?>
                                                                     <td class='text-center'>
-                                                                        <button type='button' class='btn btn-primary margin-5 showbeforeimg'
+                                                                        <button type='button' class='btn margin-5 showbeforeimg'
                                                                             data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                             <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                         </button>
@@ -882,7 +882,7 @@ $notcount = mysqli_num_rows($result4);
                                                         <td class='text-center'>
                                                             <button type='button' class='btn btn-primary margin-5 view-complaint'
                                                                 data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                View Complaint
+                                                                View
                                                             </button>
                                                         </td>
                                                         <?php
@@ -892,13 +892,13 @@ $notcount = mysqli_num_rows($result4);
                                                             <div class="d-flex justify-content-between">
                                                                 <!-- Align the first button to the left -->
 
-                                                                <button type='button' class='btn btn-primary margin-5 showbeforeimg'
+                                                                <button type='button' class='btn margin-5 showbeforeimg'
                                                                     data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
 
                                                                 <!-- Align the second button to the right -->
-                                                                <button type="button" class="btn btn-info showImage"
+                                                                <button type="button" class="btn showImage"
                                                                     style="margin-left:-12px;" data-toggle="modal"
                                                                     data-target="#Modal4" data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
