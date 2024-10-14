@@ -582,13 +582,13 @@ $row_count4 = mysqli_num_rows($result4);
                                                         <table id="user" class="table table-bordered table-striped">
                                                             <thead>
                                                                 <tr>
-                                                                    <th><b>S.No</b></th>
-                                                                    <th><b>Venue</b></th>
-                                                                    <th><b>Problem</b></th>
-                                                                    <th><b>Problem description</b></th>
-                                                                    <th><b>Date Of submission</b></th>
-                                                                    <th><b>Photo</b></th>
-                                                                    <th><b>Status</b></th>
+                                                                    <th class="text-center"><b>S.No</b></th>
+                                                                    <th class="text-center"><b>Venue</b></th>
+                                                                    <th class="text-center"><b>Problem</b></th>
+                                                                    <th class="text-center"><b>Problem description</b></th>
+                                                                    <th class="text-center"><b>Date Of submission</b></th>
+                                                                    <th class="text-center"><b>Photo</b></th>
+                                                                    <th class="text-center"><b>Status</b></th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -621,15 +621,17 @@ $row_count4 = mysqli_num_rows($result4);
                                                                     }
                                                                 ?>
                                                                     <tr>
-                                                                        <td><?php echo $s; ?></td>
-                                                                        <td><?php echo $row['block_venue']; ?></td>
-                                                                        <td><?php echo $row['type_of_problem']; ?></td>
-                                                                        <td><?php echo $row['problem_description']; ?></td>
-                                                                        <td><?php echo $row['date_of_reg']; ?></td>
-                                                                        <td>
-                                                                            <button type="button" class="btn btn-info showImage" value="<?php echo $row['id']; ?>">View</button>
+                                                                        <td class="text-center"><?php echo $s; ?></td>
+                                                                        <td class="text-center"><?php echo $row['block_venue']; ?></td>
+                                                                        <td class="text-center"><?php echo $row['type_of_problem']; ?></td>
+                                                                        <td class="text-center"><?php echo $row['problem_description']; ?></td>
+                                                                        <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
+                                                                        <td class="text-center">
+                                                                            <button type="button" class="btn btn-info showImage" value="<?php echo $row['id']; ?>">
+                                                                                <i class="fas fa-image" style="font-size: 25px;"></i>
+                                                                            </button>
                                                                         </td>
-                                                                        <td>
+                                                                        <td class="text-center">
                                                                             <?php if ($row['status'] == 1) { ?>
                                                                                 <center>
                                                                                     <button class="fbtn btndelete" type="button" value="<?php echo $row['id']; ?>">
@@ -691,13 +693,13 @@ $row_count4 = mysqli_num_rows($result4);
                                                 <table id="ProgressTable" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th><b>S.No</b></th>
-                                                            <th><b>Venue</b></th>
-                                                            <th><b>Problem</b></th>
-                                                            <th><b>Problem description</b></th>
-                                                            <th><b>Date Of submission</b></th>
-                                                            <th><b>Worker Details</b></th>
-                                                            <th><b>Feedback</b></th>
+                                                            <th class="text-center"><b>S.No</b></th>
+                                                            <th class="text-center"><b>Venue</b></th>
+                                                            <th class="text-center"><b>Problem</b></th>
+                                                            <th class="text-center"><b>Problem description</b></th>
+                                                            <th class="text-center"><b>Date Of submission</b></th>
+                                                            <th class="text-center"><b>Worker Details</b></th>
+                                                            <th class="text-center"><b>Feedback</b></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -706,15 +708,15 @@ $row_count4 = mysqli_num_rows($result4);
                                                         while ($row = mysqli_fetch_assoc($result1)) {
                                                         ?>
                                                             <tr>
-                                                                <td><?php echo $s; ?></td>
-                                                                <td><?php echo $row['block_venue']; ?></td>
-                                                                <td><?php echo $row['type_of_problem']; ?></td>
-                                                                <td><?php echo $row['problem_description']; ?></td>
-                                                                <td><?php echo $row['date_of_reg']; ?></td>
-                                                                <td>
+                                                                <td class="text-center"><?php echo $s; ?></td>
+                                                                <td class="text-center"><?php echo $row['block_venue']; ?></td>
+                                                                <td class="text-center"><?php echo $row['type_of_problem']; ?></td>
+                                                                <td class="text-center"><?php echo $row['problem_description']; ?></td>
+                                                                <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
+                                                                <td class="text-center">
                                                                     <button type="button" class="btn btn-info showWorkerDetails" value="<?php echo $row['id']; ?>">View</button>
                                                                 </td>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <?php if ($row['status'] == 11 || $row['status'] == 18) { ?>
                                                                         <!-- Button to open the feedback modal -->
                                                                         <button type="button" class="btn btn-info feedbackBtn" data-problem-id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#feedback_modal">Feedback</button>
@@ -817,12 +819,12 @@ $row_count4 = mysqli_num_rows($result4);
                                                 <table id="completedTable" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th><b>S.No</b></th>
-                                                            <th><b>Venue</b></th>
-                                                            <th><b>Problem</b></th>
-                                                            <th><b>Date Of submission</b></th>
-                                                            <th><b>Date of Completion</b></th>
-                                                            <th><b>Feedback</b></th>
+                                                            <th class="text-center"><b>S.No</b></th>
+                                                            <th class="text-center"><b>Venue</b></th>
+                                                            <th class="text-center"><b>Problem</b></th>
+                                                            <th class="text-center"><b>Date Of submission</b></th>
+                                                            <th class="text-center"><b>Date of Completion</b></th>
+                                                            <th class="text-center"><b>Feedback</b></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -831,22 +833,22 @@ $row_count4 = mysqli_num_rows($result4);
                                                         while ($row = mysqli_fetch_assoc($result2)) {
                                                         ?>
                                                             <tr>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <?php echo $s; ?>
                                                                 </td>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <?php echo $row['block_venue']; ?>
                                                                 </td>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <?php echo $row['problem_description']; ?>
                                                                 </td>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <?php echo $row['date_of_reg']; ?>
                                                                 </td>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <?php echo $row['date_of_completion']; ?>
                                                                 </td>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <?php echo $row['feedback']; ?>
                                                                 </td>
                                                             </tr>
@@ -871,12 +873,12 @@ $row_count4 = mysqli_num_rows($result4);
                                         <table id="RejectionTable" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th><b>S no</b></th>
-                                                    <th><b>Block</b></th>
-                                                    <th><b>Venue</b></th>
-                                                    <th><b>problem description</b></th>
-                                                    <th><b>Status </b></th>
-                                                    <th><b>Reason </b></th>
+                                                    <th class="text-center"><b>S no</b></th>
+                                                    <th class="text-center"><b>Block</b></th>
+                                                    <th class="text-center"><b>Venue</b></th>
+                                                    <th class="text-center"><b>problem description</b></th>
+                                                    <th class="text-center"><b>Status </b></th>
+                                                    <th class="text-center"><b>Reason </b></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -940,13 +942,13 @@ $row_count4 = mysqli_num_rows($result4);
                                                 <table id="reassignTable" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th><b>S.No</b></th>
-                                                            <th><b>Venue</b></th>
-                                                            <th><b>Problem</b></th>
-                                                            <th><b>Problem description</b></th>
-                                                            <th><b>Date Of submission</b></th>
-                                                            <th><b>Worker Details</b></th>
-                                                            <th><b>Feedback</b></th>
+                                                            <th class="text-center"><b>S.No</b></th>
+                                                            <th class="text-center"><b>Venue</b></th>
+                                                            <th class="text-center"><b>Problem</b></th>
+                                                            <th class="text-center"><b>Problem description</b></th>
+                                                            <th class="text-center"><b>Date Of submission</b></th>
+                                                            <th class="text-center"><b>Worker Details</b></th>
+                                                            <th class="text-center"><b>Feedback</b></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -955,12 +957,12 @@ $row_count4 = mysqli_num_rows($result4);
                                                         while ($row = mysqli_fetch_assoc($result4)) {
                                                         ?>
                                                             <tr>
-                                                                <td><?php echo $s; ?></td>
-                                                                <td><?php echo $row['block_venue']; ?></td>
-                                                                <td><?php echo $row['type_of_problem']; ?></td>
-                                                                <td><?php echo $row['problem_description']; ?></td>
-                                                                <td><?php echo $row['date_of_reg']; ?></td>
-                                                                <td>
+                                                                <td class="text-center"><?php echo $s; ?></td>
+                                                                <td class="text-center"><?php echo $row['block_venue']; ?></td>
+                                                                <td class="text-center"><?php echo $row['type_of_problem']; ?></td>
+                                                                <td class="text-center"><?php echo $row['problem_description']; ?></td>
+                                                                <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
+                                                                <td class="text-center">
                                                                     <button type="button" class="btn btn-info showWorkerDetails" value="<?php echo $row['id']; ?>">View</button>
                                                                 </td>
                                                                 <td><?php echo $row['feedback']; ?></td>
