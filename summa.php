@@ -352,6 +352,22 @@ $row_count7 = mysqli_num_rows($result7);
                 opacity: 1;
             }
         }
+        .modal-header {
+    border-bottom: 1px solid #dee2e6;
+    }
+
+    .modal-body p {
+        margin: 10px 0; /* Adds spacing between paragraphs */
+    }
+
+    .modal-footer .btn {
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .modal-footer .btn:hover {
+        background-color: #e9ecef; /* Light background on hover */
+    }
+
     </style>
 </head>
 
@@ -537,9 +553,9 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center"><?php echo $row['department'] ?> / <?php echo $row['block_venue'] ?></td>
 
                                                             <td class="text-center"><button type="button" value="<?php echo $row['id']; ?>"
-                                                                    class="btn btn-primary viewcomplaint"
+                                                                    class="btn viewcomplaint"
                                                                     data-toggle="modal"
-                                                                    data-target="#complaintDetailsModal">See More</button>
+                                                                    data-target="#complaintDetailsModal"><i class="fas fa-eye" style="font-size: 25px;"></i></button>
                                                             </td>
 
                                                             <td class="text-center">
@@ -624,10 +640,10 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center"><?php echo $row4['block_venue'] ?></td>
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row4['id']; ?>"
-                                                                    class="btn btn-primary viewcomplaint"
+                                                                    class="btn viewcomplaint"
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
-                                                                    See More
+                                                                    <i class="fas fa-eye" style="font-size: 25px;"></i>
                                                                 </button>
                                                             </td>
 
@@ -742,9 +758,9 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center"><?php echo $s ?></td>
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row3['id']; ?>"
-                                                                    class="btn btn-primary viewcomplaint"
+                                                                    class="btn viewcomplaint"
                                                                     data-toggle="modal"
-                                                                    data-target="#complaintDetailsModal">See More</button>
+                                                                    data-target="#complaintDetailsModal"><i class="fas fa-eye" style="font-size: 25px;"></i></button>
                                                             </td>
                                                             <td class="text-center">
                                                                 <button type="button" class="btn btn-primary"
@@ -839,10 +855,10 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center"><?php echo $s ?></td>
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row5['id']; ?>"
-                                                                    class="btn btn-primary viewcomplaint"
+                                                                    class="btn viewcomplaint"
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
-                                                                    See More
+                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
@@ -930,10 +946,10 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center"><?php echo $s ?></td>
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row7['id']; ?>"
-                                                                    class="btn btn-primary viewcomplaint"
+                                                                    class="btn viewcomplaint"
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
-                                                                    See More
+                                                                    <i class="fas fa-eye" style="font-size: 25px;"></i>
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
@@ -1010,10 +1026,10 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center"><?php echo $s ?></td>
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row6['id']; ?>"
-                                                                    class="btn btn-primary viewcomplaint"
+                                                                    class="btn viewcomplaint"
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
-                                                                    See More
+                                                                    <i class="fas fa-eye" style="font-size: 25px;"></i>
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
@@ -1238,43 +1254,52 @@ $row_count7 = mysqli_num_rows($result7);
                             </div>
 
                             <!-- Complaint Details Modal -->
-                            <div class="modal fade" id="complaintDetailsModal" tabindex="-1" role="dialog"
-                                aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header"
-                                            style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                            <h5 class="modal-title" id="complaintDetailsModalLabel">Complaint
-                                                Details</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div id="complaint-details" style="font-size: 16px;">
-                                                <p><strong>Type of Problem:</strong> <span
-                                                        id="type_of_problem"></span></p>
-                                                <p><strong>Problem Description:</strong> <span
-                                                        id="problem_description"></span></p>
-                                                <p><strong>Faculty Name:</strong> <span
-                                                        id="faculty_name"></span></p>
-                                                <p><strong>Mobile Number:</strong> <span
-                                                        id="faculty_contact"></span></p>
-                                                <p><strong>E-mail:</strong> <span id="faculty_mail"></span></p>
-                                                <p><strong>Block/Venue No:</strong> <span
-                                                        id="block_venue"></span></p>
-                                                <p><strong>Venue Name:</strong> <span id="venue_name"></span>
-                                                </p>
+                            <div class="modal fade" id="complaintDetailsModal" tabindex="-1" role="dialog" aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-md" role="document"> <!-- Reduced width for a compact layout -->
+                                        <div class="modal-content" style="border-radius: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); background-color: #ffffff;">
+
+                                            <!-- Modal Header with updated styling -->
+                                            <div class="modal-header" style="background-color: #007bff; color: white; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                                                <h5 class="modal-title" id="complaintDetailsModalLabel" style="font-weight: bold;">📋 Complaint Details</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
+
+                                            <!-- Modal Body -->
+                                            <div class="modal-body" style="padding: 25px; font-size: 1.1em; color: #333;">
+
+                                                <!-- Complaint Info Section with border -->
+                                                <div style="border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 15px;">
+                                                    <p><strong style="color: black;">Faculty Name:</strong> <span id="faculty_name" style="color: #555;"></span></p>
+                                                    <p><strong style="color: black;">Mobile Number:</strong> <span id="faculty_contact" style="color: #555;"></span></p>
+                                                </div>
+
+                                                <!-- Faculty Contact Section -->
+                                                <div style="border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 15px;">
+                                                    <p><strong style="color: black;">E-mail:</strong> <span id="faculty_mail" style="color: #555;"></span></p>
+                                                    <p><strong style="color: black;">Venue Name:</strong> <span id="venue_name" style="color: #555;"></span></p>
+                                                </div>
+
+                                                <!-- Problem Description Section -->
+                                                <p><strong style="color: black;">Type of Problem:</strong> <span id="type_of_problem" style="color: #555;"></span></p>
+                                                <p><strong style="color: black;">Problem Description:</strong></p>
+                                                <div class="alert alert-light" role="alert" style="border-radius: 8px; background-color: #f8f9fa; padding: 20px; color: #333;">
+                                                    <span id="problem_description"></span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal Footer with larger, cleaner buttons -->
+                                            <div class="modal-footer" style="border-top: none; justify-content: center;">
+                                                <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" style="border-radius: 30px; padding: 10px 30px;">Close</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+
+
+
+
 
                             <!-- Before Image Modal -->
                             <div class="modal fade" id="imageModal" tabindex="-1" role="dialog"
@@ -1553,6 +1578,17 @@ $row_count7 = mysqli_num_rows($result7);
                 $('.imgafter').tooltip({
                     placement: 'top',
                     title: 'After'
+                });
+            }); 
+
+            $(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('.viewcomplaint').tooltip({
+                    placement: 'top',
+                    title: 'View Complaint'
                 });
             });
 

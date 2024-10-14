@@ -103,73 +103,45 @@ $compcount3 = mysqli_num_rows($result5);
                     <!-- This is for the sidebar toggle which is visible on mobile only -->
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
                             class="ti-menu ti-close"></i></a>
-                    <!-- ============================================================== -->
-                    <!-- Logo -->
-                    <!-- ============================================================== -->
-                    <a class="navbar-brand" href="p_index.php">
+                    <a class="navbar-brand" href="index.html">
                         <!-- Logo icon -->
-                        <b class="logo-icon p-l-10">
+                        <b class="logo-icon p-l-8">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="assets\images\srms.png" alt="homepage" class="light-logo" />
-
+                            <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
-
-                        <!-- Logo icon -->
-                        <!-- <b class="logo-icon"> -->
-                        <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                        <!-- Dark Logo icon -->
-                        <!-- <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
-
-                        <!-- </b> -->
-                        <!--End Logo icon -->
+                        <span class="logo-text">
+                            <!-- dark Logo text -->
+                            <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" />
+                        </span>
                     </a>
-                    <!-- ============================================================== -->
-                    <!-- End Logo -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- Toggle which is visible on mobile only -->
-                    <!-- ============================================================== -->
                     <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
                         data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
                             class="ti-more"></i></a>
                 </div>
-                <!-- ============================================================== -->
-                <!-- End Logo -->
-                <!-- ============================================================== -->
+
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
                     <ul class="navbar-nav float-left mr-auto">
                         <li class="nav-item d-none d-md-block"><a
                                 class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
                                 data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
-                        <!-- ============================================================== -->
                     </ul>
-                    <!-- ============================================================== -->
-                    <!-- Right side toggle and nav items -->
-                    <!-- ============================================================== -->
                     <ul class="navbar-nav float-right">
-                        <!-- ============================================================== -->
-                        <!-- Logout-->
-                        <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
                                     src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i>
+                                    My Profile</a>
                                 <a class="dropdown-item" href="javascript:void(0)"><i
                                         class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-
+                                <div class="dropdown-divider"></div>
                             </div>
                         </li>
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
                     </ul>
                 </div>
             </nav>
@@ -422,12 +394,7 @@ $compcount3 = mysqli_num_rows($result5);
                                                                     </th>
                                                                     <th class="text-center" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);">
                                                                         <b>
-                                                                            <h5>Block</h5>
-                                                                        </b>
-                                                                    </th>
-                                                                    <th class="text-center" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);">
-                                                                        <b>
-                                                                            <h5>Venue</h5>
+                                                                            <h5>Block \ Venue</h5>
                                                                         </b>
                                                                     </th>
                                                                     <th class="text-center" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);">
@@ -496,9 +463,8 @@ $compcount3 = mysqli_num_rows($result5);
                                                                     <tr style="<?php echo $row_style; ?>">
                                                                         <td class="text-center"><?php echo $s ?></td>
                                                                         <td class="text-center"><?php echo $row['department'] ?></td>
-                                                                        <td class="text-center"><?php echo $row['block_venue'] ?></td>
-                                                                        <td class="text-center"><?php echo $row['venue_name'] ?></td>
-                                                                        <td class="text-center"><button type="button" class="btn btn-info margin-5" data-toggle="modal" data-target="#<?php echo $row['problem_id']; ?>" height="30px" width="30px">View Details</button></td>
+                                                                        <td class="text-center"><?php echo $row['block_venue'] ?> \ <?php echo $row['venue_name'] ?></td>
+                                                                        <td class="text-center"><button type="button" class="btn btn-info margin-5" data-toggle="modal" data-target="#<?php echo $row['problem_id']; ?>" height="30px" width="30px">View</button></td>
                                                                         <div class="modal fade" id="<?php echo $row['problem_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                             <div class="modal-dialog" role="document">
                                                                                 <div class="modal-content">
@@ -527,8 +493,8 @@ $compcount3 = mysqli_num_rows($result5);
                                                                         </div>
                                                                         <!--Description id=problem-->
 
-                                                                        <td>
-                                                                            <button type="button" class="btn btn-info showImage" data-toggle="modal" data-target="imageModal" data-id="<?php echo $row['id']; ?>">View</button>
+                                                                        <td class="text-center">
+                                                                            <button type="button" class="btn showImage" data-toggle="modal" data-target="imageModal" data-id="<?php echo $row['id']; ?>"><i class="fas fa-image" style="font-size: 25px;"></i></button>
                                                                         </td>
                                                                         <!--Image id=image-->
 
@@ -544,16 +510,18 @@ $compcount3 = mysqli_num_rows($result5);
                                                                                                 }
                                                                                                 ?></td>
                                                                         <td class="text-center">
-                                                                            <button type="button" value="<?php echo $row['task_id']; ?>" class="btn <?php
-                                                                                                                                                    if (!empty($row['comment_query']) && !empty($row['comment_reply'])) {
-                                                                                                                                                        echo 'btn-success'; // Green if both query and reply exist
-                                                                                                                                                    } elseif (!empty($row['comment_query']) && empty($row['comment_reply'])) {
-                                                                                                                                                        echo 'btn-warning'; // Yellow if only query exists
-                                                                                                                                                    }  // Yellow if only query exists
-                                                                                                                                                    else {
-                                                                                                                                                        echo 'btn-info'; // Default blue if neither query nor reply exists
-                                                                                                                                                    }
-                                                                                                                                                    ?> details " data-toggle="modal" data-target="#comment">Comment</button>
+                                                                            <button type="button" value="<?php echo $row['task_id']; ?>"
+                                                                                class="btn <?php
+
+                                                                                            if (!empty($row['comment_query']) && !empty($row['comment_reply'])) {
+                                                                                                echo 'btn-success'; // Green if both query and reply exist
+                                                                                            } elseif (!empty($row['comment_query']) && empty($row['comment_reply'])) {
+                                                                                                echo 'btn-warning'; // Yellow if only query exists
+                                                                                            }  // Yellow if only query exists
+                                                                                            else {
+                                                                                                echo 'btn-info'; // Default blue if neither query nor reply exists
+                                                                                            }
+                                                                                            ?> details " data-toggle="modal" data-target="#comment">Comment</button>
                                                                         </td>
                                                                         <!-- Comment Modal -->
                                                                         <div class="modal fade" id="comment" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
@@ -688,6 +656,34 @@ $compcount3 = mysqli_num_rows($result5);
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js" integrity="sha512-JnjG+Wt53GspUQXQhc+c4j8SBERsgJAoHeehagKHlxQN+MtCCmFDghX9/AcbkkNRZptyZU4zC8utK59M5L45Iw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+
+        
+$(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('.showImage').tooltip({
+                    placement: 'top',
+                    title: 'Before'
+                });
+            });
+
+            $(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('.imgafter').tooltip({
+                    placement: 'top',
+                    title: 'After'
+                });
+            });
+
+
+
+
+
         //image
         // Show image
         $(document).on('click', '.showImage', function() {

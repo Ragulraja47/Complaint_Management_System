@@ -16,11 +16,7 @@ $row_count3 = mysqli_num_rows($result3);
 //worker details fetch panna
 $sql4 = "SELECT * FROM complaints_detail WHERE status IN ('8','19')";
 $result4 = mysqli_query($conn, $sql4);
-
-$sql9 = "SELECT * FROM complaints_detail WHERE status IN ('8')";
-$result9 = mysqli_query($conn, $sql9);
-$row_count4 = mysqli_num_rows($result9);
-
+$row_count4 = mysqli_num_rows($result4);
 //work finished table
 $sql5 = "SELECT * FROM complaints_detail WHERE status = '14'";
 $result5 = mysqli_query($conn, $sql5);
@@ -352,22 +348,6 @@ $row_count7 = mysqli_num_rows($result7);
                 opacity: 1;
             }
         }
-        .modal-header {
-    border-bottom: 1px solid #dee2e6;
-    }
-
-    .modal-body p {
-        margin: 10px 0; /* Adds spacing between paragraphs */
-    }
-
-    .modal-footer .btn {
-        transition: background-color 0.2s ease, color 0.2s ease;
-    }
-
-    .modal-footer .btn:hover {
-        background-color: #e9ecef; /* Light background on hover */
-    }
-
     </style>
 </head>
 
@@ -527,7 +507,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                         <th class="text-center"><b>
                                                                 <h5>Dept / Venue</h5>
                                                             </b></th>
-
+                                                    
                                                         <th class="col-md-2 text-center"><b>
                                                                 <h5>Complaint</h5>
                                                             </b></th>
@@ -551,25 +531,25 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center"><?php echo $s ?></td>
                                                             <td class="text-center"><?php echo $row['date_of_reg'] ?></td>
                                                             <td class="text-center"><?php echo $row['department'] ?> / <?php echo $row['block_venue'] ?></td>
-
+                                                            <
                                                             <td class="text-center"><button type="button" value="<?php echo $row['id']; ?>"
-                                                                    class="btn viewcomplaint"
+                                                                    class="btn btn-primary viewcomplaint"
                                                                     data-toggle="modal"
-                                                                    data-target="#complaintDetailsModal"><i class="fas fa-eye" style="font-size: 25px;"></i></button>
+                                                                    data-target="#complaintDetailsModal">See More</button>
                                                             </td>
 
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-light btn-sm showImage"
+                                                                <button type="button" class="btn btn-light btn-sm showImage" 
                                                                     value="<?php echo $row['id']; ?>" data-toggle="modal" data-target="#imageModal">
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="button"
+                                                                <button type="button" id="managerapprovetooltip"
                                                                     class="btn btn-success managerapprove"
                                                                     value="<?php echo $row['id']; ?>" data-toggle="modal"
                                                                     data-target="#managerapproveModal"><i class="fas fa-check"></i>
-                                                                </button>
+                                                                    </button>
 
                                                                 <button type="button" class="btn btn-danger rejectcomplaint"
                                                                     id="rejectbutton" value="<?php echo $row['id']; ?>"
@@ -579,8 +559,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 <button type="button" class="btn btn-primary principalcomplaint"
                                                                     id="principalbutton" value="<?php echo $row['id']; ?>"
                                                                     data-toggle="modal"
-                                                                    data-target="#principalModal"><i class="fas fa-paper-plane"></i>
-                                                                </button>
+                                                                    data-target="#principalModal"><i class="fas fa-paper-plane"></i>                                                                    
+                                                                    </button>
                                                             </td>
                                                         </tr>
                                                     <?php
@@ -599,7 +579,7 @@ $row_count7 = mysqli_num_rows($result7);
                                 <div class="tab-pane p-20" id="principal" role="tabpanel">
                                     <div class="p-20">
                                         <div class="table-responsive">
-                                            <h5 class="card-title">Principal Approval</h5>
+                                            <h5 class="card-title">Completed Tasks2</h5>
                                             <table id="principal_table" class="table table-striped table-bordered">
                                                 <thead style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                     <tr>
@@ -640,17 +620,17 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center"><?php echo $row4['block_venue'] ?></td>
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row4['id']; ?>"
-                                                                    class="btn viewcomplaint"
+                                                                    class="btn btn-primary viewcomplaint"
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
-                                                                    <i class="fas fa-eye" style="font-size: 25px;"></i>
+                                                                    See More
                                                                 </button>
                                                             </td>
 
                                                             <td class="text-center">
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
-                                                                    value="<?php echo $row4['id']; ?>" data-toggle="modal" data-target="#imageModal">
-                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
+                                                                    value="<?php echo $row4['id']; ?>" data-toggle="modal">
+                                                                    <i class="fas fa-image"></i> Before
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
@@ -659,12 +639,12 @@ $row_count7 = mysqli_num_rows($result7);
                                                                         class="btn btn-success managerapprove"
                                                                         value="<?php echo $row4['id']; ?>" data-toggle="modal"
                                                                         data-target="#managerapproveModal">
-                                                                        <i class="fas fa-check"></i></button>
+                                                                        Accept</button>
 
                                                                 <?php }
                                                                 if ($row4['status'] == '19') { ?>
                                                                     <button type="button"
-                                                                        class="btn btn-primary"
+                                                                        class="btn btn-primary managerapprove"
                                                                         value="<?php echo $row4['id']; ?>">
                                                                         Okay</button>
                                                                 <?php } ?>
@@ -676,8 +656,7 @@ $row_count7 = mysqli_num_rows($result7);
 
                                                                 <?php }
                                                                 if ($row4['status'] == '19') { ?>
-                                                                    <button type="button" class="btn btn-danger rejectreasonbtn" value="<?php echo $row4['id']; ?>" data-toggle="modal" 
-                                                                        data-target="#princerejectres">Rejected</button>
+                                                                    <span class="btn btn-danger">Rejected</span>
                                                                 <?php } ?>
                                                             </td>
                                                         </tr>
@@ -697,7 +676,7 @@ $row_count7 = mysqli_num_rows($result7);
                                 <div class="tab-pane p-20" id="worker" role="tabpanel">
                                     <div class="p-20">
                                         <div class="table-responsive">
-                                            <h5 class="card-title">Ongoing Work's</h5>
+                                            <h5 class="card-title">Completed Tasks3</h5>
                                             <table id="worker_table" class="table table-striped table-bordered">
                                                 <thead style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                     <tr>
@@ -758,9 +737,9 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center"><?php echo $s ?></td>
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row3['id']; ?>"
-                                                                    class="btn viewcomplaint"
+                                                                    class="btn btn-primary viewcomplaint"
                                                                     data-toggle="modal"
-                                                                    data-target="#complaintDetailsModal"><i class="fas fa-eye" style="font-size: 25px;"></i></button>
+                                                                    data-target="#complaintDetailsModal">See More</button>
                                                             </td>
                                                             <td class="text-center">
                                                                 <button type="button" class="btn btn-primary"
@@ -769,10 +748,10 @@ $row_count7 = mysqli_num_rows($result7);
                                                                     data-target="#detailsModal">Details</button>
                                                             </td>
                                                             <td class="text-center"><?php echo $row3['days_to_complete'] ?></td>
-                                                            <td class="text-center">
+                                                            <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
-                                                                    value="<?php echo $row3['id']; ?>" data-toggle="modal" data-target="#imageModal">
-                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
+                                                                    value="<?php echo $row3['id']; ?>" data-toggle="modal">
+                                                                    <i class="fas fa-image"></i> Before
                                                                 </button>
                                                             </td>
                                                             <td class="text-center"><span class="btn btn-warning">In Progress</span></td>
@@ -788,6 +767,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                                     <?php echo empty($comment_query) ? 'No Query' : 'View Query'; ?>
                                                                 </button>
                                                             </td>
+
+
                                                             <!-- Display Comment Reply and Date if available -->
                                                             <td>
                                                                 <?php if (!empty($comment_reply)): ?>
@@ -816,7 +797,7 @@ $row_count7 = mysqli_num_rows($result7);
                                 <div class="tab-pane p-20" id="finished" role="tabpanel">
                                     <div class="p-20">
                                         <div class="table-responsive">
-                                            <h5 class="card-title">Work's for Response</h5>
+                                            <h5 class="card-title">Completed Tasks4</h5>
                                             <table id="finished_table" class="table table-striped table-bordered">
                                                 <thead style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                     <tr>
@@ -831,7 +812,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 <h5>Worker</h5>
                                                             </b></th>
                                                         <th class="text-center"><b>
-                                                                <h5>Completion Date</h5>
+                                                                <h5>Date of Completion</h5>
                                                             </b></th>
                                                         <th class="col-md-2 text-center"><b>
                                                                 <h5>Picture</h5>
@@ -852,42 +833,42 @@ $row_count7 = mysqli_num_rows($result7);
                                                     while ($row5 = mysqli_fetch_assoc($result5)) {
                                                     ?>
                                                         <tr>
-                                                            <td class="text-center"><?php echo $s ?></td>
-                                                            <td class="text-center">
+                                                            <td><?php echo $s ?></td>
+                                                            <td>
                                                                 <button type="button" value="<?php echo $row5['id']; ?>"
-                                                                    class="btn viewcomplaint"
+                                                                    class="btn btn-primary viewcomplaint"
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
-                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
+                                                                    See More
                                                                 </button>
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td>
                                                                 <button type="button" class="btn btn-primary"
                                                                     value="<?php echo $row5['id']; ?>" id="seeworker"
                                                                     data-toggle="modal" data-target="#detailsModal">
                                                                     Details
                                                                 </button>
                                                             </td>
-                                                            <td class="text-center"><?php echo $row5['date_of_completion'] ?></td>
-                                                            <td class="text-center">
-                                                            <button type="button" class="btn btn-light btn-sm showImage"
-                                                                    value="<?php echo $row5['id']; ?>" data-toggle="modal" data-target="#imageModal">
-                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
+                                                            <td><?php echo $row5['date_of_completion'] ?></td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
+                                                                    value="<?php echo $row5['id']; ?>" data-toggle="modal">
+                                                                    <i class="fas fa-image"></i> Before
                                                                 </button>
                                                                 <button value="<?php echo $row5['id']; ?>" type="button"
                                                                     class="btn btn-light btn-sm imgafter"
                                                                     data-toggle="modal">
-                                                                    <i class="fas fa-images" style="font-size: 25px;"></i>
+                                                                    <i class="fas fa-image"></i> After
                                                                 </button>
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td>
                                                                 <button type="button" class="btn btn-primary facfeed"
                                                                     value="<?php echo $row5['id']; ?>" data-toggle="modal"
                                                                     data-target="#exampleModal">
                                                                     Feedback
                                                                 </button>
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td>
                                                                 <span
                                                                     class="btn btn-success"><?php echo $row5['task_completion'] ?></span>
                                                             </td>
@@ -907,7 +888,7 @@ $row_count7 = mysqli_num_rows($result7);
                                 <div class="tab-pane p-20" id="reassigned" role="tabpanel">
                                     <div class="p-20">
                                         <div class="table-responsive">
-                                            <h5 class="card-title">Reassigned Work's</h5>
+                                            <h5 class="card-title">Completed Tasks5</h5>
                                             <table id="reassigned_table" class="table table-striped table-bordered">
                                                 <thead style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                     <tr>
@@ -943,36 +924,36 @@ $row_count7 = mysqli_num_rows($result7);
                                                     while ($row7 = mysqli_fetch_assoc($result7)) {
                                                     ?>
                                                         <tr>
-                                                            <td class="text-center"><?php echo $s ?></td>
-                                                            <td class="text-center">
+                                                            <td><?php echo $s ?></td>
+                                                            <td>
                                                                 <button type="button" value="<?php echo $row7['id']; ?>"
-                                                                    class="btn viewcomplaint"
+                                                                    class="btn btn-primary viewcomplaint"
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
-                                                                    <i class="fas fa-eye" style="font-size: 25px;"></i>
+                                                                    See More
                                                                 </button>
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td>
                                                                 <button type="button" class="btn btn-primary"
                                                                     value="<?php echo $row7['id']; ?>" id="seeworker"
                                                                     data-toggle="modal" data-target="#detailsModal">
                                                                     Details
                                                                 </button>
                                                             </td>
-                                                            <td class="text-center"><?php echo $row7['reassign_date'] ?></td>
-                                                            <td class="text-center"><?php echo $row7['days_to_complete'] ?></td>
-                                                            <td class="text-center">
-                                                            <button type="button" class="btn btn-light btn-sm showImage"
-                                                                    value="<?php echo $row7['id']; ?>" data-toggle="modal" data-target="#imageModal">
-                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
+                                                            <td><?php echo $row7['reassign_date'] ?></td>
+                                                            <td><?php echo $row7['days_to_complete'] ?></td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
+                                                                    value="<?php echo $row7['id']; ?>" data-toggle="modal">
+                                                                    <i class="fas fa-image"></i> Before
                                                                 </button>
                                                                 <button value="<?php echo $row7['id']; ?>" type="button"
                                                                     class="btn btn-light btn-sm imgafter"
                                                                     data-toggle="modal">
-                                                                    <i class="fas fa-images" style="font-size: 25px;"></i>
+                                                                    <i class="fas fa-image"></i> After
                                                                 </button>
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td>
                                                                 <?php echo $row7['feedback']; ?>
                                                             </td>
 
@@ -992,7 +973,7 @@ $row_count7 = mysqli_num_rows($result7);
                                 <div class="tab-pane p-20" id="completed" role="tabpanel">
                                     <div class="p-20">
                                         <div class="table-responsive">
-                                            <h5 class="card-title">Work's Completed</h5>
+                                            <h5 class="card-title">Completed Table</h5>
                                             <table id="completed_table" class="table table-striped table-bordered">
                                                 <thead style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                     <tr>
@@ -1023,35 +1004,35 @@ $row_count7 = mysqli_num_rows($result7);
                                                     while ($row6 = mysqli_fetch_assoc($result6)) {
                                                     ?>
                                                         <tr>
-                                                            <td class="text-center"><?php echo $s ?></td>
-                                                            <td class="text-center">
+                                                            <td><?php echo $s ?></td>
+                                                            <td>
                                                                 <button type="button" value="<?php echo $row6['id']; ?>"
-                                                                    class="btn viewcomplaint"
+                                                                    class="btn btn-primary viewcomplaint"
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
-                                                                    <i class="fas fa-eye" style="font-size: 25px;"></i>
+                                                                    See More
                                                                 </button>
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td>
                                                                 <button type="button" class="btn btn-primary"
                                                                     value="<?php echo $row6['id']; ?>" id="seeworker"
                                                                     data-toggle="modal" data-target="#detailsModal">
                                                                     Details
                                                                 </button>
                                                             </td>
-                                                            <td class="text-center"><?php echo $row6['date_of_completion'] ?></td>
-                                                            <td class="text-center">
-                                                            <button type="button" class="btn btn-light btn-sm showImage"
-                                                                    value="<?php echo $row6['id']; ?>" data-toggle="modal" data-target="#imageModal">
-                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
+                                                            <td><?php echo $row6['date_of_completion'] ?></td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
+                                                                    value="<?php echo $row6['id']; ?>" data-toggle="modal">
+                                                                    <i class="fas fa-image"></i> Before
                                                                 </button>
                                                                 <button value="<?php echo $row6['id']; ?>" type="button"
                                                                     class="btn btn-light btn-sm imgafter"
                                                                     data-toggle="modal">
-                                                                    <i class="fas fa-images" style="font-size: 25px;"></i>
+                                                                    <i class="fas fa-image"></i> After
                                                                 </button>
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td>
                                                                 <?php echo $row6['feedback']; ?>
                                                             </td>
                                                             <!-- <td>
@@ -1254,52 +1235,43 @@ $row_count7 = mysqli_num_rows($result7);
                             </div>
 
                             <!-- Complaint Details Modal -->
-                            <div class="modal fade" id="complaintDetailsModal" tabindex="-1" role="dialog" aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-md" role="document"> <!-- Reduced width for a compact layout -->
-                                        <div class="modal-content" style="border-radius: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); background-color: #ffffff;">
-
-                                            <!-- Modal Header with updated styling -->
-                                            <div class="modal-header" style="background-color: #007bff; color: white; border-top-left-radius: 12px; border-top-right-radius: 12px;">
-                                                <h5 class="modal-title" id="complaintDetailsModalLabel" style="font-weight: bold;">📋 Complaint Details</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
+                            <div class="modal fade" id="complaintDetailsModal" tabindex="-1" role="dialog"
+                                aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header"
+                                            style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                            <h5 class="modal-title" id="complaintDetailsModalLabel">Complaint
+                                                Details</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="complaint-details" style="font-size: 16px;">
+                                                <p><strong>Type of Problem:</strong> <span
+                                                        id="type_of_problem"></span></p>
+                                                <p><strong>Problem Description:</strong> <span
+                                                        id="problem_description"></span></p>
+                                                <p><strong>Faculty Name:</strong> <span
+                                                        id="faculty_name"></span></p>
+                                                <p><strong>Mobile Number:</strong> <span
+                                                        id="faculty_contact"></span></p>
+                                                <p><strong>E-mail:</strong> <span id="faculty_mail"></span></p>
+                                                <p><strong>Block/Venue No:</strong> <span
+                                                        id="block_venue"></span></p>
+                                                <p><strong>Venue Name:</strong> <span id="venue_name"></span>
+                                                </p>
                                             </div>
-
-                                            <!-- Modal Body -->
-                                            <div class="modal-body" style="padding: 25px; font-size: 1.1em; color: #333;">
-
-                                                <!-- Complaint Info Section with border -->
-                                                <div style="border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 15px;">
-                                                    <p><strong style="color: black;">Faculty Name:</strong> <span id="faculty_name" style="color: #555;"></span></p>
-                                                    <p><strong style="color: black;">Mobile Number:</strong> <span id="faculty_contact" style="color: #555;"></span></p>
-                                                </div>
-
-                                                <!-- Faculty Contact Section -->
-                                                <div style="border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 15px;">
-                                                    <p><strong style="color: black;">E-mail:</strong> <span id="faculty_mail" style="color: #555;"></span></p>
-                                                    <p><strong style="color: black;">Venue Name:</strong> <span id="venue_name" style="color: #555;"></span></p>
-                                                </div>
-
-                                                <!-- Problem Description Section -->
-                                                <p><strong style="color: black;">Type of Problem:</strong> <span id="type_of_problem" style="color: #555;"></span></p>
-                                                <p><strong style="color: black;">Problem Description:</strong></p>
-                                                <div class="alert alert-light" role="alert" style="border-radius: 8px; background-color: #f8f9fa; padding: 20px; color: #333;">
-                                                    <span id="problem_description"></span>
-                                                </div>
-                                            </div>
-
-                                            <!-- Modal Footer with larger, cleaner buttons -->
-                                            <div class="modal-footer" style="border-top: none; justify-content: center;">
-                                                <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" style="border-radius: 30px; padding: 10px 30px;">Close</button>
-                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
+                            </div>
 
                             <!-- Before Image Modal -->
                             <div class="modal fade" id="imageModal" tabindex="-1" role="dialog"
@@ -1431,28 +1403,9 @@ $row_count7 = mysqli_num_rows($result7);
                                 </div>
                             </div>
 
-                            <!--Principal Reject Reason Modal -->
-                            <div class="modal fade" id="princerejectres" tabindex="-1" role="dialog"
-                                aria-labelledby="princerejectresLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="princerejectresLabel">Rejected reason</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <textarea name="feedback" id="feedback" readonly></textarea>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+
+
 
 
 
@@ -1463,22 +1416,21 @@ $row_count7 = mysqli_num_rows($result7);
 
 
                 </div>
+                <!-- ============================================================== -->
+                <!-- End Container fluid  -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- footer -->
+                <!-- ============================================================== -->
+                <footer class="footer text-center">
+                    <b>2024 © M.Kumarasamy College of Engineering All Rights Reserved.<br>
+                        Developed and Maintained by Technology Innovation Hub.
+                    </b>
+                </footer>
+                <!-- ============================================================== -->
+                <!-- End footer -->
+                <!-- ============================================================== -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <footer class="footer text-center">
-                <b>2024 © M.Kumarasamy College of Engineering All Rights Reserved.<br>
-                    Developed and Maintained by Technology Innovation Hub.
-                </b>
-            </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
-
             <!-- ============================================================== -->
             <!-- End Page wrapper  -->
             <!-- ============================================================== -->
@@ -1513,25 +1465,23 @@ $row_count7 = mysqli_num_rows($result7);
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
 
-        <!-- JavaScript Sweetalert-->
+        <!-- JavaScript Alertify-->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
         <!-- JavaScript Alertify-->
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
 
-        <!--Download as XL-Sheet-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
-
 
 
         <script>
+
             //Tool Tip
             $(function() {
                 // Initialize the tooltip
                 $('[data-toggle="tooltip"]').tooltip();
 
                 // You can also set options manually if needed
-                $('.rejectcomplaint').tooltip({
+                $('#rejectbutton').tooltip({
                     placement: 'top',
                     title: 'Reject'
                 });
@@ -1542,7 +1492,7 @@ $row_count7 = mysqli_num_rows($result7);
                 $('[data-toggle="tooltip"]').tooltip();
 
                 // You can also set options manually if needed
-                $('.managerapprove').tooltip({
+                $('#managerapprovetooltip').tooltip({
                     placement: 'top',
                     title: 'Accept'
                 });
@@ -1553,7 +1503,7 @@ $row_count7 = mysqli_num_rows($result7);
                 $('[data-toggle="tooltip"]').tooltip();
 
                 // You can also set options manually if needed
-                $('.principalcomplaint').tooltip({
+                $('#principalbutton').tooltip({
                     placement: 'top',
                     title: 'Principal Approval'
                 });
@@ -1567,28 +1517,6 @@ $row_count7 = mysqli_num_rows($result7);
                 $('.showImage').tooltip({
                     placement: 'top',
                     title: 'Before'
-                });
-            });
-
-            $(function() {
-                // Initialize the tooltip
-                $('[data-toggle="tooltip"]').tooltip();
-
-                // You can also set options manually if needed
-                $('.imgafter').tooltip({
-                    placement: 'top',
-                    title: 'After'
-                });
-            }); 
-
-            $(function() {
-                // Initialize the tooltip
-                $('[data-toggle="tooltip"]').tooltip();
-
-                // You can also set options manually if needed
-                $('.viewcomplaint').tooltip({
-                    placement: 'top',
-                    title: 'View Complaint'
                 });
             });
 
@@ -1641,7 +1569,7 @@ $row_count7 = mysqli_num_rows($result7);
                         if (res.status == 200) {
 
                             alert("Are you sure? you want to reject it!!");
-                            alertify.set('notifier', 'position', 'top-right');
+                            alertify.set('notifier', 'position', 'bottom-right');
                             alertify.error('Rejected');
                             // Close modal
                             $("#navref").load(location.href + " #navref");
@@ -1694,20 +1622,12 @@ $row_count7 = mysqli_num_rows($result7);
                         var res = jQuery.parseJSON(response);
                         console.log(res);
                         if (res.status == 200) {
-                            swal({
-                                title: "success!",
-                                text: "Complaint accepted sucessfully!",
-                                icon: "success",
-                                button: "Ok",
-                                timer: null
-                            });
-
+                            alert("Complaint accepted by manager");
                             $("#managerapproveModal").modal("hide");
 
                             // Reset the form
                             $("#managerapproveForm")[0].reset();
                             $("#complain_table").load(location.href + " #complain_table");
-                            $("#principal_table").load(location.href + " #principal_table");
                             $("#navref").load(location.href + " #navref");
 
 
@@ -1743,13 +1663,8 @@ $row_count7 = mysqli_num_rows($result7);
 
                         if (res.status == 200) {
 
-                            swal({
-                                title: "success!",
-                                text: "Complaint sent to Principal sucessfully!",
-                                icon: "success",
-                                button: "Ok",
-                                timer: null
-                            });
+                            alertify.set('notifier', 'position', 'bottom-right');
+                            alertify.success('Sent to Principal');
                             // Close modal
                             $("#principalModal").modal("hide");
 
@@ -1939,13 +1854,6 @@ $row_count7 = mysqli_num_rows($result7);
                 $(document).on("click", ".done", function() {
                     var complaintfeedId = $("#complaintfeed_id").val();
                     updateComplaintStatus(complaintfeedId, 16); // Status '16' for Done
-                    swal({
-                                title: "success!",
-                                text: "Completed sucessfully!",
-                                icon: "success",
-                                button: "Ok",
-                                timer: null
-                            });
                     $("#finished_table").load(location.href + " #finished_table");
                     $("#completed_table").load(location.href + " #completed_table");
                     $("#navref").load(location.href + " #navref");
@@ -1967,13 +1875,7 @@ $row_count7 = mysqli_num_rows($result7);
 
                     var complaintfeedId = $("#complaintfeed_id").val();
                     updateComplaintStatus(complaintfeedId, 15, reassign_deadline); // Status '15' for Reassign with deadline
-                    swal({
-                                title: "success!",
-                                text: "Reassigned sucessfully!",
-                                icon: "success",
-                                button: "Ok",
-                                timer: null
-                            });
+
                     $("#datePickerModal").modal("hide"); // Close the date picker modal
                     $("#exampleModal").modal("hide"); // Close the feedback modal
                     $("#finished_table").load(location.href + " #finished_table");
@@ -1995,7 +1897,9 @@ $row_count7 = mysqli_num_rows($result7);
                             var res = jQuery.parseJSON(response);
                             if (res.status == 500) {
                                 alert(res.message);
-                            } 
+                            } else {
+                                alert("Status updated successfully!");
+                            }
                         },
                         error: function() {
                             alert("An error occurred while updating the status.");
@@ -2003,7 +1907,6 @@ $row_count7 = mysqli_num_rows($result7);
                     });
                 }
             });
-
 
 
             // Function to update the complaint status
@@ -2026,32 +1929,6 @@ $row_count7 = mysqli_num_rows($result7);
                 });
             }
 
-            //Reject Reason from principal
-            $(document).on("click", ".rejectreasonbtn", function(e) {
-                e.preventDefault();
-                var id12 = $(this).val();
-                console.log(id12);
-                $.ajax({
-                    type:"POST",
-                    url:"testbackend.php",
-                    data:{
-                        get_reject_reason: true,
-                        problem_id: id12,
-                    },
-                    success: function(response) {
-                        var res = jQuery.parseJSON(response);
-                        console.log(res);
-                        if (res.status == 500) {
-                            alert(res.message);
-                        } else {
-                            $("#feedback").text(res.data.feedback);
-                        }
-                    },
-                });
-            });
-
-
-            //after image
             $(document).on("click", ".imgafter", function() {
                 var problem_id = $(this).val(); // Get the problem_id from button value
                 console.log(problem_id); // Ensure this logs correctly
