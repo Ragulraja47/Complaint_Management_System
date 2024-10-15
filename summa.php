@@ -763,10 +763,14 @@ $row_count7 = mysqli_num_rows($result7);
                                                                     data-target="#complaintDetailsModal"><i class="fas fa-eye" style="font-size: 25px;"></i></button>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-primary"
-                                                                    value="<?php echo $row3['id']; ?>" id="seeworker"
-                                                                    data-toggle="modal"
-                                                                    data-target="#detailsModal">Details</button>
+
+                                                                <?php 
+                                                                $prblm_id = $row3['id']; 
+                                                                $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
+                                                                $querry_run = mysqli_query($conn,$querry);
+                                                                $worker_name = mysqli_fetch_array($querry_run);
+                                                                echo $worker_name['worker_first_name']; ?> 
+
                                                             </td>
                                                             <td class="text-center"><?php echo $row3['days_to_complete'] ?></td>
                                                             <td class="text-center">
@@ -858,15 +862,18 @@ $row_count7 = mysqli_num_rows($result7);
                                                                     class="btn viewcomplaint"
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
-                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
+                                                                    <i class="fas fa-eye" style="font-size: 25px;"></i>
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-primary"
-                                                                    value="<?php echo $row5['id']; ?>" id="seeworker"
-                                                                    data-toggle="modal" data-target="#detailsModal">
-                                                                    Details
-                                                                </button>
+
+                                                                <?php 
+                                                                $prblm_id = $row5['id']; 
+                                                                $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
+                                                                $querry_run = mysqli_query($conn,$querry);
+                                                                $worker_name = mysqli_fetch_array($querry_run);
+                                                                echo $worker_name['worker_first_name']; ?> 
+
                                                             </td>
                                                             <td class="text-center"><?php echo $row5['date_of_completion'] ?></td>
                                                             <td class="text-center">
@@ -953,11 +960,14 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-primary"
-                                                                    value="<?php echo $row7['id']; ?>" id="seeworker"
-                                                                    data-toggle="modal" data-target="#detailsModal">
-                                                                    Details
-                                                                </button>
+
+                                                                <?php 
+                                                                $prblm_id = $row7['id']; 
+                                                                $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
+                                                                $querry_run = mysqli_query($conn,$querry);
+                                                                $worker_name = mysqli_fetch_array($querry_run);
+                                                                echo $worker_name['worker_first_name']; ?> 
+
                                                             </td>
                                                             <td class="text-center"><?php echo $row7['reassign_date'] ?></td>
                                                             <td class="text-center"><?php echo $row7['days_to_complete'] ?></td>
@@ -1033,11 +1043,14 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-primary"
-                                                                    value="<?php echo $row6['id']; ?>" id="seeworker"
-                                                                    data-toggle="modal" data-target="#detailsModal">
-                                                                    Details
-                                                                </button>
+
+                                                                <?php 
+                                                                $prblm_id = $row6['id']; 
+                                                                $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
+                                                                $querry_run = mysqli_query($conn,$querry);
+                                                                $worker_name = mysqli_fetch_array($querry_run);
+                                                                echo $worker_name['worker_first_name']; ?> 
+
                                                             </td>
                                                             <td class="text-center"><?php echo $row6['date_of_completion'] ?></td>
                                                             <td class="text-center">
