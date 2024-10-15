@@ -77,6 +77,48 @@ if (isset($_POST['form'])) {
 }
 
 
+if(isset($_POST['form1'])){
+    $name = $_POST['w_name'];
+    $dept = $_POST['w_dept'];
+    $contact = $_POST['w_phone'];
+    $gender = $_POST['w_gender'];
+
+    // Step 1: Get the first 3 letters of the department
+    $dept_prefix = strtoupper(substr($dept, 0, 3));  // Extract first 3 letters and convert to uppercase
+
+    // Step 2: Check the highest worker_id for this department using SUBSTRING to extract the numeric part
+    $checkQuery = "SELECT SUBSTRING(worker_id, 4) AS id_number FROM worker_details 
+                   WHERE worker_id LIKE '$dept_prefix%' 
+                   ORDER BY CAST(SUBSTRING(worker_id, 4) AS UNSIGNED) DESC LIMIT 1";
+
+    $result = mysqli_query($conn, $checkQuery);
+    
+    if (mysqli_num_rows($result) > 0) {
+        // Fetch the last used worker_id and extract the number part
+        $row = mysqli_fetch_assoc($result);
+        $number = intval($row['id_number']) + 1; // Increment the number
+    } else {
+        // If no previous worker_id exists for this department, start with 01
+        $number = 1;
+    }
+
+    // Step 3: Format the number to always be 2 digits (e.g., 01, 02, 03, 04)
+    $worker_id = $dept_prefix . str_pad($number, 2, '0', STR_PAD_LEFT);
+
+    // Step 4: Insert the new worker with the generated worker_id
+    $insertQuery = "INSERT INTO worker_details (worker_id, worker_first_name, worker_dept, worker_mobile, worker_gender) 
+                    VALUES ('$worker_id', '$name', '$dept', '$contact', '$gender')";
+    
+    if (mysqli_query($conn, $insertQuery)) {
+        echo "Success: Worker added with ID $worker_id!";
+        exit;
+    } else {
+        echo "Error: Could not insert worker details.";
+        exit;
+    }
+}
+
+
 
 ?>
 <!DOCTYPE html>
@@ -516,8 +558,50 @@ input[type="text"]:focus {
                                     </ul>
                                 </div>
 
+                                <button type="button" class="btn btn-primary" style="margin-left:1080px;" data-toggle="modal" data-target="#addworker">
+Add worker</button>
+<div class="modal fade" id="addworker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="workers">
+      <div class="modal-body">
+        <input type="text" name="w_name" placeholder="Enter Worker Name"><br>
+        <select id="gender" name="w_gender">
+  <option value="all">Select Genders</option>
+  <option value="male">Male</option>
+  <option value="female">Female</option></select>
+<select name="w_dept" id="dept">
+    <option value="CIVIL">CIVIL</option>
+    <option value="CARPENTER">CARPENTER</option>
+    <option value="ELECTRICAL">ELECTRICAL</option>
+    <option value="INFRA">INFRA</option>
+    <option value="PARTITION">PARTITION</option>
+    <option value="PLUMBING">PLUMBING</option>
+
+</select>   <br>
+     <input type="text" name="w_phone" placeholder="Enter phone number"><br>
+
+
+</select>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
                                 <!-- Tables Start -->
                                 <div class="tab-content tabcontent-border">
+
 
                                     <!-- Complaint Table -->
                                     <div class="tab-pane" id="complain" role="tabpanel">
@@ -976,7 +1060,7 @@ input[type="text"]:focus {
                                                                         <li><a href="#" class="worker"
                                                                                 data-toggle="modal"
                                                                                 data-target="#prioritymodal1"
-                                                                                data-value="IT INFRA">IT INFRA</a></li>
+                                                                                data-value="INFRA">INFRA</a></li>
                                                                     </center>
                                                                 </ul>
                                                                
@@ -1725,6 +1809,34 @@ $(document).on("click", ".imgafter", function () {
       }
   });
 });
+
+$(document).on("submit","#workers",function(e){
+    e.preventDefault();
+    var dt = new FormData(this);
+    console.log(dt);
+    dt.append("form1", true);
+    $.ajax({
+        url: "work.php",
+        type: "POST",
+        data: dt,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if (response.includes("Success")){
+                $("#addworker").modal("hide");
+                $('#workers')[0].reset();
+
+
+
+            } else {
+                alert("Error");
+            }
+        },
+        error: function(xhr, status, error) {
+            alert("An error occurred: " + error);
+        }
+    });
+})
 
 
 </script>
