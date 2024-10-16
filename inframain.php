@@ -1,19 +1,64 @@
 <?php
 include("db.php");
-$sql = "SELECT * FROM complaints_detail where status='1'";
+$sql = "SELECT 
+    cd.*, 
+    faculty.faculty_name, 
+    faculty.department, 
+    faculty.faculty_contact, 
+    faculty.faculty_mail
+FROM 
+    complaints_detail AS cd
+JOIN 
+    faculty ON cd.faculty_id = faculty.faculty_id
+WHERE 
+    cd.status = '1'";
 $result = mysqli_query($conn, $sql);
 $pencount = mysqli_num_rows($result);
-$sql1 = "SELECT * FROM complaints_detail where status in (2,4,6,7,10,11,15,17,18,13)";
+$sql1 = "SELECT 
+    cd.*, 
+    faculty.faculty_name, 
+    faculty.department, 
+    faculty.faculty_contact, 
+    faculty.faculty_mail
+FROM 
+    complaints_detail AS cd
+JOIN 
+    faculty ON cd.faculty_id = faculty.faculty_id
+WHERE 
+    cd.status IN (2, 4, 6, 7, 10, 11, 15, 17, 18, 13)";
 $result1 = mysqli_query($conn, $sql1);
 $procount = mysqli_num_rows($result1);
-$sql2 = "SELECT * FROM complaints_detail where status in (3,5,20,19)";
+$sql2 = "SELECT 
+    cd.*, 
+    faculty.faculty_name, 
+    faculty.department, 
+    faculty.faculty_contact, 
+    faculty.faculty_mail
+FROM 
+    complaints_detail AS cd
+JOIN 
+    faculty ON cd.faculty_id = faculty.faculty_id
+WHERE 
+    cd.status IN (3, 5, 20, 19)";
 $result2 = mysqli_query($conn, $sql2);
 $rejcount = mysqli_num_rows($result2);
-$sql3 = "SELECT complaints_detail.*,worker_taskdet.after_photo FROM complaints_detail LEFT JOIN worker_taskdet on complaints_detail.id=worker_taskdet.task_id WHERE complaints_detail.status = 16";
+$sql3 = "SELECT 
+    cd.*, 
+    faculty.faculty_name, 
+    faculty.department, 
+    faculty.faculty_contact, 
+    faculty.faculty_mail, 
+    wt.after_photo
+FROM 
+    complaints_detail AS cd
+LEFT JOIN 
+    worker_taskdet AS wt ON cd.id = wt.task_id
+JOIN 
+    faculty ON cd.faculty_id = faculty.faculty_id
+WHERE 
+    cd.status = 16";
 $result3 = mysqli_query($conn, $sql3);
 $comcount = mysqli_num_rows($result3);
-
-
 ?>
 <!DOCTYPE html>
 

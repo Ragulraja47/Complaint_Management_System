@@ -4,7 +4,12 @@ include("db.php");
 
 if (isset($_POST['view_complaint'])) {
     $complain_id = mysqli_real_escape_string($conn, $_POST['user_id']);
-    $query = "SELECT * FROM complaints_detail WHERE id='$complain_id'";
+    $query = "
+    SELECT cd.*, faculty.faculty_name, faculty.faculty_contact, faculty.faculty_mail, faculty.department, cd.block_venue
+    FROM complaints_detail cd
+    JOIN faculty ON cd.faculty_id = faculty.faculty_id
+    WHERE cd.id = '$complain_id'
+";
     $query_run = mysqli_query($conn, $query);
     $User_data = mysqli_fetch_array($query_run);
     if ($query_run) {

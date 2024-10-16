@@ -17,7 +17,7 @@ $query = "SELECT * FROM complaints_detail WHERE faculty_id = '$faculty_id'";
 $result = mysqli_query($conn, $query);
 
 $sql5 = "SELECT * FROM complaints_detail WHERE status IN (1,2,4,6,8,9) AND faculty_id = '$faculty_id'";
-$sql1 = "SELECT * FROM complaints_detail WHERE status IN (7,10,11,15,17,18) AND faculty_id = '$faculty_id'";
+$sql1 = "SELECT * FROM complaints_detail WHERE status IN (7,10,11,17,18) AND faculty_id = '$faculty_id'";
 $sql2 = "SELECT * FROM complaints_detail WHERE status = 16 AND faculty_id = '$faculty_id'";
 $sql3 = "SELECT * FROM complaints_detail WHERE status IN (3,5,19,20) AND faculty_id = '$faculty_id'";
 $sql4 = "SELECT * FROM complaints_detail WHERE status = 15 AND faculty_id = '$faculty_id'";
@@ -634,10 +634,8 @@ $row_count4 = mysqli_num_rows($result4);
                                                                         <td class="text-center">
                                                                             <?php if ($row['status'] == 1) { ?>
                                                                                 <center>
-                                                                                    <button class="fbtn btndelete" type="button" value="<?php echo $row['id']; ?>">
-                                                                                        <svg viewBox="0 0 15 17.5" height="17.5" width="15" xmlns="http://www.w3.org/2000/svg" class="icon">
-                                                                                            <path transform="translate(-2.5 -1.25)" d="M15,18.75H5A1.251,1.251,0,0,1,3.75,17.5V5H2.5V3.75h15V5H16.25V17.5A1.251,1.251,0,0,1,15,18.75ZM5,5V17.5H15V5Zm7.5,10H11.25V7.5H12.5V15ZM8.75,15H7.5V7.5H8.75V15ZM12.5,2.5h-5V1.25h5V2.5Z" id="Fill"></path>
-                                                                                        </svg>
+                                                                                    <button class="btn btndelete btn-danger" type="button" value="<?php echo $row['id']; ?>">
+                                                                                        <i class="fas fa-times"></i>
                                                                                     </button>
 
                                                                                 </center>
@@ -713,9 +711,23 @@ $row_count4 = mysqli_num_rows($result4);
                                                                 <td class="text-center"><?php echo $row['type_of_problem']; ?></td>
                                                                 <td class="text-center"><?php echo $row['problem_description']; ?></td>
                                                                 <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
+
                                                                 <td class="text-center">
-                                                                    <button type="button" class="btn btn-info showWorkerDetails" value="<?php echo $row['id']; ?>">View</button>
+                                                                    <label type="button" class="showWorkerDetails" value="<?php echo $row['id']; ?>">
+                                                                        <?php
+                                                                        $prblm_id = $row['id'];
+                                                                        $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
+                                                                        $querry_run = mysqli_query($conn, $querry);
+                                                                        $worker_name = mysqli_fetch_array($querry_run);
+                                                                        echo $worker_name['worker_first_name']; ?>
+                                                                    </label>
                                                                 </td>
+
+
+
+                                                                <!-- <td class="text-center">
+                                                                    <button type="button" class="btn btn-info showWorkerDetails" value="<?php echo $row['id']; ?>">View</button>
+                                                                </td> -->
                                                                 <td class="text-center">
                                                                     <?php if ($row['status'] == 11 || $row['status'] == 18) { ?>
                                                                         <!-- Button to open the feedback modal -->
