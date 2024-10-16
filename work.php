@@ -14,7 +14,12 @@ $result3 = mysqli_query($conn, $sql3);
 $row_count3 = mysqli_num_rows($result3);
 
 //worker details fetch panna
-$sql4 = "SELECT * FROM complaints_detail WHERE status='9'";
+$sql4 = "
+SELECT cd.*, faculty.faculty_name, faculty.department, faculty.faculty_contact, faculty.faculty_mail
+FROM complaints_detail cd
+JOIN faculty ON cd.faculty_id = faculty.faculty_id
+WHERE cd.status = '9'
+";
 $result4 = mysqli_query($conn, $sql4);
 //work finished table
 $sql5 = "SELECT * FROM complaints_detail WHERE status = '14'";
