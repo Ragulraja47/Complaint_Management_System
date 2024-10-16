@@ -357,23 +357,25 @@ $row_count7 = mysqli_num_rows($result7);
                 opacity: 1;
             }
         }
+
         .modal-header {
-    border-bottom: 1px solid #dee2e6;
-    }
+            border-bottom: 1px solid #dee2e6;
+        }
 
-    .modal-body p {
-        margin: 10px 0; /* Adds spacing between paragraphs */
-    }
+        .modal-body p {
+            margin: 10px 0;
+            /* Adds spacing between paragraphs */
+        }
 
-    .modal-footer .btn {
-        transition: background-color 0.2s ease, color 0.2s ease;
-    }
+        .modal-footer .btn {
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
 
-    .modal-footer .btn:hover {
-        background-color: #e9ecef; /* Light background on hover */
-        color: black;
-    }
-
+        .modal-footer .btn:hover {
+            background-color: #e9ecef;
+            /* Light background on hover */
+            color: black;
+        }
     </style>
 </head>
 
@@ -682,7 +684,7 @@ $row_count7 = mysqli_num_rows($result7);
 
                                                                 <?php }
                                                                 if ($row4['status'] == '19') { ?>
-                                                                    <button type="button" class="btn btn-danger rejectreasonbtn" value="<?php echo $row4['id']; ?>" data-toggle="modal" 
+                                                                    <button type="button" class="btn btn-danger rejectreasonbtn" value="<?php echo $row4['id']; ?>" data-toggle="modal"
                                                                         data-target="#princerejectres">Rejected</button>
                                                                 <?php } ?>
                                                             </td>
@@ -770,12 +772,12 @@ $row_count7 = mysqli_num_rows($result7);
                                                             </td>
                                                             <td class="text-center">
 
-                                                                <?php 
-                                                                $prblm_id = $row3['id']; 
+                                                                <?php
+                                                                $prblm_id = $row3['id'];
                                                                 $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
-                                                                $querry_run = mysqli_query($conn,$querry);
+                                                                $querry_run = mysqli_query($conn, $querry);
                                                                 $worker_name = mysqli_fetch_array($querry_run);
-                                                                echo $worker_name['worker_first_name']; ?> 
+                                                                echo $worker_name['worker_first_name']; ?>
 
                                                             </td>
                                                             <td class="text-center"><?php echo $row3['days_to_complete'] ?></td>
@@ -873,17 +875,17 @@ $row_count7 = mysqli_num_rows($result7);
                                                             </td>
                                                             <td class="text-center">
 
-                                                                <?php 
-                                                                $prblm_id = $row5['id']; 
+                                                                <?php
+                                                                $prblm_id = $row5['id'];
                                                                 $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
-                                                                $querry_run = mysqli_query($conn,$querry);
+                                                                $querry_run = mysqli_query($conn, $querry);
                                                                 $worker_name = mysqli_fetch_array($querry_run);
-                                                                echo $worker_name['worker_first_name']; ?> 
+                                                                echo $worker_name['worker_first_name']; ?>
 
                                                             </td>
                                                             <td class="text-center"><?php echo $row5['date_of_completion'] ?></td>
                                                             <td class="text-center">
-                                                            <button type="button" class="btn btn-light btn-sm showImage"
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row5['id']; ?>" data-toggle="modal" data-target="#imageModal">
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
@@ -967,18 +969,18 @@ $row_count7 = mysqli_num_rows($result7);
                                                             </td>
                                                             <td class="text-center">
 
-                                                                <?php 
-                                                                $prblm_id = $row7['id']; 
+                                                                <?php
+                                                                $prblm_id = $row7['id'];
                                                                 $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
-                                                                $querry_run = mysqli_query($conn,$querry);
+                                                                $querry_run = mysqli_query($conn, $querry);
                                                                 $worker_name = mysqli_fetch_array($querry_run);
-                                                                echo $worker_name['worker_first_name']; ?> 
+                                                                echo $worker_name['worker_first_name']; ?>
 
                                                             </td>
                                                             <td class="text-center"><?php echo $row7['reassign_date'] ?></td>
                                                             <td class="text-center"><?php echo $row7['days_to_complete'] ?></td>
                                                             <td class="text-center">
-                                                            <button type="button" class="btn btn-light btn-sm showImage"
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row7['id']; ?>" data-toggle="modal" data-target="#imageModal">
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
@@ -1049,18 +1051,19 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
-
-                                                                <?php 
-                                                                $prblm_id = $row6['id']; 
-                                                                $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
-                                                                $querry_run = mysqli_query($conn,$querry);
-                                                                $worker_name = mysqli_fetch_array($querry_run);
-                                                                echo $worker_name['worker_first_name']; ?> 
-
+                                                                <button type="button" class="btn btn-light worker_det" value="<?php echo $row6["id"]; ?>" data-toggle="modal"
+                                                                    data-target="#workerdetailmodal">
+                                                                    <?php
+                                                                    $prblm_id = $row6['id'];
+                                                                    $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
+                                                                    $querry_run = mysqli_query($conn, $querry);
+                                                                    $worker_name = mysqli_fetch_array($querry_run);
+                                                                    echo $worker_name['worker_first_name']; ?>
+                                                                </button>
                                                             </td>
                                                             <td class="text-center"><?php echo $row6['date_of_completion'] ?></td>
                                                             <td class="text-center">
-                                                            <button type="button" class="btn btn-light btn-sm showImage"
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row6['id']; ?>" data-toggle="modal" data-target="#imageModal">
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
@@ -1156,7 +1159,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 $query_run = mysqli_query($conn, $query);
                                                                 $User_data = mysqli_fetch_array($query_run); ?>
                                                                 Completed by: <?php echo $User_data['worker_first_name'] ?> | <br>
-                                                                Department: <?php echo $User_data['worker_dept']?>
+                                                                Department: <?php echo $User_data['worker_dept'] ?>
                                                             </td>
                                                             <td class="text-center"><?php echo $row['date_of_completion'] ?></td>
                                                         </tr>
@@ -1275,74 +1278,74 @@ $row_count7 = mysqli_num_rows($result7);
 
                             <!-- Complaint Details Modal -->
                             <div class="modal fade" id="complaintDetailsModal" tabindex="-1" role="dialog" aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
-        <div class="modal-content" style="border-radius: 8px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); background-color: #f9f9f9;">
+                                <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                                    <div class="modal-content" style="border-radius: 8px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); background-color: #f9f9f9;">
 
-            <!-- Modal Header with bold title and cleaner button -->
-            <div class="modal-header" style="background-color: #007bff; color: white; border-top-left-radius: 8px; border-top-right-radius: 8px; padding: 15px;">
-                <h5 class="modal-title" id="complaintDetailsModalLabel" style="font-weight: 700; font-size: 1.4em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                    📋 Complaint Details
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; font-size: 1.2em;">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+                                        <!-- Modal Header with bold title and cleaner button -->
+                                        <div class="modal-header" style="background-color: #007bff; color: white; border-top-left-radius: 8px; border-top-right-radius: 8px; padding: 15px;">
+                                            <h5 class="modal-title" id="complaintDetailsModalLabel" style="font-weight: 700; font-size: 1.4em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                                📋 Complaint Details
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; font-size: 1.2em;">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
 
-            <!-- Modal Body with reduced padding -->
-            <div class="modal-body" style="padding: 15px; font-size: 1.1em; color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                        <!-- Modal Body with reduced padding -->
+                                        <div class="modal-body" style="padding: 15px; font-size: 1.1em; color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
 
-                <!-- Complaint Info Section with minimized spacing -->
-                <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
-                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Name</div>
-                            <b><span id="faculty_name" style="color: #555;"></span></b>
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Mobile Number</div>
-                            <b><span id="faculty_contact" style="color: #555;"></span></b>
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">E-mail</div>
-                            <b><span id="faculty_mail" style="color: #555;"></span></b>
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Venue Name</div>
-                            <b><span id="venue_name" style="color: #555;"></span></b>
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Type of Problem</div>
-                            <b><span id="type_of_problem" style="color: #555;"></span></b>
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Problem Description</div>
-                            <div class="alert alert-light" role="alert" style="border-radius: 6px; background-color: #f1f1f1; padding: 15px; color: #333;">
-                                <span id="problem_description"></span>
+                                            <!-- Complaint Info Section with minimized spacing -->
+                                            <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
+                                                <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                    <div class="ms-2 me-auto">
+                                                        <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Name</div>
+                                                        <b><span id="faculty_name" style="color: #555;"></span></b>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                    <div class="ms-2 me-auto">
+                                                        <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Mobile Number</div>
+                                                        <b><span id="faculty_contact" style="color: #555;"></span></b>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                    <div class="ms-2 me-auto">
+                                                        <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">E-mail</div>
+                                                        <b><span id="faculty_mail" style="color: #555;"></span></b>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                    <div class="ms-2 me-auto">
+                                                        <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Venue Name</div>
+                                                        <b><span id="venue_name" style="color: #555;"></span></b>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                    <div class="ms-2 me-auto">
+                                                        <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Type of Problem</div>
+                                                        <b><span id="type_of_problem" style="color: #555;"></span></b>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                    <div class="ms-2 me-auto">
+                                                        <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Problem Description</div>
+                                                        <div class="alert alert-light" role="alert" style="border-radius: 6px; background-color: #f1f1f1; padding: 15px; color: #333;">
+                                                            <span id="problem_description"></span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+
+                                        <!-- Modal Footer with reduced padding -->
+                                        <div class="modal-footer" style="border-top: none; justify-content: center; padding: 10px;">
+                                            <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" style="border-radius: 25px; padding: 10px 30px; font-size: 1.1em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                </ol>
-            </div>
-
-            <!-- Modal Footer with reduced padding -->
-            <div class="modal-footer" style="border-top: none; justify-content: center; padding: 10px;">
-                <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" style="border-radius: 25px; padding: 10px 30px; font-size: 1.1em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                    Close
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
@@ -1501,6 +1504,30 @@ $row_count7 = mysqli_num_rows($result7);
                                 </div>
                             </div>
 
+                            <!--Worker detail Modal -->
+                            <div class="modal fade" id="workerdetailmodal" tabindex="-1" role="dialog" aria-labelledby="workerdetailmodalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-primary text-white">
+                                            <h5 class="modal-title" id="workerdetailmodalLabel">Worker Mobile Number</h5>
+                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="d-flex justify-content-between align-items-center p-3" style="background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                                                <div>
+                                                    <span id="worker_mobile" class="font-weight-bold" style="font-size: 1.25rem; color: #555;">+91-XXXXXXXXXX</span>
+                                                </div>
+                                                <div>
+                                                    <a href="#" id="callWorkerBtn" class="btn btn-success" style="padding: 8px 16px; font-size: 0.9rem; border-radius: 25px;">Call Worker</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 
 
 
@@ -1626,7 +1653,7 @@ $row_count7 = mysqli_num_rows($result7);
                     placement: 'top',
                     title: 'After'
                 });
-            }); 
+            });
 
             $(function() {
                 // Initialize the tooltip
@@ -1987,12 +2014,12 @@ $row_count7 = mysqli_num_rows($result7);
                     var complaintfeedId = $("#complaintfeed_id").val();
                     updateComplaintStatus(complaintfeedId, 16); // Status '16' for Done
                     swal({
-                                title: "success!",
-                                text: "Completed sucessfully!",
-                                icon: "success",
-                                button: "Ok",
-                                timer: null
-                            });
+                        title: "success!",
+                        text: "Completed sucessfully!",
+                        icon: "success",
+                        button: "Ok",
+                        timer: null
+                    });
                     $("#finished_table").load(location.href + " #finished_table");
                     $("#completed_table").load(location.href + " #completed_table");
                     $("#navref").load(location.href + " #navref");
@@ -2015,12 +2042,12 @@ $row_count7 = mysqli_num_rows($result7);
                     var complaintfeedId = $("#complaintfeed_id").val();
                     updateComplaintStatus(complaintfeedId, 15, reassign_deadline); // Status '15' for Reassign with deadline
                     swal({
-                                title: "success!",
-                                text: "Reassigned sucessfully!",
-                                icon: "success",
-                                button: "Ok",
-                                timer: null
-                            });
+                        title: "success!",
+                        text: "Reassigned sucessfully!",
+                        icon: "success",
+                        button: "Ok",
+                        timer: null
+                    });
                     $("#datePickerModal").modal("hide"); // Close the date picker modal
                     $("#exampleModal").modal("hide"); // Close the feedback modal
                     $("#finished_table").load(location.href + " #finished_table");
@@ -2042,7 +2069,7 @@ $row_count7 = mysqli_num_rows($result7);
                             var res = jQuery.parseJSON(response);
                             if (res.status == 500) {
                                 alert(res.message);
-                            } 
+                            }
                         },
                         error: function() {
                             alert("An error occurred while updating the status.");
@@ -2079,9 +2106,9 @@ $row_count7 = mysqli_num_rows($result7);
                 var id12 = $(this).val();
                 console.log(id12);
                 $.ajax({
-                    type:"POST",
-                    url:"testbackend.php",
-                    data:{
+                    type: "POST",
+                    url: "testbackend.php",
+                    data: {
                         get_reject_reason: true,
                         problem_id: id12,
                     },
@@ -2138,6 +2165,33 @@ $row_count7 = mysqli_num_rows($result7);
 
                 // Create and trigger the download
                 XLSX.writeFile(wb, 'complaints_data.xlsx');
+            });
+
+            //worker phone number fertch
+            $(document).on('click', ".worker_det", function(e) {
+                e.preventDefault();
+                var prblm_id = $(this).val();
+                console.log(prblm_id);
+                $.ajax({
+                    type: "POST",
+                    url: "testbackend.php",
+                    data: {
+                        get_worker_phone: true,
+                        prblm_id: prblm_id,
+                    },
+                    success: function(response) {
+                        var res = jQuery.parseJSON(response);
+                        console.log(res);
+                        if (res.status == 500) {
+                            alert(res.message);
+                        } else {
+                            $("#worker_mobile").text(res.data.worker_mobile);
+                            // Set the href attribute for the call button to dial the worker's mobile number
+                            $('#callWorkerBtn').attr('href', 'tel:' + response.worker_mobile);
+                            $("#workerdetailmodal").modal("show");
+                        }
+                    },
+                });
             });
         </script>
 
