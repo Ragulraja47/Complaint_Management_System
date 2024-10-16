@@ -455,12 +455,12 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                     <td class="text-center">
                                                                                         <?php echo $row['faculty_name']; ?>
                                                                                     </td>
-                                                                                    <td class="text-center">
-                                                                                        <button type="button"
-                                                                                            data-problemid
-                                                                                            class="btn btn-info btndesc " id="seeproblem"
-                                                                                            data-toggle="modal" value='<?php echo $row['id']; ?>'
-                                                                                            data-target="#probdesc">View</button>
+                                                                                    <td>
+                                                                                    <button type="button"
+                                                                                            value='<?php echo $row['id']; ?>'
+                                                                                            class="btn btn-success ml-5 viewcomplaint"
+                                                                                            data-toggle="modal" 
+                                                                                            data-target="#complaintDetailsModal">View More</button>
                                                                                     </td>
                                                                                     <td class="text-center">
                                                                                         <?php echo $row['date_of_reg']; ?>
@@ -501,30 +501,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                     </div>
                                                 </div>
                                                 <!------------------view problem description modal-->
-                                                <div class="modal fade" id="probdesc" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Problem
-                                                                    Description</h5>
-                                                                <button type="button" class="btn" data-dismiss="modal"
-                                                                    aria-label="Close"><i class="mdi mdi-close"></i>
-                                                                </button>
-                                                            </div>
-                                                            <form id="addnewdetails">
-                                                                <div class="modal-body" style="font-size:larger;">
-                                                                    <textarea type="text" id="pd" value="" style="width:440px;height: 180px; resize: none;" disabled>
-                                                                    </textarea>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            
 
                                                 <!-- Image Modal For Pending -->
                                                 <div id="imageModal1" class="modal fade" tabindex="-1" role="dialog">
@@ -632,9 +609,9 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                     <td>
                                                                                         <button type="button"
                                                                                             value='<?php echo $row['id']; ?>'
-                                                                                            class="btn btn-success btndesc ml-5"
-                                                                                            data-toggle="modal" id="seeproblemapr"
-                                                                                            data-target="#probdescappr">View More</button>
+                                                                                            class="btn btn-success ml-5 viewcomplaint"
+                                                                                            data-toggle="modal" 
+                                                                                            data-target="#complaintDetailsModal">View More</button>
                                                                                     </td>
                                                                                     <td>
                                                                                         <?php echo $row['date_of_reg']; ?>
@@ -689,31 +666,76 @@ $result3 = mysqli_query($conn, $sql3);
                                                     </div>
                                                 </div>
                                                 <!------------------view problem description modal-->
-                                                <div class="modal fade" id="probdescappr" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Problem
-                                                                    Description</h5>
-                                                                <button type="button" class="btn" data-dismiss="modal"
-                                                                    aria-label="Close"><i class="mdi mdi-close"></i>
-                                                                </button>
-                                                            </div>
-                                                            <form id="addnewdetails">
-                                                                <div class="modal-body" style="font-size:larger;">
-                                                                    <textarea type="text" id="pdapr" style="width:440px;height: 180px; resize: none;" disabled>
-                                                                </textarea>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-dismiss="modal">Close</button>
+                                                <!-- Complaint Details Modal -->
+                            <div class="modal fade" id="complaintDetailsModal" tabindex="-1" role="dialog" aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                                    <div class="modal-content" style="border-radius: 8px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); background-color: #f9f9f9;">
 
-                                                                </div>
-                                                            </form>
+                                        <!-- Modal Header with bold title and cleaner button -->
+                                        <div class="modal-header" style="background-color: #007bff; color: white; border-top-left-radius: 8px; border-top-right-radius: 8px; padding: 15px;">
+                                            <h5 class="modal-title" id="complaintDetailsModalLabel" style="font-weight: 700; font-size: 1.4em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                                📋 Complaint Details
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; font-size: 1.2em;">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <!-- Modal Body with reduced padding -->
+                                        <div class="modal-body" style="padding: 15px; font-size: 1.1em; color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+                                            <!-- Complaint Info Section with minimized spacing -->
+                                            <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
+                                                <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                    <div class="ms-2 me-auto">
+                                                        <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Name</div>
+                                                        <b><span id="faculty_name" style="color: #555;"></span></b>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                    <div class="ms-2 me-auto">
+                                                        <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Mobile Number</div>
+                                                        <b><span id="faculty_contact" style="color: #555;"></span></b>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                    <div class="ms-2 me-auto">
+                                                        <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">E-mail</div>
+                                                        <b><span id="faculty_mail" style="color: #555;"></span></b>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                    <div class="ms-2 me-auto">
+                                                        <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Venue Name</div>
+                                                        <b><span id="venue_name" style="color: #555;"></span></b>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                    <div class="ms-2 me-auto">
+                                                        <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Type of Problem</div>
+                                                        <b><span id="type_of_problem" style="color: #555;"></span></b>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                    <div class="ms-2 me-auto">
+                                                        <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Problem Description</div>
+                                                        <div class="alert alert-light" role="alert" style="border-radius: 6px; background-color: #f1f1f1; padding: 15px; color: #333;">
+                                                            <span id="problem_description"></span>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+
+                                        <!-- Modal Footer with reduced padding -->
+                                        <div class="modal-footer" style="border-top: none; justify-content: center; padding: 10px;">
+                                            <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" style="border-radius: 25px; padding: 10px 30px; font-size: 1.1em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                                                 <!-- Image Modal For Approved -->
                                                 <div id="viewimgappr" class="modal fade" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
@@ -794,9 +816,9 @@ $result3 = mysqli_query($conn, $sql3);
 
                                                                                         <button type="button"
                                                                                             value="<?php echo $row['id']; ?>"
-                                                                                            class="btn btn-success btndesc ml-5"
+                                                                                            class="btn btn-success ml-5 viewcomplaint"
                                                                                             data-toggle="modal" id="seeproblemcomp"
-                                                                                            data-target="#probdesccomp">View More</button>
+                                                                                            data-target="#complaintDetailsModal">View More</button>
 
                                                                                     </td>
                                                                                     <td>
@@ -838,30 +860,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                     </div>
                                                 </div>
                                                 <!------------------view problem description modal---------------->
-                                                <div class="modal fade" id="probdesccomp" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Problem
-                                                                    Description</h5>
-                                                                <button type="button" class="btn" data-dismiss="modal"
-                                                                    aria-label="Close"><i class="mdi mdi-close"></i>
-                                                                </button>
-                                                            </div>
-                                                            <form id="addnewdetails">
-                                                                <div class="modal-body" style="font-size:larger;">
-                                                                    <textarea type="text" id="pdcomp" value="" style="width:440px;height: 180px; resize: none;" disabled>
-                                                                </textarea>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                                 <!-- Image Modal For Completed -->
                                                 <div id="viewimgcomp" class="modal fade" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
@@ -961,9 +960,9 @@ $result3 = mysqli_query($conn, $sql3);
 
                                                                                         <button type="button"
                                                                                             value="<?php echo $row['id']; ?>"
-                                                                                            class="btn btn-success btndesc ml-5"
+                                                                                            class="btn btn-success ml-5 viewcomplaint"
                                                                                             data-toggle="modal" id="seeproblemrej"
-                                                                                            data-target="#probdescrej">View More</button>
+                                                                                            data-target="#complaintDetailsModal">View More</button>
 
                                                                                     </td>
                                                                                     <td>
@@ -1000,31 +999,8 @@ $result3 = mysqli_query($conn, $sql3);
                                                     </div>
                                                 </div>
                                                 <!------------------view problem description modal---------------->
-                                                <div class="modal fade" id="probdescrej" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Problem
-                                                                    Description</h5>
-                                                                <button type="button" class="btn" data-dismiss="modal"
-                                                                    aria-label="Close"><i class="mdi mdi-close"></i>
-                                                                </button>
-                                                            </div>
-                                                            <form id="addnewdetails">
-                                                                <div class="modal-body" style="font-size:larger;">
-                                                                    <textarea type="text" id="pdrej" value="" style="width:440px;height: 180px; resize: none;" disabled>
-                                                                </textarea>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-dismiss="modal">Close</button>
-
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <!-- Complaint Details Modal -->
+                            
                                                 <!-- Image Modal For Rejected -->
                                                 <div id="viewimgrej" class="modal fade" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
@@ -1533,6 +1509,43 @@ $result3 = mysqli_query($conn, $sql3);
                 }
             });
         });
+
+
+
+
+        //new model comp details
+        //jquerry for view complaint
+        $(document).on("click", ".viewcomplaint", function(e) {
+                e.preventDefault();
+                var user_id = $(this).val();
+                console.log(user_id);
+                $.ajax({
+                    type: "POST",
+                    url: "hodbackend.php",
+                    data: {
+                        view_complaint: true,
+                        user_id: user_id,
+                    },
+                    success: function(response) {
+                        var res = jQuery.parseJSON(response);
+                        console.log(res);
+                        if (res.status == 500) {
+                            alert(res.message);
+                        } else {
+                            //$('#student_id2').val(res.data.uid);
+                            $("#id").val(res.data.id);
+                            $("#type_of_problem").text(res.data.type_of_problem);
+                            $("#problem_description").text(res.data.problem_description);
+                            $("#faculty_name").text(res.data.faculty_name);
+                            $("#faculty_mail").text(res.data.faculty_mail);
+                            $("#faculty_contact").text(res.data.faculty_contact);
+                            $("#block_venue").text(res.data.block_venue);
+                            $("#venue_name").text(res.data.venue_name);
+                            $("#complaintDetailsModal").modal("show");
+                        }
+                    },
+                });
+            });
     </script>
 </body>
 
