@@ -133,38 +133,8 @@ if (isset($_POST['get_image'])) {
     exit; // Ensure we exit after handling the request
 }
 
-// View workers details
-
-if (isset($_POST['get_worker_phone'])) {
-    $complain_id = mysqli_real_escape_string($conn, $_POST['prblm_id']);
-    $query = "
-    SELECT w.* 
-    FROM complaints_detail cd
-    INNER JOIN manager m ON cd.id = m.problem_id
-    INNER JOIN worker_details w ON m.worker_id = w.worker_id
-    WHERE cd.id = '$complain_id'
-";
-    $query_run = mysqli_query($conn, $query);
-    $User_data = mysqli_fetch_array($query_run);
-    if ($query_run) {
-        $res = [
-            'status' => 200,
-            'message' => 'details Fetch Successfully by id',
-            'data' => $User_data
-        ];
-        echo json_encode($res);
-        return;
-    } else {
-        $res = [
-            'status' => 500,
-            'message' => 'Details Not Deleted'
-        ];
-        echo json_encode($res);
-        return;
-    }
-}
-
-/* if (isset($_POST['get_worker_details'])) {
+//  View workers details
+if (isset($_POST['get_worker_details'])) {
     $id = $_POST['id'];
 
     // SQL query to get worker details
@@ -191,7 +161,7 @@ if (isset($_POST['get_worker_phone'])) {
     $stmt->close();
     $conn->close();
     exit;
-} */
+}
 
 // Handle status details retrieval
 if (isset($_POST['get_status_details'])) {
