@@ -41,7 +41,7 @@ JOIN
 JOIN 
     faculty ON cd.faculty_id = faculty.faculty_id
 WHERE 
-    (m.worker_id = 'PLU01' OR m.worker_id = 'PLU02')
+        (m.worker_id  LIKE 'PLU%')
 AND 
     cd.status = '7'";
 
@@ -81,7 +81,7 @@ JOIN
 JOIN 
     faculty ON cd.faculty_id = faculty.faculty_id
 WHERE 
-    (m.worker_id = 'PLU01' OR m.worker_id = 'PLU02')
+        (m.worker_id  LIKE 'PLU%')
 AND 
     cd.status = '10'";
 
@@ -120,7 +120,7 @@ JOIN
 JOIN 
     faculty ON cd.faculty_id = faculty.faculty_id
 WHERE 
-    (m.worker_id = 'PLU01' OR m.worker_id = 'PLU02')
+        (m.worker_id  LIKE 'PLU%')
 AND 
     (cd.status = '11' OR cd.status = '18')";
 
@@ -159,7 +159,7 @@ JOIN
 JOIN 
     faculty ON cd.faculty_id = faculty.faculty_id
 WHERE 
-    (m.worker_id = 'PLU01' OR m.worker_id = 'PLU02')
+        (m.worker_id  LIKE 'PLU%')
 AND 
     cd.status = '16'";
 
@@ -198,7 +198,7 @@ JOIN
 JOIN 
     faculty ON cd.faculty_id = faculty.faculty_id
 WHERE 
-    (m.worker_id = 'PLU01' OR m.worker_id = 'PLU02')
+        (m.worker_id  LIKE 'PLU%')
 AND 
     cd.status = '15'";
 

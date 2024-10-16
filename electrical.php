@@ -43,7 +43,7 @@ $sql = "SELECT
     JOIN 
         faculty ON cd.faculty_id = faculty.faculty_id
     WHERE 
-        (m.worker_id = 'ELE01' OR m.worker_id = 'ELE02')
+        (m.worker_id  LIKE 'ELE%')
     AND 
         cd.status = '7'
 ";
@@ -84,7 +84,7 @@ $sql1 = "SELECT
     JOIN 
         faculty ON cd.faculty_id = faculty.faculty_id
     WHERE 
-        (m.worker_id = 'ELE01' OR m.worker_id = 'ELE02')
+        (m.worker_id  LIKE 'ELE%')
     AND 
         cd.status = '10'
 ";
@@ -124,7 +124,7 @@ $sql2 = "SELECT
     JOIN 
         faculty ON cd.faculty_id = faculty.faculty_id
     WHERE 
-        (m.worker_id = 'ELE01' OR m.worker_id = 'ELE02')
+        (m.worker_id  LIKE 'ELE%')
     AND 
         (cd.status = '11' OR cd.status = '18')
 ";
@@ -164,7 +164,7 @@ $sql3 = "SELECT
     JOIN 
         faculty ON cd.faculty_id = faculty.faculty_id
     WHERE 
-        (m.worker_id = 'ELE01' OR m.worker_id = 'ELE02')
+        (m.worker_id  LIKE 'ELE%')
     AND 
         cd.status = '16'
 ";
@@ -204,7 +204,7 @@ $sql4 = "SELECT
     JOIN 
         faculty ON cd.faculty_id = faculty.faculty_id
     WHERE 
-        (m.worker_id = 'ELE01' OR m.worker_id = 'ELE02')
+        (m.worker_id  LIKE 'ELE%')
     AND 
         cd.status = '15'
 ";

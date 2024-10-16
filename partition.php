@@ -43,7 +43,7 @@ JOIN
 JOIN 
     faculty AS f ON cd.faculty_id = f.faculty_id
 WHERE 
-    (m.worker_id = 'PAR01' OR m.worker_id = 'PAR02')
+        (m.worker_id  LIKE 'PAR%')
 AND 
     cd.status = '7'";
 
@@ -83,7 +83,7 @@ JOIN
 JOIN 
     faculty AS f ON cd.faculty_id = f.faculty_id
 WHERE 
-    (m.worker_id = 'PAR01' OR m.worker_id = 'PAR02')
+        (m.worker_id  LIKE 'PAR%')
 AND 
     cd.status = '10'";
 
@@ -122,7 +122,7 @@ JOIN
 JOIN 
     faculty AS f ON cd.faculty_id = f.faculty_id
 WHERE 
-    (m.worker_id = 'PAR01' OR m.worker_id = 'PAR02')
+        (m.worker_id  LIKE 'PAR%')
 AND 
     (cd.status = '11' OR cd.status = '18')";
 
@@ -161,7 +161,7 @@ JOIN
 JOIN 
     faculty AS f ON cd.faculty_id = f.faculty_id
 WHERE 
-    (m.worker_id = 'PAR01' OR m.worker_id = 'PAR02')
+        (m.worker_id  LIKE 'PAR%')
 AND 
     cd.status = '16'";
 
@@ -200,7 +200,7 @@ JOIN
 JOIN 
     faculty AS f ON cd.faculty_id = f.faculty_id
 WHERE 
-    (m.worker_id = 'PAR01' OR m.worker_id = 'PAR02')
+        (m.worker_id  LIKE 'PAR%')
 AND 
     cd.status = '15'";
 

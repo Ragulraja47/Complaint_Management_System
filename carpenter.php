@@ -41,7 +41,7 @@ $sql = "
     JOIN 
         faculty ON cd.faculty_id = faculty.faculty_id
     WHERE 
-        (m.worker_id = 'CAR01' OR m.worker_id = 'CAR02')
+        (m.worker_id  LIKE 'CAR%')
     AND 
         cd.status = '7'
 ";
@@ -83,7 +83,7 @@ $sql1 = "
     JOIN 
         faculty ON cd.faculty_id = faculty.faculty_id
     WHERE 
-        (m.worker_id = 'CAR01' OR m.worker_id = 'CAR02')
+        (m.worker_id  LIKE 'CAR%')
     AND 
         cd.status = '10'
 ";
@@ -124,7 +124,7 @@ $sql2 = "
     JOIN 
         faculty ON cd.faculty_id = faculty.faculty_id
     WHERE 
-        (m.worker_id = 'CAR01' OR m.worker_id = 'CAR02')
+        (m.worker_id  LIKE 'CAR%')
     AND 
         (cd.status = '11' OR cd.status = '18')
 ";
@@ -165,7 +165,7 @@ $sql3 = "
     JOIN 
         faculty ON cd.faculty_id = faculty.faculty_id
     WHERE 
-        (m.worker_id = 'CAR01' OR m.worker_id = 'CAR02')
+        (m.worker_id  LIKE 'CAR%')
     AND 
         cd.status = '16'
 ";
@@ -206,7 +206,7 @@ $sql4 = "
     JOIN 
         faculty ON cd.faculty_id = faculty.faculty_id
     WHERE 
-        (m.worker_id = 'CAR01' OR m.worker_id = 'CAR02')
+        (m.worker_id  LIKE 'CAR%')
     AND 
         cd.status = '15'
 ";
