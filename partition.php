@@ -973,71 +973,76 @@ $notcount = mysqli_num_rows($result4);
                                 </div>
 
                                 <!-- Modal Structure -->
-                                <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Complaint</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true ">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <!-- Complaint Data -->
-                                                <ol class="list-group list-group-numbered">
-                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                        <div class="ms-2 me-auto">
-                                                            <div class="fw-bold">
-                                                                <h4 style="Color:#7460ee">Faculty Name</h4>
-                                                            </div>
-                                                            <b><span id="faculty_name"></span></b>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                        <div class="ms-2 me-auto">
-                                                            <div class="fw-bold">
-                                                                <h4 style="Color:#7460ee">Faculty Contact</h4>
-                                                            </div>
-                                                            <b><span id="contact"></span></b>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                        <div class="ms-2 me-auto">
-                                                            <div class="fw-bold">
-                                                                <h4 style="Color:#7460ee">Block</h4>
-                                                            </div>
-                                                            <b><span id="block-content"></span></b>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                        <div class="ms-2 me-auto">
-                                                            <div class="fw-bold">
-                                                                <h4 style="Color:#7460ee">Venue</h4>
-                                                            </div>
-                                                            <b> <span id="venue-content"></span></b>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                        <div class="ms-2 me-auto">
-                                                            <div class="fw-bold">
-                                                                <h4 style="Color:#7460ee">Problem Description</h4>
-                                                            </div>
-                                                            <b><span id="problem-description-content"></span></b>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                        <div class="ms-2 me-auto">
-                                                            <div class="fw-bold">
-                                                                <h4 style="Color:#7460ee">Deadline</h4>
-                                                            </div>
-                                                            <b> <span id="days-remaining-content"></span></b>
-                                                        </div>
-                                                    </li>
-                                                </ol>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content" style="border-radius: 8px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); background-color: #f9f9f9;">
+
+            <!-- Modal Header with bold title and cleaner button -->
+            <div class="modal-header" style="background-color: #007bff; color: white; border-top-left-radius: 8px; border-top-right-radius: 8px; padding: 15px;">
+                <h5 class="modal-title" id="complaintDetailsModalLabel" style="font-weight: 700; font-size: 1.4em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    📋 Complaint Details
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; font-size: 1.2em;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Modal Body with reduced padding -->
+            <div class="modal-body" style="padding: 15px; font-size: 1.1em; color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+                <!-- Complaint Info Section with minimized spacing -->
+                <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Name</div>
+                            <b><span id="faculty_name" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Mobile Number</div>
+                            <b><span id="contact" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Block</div>
+                            <b><span id="block-content" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Venue Name</div>
+                            <b><span id="venue-content" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                 
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Problem Description</div>
+                            <b><span id="problem-description-content" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Deadline</div>
+                            <div class="alert alert-light" role="alert" style="border-radius: 6px; background-color: #f1f1f1; padding: 15px; color: #333;">
+                                <span id="days-remaining-content"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Modal Footer with reduced padding -->
+            <div class="modal-footer" style="border-top: none; justify-content: center; padding: 10px;">
+                <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" style="border-radius: 25px; padding: 10px 30px; font-size: 1.1em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
                             </div>
                         </div>
                     </div>

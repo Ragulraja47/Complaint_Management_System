@@ -730,43 +730,75 @@ Add worker</button>
                                     </div>
 
                                     <!-- Complaint Details Modal -->
-                                    <div class="modal fade" id="complaintDetailsModal" tabindex="-1" role="dialog"
-                                        aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header"
-                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                    <h5 class="modal-title" id="complaintDetailsModalLabel">Complaint
-                                                        Details</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div id="complaint-details" style="font-size: 16px;">
-                                                        <p><strong>Type of Problem:</strong> <span
-                                                                id="type_of_problem"></span></p>
-                                                        <p><strong>Problem Description:</strong> <span
-                                                                id="problem_description"></span></p>
-                                                        <p><strong>Faculty Name:</strong> <span
-                                                                id="faculty_name"></span></p>
-                                                        <p><strong>Mobile Number:</strong> <span
-                                                                id="faculty_contact"></span></p>
-                                                        <p><strong>E-mail:</strong> <span id="faculty_mail"></span></p>
-                                                        <p><strong>Block/Venue No:</strong> <span
-                                                                id="block_venue"></span></p>
-                                                        <p><strong>Venue Name:</strong> <span id="venue_name"></span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div class="modal fade" id="complaintDetailsModal" tabindex="-1" role="dialog" aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content" style="border-radius: 8px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); background-color: #f9f9f9;">
+
+            <!-- Modal Header with bold title and cleaner button -->
+            <div class="modal-header" style="background-color: #007bff; color: white; border-top-left-radius: 8px; border-top-right-radius: 8px; padding: 15px;">
+                <h5 class="modal-title" id="complaintDetailsModalLabel" style="font-weight: 700; font-size: 1.4em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    📋 Complaint Details
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; font-size: 1.2em;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Modal Body with reduced padding -->
+            <div class="modal-body" style="padding: 15px; font-size: 1.1em; color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+                <!-- Complaint Info Section with minimized spacing -->
+                <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Name</div>
+                            <b><span id="faculty_name" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Mobile Number</div>
+                            <b><span id="faculty_contact" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">E-mail</div>
+                            <b><span id="faculty_mail" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Venue Name</div>
+                            <b><span id="venue_name" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Type of Problem</div>
+                            <b><span id="type_of_problem" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Problem Description</div>
+                            <div class="alert alert-light" role="alert" style="border-radius: 6px; background-color: #f1f1f1; padding: 15px; color: #333;">
+                                <span id="problem_description"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Modal Footer with reduced padding -->
+            <div class="modal-footer" style="border-top: none; justify-content: center; padding: 10px;">
+                <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" style="border-radius: 25px; padding: 10px 30px; font-size: 1.1em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
                                     <!-- Priority Modal Box -->
                                     <div class="modal fade" id="prioritymodal1" tabindex="-1" role="dialog"
