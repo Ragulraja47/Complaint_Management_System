@@ -28,7 +28,7 @@ if ($result->num_rows > 0) {
     // Output data of each row
     $row = $result->fetch_assoc();
     echo json_encode([
-        'name' => $row['worker_first_name'] . ' ' . $row['worker_last_name'],
+        'name' => $row['worker_first_name'],
         'employment_type' => $row['worker_emp_type'],
         'department' => $row['worker_dept'],
     ]);

@@ -1,9 +1,4 @@
 <?php
-
-   
-
-
-
 // Database connection
 $host = "localhost";  // Your database host
 $user = "root";       // Your database username
@@ -13,19 +8,16 @@ $dbname = "complaints"; // Your database name
 $conn = new mysqli($host, $user, $password, $dbname);
 //completed count
 $count = "SELECT COUNT(*) AS count FROM complaints_detail WHERE status = '16'";
-
 $result = mysqli_query($conn, $count);
 $row = mysqli_fetch_assoc($result);
 
 //in progress count
 $count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status = '10'";
-
 $result1 = mysqli_query($conn, $count1);
 $row1 = mysqli_fetch_assoc($result1);
 
 //count of waiting for approval
 $count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status ='18'";
-
 $result2 = mysqli_query($conn, $count2);
 $row2 = mysqli_fetch_assoc($result2);
 
@@ -144,7 +136,7 @@ $row3 = mysqli_fetch_assoc($result3);
                             <div class="box bg-cyan text-center">
                                 <h1 class="font-light text-white"><i class="fas fa-user"></i></h1>
                                 <h3 class="text-white"><b> Name <br></b></h3>
-                                <h5 class="text-white" id="workerName" ></h5>
+                                <h5 class="text-white" id="workerName" >DhandaPani</h5>
 
                             </div>
                         </div>
@@ -154,7 +146,7 @@ $row3 = mysqli_fetch_assoc($result3);
                             <div class="box bg-success text-center">
                                 <h1 class="font-light text-white"><i class="mdi mdi-account-multiple"></i></h1>
                                 <h3 class="text-white"><b>Employment Type<br></b></h3>
-                                <h5 class="text-white" id="employmentType"></h5>
+                                <h5 class="text-white" id="employmentType">Full Time</h5>
 
                             </div>
                         </div>
@@ -164,7 +156,7 @@ $row3 = mysqli_fetch_assoc($result3);
                             <div class="box bg-warning text-center">
                                 <h1 class="font-light text-white"><i class="mdi mdi-account-card-details"></i></h1>
                                 <h3 class="text-white"><b>Designation<br></b></h3>
-                                <h5 id="workerdepartment" class="text-white" ></h5>
+                                <h5 id="workerdepartment" class="text-white" >Worker-Head</h5>
 
 
                             </div>

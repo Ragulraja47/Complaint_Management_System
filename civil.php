@@ -351,12 +351,12 @@ $notcount = mysqli_num_rows($result4);
                 <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
                 <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
 
-                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="civil.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CIVIL</span></a></li>
-                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="carpenter.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CARPENTER</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="electrical.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">ELECTRICAL</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="infra.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">IT INFRA</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="partition.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PARTITION</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="plumbing.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PLUMBING</span></a></li>
+                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="civil.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Civil</span></a></li>
+                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="carpenter.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Carpenter(<?php echo $newcount ?>)</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="electrical.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Electrical</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="infra.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">IT Infra</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="partition.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Partition</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="plumbing.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Plumbing</span></a></li>
 
 
 
@@ -486,10 +486,11 @@ $notcount = mysqli_num_rows($result4);
                                                         echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                     ?>
                                                         <td class='text-center'>
-                                                            <button type='button' class='btn btn-primary margin-5 view-complaint
+                                                            <button type='button' class='btn btn margin-5 view-complaint
                                                             '
                                                                 data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                View
+                                                                <i class="fas fa-eye" style="font-size: 25px;"></i>
+
                                                             </button>
                                                         </td>
 
@@ -565,10 +566,12 @@ $notcount = mysqli_num_rows($result4);
                                                                 echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                             ?>
                                                                 <td class='text-center'>
-                                                                    <button type='button' class='btn btn-primary margin-5 view-complaint'
-                                                                        data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                        View
-                                                                    </button>
+                                                                <button type='button' class='btn btn margin-5 view-complaint
+                                                            '
+                                                                data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
+                                                                <i class="fas fa-eye" style="font-size: 25px;"></i>
+
+                                                            </button>
                                                                 </td>
                                                                 <?php
                                                                 echo "<td class='text-center'>" . htmlspecialchars($row['priority']) . "</td>";
@@ -665,10 +668,12 @@ $notcount = mysqli_num_rows($result4);
                                                                     echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                                 ?>
                                                                     <td class='text-center'>
-                                                                        <button type='button' class='btn btn-primary margin-5 view-complaint'
-                                                                            data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                            
-                                                                        </button>
+                                                                    <button type='button' class='btn btn margin-5 view-complaint
+                                                            '
+                                                                data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
+                                                                <i class="fas fa-eye" style="font-size: 25px;"></i>
+
+                                                            </button>
                                                                     </td>
                                                                     <?php
                                                                     echo "<td class='text-center'>" . htmlspecialchars($row['priority']) . "</td>";
@@ -763,10 +768,12 @@ $notcount = mysqli_num_rows($result4);
                                                                     echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                                 ?>
                                                                     <td class='text-center'>
-                                                                        <button type='button' class='view-complaint btn btn-primary margin-5 '
-                                                                            data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                            View
-                                                                        </button>
+                                                                    <button type='button' class='btn btn margin-5 view-complaint
+                                                            '
+                                                                data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
+                                                                <i class="fas fa-eye" style="font-size: 25px;"></i>
+
+                                                            </button>
                                                                     </td>
                                                                     <?php
                                                                     echo "<td class='text-center'>" . htmlspecialchars($row['priority']) . "</td>";
@@ -907,9 +914,11 @@ $notcount = mysqli_num_rows($result4);
                                                         echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                     ?>
                                                         <td class='text-center'>
-                                                            <button type='button' class='btn btn-primary margin-5 view-complaint'
+                                                        <button type='button' class='btn btn margin-5 view-complaint
+                                                            '
                                                                 data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                View
+                                                                <i class="fas fa-eye" style="font-size: 25px;"></i>
+
                                                             </button>
                                                         </td>
                                                         <?php
@@ -990,73 +999,78 @@ $notcount = mysqli_num_rows($result4);
                                         </div>
                                     </div>
                                 </div>
+                                <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content" style="border-radius: 8px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); background-color: #f9f9f9;">
 
-                                <!-- Modal Structure -->
-                                <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Complaint</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true ">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <!-- Complaint Data -->
-                                                <ol class="list-group list-group-numbered">
-                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                        <div class="ms-2 me-auto">
-                                                            <div class="fw-bold">
-                                                                <h4 style="Color:#7460ee">Faculty Name</h4>
-                                                            </div>
-                                                            <b><span id="faculty_name"></span></b>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                        <div class="ms-2 me-auto">
-                                                            <div class="fw-bold">
-                                                                <h4 style="Color:#7460ee">Faculty Contact</h4>
-                                                            </div>
-                                                            <b><span id="contact"></span></b>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                        <div class="ms-2 me-auto">
-                                                            <div class="fw-bold">
-                                                                <h4 style="Color:#7460ee">Block</h4>
-                                                            </div>
-                                                            <b><span id="block-content"></span></b>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                        <div class="ms-2 me-auto">
-                                                            <div class="fw-bold">
-                                                                <h4 style="Color:#7460ee">Venue</h4>
-                                                            </div>
-                                                            <b> <span id="venue-content"></span></b>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                        <div class="ms-2 me-auto">
-                                                            <div class="fw-bold">
-                                                                <h4 style="Color:#7460ee">Problem Description</h4>
-                                                            </div>
-                                                            <b><span id="problem-description-content"></span></b>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                        <div class="ms-2 me-auto">
-                                                            <div class="fw-bold">
-                                                                <h4 style="Color:#7460ee">Deadline</h4>
-                                                            </div>
-                                                            <b> <span id="days-remaining-content"></span></b>
-                                                        </div>
-                                                    </li>
-                                                </ol>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+            <!-- Modal Header with bold title and cleaner button -->
+            <div class="modal-header" style="background-color: #007bff; color: white; border-top-left-radius: 8px; border-top-right-radius: 8px; padding: 15px;">
+                <h5 class="modal-title" id="complaintDetailsModalLabel" style="font-weight: 700; font-size: 1.4em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    📋 Complaint Details
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; font-size: 1.2em;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Modal Body with reduced padding -->
+            <div class="modal-body" style="padding: 15px; font-size: 1.1em; color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+                <!-- Complaint Info Section with minimized spacing -->
+                <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Name</div>
+                            <b><span id="faculty_name" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Mobile Number</div>
+                            <b><span id="contact" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Block</div>
+                            <b><span id="block-content" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Venue Name</div>
+                            <b><span id="venue-content" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                 
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Problem Description</div>
+                            <b><span id="problem-description-content" style="color: #555;"></span></b>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Deadline</div>
+                            <div class="alert alert-light" role="alert" style="border-radius: 6px; background-color: #f1f1f1; padding: 15px; color: #333;">
+                                <span id="days-remaining-content"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Modal Footer with reduced padding -->
+            <div class="modal-footer" style="border-top: none; justify-content: center; padding: 10px;">
+                <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" style="border-radius: 25px; padding: 10px 30px; font-size: 1.1em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
                             </div>
                         </div>
                     </div>
@@ -1115,6 +1129,29 @@ $notcount = mysqli_num_rows($result4);
     <script src="dist/js/custom.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script>
+
+$(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('.view-complaint').tooltip({
+                    placement: 'top',
+                    title: 'View Complaint'
+                });
+            });
+
+
+            $(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('.showbeforeimg').tooltip({
+                    placement: 'top',
+                    title: 'Before'
+                });
+            });
         $(document).ready(function() {
             // Initialize DataTables
             var addTable = $('#addnewtask').DataTable({
