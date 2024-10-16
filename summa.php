@@ -1125,7 +1125,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 <h5>Venue Details</h5>
                                                             </b></th>
                                                         <th class="text-center"><b>
-                                                                <h5>Completed by</h5>
+                                                                <h5>Completed Details</h5>
                                                             </b></th>
                                                         <th class="text-center">
                                                             <b>
@@ -1141,10 +1141,10 @@ $row_count7 = mysqli_num_rows($result7);
                                                         $pid = $row['id'];
                                                     ?>
                                                         <tr>
-                                                            <td><?php echo $s ?></td>
-                                                            <td><?php echo $row['id'] ?></td>
-                                                            <td>Venue:<?php echo $row['venue_name'] ?><br>Problem:<?php echo $row['problem_description'] ?></td>
-                                                            <td>
+                                                            <td class="text-center"><?php echo $s ?></td>
+                                                            <td class="text-center"><?php echo $row['id'] ?></td>
+                                                            <td class="text-center">Venue: <?php echo $row['block_venue'] ?> | <br>Problem: <?php echo $row['problem_description'] ?></td>
+                                                            <td class="text-center">
                                                                 <?php
                                                                 $id = "SELECT * FROM manager WHERE problem_id=$pid";
                                                                 $query_run1 = mysqli_query($conn, $id);
@@ -1152,12 +1152,13 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 $worker_id = $roww['worker_id'];
 
                                                                 // Fetch worker details
-                                                                $query = "SELECT * FROM worker_details WHERE worker_dept='$worker_id'";
+                                                                $query = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
                                                                 $query_run = mysqli_query($conn, $query);
                                                                 $User_data = mysqli_fetch_array($query_run); ?>
-                                                                Completed by: <?php echo $User_data['worker_dept'] ?>
+                                                                Completed by: <?php echo $User_data['worker_first_name'] ?> | <br>
+                                                                Department: <?php echo $User_data['worker_dept']?>
                                                             </td>
-                                                            <td><?php echo $row['date_of_completion'] ?></td>
+                                                            <td class="text-center"><?php echo $row['date_of_completion'] ?></td>
                                                         </tr>
                                                     <?php
                                                         $s++;
