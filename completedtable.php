@@ -165,52 +165,6 @@ $row_count4 = mysqli_num_rows($result4);
             background-color: rgb(130, 0, 0);
         }
 
-        /* delete button */
-        /* From Uiverse.io by boryanakrasteva */
-        .fbtn {
-            background-color: transparent;
-            position: relative;
-            border: none;
-        }
-
-        .fbtn::after {
-            content: 'delete';
-            position: absolute;
-            top: -130%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: fit-content;
-            height: fit-content;
-            background-color: rgb(168, 7, 7);
-            padding: 4px 8px;
-            border-radius: 5px;
-            transition: .2s linear;
-            transition-delay: .2s;
-            color: white;
-            text-transform: uppercase;
-            font-size: 12px;
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .icon {
-            transform: scale(1.2);
-            transition: .2s linear;
-        }
-
-        .fbtn:hover>.icon {
-            transform: scale(1.5);
-        }
-
-        .fbtn:hover>.icon path {
-            fill: rgb(168, 7, 7);
-        }
-
-        .btn:hover::after {
-            visibility: visible;
-            opacity: 1;
-            top: -160%;
-        }
     </style>
 </head>
 
@@ -1091,13 +1045,13 @@ $row_count4 = mysqli_num_rows($result4);
                     }
                 });
             });
+
+
             // Delete complaints
             $(document).on('click', '.btndelete', function(e) {
                 e.preventDefault();
-
                 if (confirm('Are you sure you want to delete this data?')) {
                     var user_id = $(this).val();
-
                     $.ajax({
                         type: "POST",
                         url: "fbackend.php",
@@ -1117,7 +1071,6 @@ $row_count4 = mysqli_num_rows($result4);
 
                                 $('#dashref').load(location.href + " #dashref");
                             }
-
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.error("AJAX Error:", textStatus, errorThrown);
@@ -1126,6 +1079,7 @@ $row_count4 = mysqli_num_rows($result4);
                     });
                 }
             });
+
 
             // Show image in modal
             // Handle View Image Button Click
@@ -1174,11 +1128,11 @@ $row_count4 = mysqli_num_rows($result4);
             });
         });
 
+
         // Display worker details
        $(document).on('click', '.showWorkerDetails', function() {
             var id = $(this).val(); // Get the id from the button value
             console.log("Fetching worker details for id: " + id); // Debug log
-
             $.ajax({
                 type: "POST",
                 url: "fbackend.php", // Adjust if necessary
@@ -1211,61 +1165,23 @@ $row_count4 = mysqli_num_rows($result4);
         }); 
 
 
-
-        // status button
-        $(document).on('click', '.statusBtn', function() {
-            var id = $(this).data('problem-id'); // Ensure the data is being passed
-            console.log('Problem ID:', id); // Log the id for debugging
-
-            $('#feedback_id').val(id);
-
-            $.ajax({
-                type: "POST",
-                url: "fbackend.php", // Make sure this is the correct backend URL
-                data: {
-                    'get_status_details': true,
-                    'id': id
-                },
-                dataType: "json",
-                success: function(response) {
-                    console.log(response); // Log the response for debugging
-
-                    if (response.status == 200) {
-                        // Show status in the modal
-                        $('#statusDetails').text(response.message);
-                        $('#statusModal').modal('show'); // Open the modal
-                    } else {
-                        alert(response.message || 'An error occurred while retrieving the status.');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("AJAX Error: ", xhr.responseText);
-                    alert('An error occurred while fetching the status: ' + error);
-                }
-            });
-        });
-
         // Open feedback modal and set id
         $(document).on('click', '.feedbackBtn', function() {
             var id = $(this).data('problem-id');
-
             // Clear the feedback field and dropdown before opening the modal
             $('#feedback').val(''); // Clear textarea
             $('#satisfaction').val(''); // Reset dropdown to blank
-
             // Set id in the hidden input
             $('#feedback_id').val(id);
-
             // Show the modal
             $('#feedback_modal').modal('show');
         });
 
+
         // Handle feedback form submission
         $('#add_feedback').on('submit', function(e) {
             e.preventDefault(); // Prevent default form submission
-
             var formData = $(this).serialize(); // Serialize form data
-
             $.ajax({
                 type: "POST",
                 url: "fbackend.php", // Adjust if necessary
@@ -1293,8 +1209,7 @@ $row_count4 = mysqli_num_rows($result4);
             });
         });
 
-        // display user
-
+        
     </script>
 
 
