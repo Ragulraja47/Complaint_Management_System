@@ -632,7 +632,8 @@ Add worker</button>
                                                             <td><button type="button" value="<?php echo $row['id']; ?>"
                                                                     class="btn btn-primary viewcomplaint"
                                                                     data-toggle="modal"
-                                                                    data-target="#complaintDetailsModal">See More</button>
+                                                                    data-target="#complaintDetailsModal"> <i class="fas fa-eye" style="font-size: 25px;"></i>
+                                                                    </button>
                                                             </td>
 
                                                             <td>
@@ -1016,10 +1017,10 @@ Add worker</button>
                                                             <td><?php echo $row4['block_venue'] ?></td>
                                                             <td>
                                                                 <button type="button" value="<?php echo $row4['id']; ?>"
-                                                                    class="btn btn-primary viewcomplaint"
+                                                                    class="btn btn viewcomplaint"
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
-                                                                    See More
+                                                                    <i class="fas fa-eye" style="font-size: 25px;"></i>
                                                                 </button>
                                                             </td>                                                          
                                                         

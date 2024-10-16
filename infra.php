@@ -459,10 +459,11 @@ $notcount = mysqli_num_rows($result4);
                                                         echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                     ?>
                                                         <td class='text-center'>
-                                                            <button type='button' class='btn btn-primary margin-5 view-complaint
+                                                        <button type='button' class='btn btn margin-5 view-complaint
                                                             '
                                                                 data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                View
+                                                                <i class="fas fa-eye" style="font-size: 25px;"></i>
+
                                                             </button>
                                                         </td>
 
@@ -538,10 +539,12 @@ $notcount = mysqli_num_rows($result4);
                                                                 echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                             ?>
                                                                 <td class='text-center'>
-                                                                    <button type='button' class='btn btn-primary margin-5 view-complaint'
-                                                                        data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                        View
-                                                                    </button>
+                                                                <button type='button' class='btn btn margin-5 view-complaint
+                                                            '
+                                                                data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
+                                                                <i class="fas fa-eye" style="font-size: 25px;"></i>
+
+                                                            </button>
                                                                 </td>
                                                                 <?php
                                                                 echo "<td class='text-center'>" . htmlspecialchars($row['priority']) . "</td>";
@@ -638,10 +641,12 @@ $notcount = mysqli_num_rows($result4);
                                                                     echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                                 ?>
                                                                     <td class='text-center'>
-                                                                        <button type='button' class='btn btn-primary margin-5 view-complaint'
-                                                                            data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                            View
-                                                                        </button>
+                                                                    <button type='button' class='btn btn margin-5 view-complaint
+                                                            '
+                                                                data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
+                                                                <i class="fas fa-eye" style="font-size: 25px;"></i>
+
+                                                            </button>
                                                                     </td>
                                                                     <?php
                                                                     echo "<td class='text-center'>" . htmlspecialchars($row['priority']) . "</td>";
@@ -736,10 +741,12 @@ $notcount = mysqli_num_rows($result4);
                                                                     echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                                 ?>
                                                                     <td class='text-center'>
-                                                                        <button type='button' class='view-complaint btn btn-primary margin-5 '
-                                                                            data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                            View
-                                                                        </button>
+                                                                    <button type='button' class='btn btn margin-5 view-complaint
+                                                            '
+                                                                data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
+                                                                <i class="fas fa-eye" style="font-size: 25px;"></i>
+
+                                                            </button>
                                                                     </td>
                                                                     <?php
                                                                     echo "<td class='text-center'>" . htmlspecialchars($row['priority']) . "</td>";
@@ -880,9 +887,11 @@ $notcount = mysqli_num_rows($result4);
                                                         echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                     ?>
                                                         <td class='text-center'>
-                                                            <button type='button' class='btn btn-primary margin-5 view-complaint'
+                                                        <button type='button' class='btn btn margin-5 view-complaint
+                                                            '
                                                                 data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                View
+                                                                <i class="fas fa-eye" style="font-size: 25px;"></i>
+
                                                             </button>
                                                         </td>
                                                         <?php
