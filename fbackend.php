@@ -146,7 +146,7 @@ if (isset($_POST['get_worker_details'])) {
     SELECT w.worker_first_name, w.worker_last_name, w.worker_mobile, w.worker_mail
     FROM complaints_detail cd
     INNER JOIN manager m ON cd.id = m.problem_id
-    INNER JOIN worker_details w ON m.worker_id = w.worker_dept
+    INNER JOIN worker_details w ON m.worker_id = w.worker_id
     WHERE cd.id = ?
 ";
 
