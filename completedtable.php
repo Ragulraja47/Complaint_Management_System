@@ -1,7 +1,5 @@
 <?php
-session_start(); // Start the session
-
-// Check if the user is logged in
+session_start(); // Ensure the session is started
 if (!isset($_SESSION['faculty_id'])) {
     // Redirect to login page if not logged in
     header("Location: flogin.php");
@@ -471,21 +469,10 @@ $row_count4 = mysqli_num_rows($result4);
                                                     <form id="addnewuser" enctype="multipart/form-data">
                                                         <div class="modal-body">
                                                             <div class="mb-3">
-                                                                <input type="hidden" id="hidden_faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>">
-                                                                <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" placeholder="Faculty ID" readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <input type="hidden" class="form-control" name="faculty_name" placeholder="Enter Faculty Name" required readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <input type="hidden" class="form-control" name="department" placeholder="Enter Department" required readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <input type="hidden" class="form-control" name="faculty_contact" placeholder="Enter Mobile No" required readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <input type="hidden" class="form-control" name="faculty_mail" placeholder="Enter Mail ID" required readonly>
-                                                            </div>
+                                                            <input type="hidden" id="hidden_faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>">
+<input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>" readonly>
+</div>
+                                                            
                                                             <div class="mb-3">
                                                                 <label for="block" class="form-label">Block</label>
                                                                 <input type="text" class="form-control"
@@ -1323,40 +1310,6 @@ $row_count4 = mysqli_num_rows($result4);
 
         // display user
 
-        $(document).ready(function() {
-            $('#cmodal').on('show.bs.modal', function() {
-                var faculty_id = $('#hidden_faculty_id').val();
-                $('#faculty_id').val(faculty_id);
-
-                if (faculty_id) {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'fbackend.php',
-                        data: {
-                            action: 'fetch_faculty_details',
-                            faculty_id: faculty_id
-                        },
-                        success: function(response) {
-                            var res = typeof response === 'string' ? JSON.parse(response) : response;
-                            if (res.status === 200) {
-                                var faculty = res.data;
-                                $('input[name="faculty_name"]').val(faculty.faculty_name);
-                                $('input[name="department"]').val(faculty.department);
-                                $('input[name="faculty_contact"]').val(faculty.faculty_contact);
-                                $('input[name="faculty_mail"]').val(faculty.faculty_mail);
-                            } else {
-                                console.error("Error:", res.message);
-                                alert("Faculty details could not be retrieved. Please check the Faculty ID.");
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.error("AJAX Error:", textStatus, errorThrown);
-                            alert("Failed to retrieve faculty details. Please try again.");
-                        }
-                    });
-                }
-            });
-        });
     </script>
 
 
