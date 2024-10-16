@@ -1,6 +1,21 @@
 <?php
 include("db.php");
-$sql1 = "SELECT complaints_detail.*,comments.* FROM complaints_detail LEFT JOIN comments on complaints_detail.id=comments.problem_id WHERE complaints_detail.status = 6";
+$sql1 = "SELECT 
+    cd.*, 
+    c.*, 
+    f.faculty_name, 
+    f.department, 
+    f.faculty_contact, 
+    f.faculty_mail 
+FROM 
+    complaints_detail AS cd 
+LEFT JOIN 
+    comments AS c ON cd.id = c.problem_id 
+JOIN 
+    faculty AS f ON cd.faculty_id = f.faculty_id 
+WHERE 
+    cd.status = 6";
+
 $result1 = mysqli_query($conn, $sql1);
 
 ?>

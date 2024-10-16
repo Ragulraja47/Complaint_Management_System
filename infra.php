@@ -18,178 +18,187 @@ if ($conn->connect_error) {
 // Prepare and execute the query to filter by department
 //New task query
 $sql = "SELECT 
-cd.id,
-cd.faculty_id,
-cd.faculty_name,
-cd.department,
-cd.faculty_contact,
-cd.faculty_mail,
-cd.block_venue,
-cd.venue_name,
-cd.type_of_problem,
-cd.problem_description,
-cd.images,
-cd.date_of_reg,
-cd.days_to_complete,
-cd.task_completion,
-cd.status,
-cd.feedback,
-m.task_id,
-m.priority
+    cd.id,
+    cd.faculty_id,
+    f.faculty_name,
+    f.department,
+    f.faculty_contact,
+    f.faculty_mail,
+    cd.block_venue,
+    cd.venue_name,
+    cd.type_of_problem,
+    cd.problem_description,
+    cd.images,
+    cd.date_of_reg,
+    cd.days_to_complete,
+    cd.task_completion,
+    cd.status,
+    cd.feedback,
+    m.task_id,
+    m.priority
 FROM 
-complaints_detail AS cd
+    complaints_detail AS cd
 JOIN 
-manager AS m ON cd.id = m.problem_id
+    manager AS m ON cd.id = m.problem_id
+JOIN
+    faculty AS f ON cd.faculty_id = f.faculty_id
 WHERE 
-(m.worker_id = 'INF01' or m.worker_id = 'INF01')
+    (m.worker_id = 'INF01' OR m.worker_id = 'INF02')
+AND 
+    cd.status = '7'";
 
-AND cd.status = '7'";
-// Filter by department
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $result = $stmt->get_result();
 $newcount = mysqli_num_rows($result);
 
-
-
-
 //inprogress query
 $sql1 = "SELECT 
-cd.id,
-cd.faculty_id,
-cd.faculty_name,
-cd.department,
-cd.faculty_contact,
-cd.faculty_mail,
-cd.block_venue,
-cd.venue_name,
-cd.type_of_problem,
-cd.problem_description,
-cd.images,
-cd.date_of_reg,
-cd.days_to_complete,
-cd.task_completion,
-cd.status,
-cd.feedback,
-m.task_id,
-m.priority
+    cd.id,
+    cd.faculty_id,
+    f.faculty_name,
+    f.department,
+    f.faculty_contact,
+    f.faculty_mail,
+    cd.block_venue,
+    cd.venue_name,
+    cd.type_of_problem,
+    cd.problem_description,
+    cd.images,
+    cd.date_of_reg,
+    cd.days_to_complete,
+    cd.task_completion,
+    cd.status,
+    cd.feedback,
+    m.task_id,
+    m.priority
 FROM 
-complaints_detail AS cd
+    complaints_detail AS cd
 JOIN 
-manager AS m ON cd.id = m.problem_id
+    manager AS m ON cd.id = m.problem_id
+JOIN
+    faculty AS f ON cd.faculty_id = f.faculty_id
 WHERE 
-(m.worker_id = 'INF01' or m.worker_id = 'INF01')
-AND cd.status = '10'";
-// Filter by department
+    (m.worker_id = 'INF01' OR m.worker_id = 'INF02')
+AND 
+    cd.status = '10'";
+
 $stmt = $conn->prepare($sql1);
 $stmt->execute();
 $result1 = $stmt->get_result();
 $progcount = mysqli_num_rows($result1);
 
-
 //waiting for approval query
 $sql2 = "SELECT 
-cd.id,
-cd.faculty_id,
-cd.faculty_name,
-cd.department,
-cd.faculty_contact,
-cd.faculty_mail,
-cd.block_venue,
-cd.venue_name,
-cd.type_of_problem,
-cd.problem_description,
-cd.images,
-cd.date_of_reg,
-cd.days_to_complete,
-cd.task_completion,
-cd.status,
-cd.reason,
-cd.feedback,
-m.task_id,
-m.priority
+    cd.id,
+    cd.faculty_id,
+    f.faculty_name,
+    f.department,
+    f.faculty_contact,
+    f.faculty_mail,
+    cd.block_venue,
+    cd.venue_name,
+    cd.type_of_problem,
+    cd.problem_description,
+    cd.images,
+    cd.date_of_reg,
+    cd.days_to_complete,
+    cd.task_completion,
+    cd.status,
+    cd.reason,
+    cd.feedback,
+    m.task_id,
+    m.priority
 FROM 
-complaints_detail AS cd
+    complaints_detail AS cd
 JOIN 
-manager AS m ON cd.id = m.problem_id
+    manager AS m ON cd.id = m.problem_id
+JOIN
+    faculty AS f ON cd.faculty_id = f.faculty_id
 WHERE 
-(m.worker_id = 'INF01' or m.worker_id = 'INF01')
- AND cd.status = '11'or cd.status = '18'";
-// Filter by department
+    (m.worker_id = 'INF01' OR m.worker_id = 'INF02')
+AND 
+    (cd.status = '11' OR cd.status = '18')";
+
 $stmt = $conn->prepare($sql2);
 $stmt->execute();
 $result2 = $stmt->get_result();
 $waitcount = mysqli_num_rows($result2);
 
-
 //completed query
 $sql3 = "SELECT 
-cd.id,
-cd.faculty_id,
-cd.faculty_name,
-cd.department,
-cd.faculty_contact,
-cd.faculty_mail,
-cd.block_venue,
-cd.venue_name,
-cd.type_of_problem,
-cd.problem_description,
-cd.images,
-cd.date_of_reg,
-cd.days_to_complete,
-cd.task_completion,
-cd.date_of_completion,
-cd.status,
-cd.feedback,
-m.task_id,
-m.priority
+    cd.id,
+    cd.faculty_id,
+    f.faculty_name,
+    f.department,
+    f.faculty_contact,
+    f.faculty_mail,
+    cd.block_venue,
+    cd.venue_name,
+    cd.type_of_problem,
+    cd.problem_description,
+    cd.images,
+    cd.date_of_reg,
+    cd.days_to_complete,
+    cd.task_completion,
+    cd.date_of_completion,
+    cd.status,
+    cd.feedback,
+    m.task_id,
+    m.priority
 FROM 
-complaints_detail AS cd
+    complaints_detail AS cd
 JOIN 
-manager AS m ON cd.id = m.problem_id
+    manager AS m ON cd.id = m.problem_id
+JOIN
+    faculty AS f ON cd.faculty_id = f.faculty_id
 WHERE 
-(m.worker_id = 'INF01' or m.worker_id = 'INF01')
-AND cd.status = '16'";
-// Filter by department
+    (m.worker_id = 'INF01' OR m.worker_id = 'INF02')
+AND 
+    cd.status = '16'";
+
 $stmt = $conn->prepare($sql3);
 $stmt->execute();
 $result3 = $stmt->get_result();
 $compcount = mysqli_num_rows($result3);
 
-
 //not approved query
 $sql4 = "SELECT 
-cd.id,
-cd.faculty_id,
-cd.faculty_name,
-cd.department,
-cd.faculty_contact,
-cd.faculty_mail,
-cd.block_venue,
-cd.venue_name,
-cd.type_of_problem,
-cd.problem_description,
-cd.images,
-cd.date_of_reg,
-cd.days_to_complete,
-cd.task_completion,
-cd.date_of_completion,
-cd.status,
-cd.feedback,
-m.task_id,
-m.priority
+    cd.id,
+    cd.faculty_id,
+    f.faculty_name,
+    f.department,
+    f.faculty_contact,
+    f.faculty_mail,
+    cd.block_venue,
+    cd.venue_name,
+    cd.type_of_problem,
+    cd.problem_description,
+    cd.images,
+    cd.date_of_reg,
+    cd.days_to_complete,
+    cd.task_completion,
+    cd.date_of_completion,
+    cd.status,
+    cd.feedback,
+    m.task_id,
+    m.priority
 FROM 
-complaints_detail AS cd
+    complaints_detail AS cd
 JOIN 
-manager AS m ON cd.id = m.problem_id
+    manager AS m ON cd.id = m.problem_id
+JOIN
+    faculty AS f ON cd.faculty_id = f.faculty_id
 WHERE 
-(m.worker_id = 'INF01' or m.worker_id = 'INF01')
- AND cd.status = '15'";
-// Filter by department
+    (m.worker_id = 'INF01' OR m.worker_id = 'INF02')
+AND 
+    cd.status = '15'";
+
 $stmt = $conn->prepare($sql4);
 $stmt->execute();
 $result4 = $stmt->get_result();
 $notcount = mysqli_num_rows($result4);
+
 
 ?>
 

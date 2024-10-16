@@ -1,26 +1,99 @@
 <?php
 include("db.php");
-$sql1 = "SELECT complaints_detail.*,worker_taskdet.work_completion_date FROM complaints_detail LEFT JOIN worker_taskdet on complaints_detail.id=worker_taskdet.task_id WHERE complaints_detail.status = 13";
+// Query 1
+$sql1 = "SELECT 
+    cd.*, 
+    wt.work_completion_date, 
+    f.faculty_name, 
+    f.department, 
+    f.faculty_contact, 
+    f.faculty_mail 
+FROM 
+    complaints_detail AS cd 
+LEFT JOIN 
+    worker_taskdet AS wt ON cd.id = wt.task_id 
+JOIN 
+    faculty AS f ON cd.faculty_id = f.faculty_id 
+WHERE 
+    cd.status = 13";
 $result1 = mysqli_query($conn, $sql1);
 $compcount = mysqli_num_rows($result1);
-$sql2 = "SELECT complaints_detail.*,manager.* FROM complaints_detail LEFT JOIN manager on complaints_detail.id=manager.problem_id WHERE status IN (7,10,14)";
+
+// Query 2
+$sql2 = "SELECT 
+    cd.*, 
+    m.*, 
+    f.faculty_name, 
+    f.department, 
+    f.faculty_contact, 
+    f.faculty_mail 
+FROM 
+    complaints_detail AS cd 
+LEFT JOIN 
+    manager AS m ON cd.id = m.problem_id 
+JOIN 
+    faculty AS f ON cd.faculty_id = f.faculty_id 
+WHERE 
+    cd.status IN (7, 10, 14)";
 $result2 = mysqli_query($conn, $sql2);
 
-
-//pending count
-$sql3 = "SELECT complaints_detail.*,manager.* FROM complaints_detail LEFT JOIN manager on complaints_detail.id=manager.problem_id WHERE status = 7";
+// Pending count
+$sql3 = "SELECT 
+    cd.*, 
+    m.*, 
+    f.faculty_name, 
+    f.department, 
+    f.faculty_contact, 
+    f.faculty_mail 
+FROM 
+    complaints_detail AS cd 
+LEFT JOIN 
+    manager AS m ON cd.id = m.problem_id 
+JOIN 
+    faculty AS f ON cd.faculty_id = f.faculty_id 
+WHERE 
+    cd.status = 7";
 $result3 = mysqli_query($conn, $sql3);
 $compcount1 = mysqli_num_rows($result3);
 
-//inprogress count
-$sql4 = "SELECT complaints_detail.*,manager.* FROM complaints_detail LEFT JOIN manager on complaints_detail.id=manager.problem_id WHERE status = 10";
+// In-progress count
+$sql4 = "SELECT 
+    cd.*, 
+    m.*, 
+    f.faculty_name, 
+    f.department, 
+    f.faculty_contact, 
+    f.faculty_mail 
+FROM 
+    complaints_detail AS cd 
+LEFT JOIN 
+    manager AS m ON cd.id = m.problem_id 
+JOIN 
+    faculty AS f ON cd.faculty_id = f.faculty_id 
+WHERE 
+    cd.status = 10";
 $result4 = mysqli_query($conn, $sql4);
 $compcount2 = mysqli_num_rows($result4);
 
-//reassigned work
-$sql5 = "SELECT complaints_detail.*,manager.* FROM complaints_detail LEFT JOIN manager on complaints_detail.id=manager.problem_id WHERE status = 14";
+// Reassigned work
+$sql5 = "SELECT 
+    cd.*, 
+    m.*, 
+    f.faculty_name, 
+    f.department, 
+    f.faculty_contact, 
+    f.faculty_mail 
+FROM 
+    complaints_detail AS cd 
+LEFT JOIN 
+    manager AS m ON cd.id = m.problem_id 
+JOIN 
+    faculty AS f ON cd.faculty_id = f.faculty_id 
+WHERE 
+    cd.status = 14";
 $result5 = mysqli_query($conn, $sql5);
 $compcount3 = mysqli_num_rows($result5);
+
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -431,8 +504,22 @@ $compcount3 = mysqli_num_rows($result5);
                                                             </thead>
                                                             <tbody>
                                                                 <?php
-                                                                $sql2 = "SELECT complaints_detail.*,manager.* FROM complaints_detail LEFT JOIN manager on complaints_detail.id=manager.problem_id WHERE status IN (7,10,14)";
-                                                                $result2 = mysqli_query($conn, $sql2);
+                                                                $sql2 = "SELECT 
+                                                                cd.*, 
+                                                                m.*, 
+                                                                f.faculty_name, 
+                                                                f.department, 
+                                                                f.faculty_contact, 
+                                                                f.faculty_mail 
+                                                            FROM 
+                                                                complaints_detail AS cd 
+                                                            LEFT JOIN 
+                                                                manager AS m ON cd.id = m.problem_id 
+                                                            JOIN 
+                                                                faculty AS f ON cd.faculty_id = f.faculty_id 
+                                                            WHERE 
+                                                                cd.status IN (7, 10, 14)";
+                                                            $result2 = mysqli_query($conn, $sql2);                                                            
                                                                 $s = 1;
                                                                 while ($row = mysqli_fetch_array($result2)) {
                                                                     $modal_id = "problem1" . $s;

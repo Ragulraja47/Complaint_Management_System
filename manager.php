@@ -2,7 +2,15 @@
 include("db.php");
 //query for 1st table input 
 //Faculty complaint table
-$sql1 = "SELECT * FROM complaints_detail WHERE status='4'";/*   */
+$sql1 = "
+SELECT cd.*, faculty.faculty_name, faculty.department, faculty.faculty_contact, faculty.faculty_mail
+FROM complaints_detail cd
+JOIN faculty ON cd.faculty_id = faculty.faculty_id
+WHERE cd.status = '4'
+";
+$result1 = mysqli_query($conn, $sql1);
+$row_count1 = mysqli_num_rows($result1);
+
 $result1 = mysqli_query($conn, $sql1);
 $row_count1 = mysqli_num_rows($result1);
 //manager table

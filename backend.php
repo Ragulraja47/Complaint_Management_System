@@ -25,14 +25,20 @@ if (isset($_POST['fetch_details'])) {
     }
 
     $sql = "SELECT 
-                faculty_name, 
-                faculty_contact, 
-                block_venue, 
-                venue_name, 
-                problem_description, 
-                days_to_complete
-            FROM complaints_detail 
-            WHERE id = (SELECT problem_id FROM manager WHERE task_id = ?)";
+        f.faculty_name, 
+        f.faculty_contact, 
+        cd.block_venue, 
+        cd.venue_name, 
+        cd.problem_description, 
+        cd.days_to_complete
+    FROM 
+        complaints_detail AS cd
+    JOIN 
+        faculty AS f ON cd.faculty_id = f.faculty_id
+    WHERE 
+        cd.id = (SELECT problem_id FROM manager WHERE task_id = ?)
+";
+
 
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $task_id);
