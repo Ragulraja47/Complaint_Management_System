@@ -233,6 +233,7 @@ $result3 = mysqli_query($conn, $sql3);
                                 <div class="card-body">
                                     <h4 class="card-title">Complaint Details</h4>
                                     <div class="card">
+                                    <div id="navref">
                                         <ul class="nav nav-tabs mb-3" role="tablist">
                                             <li class="nav-item">
                                                 <a class="nav-link active show" data-toggle="tab" href="#dashboard"
@@ -286,6 +287,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                                                     ?> )</b></span></a>
                                             </li>
                                         </ul>
+                                    </div>
                                         <!-------------------------dashboard------------------------------>
                                         <div class="tab-content tabcontent-border">
                                             <div class="tab-pane p-20 active show" id="dashboard" role="tabpanel">
@@ -1223,7 +1225,8 @@ $result3 = mysqli_query($conn, $sql3);
                                 alertify.success('Complaint Approved successfully!');
                                 $('#myTable1').load(location.href + " #myTable1");
                                 $('#myTable2').load(location.href + " #myTable2");
-                                $('#myTable3').load(location.href + " #myTable3");
+                                $('#myTable3').load(location.href + " #myTable3"); 
+                                $('#navref').load(location.href + " #navref");
                             }
                         }
                     });
