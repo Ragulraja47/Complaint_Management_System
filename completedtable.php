@@ -698,24 +698,16 @@ $row_count4 = mysqli_num_rows($result4);
                                                                 <td class="text-center"><?php echo $row['type_of_problem']; ?></td>
                                                                 <td class="text-center"><?php echo $row['problem_description']; ?></td>
                                                                 <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
-
                                                                 <td class="text-center">
-                                                                <button type="button" class="btn btn-light worker_det" value="<?php echo $row6["id"]; ?>" data-toggle="modal"
-                                                                    data-target="#workerdetailmodal">
+                                                                    <button type="button" class="btn btn-light showWorkerDetails" value="<?php echo $row['id']; ?>">
                                                                     <?php
                                                                     $prblm_id = $row['id'];
                                                                     $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
                                                                     $querry_run = mysqli_query($conn, $querry);
                                                                     $worker_name = mysqli_fetch_array($querry_run);
                                                                     echo $worker_name['worker_first_name']; ?>
-                                                                </button>
+                                                                    </button>
                                                                 </td>
-
-
-
-                                                                <!-- <td class="text-center">
-                                                                    <button type="button" class="btn btn-info showWorkerDetails" value="<?php echo $row['id']; ?>">View</button>
-                                                                </td> -->
                                                                 <td class="text-center">
                                                                     <?php if ($row['status'] == 11 || $row['status'] == 18) { ?>
                                                                         <!-- Button to open the feedback modal -->
@@ -738,7 +730,7 @@ $row_count4 = mysqli_num_rows($result4);
                                 <!------------------Work in Progress Ends----------------->
 
                                 <!-- Worker Details Modal -->
-                                <!-- <div class="modal fade" id="workerModal" tabindex="-1" aria-labelledby="workerModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="workerModal" tabindex="-1" aria-labelledby="workerModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header" style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); background-color: #7460ee; color: white;">
@@ -747,17 +739,12 @@ $row_count4 = mysqli_num_rows($result4);
                                             </div>
                                             <div class="modal-body">
                                                 
-                                                <div class="box" style="background-color: #f7f7f7; border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 5px;">
-                                                    <p><strong>Name:</strong> <span id="workerName"></span></p>
-                                                </div>
+                                                
 
                                                 <div class="box" style="background-color: #f7f7f7; border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 5px;">
                                                     <p><strong>Contact:</strong> <span id="workerContact"></span></p>
                                                 </div>
 
-                                                <div class="box" style="background-color: #f7f7f7; border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 5px;">
-                                                    <p><strong>Email:</strong> <span id="workerEmail"></span></p>
-                                                </div>
 
                                                 <div class="d-flex justify-content-end">
                                                     <a href="#" id="callWorkerBtn" class="btn btn-success">Call Worker</a>
@@ -765,31 +752,8 @@ $row_count4 = mysqli_num_rows($result4);
                                             </div>
                                         </div>
                                     </div>
-                                </div> -->
-                                <!--Worker detail Modal -->
-                            <div class="modal fade" id="workerdetailmodal" tabindex="-1" role="dialog" aria-labelledby="workerdetailmodalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header bg-primary text-white">
-                                            <h5 class="modal-title" id="workerdetailmodalLabel">Worker Mobile Number</h5>
-                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-between align-items-center p-3" style="background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-                                                <div>
-                                                    <span id="worker_mobile" class="font-weight-bold" style="font-size: 1.25rem; color: #555;">+91-XXXXXXXXXX</span>
-                                                </div>
-                                                <div>
-                                                    <a href="#" id="callWorkerBtn" class="btn btn-success" style="padding: 8px 16px; font-size: 0.9rem; border-radius: 25px;">Call Worker</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
-
+                         
 
                                 <!-- Feedback Modal -->
                                 <div class="modal fade" id="feedback_modal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
@@ -1211,32 +1175,7 @@ $row_count4 = mysqli_num_rows($result4);
         });
 
         // Display worker details
-        $(document).on('click', ".worker_det", function(e) {
-                e.preventDefault();
-                var prblm_id = $(this).val();
-                console.log(prblm_id);
-                $.ajax({
-                    type: "POST",
-                    url: "testbackend.php",
-                    data: {
-                        get_worker_phone: true,
-                        prblm_id: prblm_id,
-                    },
-                    success: function(response) {
-                        var res = jQuery.parseJSON(response);
-                        console.log(res);
-                        if (res.status == 500) {
-                            alert(res.message);
-                        } else {
-                            $("#worker_mobile").text(res.data.worker_mobile);
-                            // Set the href attribute for the call button to dial the worker's mobile number
-                            $('#callWorkerBtn').attr('href', 'tel:' + response.worker_mobile);
-                            $("#workerdetailmodal").modal("show");
-                        }
-                    },
-                });
-            });
-       /*  $(document).on('click', '.showWorkerDetails', function() {
+       $(document).on('click', '.showWorkerDetails', function() {
             var id = $(this).val(); // Get the id from the button value
             console.log("Fetching worker details for id: " + id); // Debug log
 
@@ -1269,7 +1208,7 @@ $row_count4 = mysqli_num_rows($result4);
                     alert('An error occurred while fetching the worker details: ' + error);
                 }
             });
-        }); */
+        }); 
 
 
 
