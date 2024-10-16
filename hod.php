@@ -413,28 +413,28 @@ $result3 = mysqli_query($conn, $sql3);
                                                                     <table id="myTable1" class="table table-bordered table-striped fixed-size-table">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th class="pending status"
+                                                                                <th class="pending status text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 40px;">
                                                                                     <b>S.No</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 80px;">
                                                                                     <b>Date Registered</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 70px;">
                                                                                     <b>Faculty Name</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Problem Description</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Image</b>
                                                                                 </th>
 
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Action</b>
                                                                                 </th>
@@ -446,7 +446,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                             while ($row = mysqli_fetch_assoc($result)) {
                                                                             ?>
                                                                                 <tr>
-                                                                                    <td>
+                                                                                    <td class="text-center">
                                                                                         <?php echo $id; ?>
                                                                                     </td>
                                                                                     <td>
@@ -528,27 +528,27 @@ $result3 = mysqli_query($conn, $sql3);
                                                                     <table id="myTable2" class="table table-bordered table-striped fixed-size-table">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th class="pending status"
+                                                                                <th class="pending status text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 40px;">
                                                                                     <b>S.No</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 80px;">
                                                                                     <b>Date Registered</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 70px;">
                                                                                     <b>Faculty Name</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Problem Description</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Image</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Status</b>
                                                                                 </th>
@@ -561,7 +561,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                             while ($row = mysqli_fetch_assoc($result1)) {
                                                                             ?>
                                                                                 <tr>
-                                                                                    <td>
+                                                                                    <td class="text-center">
                                                                                         <?php echo $id; ?>
                                                                                     </td>
                                                                                     <td>
@@ -650,27 +650,27 @@ $result3 = mysqli_query($conn, $sql3);
                                                                     <table id="myTable3" class="table table-bordered table-striped fixed-size-table">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th class="pending status"
+                                                                                <th class="pending status text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 40px;">
                                                                                     <b>S.No</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 80px;">
                                                                                     <b>Date Registered</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 70px;">
                                                                                     <b>Faculty Name</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Problem Description</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Before Image</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>After Image</b>
                                                                                 </th>
@@ -683,7 +683,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                             while ($row = mysqli_fetch_assoc($result2)) {
                                                                             ?>
                                                                                 <tr>
-                                                                                    <td>
+                                                                                    <td class="text-center">
                                                                                         <?php echo $id; ?>
                                                                                     </td>
                                                                                     <td>
@@ -759,28 +759,28 @@ $result3 = mysqli_query($conn, $sql3);
                                                                     <table id="myTable4" class="table table-bordered table-striped fixed-size-table">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th class="pending status"
+                                                                                <th class="pending status text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 40px;">
                                                                                     <b>S.No</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 80px;">
                                                                                     <b>Date Registered</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 70px;">
                                                                                     <b>Faculty Name</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Problem Description</b>
                                                                                 </th>
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Image</b>
                                                                                 </th>
 
-                                                                                <th
+                                                                                <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                                                     <b>Status</b>
                                                                                 </th>
@@ -792,7 +792,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                             while ($row = mysqli_fetch_assoc($result3)) {
                                                                             ?>
                                                                                 <tr>
-                                                                                    <td>
+                                                                                    <td class="text-center">
                                                                                         <?php echo $id; ?>
                                                                                     </td>
                                                                                     <td>

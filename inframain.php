@@ -153,6 +153,26 @@ $comcount = mysqli_num_rows($result3);
     .modal-backdrop {
         display: none !important;
     }
+    .modal-content {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            border-radius: 15px 15px 0px 0px;
+        }
+
+        .modal-header .close {
+            font-size: 1.5rem;
+            color: white;
+            opacity: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-header .close:hover {
+            transform: rotate(90deg);
+            color: #ff8080;
+        }
 </style>
 
 <body>
@@ -434,12 +454,7 @@ $comcount = mysqli_num_rows($result3);
                                                                 <th class="text-center"><b>
                                                                         <h5>Name</h5>
                                                                     </b></th>
-                                                                <th class="col-md-2 text-center"><b>
-                                                                        <h5>Block / Venue</h5>
-                                                                    </b></th>
-                                                                <th class="col-md-2 text-center"><b>
-                                                                        <h5>Type of problem</h5>
-                                                                    </b></th>
+                                                                
                                                                 <th class="text-center"><b>
                                                                         <h5>Date of register</h5>
                                                                     </b></th>
@@ -513,15 +528,18 @@ $comcount = mysqli_num_rows($result3);
 
                                                                     <td class="text-center"><?php echo $row["faculty_name"]; ?></td>
 
-                                                                    <td class="text-center"><?php echo $row["block_venue"]; ?> / <?php echo $row["venue_name"]; ?></td>
-                                                                    <td class="text-center"><?php echo $row["type_of_problem"]; ?></td>
+
                                                                     <td class="text-center"><?php echo $row["date_of_reg"]; ?></td>
 
 
 
-                                                                    <td class="text-center"> <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#Modal1" data-description="<?php echo $row['problem_description']; ?>">
-                                                                            View
-                                                                        </button></span></td>
+                                                                    <td class="text-center">  <button type="button"
+                                                                                                value='<?php echo $row['id']; ?>'
+                                                                                                class="btn btndesc"
+                                                                                                data-toggle="modal" id="seeproblem"
+                                                                                                data-target="#Modal1">
+                                                                                                <i class="fas fa-solid fa-eye" style="font-size: 20px;"></i>
+                                                                                            </button></span></td>
                                                                     <td class="text-center">
                                                                         <button type="button" class="btn showImage" data-id="<?php echo $row['id']; ?>"> <i class="fas fa-image" style="font-size: 25px;"></i></button>
                                                                     </td>
@@ -868,20 +886,55 @@ $comcount = mysqli_num_rows($result3);
             </div>
         </div>
     </div>
-    <!--modal for see more details-->
-    <!-- Modal for Problem Description -->
-    <div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   
+
+    
+    <!---view problem description modal-->
+    <div class="modal fade" id="Modal1" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Complaint</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                <div class="modal-header" style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Problem Description</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="modal-body">
-                    <p id="problem-description"></p>
-                </div>
+                <form id="addnewdetails">
+                    <div class="modal-body" style="padding: 15px; font-size: 1.1em; color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                        <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
+                            <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Type of Problem</div>
+                                    <b><span id="type_of_problem" style="color: #555;"></span></b>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Block</div>
+                                    <b><span id="block_venue" style="color: #555;"></span></b>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Venue Name</div>
+                                    <b><span id="venue_name" style="color: #555;"></span></b>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Problem Description</div>
+                                    <b><span id="pd" style="color: #555;padding-top:5px;"></span></b>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </form>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -1176,6 +1229,36 @@ $comcount = mysqli_num_rows($result3);
                     alertify.error('Rejection canceled.');
                 }
             ).set('title', 'Reject Complaint'); // Set the dialog title
+        });
+
+
+          // problem description
+          $(document).on('click', '#seeproblem', function(e) {
+            e.preventDefault();
+            var user_id = $(this).val();
+            console.log(user_id)
+            $.ajax({
+                type: "POST",
+                url: "infraback.php",
+                data: {
+                    'seedetails1': true,
+                    'user_id': user_id
+                },
+                success: function(response) {
+                    var res = jQuery.parseJSON(response);
+                    console.log(res)
+                    if (res.status == 500) {
+                        alert(res.message);
+                    } else {
+                        $("#id").val(res.data.id);
+                        $("#type_of_problem").text(res.data.type_of_problem);
+                        $("#block_venue").text(res.data.block_venue);
+                        $("#venue_name").text(res.data.venue_name);
+                        $('#pd').text(res.data.problem_description);
+                        $('#probdesc').modal('show');
+                    }
+                }
+            });
         });
     </script>
 </body>
