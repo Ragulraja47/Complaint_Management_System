@@ -75,113 +75,8 @@ if (isset($_POST['textaria'])) {
     }
 }
 
-if (isset($_POST['seedetails'])) {
-    $student_id1 = mysqli_real_escape_string($conn, $_POST['user_id']);
-
-    $query = "SELECT * FROM complaints_detail WHERE id='$student_id1'";
-    $query_run = mysqli_query($conn, $query);
-    //data only for editing
-    $User_data = mysqli_fetch_array($query_run);
 
 
-    if ($query_run) {
-        $res = [
-            'status' => 200,
-            'message' => 'details Fetch Successfully by id',
-            'data' => $User_data
-        ];
-        echo json_encode($res);
-        return;
-    } else {
-        $res = [
-            'status' => 500,
-            'message' => 'Details Not Deleted'
-        ];
-        echo json_encode($res);
-        return;
-    }
-}
-
-if (isset($_POST['seedetailsapr'])) {
-    $student_id2 = mysqli_real_escape_string($conn, $_POST['user_idapr']);
-
-    $query = "SELECT * FROM complaints_detail WHERE id='$student_id2' ";
-    $query_run = mysqli_query($conn, $query);
-    //data only for editing
-    $User_data = mysqli_fetch_array($query_run);
-
-
-    if ($query_run) {
-        $res = [
-            'status' => 200,
-            'message' => 'details Fetch Successfully by id',
-            'data' => $User_data
-        ];
-        echo json_encode($res);
-        return;
-    } else {
-        $res = [
-            'status' => 500,
-            'message' => 'Details Not Deleted'
-        ];
-        echo json_encode($res);
-        return;
-    }
-}
-
-if (isset($_POST['seedetailscomp'])) {
-    $student_id3 = mysqli_real_escape_string($conn, $_POST['user_idcomp']);
-    
-    $query = "SELECT * FROM complaints_detail WHERE id='$student_id3' and status='16'";
-    $query_run = mysqli_query($conn, $query);
-    //data only for editing
-    $User_data = mysqli_fetch_array($query_run);
-
-
-    if ($query_run) {
-        $res = [
-            'status' => 200,
-            'message' => 'details Fetch Successfully by id',
-            'data' => $User_data
-        ];
-        echo json_encode($res);
-        return;
-    } else {
-        $res = [
-            'status' => 500,
-            'message' => 'Details Not Deleted'
-        ];
-        echo json_encode($res);
-        return;
-    }
-}
-
-if (isset($_POST['seedetailsrej'])) {
-    $student_id4 = mysqli_real_escape_string($conn, $_POST['user_idrej1']);
-    
-    $query = "SELECT * FROM complaints_detail WHERE id='$student_id4'";
-    $query_run = mysqli_query($conn, $query);
-    //data only for editing
-    $User_data = mysqli_fetch_array($query_run);
-
-
-    if ($query_run) {
-        $res = [
-            'status' => 200,
-            'message' => 'details Fetch Successfully by id',
-            'data' => $User_data
-        ];
-        echo json_encode($res);
-        return;
-    } else {
-        $res = [
-            'status' => 500,
-            'message' => 'Details Not Deleted'
-        ];
-        echo json_encode($res);
-        return;
-    }
-}
 
 if (isset($_POST['seefeedback'])) {
     $student_id5 = mysqli_real_escape_string($conn, $_POST['user_idrej']);
@@ -292,6 +187,30 @@ if (isset($_POST['after_image'])) {
     $stmt->close();
     $conn->close();
     exit;
+}
+
+//new modal backend
+if (isset($_POST['view_complaint'])) {
+    $complain_id = mysqli_real_escape_string($conn, $_POST['user_id']);
+    $query = "SELECT * FROM complaints_detail WHERE id='$complain_id'";
+    $query_run = mysqli_query($conn, $query);
+    $User_data = mysqli_fetch_array($query_run);
+    if ($query_run) {
+        $res = [
+            'status' => 200,
+            'message' => 'details Fetch Successfully by id',
+            'data' => $User_data
+        ];
+        echo json_encode($res);
+        return;
+    } else {
+        $res = [
+            'status' => 500,
+            'message' => 'Details Not Deleted'
+        ];
+        echo json_encode($res);
+        return;
+    }
 }
 
 ?>
