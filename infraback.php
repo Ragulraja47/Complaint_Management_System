@@ -95,6 +95,30 @@ if (isset($_POST['reject_status'])) {
     }
 }
 
+
+
+if (isset($_POST['seedetails1'])) {
+    $student_id1 = mysqli_real_escape_string($conn, $_POST['user_id']);
+    $query = "SELECT * FROM complaints_detail WHERE id='$student_id1'";
+    $query_run = mysqli_query($conn, $query);
+    $User_data = mysqli_fetch_array($query_run);
+    if ($query_run) {
+        $res = [
+            'status' => 200,
+            'message' => 'details Fetch Successfully by id',
+            'data' => $User_data
+        ];
+        echo json_encode($res);
+        return;
+    } else {
+        $res = [
+            'status' => 500,
+            'message' => 'Details Not Deleted'
+        ];
+        echo json_encode($res);
+        return;
+    }
+}
 ?>
 <?php
 
