@@ -974,7 +974,7 @@ $c6 = mysqli_num_rows($r6);
                                                                 </button>
 
                                                                 <!-- Align the second button to the right -->
-                                                                <button type="button" class="btn showImage"
+                                                                <button type="button" class="btn I"
                                                                     style="margin-left:-12px;" data-toggle="modal"
                                                                     data-target="#Modal4" data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
@@ -1192,6 +1192,19 @@ $(function() {
                     title: 'Before'
                 });
             });
+
+            
+
+            $(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('.showImage').tooltip({
+                    placement: 'top',
+                    title: 'Before'
+                });
+            });
         $(document).ready(function() {
             // Initialize DataTables
             var addTable = $('#addnewtask').DataTable({
@@ -1387,7 +1400,7 @@ $(function() {
         //after image showing
         // Show image
         // Show image
-        $(document).on('click', '.showImage', function(e) {
+        $(document).on('click', '.I', function(e) {
             e.preventDefault(); // Prevent form submission
             var task_id = $(this).data('task-id');
             console.log(task_id);

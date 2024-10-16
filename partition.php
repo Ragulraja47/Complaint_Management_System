@@ -1184,6 +1184,17 @@ $(function() {
                     title: 'Before'
                 });
             });
+
+            $(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('.showImage').tooltip({
+                    placement: 'top',
+                    title: 'Before'
+                });
+            });
         $(document).ready(function() {
             // Initialize DataTables
             var addTable = $('#addnewtask').DataTable({
