@@ -1092,6 +1092,27 @@ $notcount = mysqli_num_rows($result4);
     <script src="dist/js/custom.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script>
+
+$('[data-toggle="tooltip"]').tooltip();
+
+// You can also set options manually if needed
+$('.view-complaint').tooltip({
+    placement: 'top',
+    title: 'View Complaint'
+});
+});
+
+
+$(function() {
+// Initialize the tooltip
+$('[data-toggle="tooltip"]').tooltip();
+
+// You can also set options manually if needed
+$('.showbeforeimg').tooltip({
+    placement: 'top',
+    title: 'Before'
+});
+});
         $(document).ready(function() {
             // Initialize DataTables
             var addTable = $('#addnewtask').DataTable({

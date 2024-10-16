@@ -1573,6 +1573,28 @@ Add worker</button>
     <script src="assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
+           $(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('.viewcomplaint').tooltip({
+                    placement: 'top',
+                    title: 'View Complaint'
+                });
+            });
+
+
+            $(function() {
+                // Initialize the tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // You can also set options manually if needed
+                $('.showImage').tooltip({
+                    placement: 'top',
+                    title: 'Before'
+                });
+            });
 
     $(document).ready(function () {
   $("#principal_table").DataTable();
