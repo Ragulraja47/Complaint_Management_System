@@ -371,6 +371,7 @@ $row_count7 = mysqli_num_rows($result7);
 
     .modal-footer .btn:hover {
         background-color: #e9ecef; /* Light background on hover */
+        color: black;
     }
 
     </style>
@@ -1213,7 +1214,7 @@ $row_count7 = mysqli_num_rows($result7);
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="managerapproveModalLabel1">Set Priority</h5>
+                                            <h5 class="modal-title" id="managerapproveModalLabel1">Approval Modal</h5>
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
