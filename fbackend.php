@@ -139,7 +139,8 @@ if (isset($_POST['get_worker_details'])) {
 
     // SQL query to get worker details
     $query = "
-    SELECT w.worker_first_name, w.worker_last_name, w.worker_mobile, w.worker_mail
+    SELECT w.worker_first_name,
+     w.worker_mobile
     FROM complaints_detail cd
     INNER JOIN manager m ON cd.id = m.problem_id
     INNER JOIN worker_details w ON m.worker_id = w.worker_id
@@ -153,7 +154,7 @@ if (isset($_POST['get_worker_details'])) {
 
     if ($result->num_rows > 0) {
         $worker = $result->fetch_assoc();
-        echo json_encode(['status' => 200, 'worker_first_name' => $worker['worker_first_name'], 'worker_last_name' => $worker['worker_last_name'], 'worker_mobile' => $worker['worker_mobile'], 'worker_mail' => $worker['worker_mail']]);
+        echo json_encode(['status' => 200, 'worker_first_name' => $worker['worker_first_name'], 'worker_mobile' => $worker['worker_mobile']]);
     } else {
         echo json_encode(['status' => 500, 'message' => 'No worker details found for this id']);
     }

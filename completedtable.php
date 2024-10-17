@@ -1146,7 +1146,6 @@ $row_count4 = mysqli_num_rows($result4);
                         // Show worker details in the modal
                         $('#workerName').text(response.worker_first_name + ' ' + response.worker_last_name);
                         $('#workerContact').text(response.worker_mobile);
-                        $('#workerEmail').text(response.worker_mail);
 
                         // Set the href attribute for the call button to dial the worker's mobile number
                         $('#callWorkerBtn').attr('href', 'tel:' + response.worker_mobile);
