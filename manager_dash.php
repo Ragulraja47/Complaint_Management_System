@@ -78,13 +78,13 @@ $row_count2 = mysqli_num_rows($result2);
         </header>
         <aside class="left-sidebar" data-sidebarbg="skin5">
             <div class="scroll-sidebar"><br>
-                <nav class="sidebar-nav">
+            <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="manager_dash.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="testing.php" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
+                                href="manager.php" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
                                     class="hide-menu">Complaints</span></a></li>
                     </ul>
                 </nav>

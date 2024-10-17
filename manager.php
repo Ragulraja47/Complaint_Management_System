@@ -448,7 +448,7 @@ $row_count7 = mysqli_num_rows($result7);
                                 href="manager_dash.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="testing.php" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
+                                href="manager.php" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
                                     class="hide-menu">Complaints</span></a></li>
                     </ul>
                 </nav>
@@ -577,7 +577,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                             </td>
 
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-sm showImage"
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row['id']; ?>" data-toggle="modal" data-target="#imageModal">
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
@@ -666,7 +666,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                             </td>
 
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-sm showImage"
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row4['id']; ?>" data-toggle="modal" data-target="#imageModal">
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
@@ -781,7 +781,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                     data-target="#complaintDetailsModal"><i class="fas fa-eye" style="font-size: 25px;"></i></button>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-info worker_det" value="<?php echo $row3["id"]; ?>" data-toggle="modal"
+                                                                <button type="button" class="btn btn-light worker_det" value="<?php echo $row3["id"]; ?>" data-toggle="modal"
                                                                     data-target="#workerdetailmodal">
                                                                     <?php
                                                                     $prblm_id = $row3['id'];
@@ -793,7 +793,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                             </td>
                                                             <td class="text-center"><?php echo $row3['days_to_complete'] ?></td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-sm showImage"
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row3['id']; ?>" data-toggle="modal" data-target="#imageModal">
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
@@ -885,7 +885,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-info worker_det" value="<?php echo $row5["id"]; ?>" data-toggle="modal"
+                                                                <button type="button" class="btn btn-light worker_det" value="<?php echo $row5["id"]; ?>" data-toggle="modal"
                                                                     data-target="#workerdetailmodal">
                                                                     <?php
                                                                     $prblm_id = $row5['id'];
@@ -897,12 +897,12 @@ $row_count7 = mysqli_num_rows($result7);
                                                             </td>
                                                             <td class="text-center"><?php echo $row5['date_of_completion'] ?></td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-sm showImage"
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row5['id']; ?>" data-toggle="modal" data-target="#imageModal">
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
                                                                 <button value="<?php echo $row5['id']; ?>" type="button"
-                                                                    class="btn btn-sm imgafter"
+                                                                    class="btn btn-light btn-sm imgafter"
                                                                     data-toggle="modal">
                                                                     <i class="fas fa-images" style="font-size: 25px;"></i>
                                                                 </button>
@@ -980,7 +980,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-info worker_det" value="<?php echo $row7["id"]; ?>" data-toggle="modal"
+                                                                <button type="button" class="btn btn-light worker_det" value="<?php echo $row7["id"]; ?>" data-toggle="modal"
                                                                     data-target="#workerdetailmodal">
                                                                     <?php
                                                                     $prblm_id = $row7['id'];
@@ -993,18 +993,18 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center"><?php echo $row7['reassign_date'] ?></td>
                                                             <td class="text-center"><?php echo $row7['days_to_complete'] ?></td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-sm showImage"
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row7['id']; ?>" data-toggle="modal" data-target="#imageModal">
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
                                                                 <button value="<?php echo $row7['id']; ?>" type="button"
-                                                                    class="btn btn-sm imgafter"
+                                                                    class="btn btn-light btn-sm imgafter"
                                                                     data-toggle="modal">
                                                                     <i class="fas fa-images" style="font-size: 25px;"></i>
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
-                                                               <span class="btn btn-info"> <?php echo $row7['feedback']; ?> </span>
+                                                                <?php echo $row7['feedback']; ?>
                                                             </td>
 
                                                         </tr>
@@ -1064,7 +1064,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-info worker_det" value="<?php echo $row6["id"]; ?>" data-toggle="modal"
+                                                                <button type="button" class="btn btn-light worker_det" value="<?php echo $row6["id"]; ?>" data-toggle="modal"
                                                                     data-target="#workerdetailmodal">
                                                                     <?php
                                                                     $prblm_id = $row6['id'];
@@ -1076,18 +1076,18 @@ $row_count7 = mysqli_num_rows($result7);
                                                             </td>
                                                             <td class="text-center"><?php echo $row6['date_of_completion'] ?></td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-sm showImage"
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row6['id']; ?>" data-toggle="modal" data-target="#imageModal">
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
                                                                 <button value="<?php echo $row6['id']; ?>" type="button"
-                                                                    class="btn btn-sm imgafter"
+                                                                    class="btn btn-light btn-sm imgafter"
                                                                     data-toggle="modal">
                                                                     <i class="fas fa-images" style="font-size: 25px;"></i>
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
-                                                               <span class="btn btn-info"><?php echo $row6['feedback']; ?></span>
+                                                                <?php echo $row6['feedback']; ?>
                                                             </td>
                                                             <!-- <td>
                                                                 <span class="btn btn-success">Completed</span>

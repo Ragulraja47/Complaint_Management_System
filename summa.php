@@ -448,7 +448,7 @@ $row_count7 = mysqli_num_rows($result7);
                                 href="manager_dash.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="testing.php" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
+                                href="manager.php" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
                                     class="hide-menu">Complaints</span></a></li>
                     </ul>
                 </nav>
