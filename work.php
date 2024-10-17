@@ -613,43 +613,44 @@ input[type="text"]:focus {
                                 <button type="button" class="btn btn-primary" style="margin-left:1080px;" data-toggle="modal" data-target="#addworker">
 Add worker</button>
 <div class="modal fade" id="addworker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form id="workers">
-      <div class="modal-body">
-        <input type="text" name="w_name" placeholder="Enter Worker Name"><br>
-        <select id="gender" name="w_gender">
-  <option value="all">Select Genders</option>
-  <option value="male">Male</option>
-  <option value="female">Female</option></select>
-<select name="w_dept" id="dept">
-    <option value="CIVIL">CIVIL</option>
-    <option value="CARPENTER">CARPENTER</option>
-    <option value="ELECTRICAL">ELECTRICAL</option>
-    <option value="INFRA">INFRA</option>
-    <option value="PARTITION">PARTITION</option>
-    <option value="PLUMBING">PLUMBING</option>
-
-</select>   <br>
-     <input type="text" name="w_phone" placeholder="Enter phone number"><br>
-
-
-</select>        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Add</button>
-        </form>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="border-radius: 8px; border: 1px solid #ccc;">
+            <div class="modal-header" style="background-color: #f8f9fa; border-bottom: 2px solid #e9ecef;">
+                <h5 class="modal-title" id="exampleModalLabel">Add Worker</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="workers">
+                <div class="modal-body" style="padding: 20px; background-color: #f5f5f5;">
+                    <input type="text" name="w_name" placeholder="Enter Worker Name" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                    
+                    <select id="gender" name="w_gender" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                        <option value="all">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    
+                    <select name="w_dept" id="dept" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                        <option value="CIVIL">CIVIL</option>
+                        <option value="CARPENTER">CARPENTER</option>
+                        <option value="ELECTRICAL">ELECTRICAL</option>
+                        <option value="INFRA">INFRA</option>
+                        <option value="PARTITION">PARTITION</option>
+                        <option value="PLUMBING">PLUMBING</option>
+                    </select>
+                    
+                    <input type="text" name="w_phone" placeholder="Enter Phone Number" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" style="background-color: #6c757d; border: none; padding: 10px 20px;">Close</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: #007bff; border: none; padding: 10px 20px;">Add</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
+
 
                                 <!-- Tables Start -->
                                 <div class="tab-content tabcontent-border">
@@ -853,57 +854,53 @@ Add worker</button>
 </div>
 
                                     <!-- Priority Modal Box -->
-                                    <div class="modal fade" id="prioritymodal1" tabindex="-1" role="dialog"
-                                        aria-labelledby="priorityModalLabel1" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="priorityModalLabel1">Set Priority</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form id="form20">
+                                    <div class="modal fade" id="prioritymodal1" tabindex="-1" role="dialog" aria-labelledby="priorityModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="border-radius: 8px; border: 1px solid #ccc;">
+            <div class="modal-header" style="background-color: #f8f9fa; border-bottom: 2px solid #e9ecef;">
+                <h5 class="modal-title" id="priorityModalLabel1">Set Priority</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding: 20px; background-color: #f5f5f5;">
+                <form id="form20">
+                    <input type="hidden" name="problem_id" id="complaint_id77" value="">
+                    
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label for="worker" class="font-weight-bold" style="display: block; margin-bottom: 5px;">Assign Worker:</label>
+                        <select class="form-control" name="worker" id="worker" style="width: 100%; height: 40px; border-radius: 4px; border: 1px solid #ccc;">
+                            <option value="">Select Worker</option>
+                        </select>
+                    </div>
+                    
+                    <span class="font-weight-bold" style="display: block; margin-bottom: 10px;">Set Priority:</span>
+                    <ul class="list-group" style="list-style: none; padding: 0;">
+                        <li class="list-group-item" style="padding: 10px; background-color: #ffffff; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 5px;">
+                            <input type="radio" class="form-check-input" name="priority" value="High" required>
+                            <label class="form-check-label">High</label>
+                        </li>
+                        <li class="list-group-item" style="padding: 10px; background-color: #ffffff; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 5px;">
+                            <input type="radio" class="form-check-input" name="priority" value="Medium">
+                            <label class="form-check-label">Medium</label>
+                        </li>
+                        <li class="list-group-item" style="padding: 10px; background-color: #ffffff; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="radio" class="form-check-input" name="priority" value="Low">
+                            <label class="form-check-label">Low</label>
+                        </li>
+                    </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" style="background-color: #007bff; border: none; padding: 15px 30px; font-size: 18px;">Submit</button>
+                <button type="button" class="btn btn-secondary" style="background-color: #6c757d; border: none; padding: 15px 30px; font-size: 18px;" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </form>
 
-                                               
-                                                        <input type="hidden" name="problem_id" id="complaint_id77"
-                                                            value="">
-                                                       
-                                                       
-                                                        <select name="worker" id="worker">
-                                                                <option>Select Worker</option>
-                                                            </select>
-                                                        <br>      
+    </div>
+</div>
 
-                                                        <span>Set Priority: </span>
-                                                        <div class="form-check">
-                                                            <input type="radio" class="form-check-input" name="priority"
-                                                                value="High" required>
-                                                            <label class="form-check-label">High</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input type="radio" class="form-check-input" name="priority"
-                                                                value="Medium">
-                                                            <label class="form-check-label">Medium</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input type="radio" class="form-check-input" name="priority"
-                                                                value="Low">
-                                                            <label class="form-check-label">Low</label>
-                                                        </div>
-                                                        <br>                                                
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-    </form>
-                                                </div>
+
                                            
 
 

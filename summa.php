@@ -55,7 +55,7 @@ $row_count7 = mysqli_num_rows($result7);
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="assets/extra-libs/multicheck/multicheck.css">
-    <link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link href="dist/css/style.min.css" rel="stylesheet">
 
     <!-- CSS Alertify-->
@@ -491,22 +491,32 @@ $row_count7 = mysqli_num_rows($result7);
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist" id="navli">
                                     <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#complain"
-                                            role="tab"><span class="hidden-sm-up"></span> <span
-                                                class="hidden-xs-down"><b>Complaint Raised (<?php echo $row_count1; ?>)</b></span></a> </li>
+                                            role="tab"><span class="hidden-sm-up"></span>
+                                            <div id="navref1"> <span
+                                                    class="hidden-xs-down"><b>Complaint Raised (<?php echo $row_count1; ?>)</b></span></div>
+                                        </a> </li>
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#principal"
-                                            role="tab"><span class="hidden-sm-up"></span> <span
-                                                class="hidden-xs-down"><b>Principal Approval (<?php echo $row_count4; ?>)</b></span></a> </li>
+                                            role="tab"><span class="hidden-sm-up"></span>
+                                            <div id="navref2"> <span
+                                                    class="hidden-xs-down"><b>Principal Approval (<?php echo $row_count4; ?>)</b></span></div>
+                                        </a> </li>
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#worker"
-                                            role="tab"><span class="hidden-sm-up"></span> <span
-                                                class="hidden-xs-down"><b>Work Assigned (<?php echo $row_count3; ?>)</b></span></a> </li>
+                                            role="tab"><span class="hidden-sm-up"></span>
+                                            <div id="navref3"> <span
+                                                    class="hidden-xs-down"><b>Work Assigned (<?php echo $row_count3; ?>)</b></span> </div>
+                                        </a> </li>
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#finished"
-                                            role="tab"><span class="hidden-sm-up"></span> <span
-                                                class="hidden-xs-down"><b>Worker Response (<?php echo $row_count5; ?>)</b></span></a> </li>
+                                            role="tab"><span class="hidden-sm-up"></span>
+                                            <div id="navref4"> <span
+                                                    class="hidden-xs-down"><b>Worker Response (<?php echo $row_count5; ?>)</b></span></div>
+                                        </a> </li>
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#reassigned"
-                                            role="tab"><span class="hidden-sm-up"></span> <span
-                                                class="hidden-xs-down"><b>Work Re-assigned (<?php echo $row_count7; ?>)</b></span></a> </li>
+                                            role="tab"><span class="hidden-sm-up"></span>
+                                            <div id="navref5"> <span
+                                                    class="hidden-xs-down"><b>Work Re-assigned (<?php echo $row_count7; ?>)</b></span></div>
+                                        </a> </li>
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#completed"
-                                            role="tab"><span class="hidden-sm-up"></span> <span
+                                            role="tab"><span class="hidden-sm-up"></span><span
                                                 class="hidden-xs-down"><b>Work Completed</b></span></a> </li>
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#record"
                                             role="tab"><span class="hidden-sm-up"></span> <span
@@ -1721,7 +1731,9 @@ $row_count7 = mysqli_num_rows($result7);
                             alertify.set('notifier', 'position', 'top-right');
                             alertify.error('Rejected');
                             // Close modal
-                            $("#navref").load(location.href + " #navref");
+                            $("#navref1").load(location.href + " #navref1");
+                            $("#navref2").load(location.href + " #navref2");
+
 
 
                             $("#rejectModal").modal("hide");
@@ -1729,8 +1741,14 @@ $row_count7 = mysqli_num_rows($result7);
                             // Reset the form
                             $("#rejectForm")[0].reset();
                             // Force refresh the table body with cache bypass
-                            $("#complain_table").load(location.href + " #complain_table > *");
 
+                            // Before loading new content, destroy the existing DataTable instance
+                            $('#complain_table').DataTable().destroy();
+
+                            $("#complain_table").load(location.href + " #complain_table > *", function() {
+                                // Reinitialize the DataTable after the content is loaded
+                                $('#complain_table').DataTable();
+                            });
 
                             // Display success message
                         } else if (res.status == 500) {
@@ -1783,9 +1801,22 @@ $row_count7 = mysqli_num_rows($result7);
 
                             // Reset the form
                             $("#managerapproveForm")[0].reset();
-                            $("#complain_table").load(location.href + " #complain_table");
-                            $("#principal_table").load(location.href + " #principal_table");
-                            $("#navref").load(location.href + " #navref");
+
+
+                            $('#complain_table').DataTable().destroy();
+                            $('#principal_table').DataTable().destroy();
+
+                            $("#complain_table").load(location.href + " #complain_table > *", function() {
+                                // Reinitialize the DataTable after the content is loaded
+                                $('#complain_table').DataTable();
+                            });
+                            $("#principal_table").load(location.href + " #principal_table > *", function() {
+                                // Reinitialize the DataTable after the content is loaded
+                                $('#principal_table').DataTable();
+                            });
+                            $("#navref1").load(location.href + " #navref1");
+                            $("#navref2").load(location.href + " #navref2");
+
 
 
                         } else {
@@ -1833,8 +1864,14 @@ $row_count7 = mysqli_num_rows($result7);
                             // Reset the form
                             $("#principal_Form")[0].reset();
                             // Force refresh the table body with cache bypass
-                            $("#complain_table").load(location.href + " #complain_table");
-                            $("#navref").load(location.href + " #navref");
+                            $('#complain_table').DataTable().destroy();
+                            $("#complain_table").load(location.href + " #complain_table > *", function() {
+                                // Reinitialize the DataTable after the content is loaded
+                                $('#complain_table').DataTable();
+                            });
+                            $("#navref1").load(location.href + " #navref1");
+                            $("#navref2").load(location.href + " #navref2");
+
 
 
                             // Display success message
@@ -2023,9 +2060,21 @@ $row_count7 = mysqli_num_rows($result7);
                         button: "Ok",
                         timer: null
                     });
-                    $("#finished_table").load(location.href + " #finished_table");
-                    $("#completed_table").load(location.href + " #completed_table");
-                    $("#navref").load(location.href + " #navref");
+
+                    $('#finished_table').DataTable().destroy();
+                    $('#completed_table').DataTable().destroy();
+
+                    $("#finished_table").load(location.href + " #finished_table > *", function() {
+                        // Reinitialize the DataTable after the content is loaded
+                        $('#finished_table').DataTable();
+                    });
+                    $("#completed_table").load(location.href + " #completed_table > *", function() {
+                        // Reinitialize the DataTable after the content is loaded
+                        $('#completed_table').DataTable();
+                    });
+                    $("#navref3").load(location.href + " #navref3");
+                    $("#navref4").load(location.href + " #navref4");
+                    $("#navref5").load(location.href + " #navref5");
                 });
 
                 // When 'Reassign' is clicked (Event Delegation)
@@ -2053,9 +2102,21 @@ $row_count7 = mysqli_num_rows($result7);
                     });
                     $("#datePickerModal").modal("hide"); // Close the date picker modal
                     $("#exampleModal").modal("hide"); // Close the feedback modal
-                    $("#finished_table").load(location.href + " #finished_table");
-                    $("#reassigned_table").load(location.href + " #reassigned_table");
-                    $("#navref").load(location.href + " #navref");
+
+                    $('#finished_table').DataTable().destroy();
+                    $('#reassigned_table').DataTable().destroy();
+
+                    $("#finished_table").load(location.href + " #finished_table > *", function() {
+                        // Reinitialize the DataTable after the content is loaded
+                        $('#finished_table').DataTable();
+                    });
+                    $("#reassigned_table").load(location.href + " #reassigned_table > *", function() {
+                        // Reinitialize the DataTable after the content is loaded
+                        $('#reassigned_table').DataTable();
+                    });
+                    $("#navref3").load(location.href + " #navref3");
+                    $("#navref4").load(location.href + " #navref4");
+                    $("#navref5").load(location.href + " #navref5");
                 });
 
                 // Function to update the complaint status

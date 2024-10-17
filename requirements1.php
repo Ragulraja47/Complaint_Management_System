@@ -525,6 +525,12 @@ $result1 = mysqli_query($conn,$sql1);
                                 icon: "success"
                             });
                             $('#addnewtask').load(location.href + " #addnewtask");
+                            $('#addnewtask').DataTable().destroy();
+
+                            $("#addnewtask").load(location.href + " #addnewtask > *", function() {
+                                // Reinitialize the DataTable after the content is loaded
+                                $('#addnewtask').DataTable();
+                            });
                         }
                     }
                 });
@@ -565,8 +571,14 @@ $result1 = mysqli_query($conn,$sql1);
                         // Reset the form after submission
                         $('#rejectreason')[0].reset();
                         // Reload the task or the section after update
+                        
                         $('#addnewtask').load(location.href + " #addnewtask");
-                        // Show a success message
+                            $('#addnewtask').DataTable().destroy();
+
+                            $("#addnewtask").load(location.href + " #addnewtask > *", function() {
+                                // Reinitialize the DataTable after the content is loaded
+                                $('#addnewtask').DataTable();
+                            });
                         alertify.error('Rejected Success');
                     } else {
                         // Handle errors

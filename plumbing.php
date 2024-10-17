@@ -438,26 +438,27 @@ $c6 = mysqli_num_rows($r6);
                 <div class="row">
                     <div class="col-md-12">
 
+                        
                         <!-- Tabs -->
                         <div class="card" >
                             <div id="navref">
                             <!-- Nav tabs -->
-                            <ul class="nav nav-tabs" role="tablist" id="navli">
+                            <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#completed"
-                                        role="tab"><span class="hidden-sm-up"></span> <span
-                                            class="hidden-xs-down"><b>Completed(<?php echo $compcount ?>)</b></span></a> </li>
+                                        role="tab"><span class="hidden-sm-up"></span><div id="ref1"> <span
+                                            class="hidden-xs-down"><b>Completed(<?php echo $compcount ?>)</b></span></div></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#newtask"
-                                        role="tab"><span class="hidden-sm-up"></span> <span
-                                            class="hidden-xs-down"><b>NewTask(<?php echo $newcount ?>)</b></span></a> </li>
+                                        role="tab"><span class="hidden-sm-up"></span><div id="ref2"> <span
+                                            class="hidden-xs-down"><b>NewTask(<?php echo $newcount ?>)</b></span></div></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#notapproved"
-                                        role="tab"><span class="hidden-sm-up"></span> <span
-                                            class="hidden-xs-down"><b>NotApproved(<?php echo $notcount ?>)</b></span></a> </li>
+                                        role="tab"><span class="hidden-sm-up"></span> <div id="ref3"><span
+                                            class="hidden-xs-down"><b>NotApproved(<?php echo $notcount ?>)</b></span></div></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#inprogressdiv"
-                                        role="tab"><span class="hidden-sm-up"></span> <span
-                                            class="hidden-xs-down"><b>InProgress(<?php echo $progcount ?>)</b></span></a> </li>
+                                        role="tab"><span class="hidden-sm-up"></span> <div id="ref4"><span
+                                            class="hidden-xs-down"><b>InProgress(<?php echo $progcount ?>)</b></span></div></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#waitingforapproval"
-                                        role="tab"><span class="hidden-sm-up"></span> <span
-                                            class="hidden-xs-down"><b>WaitingForApproval(<?php echo $waitcount ?>)</b></span></a> </li>
+                                        role="tab"><span class="hidden-sm-up"></span> <div id="ref5"><span
+                                            class="hidden-xs-down"><b>WaitingForApproval(<?php echo $waitcount ?>)</b></span></div></a> </li>
                             </ul>
                             </div>
 
@@ -1307,8 +1308,14 @@ $("#statusnotapproved").load(location.href + " #statusnotapproved > *", function
     $('#statusnotapproved').DataTable();
 });
 
-                            $('#navref').load(location.href + " #navref");
+$('#ref1').load(location.href + " #ref1");
+                            $('#ref2').load(location.href + " #ref2");
 
+                            $('#ref3').load(location.href + " #ref3");
+
+                            $('#ref4').load(location.href + " #ref4");
+
+                            $('#ref5').load(location.href + " #ref5");
 
 
 
@@ -1427,8 +1434,14 @@ $("#statusnotapproved").load(location.href + " #statusnotapproved > *", function
     $('#statusnotapproved').DataTable();
 });
 
-                    $('#navref').load(location.href + " #navref");
+$('#ref1').load(location.href + " #ref1");
+                            $('#ref2').load(location.href + " #ref2");
 
+                            $('#ref3').load(location.href + " #ref3");
+
+                            $('#ref4').load(location.href + " #ref4");
+
+                            $('#ref5').load(location.href + " #ref5");
                 }, 500); // Adding a delay to ensure the sections are reloaded after the update
             },
             error: function() {
