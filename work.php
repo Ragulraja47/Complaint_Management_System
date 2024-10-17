@@ -704,7 +704,7 @@ Add worker</button>
                                                                         <li><a href="#" class="worker-option"
                                                                                 data-toggle="modal"
                                                                                 data-target="#prioritymodal1"
-                                                                                data-value="CARPENTRY">CARPENTRY</a></li>
+                                                                                data-value="CARPENTER">CARPENTER</a></li>
                                                                         <li><a href="#" class="worker-option"
                                                                                 data-toggle="modal"
                                                                                 data-target="#prioritymodal1"
@@ -1124,7 +1124,7 @@ Add worker</button>
                                                                         <li><a href="#" class="worker"
                                                                                 data-toggle="modal"
                                                                                 data-target="#prioritymodal1"
-                                                                                data-value="CARPENTRY">CARPENTRY</a></li>
+                                                                                data-value="CARPENTER   ">CARPENTER</a></li>
                                                                         <li><a href="#" class="worker"
                                                                                 data-toggle="modal"
                                                                                 data-target="#prioritymodal1"
