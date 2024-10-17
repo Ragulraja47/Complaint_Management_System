@@ -1266,8 +1266,40 @@ $(function() {
                     success: function(response) {
                         var res = jQuery.parseJSON(response);
                         if(res.status == 200) {
-                            $('#addnewtask').load(location.href + " #addnewtask");
-                            $('#statusinprogress').load(location.href + " #statusinprogress");
+                            $('#addnewtask').DataTable().destroy();
+
+$("#addnewtask").load(location.href + " #addnewtask > *", function() {
+    // Reinitialize the DataTable after the content is loaded
+    $('#addnewtask').DataTable();
+});
+$('#statusinprogress').DataTable().destroy();
+
+$("#statusinprogress").load(location.href + " #statusinprogress > *", function() {
+    // Reinitialize the DataTable after the content is loaded
+    $('#statusinprogress').DataTable();
+});
+
+$('#approval').DataTable().destroy();
+
+$("#approval").load(location.href + " #approval > *", function() {
+    // Reinitialize the DataTable after the content is loaded
+    $('#approval').DataTable();
+});
+
+$('#addnewtaskcompleted').DataTable().destroy();
+
+$("#addnewtaskcompleted").load(location.href + " #addnewtaskcompleted > *", function() {
+    // Reinitialize the DataTable after the content is loaded
+    $('#addnewtaskcompleted').DataTable();
+});
+
+$('#statusnotapproved').DataTable().destroy();
+
+$("#statusnotapproved").load(location.href + " #statusnotapproved > *", function() {
+    // Reinitialize the DataTable after the content is loaded
+    $('#statusnotapproved').DataTable();
+});
+
                             $('#navref').load(location.href + " #navref");
 
 
