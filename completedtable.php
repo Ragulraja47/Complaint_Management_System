@@ -806,7 +806,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                         <td class="text-center"><?php echo $row['venue_name']; ?></td>
                                                         <td class="text-center"><?php echo $row['problem_description']; ?></td>
                                                         <td class="text-center">
-                                                        <span class="badge" style="background-color: #ff6666; font-size: 1.2em; color: #000000; padding: 0.25em 0.5em;"><?php echo $statusMessage; ?></span>
+                                                            <span class="badge" style="background-color: #ff6666; font-size: 1.2em; color: #000000; padding: 0.25em 0.5em;"><?php echo $statusMessage; ?></span>
                                                         </td>
                                                         <td class="text-center"><?php echo $row['feedback']; ?></td>
                                                     </tr>
