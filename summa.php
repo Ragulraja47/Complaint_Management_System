@@ -771,10 +771,10 @@ $row_count7 = mysqli_num_rows($result7);
                                                                     data-target="#complaintDetailsModal"><i class="fas fa-eye" style="font-size: 25px;"></i></button>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-light worker_det" value="<?php echo $row6["id"]; ?>" data-toggle="modal"
+                                                                <button type="button" class="btn btn-light worker_det" value="<?php echo $row3["id"]; ?>" data-toggle="modal"
                                                                     data-target="#workerdetailmodal">
                                                                     <?php
-                                                                    $prblm_id = $row6['id'];
+                                                                    $prblm_id = $row3['id'];
                                                                     $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
                                                                     $querry_run = mysqli_query($conn, $querry);
                                                                     $worker_name = mysqli_fetch_array($querry_run);
@@ -875,10 +875,10 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-light worker_det" value="<?php echo $row6["id"]; ?>" data-toggle="modal"
+                                                                <button type="button" class="btn btn-light worker_det" value="<?php echo $row5["id"]; ?>" data-toggle="modal"
                                                                     data-target="#workerdetailmodal">
                                                                     <?php
-                                                                    $prblm_id = $row6['id'];
+                                                                    $prblm_id = $row5['id'];
                                                                     $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
                                                                     $querry_run = mysqli_query($conn, $querry);
                                                                     $worker_name = mysqli_fetch_array($querry_run);
@@ -970,7 +970,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="button" class="btn btn-light worker_det" value="<?php echo $row6["id"]; ?>" data-toggle="modal"
+                                                                <button type="button" class="btn btn-light worker_det" value="<?php echo $row7["id"]; ?>" data-toggle="modal"
                                                                     data-target="#workerdetailmodal">
                                                                     <?php
                                                                     $prblm_id = $row7['id'];
@@ -1520,7 +1520,7 @@ $row_count7 = mysqli_num_rows($result7);
                                         <div class="modal-body">
                                             <div class="d-flex justify-content-between align-items-center p-3" style="background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
                                                 <div>
-                                                    <span id="worker_mobile" class="font-weight-bold" style="font-size: 1.25rem; color: #555;">+91-XXXXXXXXXX</span>
+                                                    <span id="worker_mobile" class="font-weight-bold" style="font-size: 1.25rem; color: #555;">9629613708</span>
                                                 </div>
                                                 <div>
                                                     <a href="#" id="callWorkerBtn" class="btn btn-success" style="padding: 8px 16px; font-size: 0.9rem; border-radius: 25px;">Call Worker</a>
