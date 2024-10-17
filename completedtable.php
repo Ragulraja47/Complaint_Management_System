@@ -164,7 +164,6 @@ $row_count4 = mysqli_num_rows($result4);
         .spbutton:active {
             background-color: rgb(130, 0, 0);
         }
-
     </style>
 </head>
 
@@ -246,12 +245,10 @@ $row_count4 = mysqli_num_rows($result4);
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30 in">
-
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completedtable.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Complaints</span></a>
                         </li>
-
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -270,65 +267,82 @@ $row_count4 = mysqli_num_rows($result4);
                                     <li class="nav-item">
                                         <a class="nav-link active show" data-toggle="tab" href="#dashboard" role="tab" aria-selected="false">
                                             <span class="hidden-sm-up"></span>
-                                            <span class="hidden-xs-down">
-                                                <i class="bi bi-people-fill"></i><b>Dashboard</b>
-                                            </span>
+                                            <div id="navref1">
+                                                <span class="hidden-xs-down">
+                                                    <i class="bi bi-people-fill"></i><b>Dashboard</b>
+                                                </span>
+                                            </div>
                                         </a>
                                     </li>
-
                                     <li class="nav-item">
+
                                         <a class="nav-link" data-toggle="tab" href="#home" role="tab" aria-selected="false">
                                             <span class="hidden-sm-up"></span>
-                                            <span class="hidden-xs-down">
-                                                <i class="bi bi-people-fill"></i>
-                                                <i class="fas fa-exclamation"></i>
-                                                <b>&nbsp Pending Work (<?php echo $row_count5; ?>)</b>
-                                            </span>
+                                            <div id="navref2">
+                                                <span class="hidden-xs-down">
+                                                    <i class="bi bi-people-fill"></i>
+                                                    <i class="fas fa-exclamation"></i>
+                                                    <b>&nbsp Pending Work (<?php echo $row_count5; ?>)</b>
+                                                </span>
+                                            </div>
                                         </a>
-                                    </li>
 
+                                    </li>
                                     <li class="nav-item">
+
                                         <a class="nav-link" data-toggle="tab" href="#inprogress" role="tab" aria-selected="false">
                                             <span class="hidden-sm-up"></span>
-                                            <span class="hidden-xs-down">
-                                                <i class="bi bi-people-fill"></i>
-                                                <i class="fas fa-clock"></i>
-                                                <b>&nbsp Work-In Progress (<?php echo $row_count1; ?>)</b>
-                                            </span>
+                                            <div id="navref3">
+                                                <span class="hidden-xs-down">
+                                                    <i class="bi bi-people-fill"></i>
+                                                    <i class="fas fa-clock"></i>
+                                                    <b>&nbsp Work-In Progress (<?php echo $row_count1; ?>)</b>
+                                                </span>
+                                            </div>
                                         </a>
-                                    </li>
 
+                                    </li>
                                     <li class="nav-item">
+
                                         <a class="nav-link" data-toggle="tab" href="#completed" role="tab">
                                             <span class="hidden-sm-up"></span>
-                                            <span class="hidden-xs-down">
-                                                <i class="bi bi-house-door-fill"></i>
-                                                <i class="mdi mdi-check-all"></i>
-                                                <b>&nbsp Completed Work (<?php echo $row_count2; ?>)</b>
-                                            </span>
+                                            <div id="navref4">
+                                                <span class="hidden-xs-down">
+                                                    <i class="bi bi-house-door-fill"></i>
+                                                    <i class="mdi mdi-check-all"></i>
+                                                    <b>&nbsp Completed Work (<?php echo $row_count2; ?>)</b>
+                                                </span>
+                                            </div>
                                         </a>
-                                    </li>
 
+                                    </li>
                                     <li class="nav-item">
+
                                         <a class="nav-link" data-toggle="tab" href="#parents" role="tab">
                                             <span class="hidden-sm-up"></span>
-                                            <span class="hidden-xs-down">
-                                                <i class="bi bi-house-door-fill"></i>
-                                                <i class="mdi mdi-close-circle"></i>
-                                                <b>&nbsp Rejected Work (<?php echo $row_count3; ?>)</b>
-                                            </span>
+                                            <div id="navref5">
+                                                <span class="hidden-xs-down">
+                                                    <i class="bi bi-house-door-fill"></i>
+                                                    <i class="mdi mdi-close-circle"></i>
+                                                    <b>&nbsp Rejected Work (<?php echo $row_count3; ?>)</b>
+                                                </span>
+                                            </div>
                                         </a>
-                                    </li>
 
+                                    </li>
                                     <li class="nav-item">
+
                                         <a class="nav-link" data-toggle="tab" href="#reassign" role="tab">
                                             <span class="hidden-sm-up"></span>
-                                            <span class="hidden-xs-down">
-                                                <i class="bi bi-house-door-fill"></i>
-                                                <i class="fas fa-redo"></i>
-                                                <b>&nbsp Reassigned Work (<?php echo $row_count4; ?>)</b>
-                                            </span>
+                                            <div id="navref6">
+                                                <span class="hidden-xs-down">
+                                                    <i class="bi bi-house-door-fill"></i>
+                                                    <i class="fas fa-redo"></i>
+                                                    <b>&nbsp Reassigned Work (<?php echo $row_count4; ?>)</b>
+                                                </span>
+                                            </div>
                                         </a>
+
                                     </li>
                                 </ul>
                             </div>
@@ -336,9 +350,6 @@ $row_count4 = mysqli_num_rows($result4);
                             <div class="tab-content tabcontent-border">
                                 <!-----------------------------------DashBoard---------------------------------------->
                                 <div class="tab-pane p-20 active show" id="dashboard" role="tabpanel">
-                                    <div class="row">
-
-                                    </div><br>
                                     <div class="card">
                                         <div class="card-body">
                                             <div id="dashref">
@@ -403,12 +414,11 @@ $row_count4 = mysqli_num_rows($result4);
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
-
                                 <!---------------------------DashBoard Ends-------------------------->
-                                <!------------------pending work----------------->
+
+
+                                <!------------------Pending Work Modal----------------->
                                 <div class="tab-pane p-20" id="home" role="tabpanel">
                                     <div class="modal fade" id="cmodal" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -423,14 +433,13 @@ $row_count4 = mysqli_num_rows($result4);
                                                     <form id="addnewuser" enctype="multipart/form-data">
                                                         <div class="modal-body">
                                                             <div class="mb-3">
-                                                            <input type="hidden" id="hidden_faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>">
-<input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>" readonly>
-</div>
-                                                            
+                                                                <input type="hidden" id="hidden_faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>">
+                                                                <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>" readonly>
+                                                            </div>
+
                                                             <div class="mb-3">
                                                                 <label for="block" class="form-label">Block</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="block_venue" placeholder="Eg:RK-206" required>
+                                                                <input type="text" class="form-control" name="block_venue" placeholder="Eg:RK-206" required>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="venue" class="form-label">Venue</label>
@@ -444,28 +453,20 @@ $row_count4 = mysqli_num_rows($result4);
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="type_of_problem" class="form-label">Type of
-                                                                    Problem</label>
-                                                                <select class="form-control" name="type_of_problem"
-                                                                    style="width: 100%; height:36px;">
+                                                                <label for="type_of_problem" class="form-label">Type of Problem</label>
+                                                                <select class="form-control" name="type_of_problem" style="width: 100%; height:36px;">
                                                                     <option>Select</option>
-                                                                    <option value="Electrical Work">ELECTRICAL
-                                                                    </option>
-                                                                    <option value="Carpenter Work">CARPENTER
-                                                                    </option>
+                                                                    <option value="Electrical Work">ELECTRICAL</option>
+                                                                    <option value="Carpenter Work">CARPENTER</option>
                                                                     <option value="Civil Work">CIVIL</option>
-                                                                    <option value="Partition Work">PARTITION
-                                                                    </option>
+                                                                    <option value="Partition Work">PARTITION</option>
                                                                     <option value="IT Infra Work">IT INFRA </option>
                                                                     <option value="Plumbing Work">PLUMBING </option>
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="description" class="form-label">Problem
-                                                                    Description</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="problem_description"
-                                                                    placeholder="Enter Description" required>
+                                                                <label for="description" class="form-label">Problem Description</label>
+                                                                <input type="text" class="form-control" name="problem_description" placeholder="Enter Description" required>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="images" class="form-label">Image</label>
@@ -477,53 +478,32 @@ $row_count4 = mysqli_num_rows($result4);
                                                         </div>
                                                         <input type="hidden" name="status" value="1">
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit"
-                                                                class="btn btn-primary">Submit</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <!--pending work modal end -->
 
-
-
-                                    <!--pending work end -->
-                                    <!-- Status Modal -->
-                                    <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);background-color:#7460ee;">
-                                                    <h5 class="modal-title" id="statusModalLabel">Status</h5>
-                                                    <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close">
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p id="statusDetails"></p> <!-- Status message will be displayed here -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- end status modal -->
+                                    <!-- Pending table Start-->
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div>
-                                                        <button type="button" class="btn btn-info float-right"
-                                                            data-bs-toggle="modal" data-bs-target="#cmodal">Raise
-                                                            Compliant</button>
-                                                        <br><br>
+                                                        <button type="button" class="btn btn-info float-right" data-bs-toggle="modal" data-bs-target="#cmodal">Raise Compliant</button>
+                                                        <br>
+                                                        <br>
                                                     </div>
                                                     <div class="table-responsive">
-                                                        <!-- pending -->
                                                         <table id="user" class="table table-bordered table-striped">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center"><b>S.No</b></th>
+                                                                    <th class="text-center"><b>Problem_id</b></th>
                                                                     <th class="text-center"><b>Venue</b></th>
                                                                     <th class="text-center"><b>Problem</b></th>
                                                                     <th class="text-center"><b>Problem description</b></th>
@@ -536,7 +516,6 @@ $row_count4 = mysqli_num_rows($result4);
                                                                 <?php
                                                                 $s = 1;
                                                                 while ($row = mysqli_fetch_assoc($result5)) {
-                                                                    // Map the numeric status to a message
                                                                     $statusMessage = '';
                                                                     switch ($row['status']) {
                                                                         case 1:
@@ -563,6 +542,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                                 ?>
                                                                     <tr>
                                                                         <td class="text-center"><?php echo $s; ?></td>
+                                                                        <td class="text-center"><?php echo $row['id']; ?></td>
                                                                         <td class="text-center"><?php echo $row['block_venue']; ?></td>
                                                                         <td class="text-center"><?php echo $row['type_of_problem']; ?></td>
                                                                         <td class="text-center"><?php echo $row['problem_description']; ?></td>
@@ -578,9 +558,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                                                     <button class="btn btndelete btn-danger" type="button" value="<?php echo $row['id']; ?>">
                                                                                         <i class="fas fa-times"></i>
                                                                                     </button>
-
                                                                                 </center>
-
                                                                             <?php } else { ?>
                                                                                 <?php echo $statusMessage; ?>
                                                                             <?php } ?>
@@ -598,17 +576,16 @@ $row_count4 = mysqli_num_rows($result4);
                                         </div>
                                     </div>
                                 </div>
-
                                 <!------------------Complain form Page Ends----------------->
-                                <!-- Modal image view-->
+
+
                                 <!-- Modal image view-->
                                 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);background-color:#7460ee;">
                                                 <h5 class="modal-title" id="imageModalLabel">Image</h5>
-                                                <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close">
+                                                <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                             </div>
                                             <div class="modal-body">
                                                 <img id="modalImage" src="" alt="Image" class="img-fluid" style="width: 100%; height: auto;">
@@ -622,17 +599,16 @@ $row_count4 = mysqli_num_rows($result4);
                                 </div>
 
 
-
                                 <!------------------Work in Progress Starts----------------->
                                 <div class="tab-pane p-20" id="inprogress" role="tabpanel">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <!-- Add table-responsive class here -->
                                             <div class="table-responsive">
                                                 <table id="ProgressTable" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center"><b>S.No</b></th>
+                                                            <th class="text-center"><b>Problem_idb></th>
                                                             <th class="text-center"><b>Venue</b></th>
                                                             <th class="text-center"><b>Problem</b></th>
                                                             <th class="text-center"><b>Problem description</b></th>
@@ -648,18 +624,19 @@ $row_count4 = mysqli_num_rows($result4);
                                                         ?>
                                                             <tr>
                                                                 <td class="text-center"><?php echo $s; ?></td>
+                                                                <td class="text-center"><?php echo $row['id']; ?></td>
                                                                 <td class="text-center"><?php echo $row['block_venue']; ?></td>
                                                                 <td class="text-center"><?php echo $row['type_of_problem']; ?></td>
                                                                 <td class="text-center"><?php echo $row['problem_description']; ?></td>
                                                                 <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
                                                                 <td class="text-center">
                                                                     <button type="button" class="btn btn-light showWorkerDetails" value="<?php echo $row['id']; ?>">
-                                                                    <?php
-                                                                    $prblm_id = $row['id'];
-                                                                    $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
-                                                                    $querry_run = mysqli_query($conn, $querry);
-                                                                    $worker_name = mysqli_fetch_array($querry_run);
-                                                                    echo $worker_name['worker_first_name']; ?>
+                                                                        <?php
+                                                                        $prblm_id = $row['id'];
+                                                                        $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
+                                                                        $querry_run = mysqli_query($conn, $querry);
+                                                                        $worker_name = mysqli_fetch_array($querry_run);
+                                                                        echo $worker_name['worker_first_name']; ?>
                                                                     </button>
                                                                 </td>
                                                                 <td class="text-center">
@@ -677,11 +654,12 @@ $row_count4 = mysqli_num_rows($result4);
                                                         ?>
                                                     </tbody>
                                                 </table>
-                                            </div> <!-- End of table-responsive div -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!------------------Work in Progress Ends----------------->
+                                <!------------------Work in Progress Table Ends----------------->
+
 
                                 <!-- Worker Details Modal -->
                                 <div class="modal fade" id="workerModal" tabindex="-1" aria-labelledby="workerModalLabel" aria-hidden="true">
@@ -692,14 +670,9 @@ $row_count4 = mysqli_num_rows($result4);
                                                 <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                
-                                                
-
                                                 <div class="box" style="background-color: #f7f7f7; border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 5px;">
                                                     <p><strong>Contact:</strong> <span id="workerContact"></span></p>
                                                 </div>
-
-
                                                 <div class="d-flex justify-content-end">
                                                     <a href="#" id="callWorkerBtn" class="btn btn-success">Call Worker</a>
                                                 </div>
@@ -707,7 +680,7 @@ $row_count4 = mysqli_num_rows($result4);
                                         </div>
                                     </div>
                                 </div>
-                         
+
 
                                 <!-- Feedback Modal -->
                                 <div class="modal fade" id="feedback_modal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
@@ -715,13 +688,11 @@ $row_count4 = mysqli_num_rows($result4);
                                         <div class="modal-content">
                                             <div class="modal-header" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);background-color:#7460ee;">
                                                 <h5 class="modal-title" id="feedbackModalLabel">Feedback Form</h5>
-                                                <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close">
+                                                <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                             </div>
                                             <div class="modal-body">
                                                 <form id="add_feedback">
                                                     <input type="hidden" name="id" id="feedback_id"> <!-- Hidden input for id -->
-
                                                     <div class="mb-3">
                                                         <label for="satisfaction" class="form-label">Satisfaction</label>
                                                         <select name="satisfaction" id="satisfaction" class="form-control" required>
@@ -730,15 +701,12 @@ $row_count4 = mysqli_num_rows($result4);
                                                             <option value="14">Reassign</option>
                                                         </select>
                                                     </div>
-
                                                     <div class="mb-3">
                                                         <label for="feedback" class="form-label">Feedback</label>
                                                         <textarea name="feedback" id="feedback" class="form-control" placeholder="Enter Feedback" style="width: 100%; height: 150px;"></textarea>
                                                     </div>
-
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <!-- Submit Button -->
                                                         <button type="submit" class="btn btn-primary">Submit</button>
                                                     </div>
                                                 </form>
@@ -752,12 +720,12 @@ $row_count4 = mysqli_num_rows($result4);
                                 <div class="tab-pane p-20" id="completed" role="tabpanel">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <!-- Add table-responsive class here -->
                                             <div class="table-responsive">
                                                 <table id="completedTable" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center"><b>S.No</b></th>
+                                                            <th class="text-center"><b>Problem_id</b></th>
                                                             <th class="text-center"><b>Venue</b></th>
                                                             <th class="text-center"><b>Problem</b></th>
                                                             <th class="text-center"><b>Date Of submission</b></th>
@@ -771,24 +739,13 @@ $row_count4 = mysqli_num_rows($result4);
                                                         while ($row = mysqli_fetch_assoc($result2)) {
                                                         ?>
                                                             <tr>
-                                                                <td class="text-center">
-                                                                    <?php echo $s; ?>
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    <?php echo $row['block_venue']; ?>
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    <?php echo $row['problem_description']; ?>
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    <?php echo $row['date_of_reg']; ?>
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    <?php echo $row['date_of_completion']; ?>
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    <?php echo $row['feedback']; ?>
-                                                                </td>
+                                                                <td class="text-center"><?php echo $s; ?></td>
+                                                                <td class="text-center"><?php echo $row['id']; ?></td>
+                                                                <td class="text-center"><?php echo $row['block_venue']; ?></td>
+                                                                <td class="text-center"><?php echo $row['problem_description']; ?></td>
+                                                                <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
+                                                                <td class="text-center"><?php echo $row['date_of_completion']; ?></td>
+                                                                <td class="text-center"><?php echo $row['feedback']; ?></td>
                                                             </tr>
                                                         <?php
                                                             $s++;
@@ -796,22 +753,23 @@ $row_count4 = mysqli_num_rows($result4);
                                                         ?>
                                                     </tbody>
                                                 </table>
-                                            </div> <!-- End of table-responsive div -->
+                                            </div>
                                         </div>
                                     </div>
-                                </div><!---------------------Completed Work Ends------------------------------>
+                                </div>
+                                <!---------------------Completed Work Table Ends------------------------------>
 
 
 
 
-                                <!-----------------------Rejected Work Starts-------------------------->
+                                <!-----------------------Rejected Work Table Starts-------------------------->
                                 <div class="tab-pane p-20" id="parents" role="tabpanel">
-                                    <!-- Add table-responsive class here -->
                                     <div class="table-responsive">
                                         <table id="RejectionTable" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center"><b>S no</b></th>
+                                                    <th class="text-center"><b>S.No</b></th>
+                                                    <th class="text-center"><b>Problem_id</b></th>
                                                     <th class="text-center"><b>Block</b></th>
                                                     <th class="text-center"><b>Venue</b></th>
                                                     <th class="text-center"><b>problem description</b></th>
@@ -823,7 +781,6 @@ $row_count4 = mysqli_num_rows($result4);
                                                 <?php
                                                 $s = 1;
                                                 while ($row = mysqli_fetch_assoc($result3)) {
-                                                    // Map the numeric status to a message
                                                     $statusMessage = '';
                                                     switch ($row['status']) {
                                                         case 3:
@@ -842,26 +799,14 @@ $row_count4 = mysqli_num_rows($result4);
                                                             $statusMessage = 'Unknown Status';
                                                     }
                                                 ?>
-
                                                     <tr>
-                                                        <td>
-                                                            <?php echo $s; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['block_venue']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['venue_name']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['problem_description']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $statusMessage; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['feedback']; ?>
-                                                        </td>
+                                                        <td><?php echo $s; ?></td>
+                                                        <td class="text-center"><?php echo $row['id']; ?></td>
+                                                        <td><?php echo $row['block_venue']; ?></td>
+                                                        <td><?php echo $row['venue_name']; ?></td>
+                                                        <td><?php echo $row['problem_description']; ?></td>
+                                                        <td><?php echo $statusMessage; ?></td>
+                                                        <td><?php echo $row['feedback']; ?></td>
                                                     </tr>
                                                 <?php
                                                     $s++;
@@ -869,18 +814,21 @@ $row_count4 = mysqli_num_rows($result4);
                                                 ?>
                                             </tbody>
                                         </table>
-                                    </div> <!-- End of table-responsive div -->
+                                    </div>
                                 </div>
-                                <!------------------Reassigned work Starts----------------->
+                                <!------------------Rejected Work Table Ends----------------->
+
+
+                                <!------------------Reassigned work Table Starts----------------->
                                 <div class="tab-pane p-20" id="reassign" role="tabpanel">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <!-- Add table-responsive class here -->
                                             <div class="table-responsive">
                                                 <table id="reassignTable" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center"><b>S.No</b></th>
+                                                            <th class="text-center"><b>Problem_id</b></th>
                                                             <th class="text-center"><b>Venue</b></th>
                                                             <th class="text-center"><b>Problem</b></th>
                                                             <th class="text-center"><b>Problem description</b></th>
@@ -896,6 +844,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                         ?>
                                                             <tr>
                                                                 <td class="text-center"><?php echo $s; ?></td>
+                                                                <td class="text-center"><?php echo $row['id']; ?></td>
                                                                 <td class="text-center"><?php echo $row['block_venue']; ?></td>
                                                                 <td class="text-center"><?php echo $row['type_of_problem']; ?></td>
                                                                 <td class="text-center"><?php echo $row['problem_description']; ?></td>
@@ -911,7 +860,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                         ?>
                                                     </tbody>
                                                 </table>
-                                            </div> <!-- End of table-responsive div -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -922,8 +871,8 @@ $row_count4 = mysqli_num_rows($result4);
             </div>
         </div>
         <footer class="footer text-center">
-            <b> 2024 © M.Kumarasamy College of Engineering All Rights Reserved. <br> Developed and Maintained by
-                Technology Innovation Hub</b>.
+            <b> 2024 © M.Kumarasamy College of Engineering All Rights Reserved.
+                <br> Developed and Maintained by Technology Innovation Hub</b>.
         </footer>
     </div>
 
@@ -965,17 +914,13 @@ $row_count4 = mysqli_num_rows($result4);
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- Set Today date in Raise Complaint-->
     <script>
-        // Get today's date in the format 'YYYY-MM-DD'
         var today = new Date().toISOString().split('T')[0];
-
-        // Get the date input element
         var dateInput = document.getElementById('date_of_reg');
-
-        // Set the minimum and maximum date for the input field to today's date
         dateInput.setAttribute('min', today);
         dateInput.setAttribute('max', today);
-        // Set the value of the input field to today's date
         dateInput.value = today;
     </script>
 
@@ -984,26 +929,22 @@ $row_count4 = mysqli_num_rows($result4);
     <script>
         function validateSize(input) {
             const filesize = input.files[0].size / 1024; // Size in KB
-
             var ext = input.value.split(".");
             ext = ext[ext.length - 1].toLowerCase();
             var arrayExtensions = ["jpg", "jpeg", "png"];
-
-            // Check file extension
             if (arrayExtensions.lastIndexOf(ext) == -1) {
                 swal("Invalid Image Format, Only .jpeg, .jpg, .png format allowed", "", "error");
-                $(input).val(''); // clear the input field
-            }
-            // Check file size limit of 2 MB (2048 KB)
-            else if (filesize > 2048) {
+                $(input).val('');
+            } else if (filesize > 2048) {
                 swal("File is too large, Maximum 2 MB is allowed", "", "error");
-                $(input).val(''); // clear the input field
+                $(input).val('');
             }
         }
     </script>
 
 
     <script>
+        // DataTables
         $(document).ready(function() {
             $('#user').DataTable();
             $('#ProgressTable').DataTable();
@@ -1011,94 +952,100 @@ $row_count4 = mysqli_num_rows($result4);
             $('#RejectionTable').DataTable();
             $('#reassignTable').DataTable();
         });
-        $(document).ready(function() {
-            // Add complaints
-            $(document).on('submit', '#addnewuser', function(e) {
-                e.preventDefault(); // Prevent form from submitting normally
-                var formData = new FormData(this);
-                $.ajax({
-                    type: "POST",
-                    url: "fbackend.php",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
+    </script>
 
-                        var res = typeof response === 'string' ? JSON.parse(response) : response;
-                        if (res.status === 200) {
-                            swal("Complaint Submitted!", "", "success");
-                            $('#cmodal').modal('hide');
-                            $('#addnewuser')[0].reset(); // Reset the form
-                            $('#user').load(location.href + " #user");
-                            $('#navref').load(location.href + " #navref");
-                            $('#dashref').load(location.href + " #dashref");
-                            // Optional: refresh the page to reflect changes
-                        } else {
-                            console.error("Error:", res.message);
-                            alert("Something went wrong! Try again.");
-                        }
 
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error("AJAX Error:", textStatus, errorThrown);
-                        alert("Failed to process response. Please try again.");
+    <script>
+        // Add Faculty complaints to database
+        $(document).on('submit', '#addnewuser', function(e) {
+            e.preventDefault(); // Prevent form from submitting normally
+            var formData = new FormData(this);
+            $.ajax({
+                type: "POST",
+                url: "fbackend.php",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    var res = typeof response === 'string' ? JSON.parse(response) : response;
+                    if (res.status === 200) {
+                        swal("Complaint Submitted!", "", "success");
+                        $('#cmodal').modal('hide');
+                        $('#addnewuser')[0].reset(); // Reset the form
+                        $('#navref1').load(location.href + " #navref1");
+                        $('#navref2').load(location.href + " #navref2");
+                        $('#navref3').load(location.href + " #navref3");
+                        $('#dashref').load(location.href + " #dashref");
+
+                        $('#user').DataTable().destroy();
+                        $("#user").load(location.href + " #user > *", function() {
+                            $('#user').DataTable();
+                        });
+                    } else {
+                        console.error("Error:", res.message);
+                        alert("Something went wrong! Try again.");
                     }
-                });
-            });
-
-
-            // Delete complaints
-            $(document).on('click', '.btndelete', function(e) {
-                e.preventDefault();
-                if (confirm('Are you sure you want to delete this data?')) {
-                    var user_id = $(this).val();
-                    $.ajax({
-                        type: "POST",
-                        url: "fbackend.php",
-                        data: {
-                            'delete_user': true,
-                            'user_id': user_id
-                        },
-                        success: function(response) {
-                            console.log(response);
-                            var res = typeof response === 'string' ? JSON.parse(response) : response;
-                            if (res.status === 500) {
-                                alert(res.message);
-                            } else {
-                                swal("Complaint deleted successfully", "", "success");
-                                $('#user').load(location.href + " #user>*", ""); // Reload the table content
-                                $('#navref').load(location.href + " #navref");
-
-                                $('#dashref').load(location.href + " #dashref");
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.error("AJAX Error:", textStatus, errorThrown);
-                            alert("Failed to delete data.");
-                        }
-                    });
-                }
-            });
-
-
-            // Show image in modal
-            // Handle View Image Button Click
-            $(document).on('click', '#viewImageButton', function() {
-                var imageSrc = $('#preview_image').attr('src');
-                if (imageSrc) {
-                    $('#preview_images').show(); // Show image if available
-                } else {
-                    alert('No image found');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX Error:", textStatus, errorThrown);
+                    alert("Failed to process response. Please try again.");
                 }
             });
         });
 
 
+        // Delete complaints given by faculty
+        $(document).on('click', '.btndelete', function(e) {
+            e.preventDefault();
+            if (confirm('Are you sure you want to delete this data?')) {
+                var user_id = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "fbackend.php",
+                    data: {
+                        'delete_user': true,
+                        'user_id': user_id
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        var res = typeof response === 'string' ? JSON.parse(response) : response;
+                        if (res.status === 500) {
+                            alert(res.message);
+                        } else {
+                            swal("Complaint deleted successfully", "", "success");
+                            $('#navref1').load(location.href + " #navref1");
+                            $('#navref2').load(location.href + " #navref2");
+                            $('#navref3').load(location.href + " #navref3");
+                            $('#dashref').load(location.href + " #dashref");
+
+                            $('#user').DataTable().destroy();
+                            $("#user").load(location.href + " #user > *", function() {
+                                $('#user').DataTable();
+                            });
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error("AJAX Error:", textStatus, errorThrown);
+                        alert("Failed to delete data.");
+                    }
+                });
+            }
+        });
+
+
+        // Show image in modal
+        $(document).on('click', '#viewImageButton', function() {
+            var imageSrc = $('#preview_image').attr('src');
+            if (imageSrc) {
+                $('#preview_images').show();
+            } else {
+                alert('No image found');
+            }
+        });
         // Show image
         $(document).on('click', '.showImage', function() {
             var id = $(this).val(); // Get the id from button value
             console.log(id); // Ensure this logs correctly
-
             $.ajax({
                 type: "POST",
                 url: "fbackend.php",
@@ -1109,14 +1056,10 @@ $row_count4 = mysqli_num_rows($result4);
                 dataType: "json", // Automatically parses JSON responses
                 success: function(response) {
                     console.log(response);
-
                     if (response.status == 200) {
-                        // Dynamically set the image source
                         $('#modalImage').attr('src', 'uploads/' + response.data.images);
-                        // Show the modal
                         $('#imageModal').modal('show');
                     } else {
-                        // Handle case where no image is found
                         alert(response.message || 'An error occurred while retrieving the image.');
                     }
                 },
@@ -1129,8 +1072,8 @@ $row_count4 = mysqli_num_rows($result4);
         });
 
 
-        // Display worker details
-       $(document).on('click', '.showWorkerDetails', function() {
+        // Display worker details in work in progress
+        $(document).on('click', '.showWorkerDetails', function() {
             var id = $(this).val(); // Get the id from the button value
             console.log("Fetching worker details for id: " + id); // Debug log
             $.ajax({
@@ -1143,14 +1086,9 @@ $row_count4 = mysqli_num_rows($result4);
                 dataType: "json",
                 success: function(response) {
                     if (response.status == 200) {
-                        // Show worker details in the modal
-                        $('#workerName').text(response.worker_first_name + ' ' + response.worker_last_name);
+                        $('#workerName').text(response.worker_first_name);
                         $('#workerContact').text(response.worker_mobile);
-
-                        // Set the href attribute for the call button to dial the worker's mobile number
                         $('#callWorkerBtn').attr('href', 'tel:' + response.worker_mobile);
-
-                        // Show the modal
                         $('#workerModal').modal('show');
                     } else {
                         alert(response.message || 'No worker details found.');
@@ -1161,18 +1099,16 @@ $row_count4 = mysqli_num_rows($result4);
                     alert('An error occurred while fetching the worker details: ' + error);
                 }
             });
-        }); 
+        });
 
 
         // Open feedback modal and set id
         $(document).on('click', '.feedbackBtn', function() {
             var id = $(this).data('problem-id');
             // Clear the feedback field and dropdown before opening the modal
-            $('#feedback').val(''); // Clear textarea
-            $('#satisfaction').val(''); // Reset dropdown to blank
-            // Set id in the hidden input
+            $('#feedback').val('');
+            $('#satisfaction').val('');
             $('#feedback_id').val(id);
-            // Show the modal
             $('#feedback_modal').modal('show');
         });
 
@@ -1189,14 +1125,27 @@ $row_count4 = mysqli_num_rows($result4);
                 success: function(response) {
                     if (response.status == 200) {
                         swal("Done!", "Feedback Submitted!", "success");
-                        $('#feedback_modal').modal('hide'); // Close modal on success
-                        // Reload the tables to reflect updated data
-                        $('#ProgressTable').load(location.href + " #ProgressTable");
-                        $('#completedTable').load(location.href + " #completedTable");
-                        $('#reassignTable').load(location.href + " #reassignTable");
-                        $('#navref').load(location.href + " #navref");
-
+                        $('#feedback_modal').modal('hide');
+                        $('#navref1').load(location.href + " #navref1");
+                        $('#navref3').load(location.href + " #navref3");
+                        $('#navref4').load(location.href + " #navref4");
+                        $('#navref6').load(location.href + " #navref6");
                         $('#dashref').load(location.href + " #dashref");
+
+                        $('#ProgressTable').DataTable().destroy();
+                        $("#ProgressTable").load(location.href + " #ProgressTable > *", function() {
+                            $('#ProgressTable').DataTable();
+                        });
+
+                        $('#completedTable').DataTable().destroy();
+                        $("#completedTable").load(location.href + " #completedTable > *", function() {
+                            $('#completedTable').DataTable();
+                        });
+
+                        $('#reassignTable').DataTable().destroy();
+                        $("#reassignTable").load(location.href + " #reassignTable > *", function() {
+                            $('#reassignTable').DataTable();
+                        });
                     } else {
                         alert(response.message || 'An error occurred while submitting feedback.');
                     }
@@ -1207,12 +1156,7 @@ $row_count4 = mysqli_num_rows($result4);
                 }
             });
         });
-
-        
     </script>
-
-
-
 </body>
 <div scrible-ignore="" id="skribel_annotation_ignore_browserExtensionFlag" class="skribel_chromeExtension"
     style="display: none"></div>
