@@ -1245,9 +1245,15 @@ $result3 = mysqli_query($conn, $sql3);
                                 alertify.error(res.message);
                             } else {
                                 alertify.success('Complaint Approved successfully!');
-                                $('#myTable1').load(location.href + " #myTable1");
-                                $('#myTable2').load(location.href + " #myTable2");
-                                $('#myTable3').load(location.href + " #myTable3");
+                                $('#myTable1').DataTable().destroy();
+                                $('#myTable2').DataTable().destroy();
+                                $('#myTable3').DataTable().destroy();
+                                $("#myTable1").load(location.href + " #myTable1 > *", function() {
+                                $('#myTable1').DataTable();});
+                                $("#myTable2").load(location.href + " #myTable2 > *", function() {
+                                $('#myTable2').DataTable();});
+                                $("#myTable3").load(location.href + " #myTable3 > *", function() {
+                                $('#myTable3').DataTable();});
                                 $('#navref1').load(location.href + " #navref1");
                                 $('#navref2').load(location.href + " #navref2");
                                 $('#navref3').load(location.href + " #navref3");
