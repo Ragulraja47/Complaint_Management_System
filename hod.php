@@ -241,61 +241,75 @@ $result3 = mysqli_query($conn, $sql3);
                                 <div class="card-body">
                                     <h4 class="card-title">Complaint Details</h4>
                                     <div class="card">
-                                        <div id="navref">
-                                        <ul class="nav nav-tabs mb-3" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active show" data-toggle="tab" href="#dashboard"
-                                                    role="tab" aria-selected="true"><span class="hidden-sm-up"></span>
-                                                    <span class="hidden-xs-down"><i
-                                                            class="mdi mdi-view-grid"></i><b>&nbsp Dashboard</b></span></a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#pending"
-                                                    role="tab" aria-selected="false"><span class="hidden-sm-up"></span>
-                                                    <span class="hidden-xs-down"><i
-                                                            class="fas fa-clock"></i><b>&nbsp Pending ( <?php $query2 = "SELECT COUNT(*) as pending FROM complaints_detail WHERE  status ='2'";
-                                                                                                        $output2 = mysqli_query($conn, $query2);
-                                                                                                        $row2 = mysqli_fetch_assoc($output2);
-                                                                                                        $pendingCount = $row2['pending'];
-                                                                                                        echo $pendingCount;
-                                                                                                        ?> ) </b></span></a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#approved" role="tab"
-                                                    aria-selected="false"><span class="hidden-sm-up"></span> <span
-                                                        class="hidden-xs-down"><i
-                                                            class="fas fa-check"></i><b>&nbsp Approved ( <?php $query2 = "SELECT COUNT(*) as approved FROM complaints_detail WHERE (status ='4' or status ='6' or status='7' or status='10' or status='11' or status='13' or status='14' or status='15' or status='17' or status='18')";
-                                                                                                            $output2 = mysqli_query($conn, $query2);
-                                                                                                            $row2 = mysqli_fetch_assoc($output2);
-                                                                                                            $pendingCount = $row2['approved'];
-                                                                                                            echo $pendingCount;
-                                                                                                            ?>
-                                                            ) </b></span></a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#completed" role="tab"
-                                                    aria-selected="false"><span class="hidden-sm-up"></span> <span
-                                                        class="hidden-xs-down"><i
-                                                            class="mdi mdi-check-all"></i><b>&nbsp Completed ( <?php $query2 = "SELECT COUNT(*) as completed FROM complaints_detail WHERE  status ='16'";
-                                                                                                                $output2 = mysqli_query($conn, $query2);
-                                                                                                                $row2 = mysqli_fetch_assoc($output2);
-                                                                                                                $pendingCount = $row2['completed'];
-                                                                                                                echo $pendingCount;
-                                                                                                                ?> )</b></span></a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#rejected" role="tab"
-                                                    aria-selected="false"><span class="hidden-sm-up"></span> <span
-                                                        class="hidden-xs-down"><i
-                                                            class="mdi mdi-close-circle"></i><b>&nbsp Rejected ( <?php $query2 = "SELECT COUNT(*) as rejected FROM complaints_detail WHERE (status ='5' or status ='19' or status='20')";
-                                                                                                                    $output2 = mysqli_query($conn, $query2);
-                                                                                                                    $row2 = mysqli_fetch_assoc($output2);
-                                                                                                                    $pendingCount = $row2['rejected'];
-                                                                                                                    echo $pendingCount;
-                                                                                                                    ?> )</b></span></a>
-                                            </li>
-                                        </ul>
-                                        </div>
+                                            <ul class="nav nav-tabs mb-3" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active show" data-toggle="tab" href="#dashboard"
+                                                        role="tab" aria-selected="true"><span class="hidden-sm-up"></span>
+                                                        <span class="hidden-xs-down"><i
+                                                                class="mdi mdi-view-grid"></i><b>&nbsp Dashboard</b></span></a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#pending"
+                                                        role="tab" aria-selected="false"><span class="hidden-sm-up"></span>
+                                                        <div id="navref1">
+                                                        <span class="hidden-xs-down">
+                                                            <i class="fas fa-clock"></i>
+                                                            <b>&nbsp Pending ( <?php $query2 = "SELECT COUNT(*) as pending FROM complaints_detail WHERE  status ='2'";
+                                                            $output2 = mysqli_query($conn, $query2);
+                                                            $row2 = mysqli_fetch_assoc($output2);
+                                                            $pendingCount = $row2['pending'];
+                                                            echo $pendingCount;
+                                                            ?> ) </b>
+                                                        </span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#approved" role="tab"
+                                                        aria-selected="false"><span class="hidden-sm-up"></span>
+                                                        <div id="navref2">
+                                                        <span class="hidden-xs-down">
+                                                            <i class="fas fa-check"></i><b>&nbsp Approved ( <?php $query2 = "SELECT COUNT(*) as approved FROM complaints_detail WHERE (status ='4' or status ='6' or status='7' or status='10' or status='11' or status='13' or status='14' or status='15' or status='17' or status='18')";
+                                                            $output2 = mysqli_query($conn, $query2);
+                                                            $row2 = mysqli_fetch_assoc($output2);
+                                                            $pendingCount = $row2['approved'];
+                                                            echo $pendingCount;
+                                                            ?> )</b>
+                                                        </span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#completed" role="tab"
+                                                        aria-selected="false"><span class="hidden-sm-up"></span> 
+                                                        <div id="navref3">
+                                                        <span class="hidden-xs-down">
+                                                            <i class="mdi mdi-check-all"></i><b>&nbsp Completed ( <?php $query2 = "SELECT COUNT(*) as completed FROM complaints_detail WHERE  status ='16'";
+                                                            $output2 = mysqli_query($conn, $query2);
+                                                            $row2 = mysqli_fetch_assoc($output2);
+                                                            $pendingCount = $row2['completed'];
+                                                            echo $pendingCount;
+                                                            ?> )</b>
+                                                        </span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#rejected" role="tab"
+                                                        aria-selected="false"><span class="hidden-sm-up"></span> 
+                                                        <div id="navref4">
+                                                        <span class="hidden-xs-down">
+                                                            <i class="mdi mdi-close-circle"></i><b>&nbsp Rejected ( <?php $query2 = "SELECT COUNT(*) as rejected FROM complaints_detail WHERE (status ='5' or status ='19' or status='20')";
+                                                            $output2 = mysqli_query($conn, $query2);
+                                                            $row2 = mysqli_fetch_assoc($output2);
+                                                            $pendingCount = $row2['rejected'];
+                                                            echo $pendingCount;
+                                                            ?> )</b>
+                                                        </span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         <!-------------------------dashboard------------------------------>
                                         <div class="tab-content tabcontent-border">
                                             <div class="tab-pane p-20 active show" id="dashboard" role="tabpanel">
@@ -1234,7 +1248,10 @@ $result3 = mysqli_query($conn, $sql3);
                                 $('#myTable1').load(location.href + " #myTable1");
                                 $('#myTable2').load(location.href + " #myTable2");
                                 $('#myTable3').load(location.href + " #myTable3");
-                                $('#navref').load(location.href + " #navref"); 
+                                $('#navref1').load(location.href + " #navref1");
+                                $('#navref2').load(location.href + " #navref2");
+                                $('#navref3').load(location.href + " #navref3");
+                                $('#navref4').load(location.href + " #navref4");
                             }
                         }
                     });
