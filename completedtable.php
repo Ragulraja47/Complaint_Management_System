@@ -1,7 +1,5 @@
 <?php
-session_start(); // Start the session
-
-// Check if the user is logged in
+session_start(); // Ensure the session is started
 if (!isset($_SESSION['faculty_id'])) {
     // Redirect to login page if not logged in
     header("Location: flogin.php");
@@ -16,8 +14,8 @@ $faculty_id = $_SESSION['faculty_id']; // Assuming 'faculty_id' is stored in ses
 $query = "SELECT * FROM complaints_detail WHERE faculty_id = '$faculty_id'";
 $result = mysqli_query($conn, $query);
 
-$sql5 = "SELECT * FROM complaints_detail WHERE status IN (1,2,4,6) AND faculty_id = '$faculty_id'";
-$sql1 = "SELECT * FROM complaints_detail WHERE status IN (7,10,11,15,17,18) AND faculty_id = '$faculty_id'";
+$sql5 = "SELECT * FROM complaints_detail WHERE status IN (1,2,4,6,8,9) AND faculty_id = '$faculty_id'";
+$sql1 = "SELECT * FROM complaints_detail WHERE status IN (7,10,11,17,18) AND faculty_id = '$faculty_id'";
 $sql2 = "SELECT * FROM complaints_detail WHERE status = 16 AND faculty_id = '$faculty_id'";
 $sql3 = "SELECT * FROM complaints_detail WHERE status IN (3,5,19,20) AND faculty_id = '$faculty_id'";
 $sql4 = "SELECT * FROM complaints_detail WHERE status = 15 AND faculty_id = '$faculty_id'";
@@ -56,17 +54,25 @@ $row_count4 = mysqli_num_rows($result4);
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    
+
     <link rel="icon" href="assets/images/favicon.png">
     <link rel="stylesheet" href="assets/css/styles.css">
     <style>
+        .nav-tabs .nav-link {
+            color: #0033cc;
+        }
+
+        .nav-tabs .nav-link.active {
+            background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
+            color: white;
+        }
+
         th {
             background-color: #7460ee;
             background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
-            color: white
+            color: white;
         }
 
-        
         .text-right {
             text-align: right;
         }
@@ -75,8 +81,7 @@ $row_count4 = mysqli_num_rows($result4);
             text-align: left;
         }
 
-
-
+        /* Button styling */
         .btn span {
             height: 100%;
             width: 100%;
@@ -119,6 +124,47 @@ $row_count4 = mysqli_num_rows($result4);
         .btn:focus {
             box-shadow: none;
         }
+
+
+        /* Close button (X) styling */
+        .modal-header .modal-title {
+            color: white;
+        }
+
+        .spbutton {
+            position: relative;
+            width: 2em;
+            height: 2em;
+            border: none;
+            background: rgba(180, 83, 107, 0.11);
+            border-radius: 5px;
+            transition: background 0.5s;
+        }
+
+        .spbutton::before,
+        .spbutton::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 1em;
+            height: 1.5px;
+            background-color: white;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .spbutton::after {
+            transform: translateX(-50%) rotate(-45deg);
+        }
+
+        .spbutton:hover {
+            background-color: rgb(211, 21, 21);
+        }
+
+        .spbutton:active {
+            background-color: rgb(130, 0, 0);
+        }
+
     </style>
 </head>
 
@@ -200,9 +246,11 @@ $row_count4 = mysqli_num_rows($result4);
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30 in">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="completedtable.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completedtable.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                                    class="hide-menu">Complaints</span></a>
+                        </li>
 
                     </ul>
                 </nav>
@@ -211,157 +259,142 @@ $row_count4 = mysqli_num_rows($result4);
             <!-- End Sidebar scroll-->
         </aside>
         <div class="page-wrapper">
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Edit Profile</h4>
-                        <div class="ml-auto text-right">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Profile Information</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-body wizard-content">
                         <h4 class="card-title">Work Information</h4>
                         <h6 class="card-subtitle"></h6>
                         <div class="card">
-                            <ul class="nav nav-tabs mb-3" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#home" role="tab" aria-selected="false">
-                                        <span class="hidden-sm-up"></span>
-                                        <span class="hidden-xs-down">
-                                            <i class="bi bi-people-fill"></i><b>Pending Work (<?php echo $row_count5; ?>)</b>
-                                        </span>
-                                    </a>
-                                </li>
+                            <div id="navref">
+                                <ul class="nav nav-tabs mb-3" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active show" data-toggle="tab" href="#dashboard" role="tab" aria-selected="false">
+                                            <span class="hidden-sm-up"></span>
+                                            <span class="hidden-xs-down">
+                                                <i class="bi bi-people-fill"></i><b>Dashboard</b>
+                                            </span>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#inprogress" role="tab" aria-selected="false">
-                                        <span class="hidden-sm-up"></span>
-                                        <span class="hidden-xs-down">
-                                            <i class="bi bi-people-fill"></i><b>Work-In Progress (<?php echo $row_count1; ?>)</b>
-                                        </span>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#home" role="tab" aria-selected="false">
+                                            <span class="hidden-sm-up"></span>
+                                            <span class="hidden-xs-down">
+                                                <i class="bi bi-people-fill"></i>
+                                                <i class="fas fa-exclamation"></i>
+                                                <b>&nbsp Pending Work (<?php echo $row_count5; ?>)</b>
+                                            </span>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#completed" role="tab">
-                                        <span class="hidden-sm-up"></span>
-                                        <span class="hidden-xs-down">
-                                            <i class="bi bi-house-door-fill"></i><b>Completed Work (<?php echo $row_count2; ?>)</b>
-                                        </span>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#inprogress" role="tab" aria-selected="false">
+                                            <span class="hidden-sm-up"></span>
+                                            <span class="hidden-xs-down">
+                                                <i class="bi bi-people-fill"></i>
+                                                <i class="fas fa-clock"></i>
+                                                <b>&nbsp Work-In Progress (<?php echo $row_count1; ?>)</b>
+                                            </span>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#parents" role="tab">
-                                        <span class="hidden-sm-up"></span>
-                                        <span class="hidden-xs-down">
-                                            <i class="bi bi-house-door-fill"></i><b>Rejected Work (<?php echo $row_count3; ?>)</b>
-                                        </span>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#completed" role="tab">
+                                            <span class="hidden-sm-up"></span>
+                                            <span class="hidden-xs-down">
+                                                <i class="bi bi-house-door-fill"></i>
+                                                <i class="mdi mdi-check-all"></i>
+                                                <b>&nbsp Completed Work (<?php echo $row_count2; ?>)</b>
+                                            </span>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#reassign" role="tab">
-                                        <span class="hidden-sm-up"></span>
-                                        <span class="hidden-xs-down">
-                                            <i class="bi bi-house-door-fill"></i><b>Reassigned Work (<?php echo $row_count4; ?>)</b>
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#parents" role="tab">
+                                            <span class="hidden-sm-up"></span>
+                                            <span class="hidden-xs-down">
+                                                <i class="bi bi-house-door-fill"></i>
+                                                <i class="mdi mdi-close-circle"></i>
+                                                <b>&nbsp Rejected Work (<?php echo $row_count3; ?>)</b>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#reassign" role="tab">
+                                            <span class="hidden-sm-up"></span>
+                                            <span class="hidden-xs-down">
+                                                <i class="bi bi-house-door-fill"></i>
+                                                <i class="fas fa-redo"></i>
+                                                <b>&nbsp Reassigned Work (<?php echo $row_count4; ?>)</b>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
 
                             <div class="tab-content tabcontent-border">
                                 <!-----------------------------------DashBoard---------------------------------------->
                                 <div class="tab-pane p-20 active show" id="dashboard" role="tabpanel">
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="card card-hover">
-                                                <div class="box bg-cyan text-center">
-                                                    <h1 class="font-light text-white"><i class="fas fa-user"></i></h1>
-                                                    <h6 class="text-white"><b>Name<br>FACULTY NAME</b></h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="card card-hover">
-                                                <div class="box bg-success text-center">
-                                                    <h1 class="font-light text-white"><i class="mdi mdi-account-multiple"></i></h1>
-                                                    <h6 class="text-white"><b>Role<br>FACULTY</b></h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="card card-hover">
-                                                <div class="box bg-warning text-center">
-                                                    <h1 class="font-light text-white"><i class="mdi mdi-account-card-details"></i></h1>
-                                                    <h6 class="text-white"><b>Branch<br></b>M.KUMARASAMY COLLEGE OF ENGINEERING</h6>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div><br>
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-12 col-md-3 mb-3">
-                                                    <div class="cir">
-                                                        <div class="bo">
-                                                            <div class="content1">
-                                                                <div class="stats-box text-center p-3"
-                                                                    style="background-color:rgb(252, 119, 71);">
-                                                                    <i class="fas fa-bell m-b-5 font-20"></i>
-                                                                    <h1 class="m-b-0 m-t-5"><?php echo $row_count5; ?></h1>
-                                                                    <small class="font-light">Total</small>
+                                            <div id="dashref">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-3 mb-3">
+                                                        <div class="cir">
+                                                            <div class="bo">
+                                                                <div class="content1">
+                                                                    <div class="stats-box text-center p-3"
+                                                                        style="background-color:rgb(252, 119, 71);">
+                                                                        <i class="fas fa-bell m-b-5 font-20"></i>
+                                                                        <h1 class="m-b-0 m-t-5"><?php echo $row_count5; ?></h1>
+                                                                        <small class="font-light">Pending</small>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 col-md-3 mb-3">
-                                                    <div class="cir">
-                                                        <div class="bo">
-                                                            <div class="content1">
-                                                                <div class="stats-box text-center p-3"
-                                                                    style="background-color:rgb(241, 74, 74);">
-                                                                    <i class="fas fa-exclamation m-b-5 font-16"></i>
-                                                                    <h1 class="m-b-0 m-t-5"><?php echo $row_count5; ?></h1>
-                                                                    <small class="font-light">Pending</small>
+                                                    <div class="col-12 col-md-3 mb-3">
+                                                        <div class="cir">
+                                                            <div class="bo">
+                                                                <div class="content1">
+                                                                    <div class="stats-box text-center p-3"
+                                                                        style="background-color:rgb(241, 74, 74);">
+                                                                        <i class="fas fa-exclamation m-b-5 font-16"></i>
+                                                                        <h1 class="m-b-0 m-t-5"><?php echo $row_count1; ?></h1>
+                                                                        <small class="font-light">work in progress</small>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 col-md-3 mb-3">
-                                                    <div class="cir">
-                                                        <div class="bo">
-                                                            <div class="content1">
-                                                                <div class="stats-box text-center p-3"
-                                                                    style="background-color:rgb(70, 160, 70);">
-                                                                    <i class="fas fa-check m-b-5 font-20"></i>
-                                                                    <h1 class="m-b-0 m-t-5"><?php echo $row_count1; ?></h1>
-                                                                    <small class="font-light">work in progress</small>
+                                                    <div class="col-12 col-md-3 mb-3">
+                                                        <div class="cir">
+                                                            <div class="bo">
+                                                                <div class="content1">
+                                                                    <div class="stats-box text-center p-3"
+                                                                        style="background-color:rgb(70, 160, 70);">
+                                                                        <i class="fas fa-check m-b-5 font-20"></i>
+                                                                        <h1 class="m-b-0 m-t-5"><?php echo $row_count2; ?></h1>
+                                                                        <small class="font-light">Completed</small>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 col-md-3 mb-3">
-                                                    <div class="cir">
-                                                        <div class="bo">
-                                                            <div class="content1">
-                                                                <div class="stats-box text-center p-3"
-                                                                    style="background-color: rgb(187, 187, 35);">
-                                                                    <i class="fas fa-redo m-b-5 font-20"></i>
-                                                                    <h1 class="m-b-0 m-t-5"><?php echo $row_count2; ?></h1>
-                                                                    <small class="font-light">Completed</small>
+                                                    <div class="col-12 col-md-3 mb-3">
+                                                        <div class="cir">
+                                                            <div class="bo">
+                                                                <div class="content1">
+                                                                    <div class="stats-box text-center p-3"
+                                                                        style="background-color: rgb(187, 187, 35);">
+                                                                        <i class="fas fa-redo m-b-5 font-20"></i>
+                                                                        <h1 class="m-b-0 m-t-5"><?php echo $row_count4; ?></h1>
+                                                                        <small class="font-light">Re-assigned</small>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -381,30 +414,19 @@ $row_count4 = mysqli_num_rows($result4);
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <div class="modal-header">
+                                                <div class="modal-header" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);background-color:#7460ee;">
                                                     <h5 class="modal-title" id="exampleModalLabel">Raise Complaint</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"><i class="mdi mdi-close"></i></button>
+                                                    <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close">
                                                 </div>
                                                 <div>
                                                     <form id="addnewuser" enctype="multipart/form-data">
                                                         <div class="modal-body">
                                                             <div class="mb-3">
-                                                                <input type="hidden" id="hidden_faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>">
-                                                                <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" placeholder="Faculty ID" readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <input type="hidden" class="form-control" name="faculty_name" placeholder="Enter Faculty Name" required readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <input type="hidden" class="form-control" name="department" placeholder="Enter Department" required readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <input type="hidden" class="form-control" name="faculty_contact" placeholder="Enter Mobile No" required readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <input type="hidden" class="form-control" name="faculty_mail" placeholder="Enter Mail ID" required readonly>
-                                                            </div>
+                                                            <input type="hidden" id="hidden_faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>">
+<input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>" readonly>
+</div>
+                                                            
                                                             <div class="mb-3">
                                                                 <label for="block" class="form-label">Block</label>
                                                                 <input type="text" class="form-control"
@@ -473,9 +495,10 @@ $row_count4 = mysqli_num_rows($result4);
                                     <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <div class="modal-header">
+                                                <div class="modal-header" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);background-color:#7460ee;">
                                                     <h5 class="modal-title" id="statusModalLabel">Status</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close">
                                                 </div>
                                                 <div class="modal-body">
                                                     <p id="statusDetails"></p> <!-- Status message will be displayed here -->
@@ -500,14 +523,13 @@ $row_count4 = mysqli_num_rows($result4);
                                                         <table id="user" class="table table-bordered table-striped">
                                                             <thead>
                                                                 <tr>
-                                                                    <th><b>S.No</b></th>
-                                                                    <th><b>Venue</b></th>
-                                                                    <th><b>Problem</b></th>
-                                                                    <th><b>Problem description</b></th>
-                                                                    <th><b>Date Of submission</b></th>
-                                                                    <th><b>Photo</b></th>
-                                                                    <th><b>Status</b></th>
-                                                                    <th><b>Action</b></th>
+                                                                    <th class="text-center"><b>S.No</b></th>
+                                                                    <th class="text-center"><b>Venue</b></th>
+                                                                    <th class="text-center"><b>Problem</b></th>
+                                                                    <th class="text-center"><b>Problem description</b></th>
+                                                                    <th class="text-center"><b>Date Of submission</b></th>
+                                                                    <th class="text-center"><b>Photo</b></th>
+                                                                    <th class="text-center"><b>Status</b></th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -523,80 +545,44 @@ $row_count4 = mysqli_num_rows($result4);
                                                                         case 2:
                                                                             $statusMessage = 'Approved by Infra';
                                                                             break;
-                                                                        case 3:
-                                                                            $statusMessage = 'Rejected by Infra';
-                                                                            break;
                                                                         case 4:
                                                                             $statusMessage = 'Approved by HOD';
-                                                                            break;
-                                                                        case 5:
-                                                                            $statusMessage = 'Rejected by HOD';
                                                                             break;
                                                                         case 6:
                                                                             $statusMessage = 'Sent to Principal for Approval';
                                                                             break;
-                                                                        case 7:
-                                                                            $statusMessage = 'Assigned to Worker';
-                                                                            break;
                                                                         case 8:
-                                                                            $statusMessage = ' ';
+                                                                            $statusMessage = 'Approved by Principal ';
                                                                             break;
                                                                         case 9:
-                                                                            $statusMessage = ' ';
-                                                                            break;
-                                                                        case 10:
-                                                                            $statusMessage = 'Worker In Progress';
-                                                                            break;
-                                                                        case 11:
-                                                                            $statusMessage = 'Waiting for Approval';
-                                                                            break;
-                                                                        case 12:
-                                                                            $statusMessage = ' ';
-                                                                            break;
-                                                                        case 13:
-                                                                            $statusMessage = 'Work Response';
-                                                                            break;
-                                                                        case 14:
-                                                                            $statusMessage = 'Feedback Sent to Manager';
-                                                                            break;
-                                                                        case 15:
-                                                                            $statusMessage = 'Reassigned';
-                                                                            break;
-                                                                        case 16:
-                                                                            $statusMessage = 'Work Completed';
-                                                                            break;
-                                                                        case 17:
-                                                                            $statusMessage = 'Inprogress';
-                                                                            break;
-                                                                        case 18:
-                                                                            $statusMessage = 'Rejected by Principal';
-                                                                            break;
-                                                                        case 19:
-                                                                            $statusMessage = 'Rejected by Principal';
-                                                                            break;
-                                                                        case 20:
-                                                                            $statusMessage = 'Rejected by Manager';
+                                                                            $statusMessage = ' Approved by Manager';
                                                                             break;
                                                                         default:
                                                                             $statusMessage = 'Unknown Status';
                                                                     }
                                                                 ?>
                                                                     <tr>
-                                                                        <td><?php echo $s; ?></td>
-                                                                        <td><?php echo $row['block_venue']; ?></td>
-                                                                        <td><?php echo $row['type_of_problem']; ?></td>
-                                                                        <td><?php echo $row['problem_description']; ?></td>
-                                                                        <td><?php echo $row['date_of_reg']; ?></td>
-                                                                        <td>
-                                                                            <button type="button" class="btn btn-info showImage" value="<?php echo $row['id']; ?>">View</button>
+                                                                        <td class="text-center"><?php echo $s; ?></td>
+                                                                        <td class="text-center"><?php echo $row['block_venue']; ?></td>
+                                                                        <td class="text-center"><?php echo $row['type_of_problem']; ?></td>
+                                                                        <td class="text-center"><?php echo $row['problem_description']; ?></td>
+                                                                        <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
+                                                                        <td class="text-center">
+                                                                            <button type="button" class="btn showImage" value="<?php echo $row['id']; ?>">
+                                                                                <i class="fas fa-image" style="font-size: 25px;"></i>
+                                                                            </button>
                                                                         </td>
-                                                                        <!-- Display the status message instead of numeric status -->
-                                                                        <td><?php echo $statusMessage; ?></td>
-                                                                        <td>
+                                                                        <td class="text-center">
                                                                             <?php if ($row['status'] == 1) { ?>
-                                                                                <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-danger btndelete">Delete</button>
+                                                                                <center>
+                                                                                    <button class="btn btndelete btn-danger" type="button" value="<?php echo $row['id']; ?>">
+                                                                                        <i class="fas fa-times"></i>
+                                                                                    </button>
+
+                                                                                </center>
+
                                                                             <?php } else { ?>
-                                                                                <button type="button" disabled>Delete</button>
+                                                                                <?php echo $statusMessage; ?>
                                                                             <?php } ?>
                                                                         </td>
                                                                     </tr>
@@ -619,9 +605,10 @@ $row_count4 = mysqli_num_rows($result4);
                                 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div class="modal-header" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);background-color:#7460ee;">
                                                 <h5 class="modal-title" id="imageModalLabel">Image</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="mdi mdi-close"></i></button>
+                                                <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close">
                                             </div>
                                             <div class="modal-body">
                                                 <img id="modalImage" src="" alt="Image" class="img-fluid" style="width: 100%; height: auto;">
@@ -645,13 +632,13 @@ $row_count4 = mysqli_num_rows($result4);
                                                 <table id="ProgressTable" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th><b>S.No</b></th>
-                                                            <th><b>Venue</b></th>
-                                                            <th><b>Problem</b></th>
-                                                            <th><b>Problem description</b></th>
-                                                            <th><b>Date Of submission</b></th>
-                                                            <th><b>Worker Details</b></th>
-                                                            <th><b>Feedback</b></th>
+                                                            <th class="text-center"><b>S.No</b></th>
+                                                            <th class="text-center"><b>Venue</b></th>
+                                                            <th class="text-center"><b>Problem</b></th>
+                                                            <th class="text-center"><b>Problem description</b></th>
+                                                            <th class="text-center"><b>Date Of submission</b></th>
+                                                            <th class="text-center"><b>Worker Details</b></th>
+                                                            <th class="text-center"><b>Feedback</b></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -660,15 +647,22 @@ $row_count4 = mysqli_num_rows($result4);
                                                         while ($row = mysqli_fetch_assoc($result1)) {
                                                         ?>
                                                             <tr>
-                                                                <td><?php echo $s; ?></td>
-                                                                <td><?php echo $row['block_venue']; ?></td>
-                                                                <td><?php echo $row['type_of_problem']; ?></td>
-                                                                <td><?php echo $row['problem_description']; ?></td>
-                                                                <td><?php echo $row['date_of_reg']; ?></td>
-                                                                <td>
-                                                                    <button type="button" class="btn btn-info showWorkerDetails" value="<?php echo $row['id']; ?>">View</button>
+                                                                <td class="text-center"><?php echo $s; ?></td>
+                                                                <td class="text-center"><?php echo $row['block_venue']; ?></td>
+                                                                <td class="text-center"><?php echo $row['type_of_problem']; ?></td>
+                                                                <td class="text-center"><?php echo $row['problem_description']; ?></td>
+                                                                <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
+                                                                <td class="text-center">
+                                                                    <button type="button" class="btn btn-light showWorkerDetails" value="<?php echo $row['id']; ?>">
+                                                                    <?php
+                                                                    $prblm_id = $row['id'];
+                                                                    $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
+                                                                    $querry_run = mysqli_query($conn, $querry);
+                                                                    $worker_name = mysqli_fetch_array($querry_run);
+                                                                    echo $worker_name['worker_first_name']; ?>
+                                                                    </button>
                                                                 </td>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <?php if ($row['status'] == 11 || $row['status'] == 18) { ?>
                                                                         <!-- Button to open the feedback modal -->
                                                                         <button type="button" class="btn btn-info feedbackBtn" data-problem-id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#feedback_modal">Feedback</button>
@@ -693,15 +687,19 @@ $row_count4 = mysqli_num_rows($result4);
                                 <div class="modal fade" id="workerModal" tabindex="-1" aria-labelledby="workerModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div class="modal-header" style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); background-color: #7460ee; color: white;">
                                                 <h5 class="modal-title" id="workerModalLabel">Worker Details</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="mdi mdi-close"></i></button>
+                                                <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p><strong>Name:</strong> <span id="workerName"></span></p>
-                                                <p><strong>Contact:</strong> <span id="workerContact"></span></p>
-                                                <p><strong>Email:</strong> <span id="workerEmail"></span></p>
-                                                <!-- Call button -->
+                                                
+                                                
+
+                                                <div class="box" style="background-color: #f7f7f7; border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 5px;">
+                                                    <p><strong>Contact:</strong> <span id="workerContact"></span></p>
+                                                </div>
+
+
                                                 <div class="d-flex justify-content-end">
                                                     <a href="#" id="callWorkerBtn" class="btn btn-success">Call Worker</a>
                                                 </div>
@@ -709,14 +707,16 @@ $row_count4 = mysqli_num_rows($result4);
                                         </div>
                                     </div>
                                 </div>
+                         
 
                                 <!-- Feedback Modal -->
                                 <div class="modal fade" id="feedback_modal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div class="modal-header" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);background-color:#7460ee;">
                                                 <h5 class="modal-title" id="feedbackModalLabel">Feedback Form</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="mdi mdi-close"></i></button>
+                                                <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close">
                                             </div>
                                             <div class="modal-body">
                                                 <form id="add_feedback">
@@ -757,12 +757,12 @@ $row_count4 = mysqli_num_rows($result4);
                                                 <table id="completedTable" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th><b>S.No</b></th>
-                                                            <th><b>Venue</b></th>
-                                                            <th><b>Problem</b></th>
-                                                            <th><b>Date Of submission</b></th>
-                                                            <th><b>Date of Completion</b></th>
-                                                            <th><b>Feedback</b></th>
+                                                            <th class="text-center"><b>S.No</b></th>
+                                                            <th class="text-center"><b>Venue</b></th>
+                                                            <th class="text-center"><b>Problem</b></th>
+                                                            <th class="text-center"><b>Date Of submission</b></th>
+                                                            <th class="text-center"><b>Date of Completion</b></th>
+                                                            <th class="text-center"><b>Feedback</b></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -771,22 +771,22 @@ $row_count4 = mysqli_num_rows($result4);
                                                         while ($row = mysqli_fetch_assoc($result2)) {
                                                         ?>
                                                             <tr>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <?php echo $s; ?>
                                                                 </td>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <?php echo $row['block_venue']; ?>
                                                                 </td>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <?php echo $row['problem_description']; ?>
                                                                 </td>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <?php echo $row['date_of_reg']; ?>
                                                                 </td>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <?php echo $row['date_of_completion']; ?>
                                                                 </td>
-                                                                <td>
+                                                                <td class="text-center">
                                                                     <?php echo $row['feedback']; ?>
                                                                 </td>
                                                             </tr>
@@ -811,12 +811,12 @@ $row_count4 = mysqli_num_rows($result4);
                                         <table id="RejectionTable" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th><b>S no</b></th>
-                                                    <th><b>Block</b></th>
-                                                    <th><b>Venue</b></th>
-                                                    <th><b>problem description</b></th>
-                                                    <th><b>Status </b></th>
-                                                    <th><b>Reason </b></th>
+                                                    <th class="text-center"><b>S no</b></th>
+                                                    <th class="text-center"><b>Block</b></th>
+                                                    <th class="text-center"><b>Venue</b></th>
+                                                    <th class="text-center"><b>problem description</b></th>
+                                                    <th class="text-center"><b>Status </b></th>
+                                                    <th class="text-center"><b>Reason </b></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -826,59 +826,11 @@ $row_count4 = mysqli_num_rows($result4);
                                                     // Map the numeric status to a message
                                                     $statusMessage = '';
                                                     switch ($row['status']) {
-                                                        case 1:
-                                                            $statusMessage = 'Pending';
-                                                            break;
-                                                        case 2:
-                                                            $statusMessage = 'Approved by Infra';
-                                                            break;
                                                         case 3:
                                                             $statusMessage = 'Rejected by Infra';
                                                             break;
-                                                        case 4:
-                                                            $statusMessage = 'Approved by HOD';
-                                                            break;
                                                         case 5:
                                                             $statusMessage = 'Rejected by HOD';
-                                                            break;
-                                                        case 6:
-                                                            $statusMessage = 'Sent to Principal for Approval';
-                                                            break;
-                                                        case 7:
-                                                            $statusMessage = 'Assigned to Worker';
-                                                            break;
-                                                        case 8:
-                                                            $statusMessage = ' ';
-                                                            break;
-                                                        case 9:
-                                                            $statusMessage = ' ';
-                                                            break;
-                                                        case 10:
-                                                            $statusMessage = 'Worker In Progress';
-                                                            break;
-                                                        case 11:
-                                                            $statusMessage = 'Waiting for Approval';
-                                                            break;
-                                                        case 12:
-                                                            $statusMessage = ' ';
-                                                            break;
-                                                        case 13:
-                                                            $statusMessage = 'Work Response';
-                                                            break;
-                                                        case 14:
-                                                            $statusMessage = 'Feedback Sent to Manager';
-                                                            break;
-                                                        case 15:
-                                                            $statusMessage = 'Reassigned';
-                                                            break;
-                                                        case 16:
-                                                            $statusMessage = 'Work Completed';
-                                                            break;
-                                                        case 17:
-                                                            $statusMessage = 'Inprogress';
-                                                            break;
-                                                        case 18:
-                                                            $statusMessage = 'Waiting for approval';
                                                             break;
                                                         case 19:
                                                             $statusMessage = 'Rejected by Principal';
@@ -928,13 +880,13 @@ $row_count4 = mysqli_num_rows($result4);
                                                 <table id="reassignTable" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th><b>S.No</b></th>
-                                                            <th><b>Venue</b></th>
-                                                            <th><b>Problem</b></th>
-                                                            <th><b>Problem description</b></th>
-                                                            <th><b>Date Of submission</b></th>
-                                                            <th><b>Worker Details</b></th>
-                                                            <th><b>Feedback</b></th>
+                                                            <th class="text-center"><b>S.No</b></th>
+                                                            <th class="text-center"><b>Venue</b></th>
+                                                            <th class="text-center"><b>Problem</b></th>
+                                                            <th class="text-center"><b>Problem description</b></th>
+                                                            <th class="text-center"><b>Date Of submission</b></th>
+                                                            <th class="text-center"><b>Worker Details</b></th>
+                                                            <th class="text-center"><b>Feedback</b></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -943,12 +895,12 @@ $row_count4 = mysqli_num_rows($result4);
                                                         while ($row = mysqli_fetch_assoc($result4)) {
                                                         ?>
                                                             <tr>
-                                                                <td><?php echo $s; ?></td>
-                                                                <td><?php echo $row['block_venue']; ?></td>
-                                                                <td><?php echo $row['type_of_problem']; ?></td>
-                                                                <td><?php echo $row['problem_description']; ?></td>
-                                                                <td><?php echo $row['date_of_reg']; ?></td>
-                                                                <td>
+                                                                <td class="text-center"><?php echo $s; ?></td>
+                                                                <td class="text-center"><?php echo $row['block_venue']; ?></td>
+                                                                <td class="text-center"><?php echo $row['type_of_problem']; ?></td>
+                                                                <td class="text-center"><?php echo $row['problem_description']; ?></td>
+                                                                <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
+                                                                <td class="text-center">
                                                                     <button type="button" class="btn btn-info showWorkerDetails" value="<?php echo $row['id']; ?>">View</button>
                                                                 </td>
                                                                 <td><?php echo $row['feedback']; ?></td>
@@ -1078,6 +1030,8 @@ $row_count4 = mysqli_num_rows($result4);
                             $('#cmodal').modal('hide');
                             $('#addnewuser')[0].reset(); // Reset the form
                             $('#user').load(location.href + " #user");
+                            $('#navref').load(location.href + " #navref");
+                            $('#dashref').load(location.href + " #dashref");
                             // Optional: refresh the page to reflect changes
                         } else {
                             console.error("Error:", res.message);
@@ -1091,13 +1045,13 @@ $row_count4 = mysqli_num_rows($result4);
                     }
                 });
             });
+
+
             // Delete complaints
             $(document).on('click', '.btndelete', function(e) {
                 e.preventDefault();
-
                 if (confirm('Are you sure you want to delete this data?')) {
                     var user_id = $(this).val();
-
                     $.ajax({
                         type: "POST",
                         url: "fbackend.php",
@@ -1111,10 +1065,12 @@ $row_count4 = mysqli_num_rows($result4);
                             if (res.status === 500) {
                                 alert(res.message);
                             } else {
-                                swal("User deleted successfully", "", "success");
+                                swal("Complaint deleted successfully", "", "success");
                                 $('#user').load(location.href + " #user>*", ""); // Reload the table content
-                            }
+                                $('#navref').load(location.href + " #navref");
 
+                                $('#dashref').load(location.href + " #dashref");
+                            }
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.error("AJAX Error:", textStatus, errorThrown);
@@ -1123,6 +1079,7 @@ $row_count4 = mysqli_num_rows($result4);
                     });
                 }
             });
+
 
             // Show image in modal
             // Handle View Image Button Click
@@ -1171,11 +1128,11 @@ $row_count4 = mysqli_num_rows($result4);
             });
         });
 
+
         // Display worker details
-        $(document).on('click', '.showWorkerDetails', function() {
+       $(document).on('click', '.showWorkerDetails', function() {
             var id = $(this).val(); // Get the id from the button value
             console.log("Fetching worker details for id: " + id); // Debug log
-
             $.ajax({
                 type: "POST",
                 url: "fbackend.php", // Adjust if necessary
@@ -1205,64 +1162,26 @@ $row_count4 = mysqli_num_rows($result4);
                     alert('An error occurred while fetching the worker details: ' + error);
                 }
             });
-        });
+        }); 
 
-
-
-        // status button
-        $(document).on('click', '.statusBtn', function() {
-            var id = $(this).data('problem-id'); // Ensure the data is being passed
-            console.log('Problem ID:', id); // Log the id for debugging
-
-            $('#feedback_id').val(id);
-
-            $.ajax({
-                type: "POST",
-                url: "fbackend.php", // Make sure this is the correct backend URL
-                data: {
-                    'get_status_details': true,
-                    'id': id
-                },
-                dataType: "json",
-                success: function(response) {
-                    console.log(response); // Log the response for debugging
-
-                    if (response.status == 200) {
-                        // Show status in the modal
-                        $('#statusDetails').text(response.message);
-                        $('#statusModal').modal('show'); // Open the modal
-                    } else {
-                        alert(response.message || 'An error occurred while retrieving the status.');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("AJAX Error: ", xhr.responseText);
-                    alert('An error occurred while fetching the status: ' + error);
-                }
-            });
-        });
 
         // Open feedback modal and set id
         $(document).on('click', '.feedbackBtn', function() {
             var id = $(this).data('problem-id');
-
             // Clear the feedback field and dropdown before opening the modal
             $('#feedback').val(''); // Clear textarea
             $('#satisfaction').val(''); // Reset dropdown to blank
-
             // Set id in the hidden input
             $('#feedback_id').val(id);
-
             // Show the modal
             $('#feedback_modal').modal('show');
         });
 
+
         // Handle feedback form submission
         $('#add_feedback').on('submit', function(e) {
             e.preventDefault(); // Prevent default form submission
-
             var formData = $(this).serialize(); // Serialize form data
-
             $.ajax({
                 type: "POST",
                 url: "fbackend.php", // Adjust if necessary
@@ -1276,6 +1195,9 @@ $row_count4 = mysqli_num_rows($result4);
                         $('#ProgressTable').load(location.href + " #ProgressTable");
                         $('#completedTable').load(location.href + " #completedTable");
                         $('#reassignTable').load(location.href + " #reassignTable");
+                        $('#navref').load(location.href + " #navref");
+
+                        $('#dashref').load(location.href + " #dashref");
                     } else {
                         alert(response.message || 'An error occurred while submitting feedback.');
                     }
@@ -1287,48 +1209,13 @@ $row_count4 = mysqli_num_rows($result4);
             });
         });
 
-        // display user
-
-        $(document).ready(function() {
-            $('#cmodal').on('show.bs.modal', function() {
-                var faculty_id = $('#hidden_faculty_id').val();
-                $('#faculty_id').val(faculty_id);
-
-                if (faculty_id) {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'fbackend.php',
-                        data: {
-                            action: 'fetch_faculty_details',
-                            faculty_id: faculty_id
-                        },
-                        success: function(response) {
-                            var res = typeof response === 'string' ? JSON.parse(response) : response;
-                            if (res.status === 200) {
-                                var faculty = res.data;
-                                $('input[name="faculty_name"]').val(faculty.faculty_name);
-                                $('input[name="department"]').val(faculty.department);
-                                $('input[name="faculty_contact"]').val(faculty.faculty_contact);
-                                $('input[name="faculty_mail"]').val(faculty.faculty_mail);
-                            } else {
-                                console.error("Error:", res.message);
-                                alert("Faculty details could not be retrieved. Please check the Faculty ID.");
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.error("AJAX Error:", textStatus, errorThrown);
-                            alert("Failed to retrieve faculty details. Please try again.");
-                        }
-                    });
-                }
-            });
-        });
+        
     </script>
 
 
 
 </body>
-<div scrible-ignore="" id="skribel__annotation_ignore_browserExtensionFlag" class="skribel__chromeExtension"
+<div scrible-ignore="" id="skribel_annotation_ignore_browserExtensionFlag" class="skribel_chromeExtension"
     style="display: none"></div>
 
 </html>

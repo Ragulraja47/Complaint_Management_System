@@ -112,7 +112,8 @@ $result1 = mysqli_query($conn, $sql1);
                     </ul>
                 </div>
             </nav>
-        </header> <!-- ============================================================== -->
+        </header>
+        <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
@@ -192,13 +193,10 @@ $result1 = mysqli_query($conn, $sql1);
                                                         <h5>Dept</h5>
                                                     </b></th>
                                                 <th class="text-center" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color:white;"><b>
-                                                        <h5>Block</h5>
+                                                        <h5>Block \ Venue</h5>
                                                     </b></th>
                                                 <th class="text-center" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color:white;"><b>
-                                                        <h5>Venue</h5>
-                                                    </b></th>
-                                                <th class="text-center" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color:white;"><b>
-                                                        <h5>Problem Description</h5>
+                                                        <h5>Complaint</h5>
                                                     </b></th>
                                                 <th class="text-center" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color:white;"><b>
                                                         <h5>Image</h5>
@@ -206,9 +204,7 @@ $result1 = mysqli_query($conn, $sql1);
                                                 <th class="text-center" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color:white;"><b>
                                                         <h5>Date_raised</h5>
                                                     </b></th>
-                                                <th class="text-center" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color:white;"><b>
-                                                        <h5>Deadline</h5>
-                                                    </b></th>
+
                                                 <th class="text-center" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color:white;"><b>
                                                         <h5>Requirements</h5>
                                                     </b></th>
@@ -224,43 +220,97 @@ $result1 = mysqli_query($conn, $sql1);
                                             while ($row = mysqli_fetch_array($result1)) {
                                             ?>
                                                 <tr>
-                                                    <th scope="row"><?php echo $s ?></td>
-                                                    <td><?php echo $row['department'] ?></td>
-                                                    <td><?php echo $row['block_venue'] ?></td>
-                                                    <td><?php echo $row['venue_name'] ?></td>
-                                                    <td class="text-center"><button type="button" class="btn btn-info margin-5" data-toggle="modal" data-target="#<?php echo $row['problem_id']; ?>" height="30px" width="30px">View description</button></td>
+                                                    <th class="text-center" scope="row"><?php echo $s ?></td>
+                                                    <td class="text-center"><?php echo $row['department'] ?></td>
+                                                    <td class="text-center"><?php echo $row['block_venue'] ?> \ <?php echo $row['venue_name'] ?></td>
+
+                                                    <td class="text-center"><button type="button" class=" btn viewcomplaint margin-5" data-toggle="modal" data-target="#<?php echo $row['problem_id']; ?>" height="30px" width="30px"><i class="fas fa-eye" style="font-size: 25px;"></i></button></td>
                                                     <!--Description id=problem-->
-                                                    <div class="modal fade" id="<?php echo $row['problem_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Problem Description</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+
+                                                    <!-- Complaint Details Modal -->
+                                                    <div class="modal fade" id="<?php echo $row['problem_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                                                            <div class="modal-content" style="border-radius: 8px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); background-color: #f9f9f9;">
+
+                                                                <!-- Modal Header with bold title and cleaner button -->
+                                                                <div class="modal-header" style="background-color: #007bff; color: white; border-top-left-radius: 8px; border-top-right-radius: 8px; padding: 15px;">
+                                                                    <h5 class="modal-title" id="complaintDetailsModalLabel" style="font-weight: 700; font-size: 1.4em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                                                        📋 Complaint Details
+                                                                    </h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; font-size: 1.2em;">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
-                                                                <div class="modal-body">
-                                                                    <input type="hidden" name="id" id="id">
-                                                                    <textarea id="problem_description" name="problem_description" class="form-control" readonly><?php echo $row['problem_description'] ?></textarea>
+
+                                                                <!-- Modal Body with reduced padding -->
+                                                                <div class="modal-body" style="padding: 15px; font-size: 1.1em; color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+                                                                    <!-- Complaint Info Section with minimized spacing -->
+                                                                    <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
+                                                                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                                            <div class="ms-2 me-auto">
+                                                                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty ID</div>
+                                                                                <b><span id="faculty_name" style="color: #555;"><?php echo $row['faculty_id'] ?></span></b>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                                            <div class="ms-2 me-auto">
+                                                                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Name</div>
+                                                                                <b><span id="faculty_name" style="color: #555;"><?php echo $row['faculty_name'] ?></span></b>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                                            <div class="ms-2 me-auto">
+                                                                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Mobile Number</div>
+                                                                                <b><span id="faculty_contact" style="color: #555;"><?php echo $row['faculty_contact'] ?></span></b>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                                            <div class="ms-2 me-auto">
+                                                                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">E-mail</div>
+                                                                                <b><span id="faculty_mail" style="color: #555;"><?php echo $row['faculty_mail'] ?></span></b>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                                            <div class="ms-2 me-auto">
+                                                                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Type of Problem</div>
+                                                                                <b><span id="type_of_problem" style="color: #555;"><?php echo $row['type_of_problem'] ?></span></b>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                                            <div class="ms-2 me-auto">
+                                                                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Problem Description</div>
+                                                                                <div class="alert alert-light" role="alert" style="border-radius: 6px; background-color: #f1f1f1; padding: 15px; color: #333;">
+                                                                                    <b><span id="problem_description"><?php echo $row['problem_description'] ?></span></b>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ol>
                                                                 </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                                                <!-- Modal Footer with reduced padding -->
+                                                                <div class="modal-footer" style="border-top: none; justify-content: center; padding: 10px;">
+                                                                    <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" style="border-radius: 25px; padding: 10px 30px; font-size: 1.1em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                                                        Close
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <td>
+                                                    <td class="text-center">
 
-                                                        <button type="button" class="btn btn-info showImage1" data-toggle="modal" data-target="imageModal1" data-id="<?php echo $row['problem_id']; ?>">View</button>
+                                                        <button type="button" class="btn showImage1" data-toggle="modal" data-target="imageModal1" data-id="<?php echo $row['problem_id']; ?>"><i class="fas fa-image" style="font-size: 25px;"></i></button>
                                                     </td>
 
-                                                    <td><?php echo $row['date_of_reg'] ?></td>
-                                                    <td><?php echo $row['days_to_complete'] ?></td>
-                                                    <td><?php echo $row['reason'] ?></td>
-                                                    <td>
-                                                        <button type="button" value="<?php echo $row['problem_id'] ?>" class="btn btn-success userapprove">Approve</button>
+                                                    <td class="text-center"><?php echo $row['date_of_reg'] ?></td>
 
-                                                        <button type="button" value="<?php echo $row['problem_id']; ?>" class="btn btn-danger" data-toggle="modal" data-target="#rejectModal">Reject</button>
+                                                    <td class="text-center"><?php echo $row['reason'] ?></td>
+                                                    <td class="text-center">
+                                                        <button type="button" value="<?php echo $row['problem_id'] ?>" class="btn btn-success userapprove"><i class="fas fa-check"></i></button>
+
+                                                        <button type="button" value="<?php echo $row['problem_id']; ?>" class="btn btn-danger userreject" data-toggle="modal" data-target="#rejectModal"><i class="fas fa-times"></i></button>
 
                                                     </td>
                                                 </tr>
@@ -310,7 +360,7 @@ $result1 = mysqli_query($conn, $sql1);
     <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                     <h5 class="modal-title" id="rejectModalLabel">Reject Problem</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -322,7 +372,7 @@ $result1 = mysqli_query($conn, $sql1);
                         <textarea name="reason" class="form-control" placeholder="Reason for rejection" required></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-danger">Reject</button>
                     </div>
                 </form>
@@ -339,7 +389,7 @@ $result1 = mysqli_query($conn, $sql1);
     <div class="modal fade" id="imageModal1" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                     <h5 class="modal-title" id="imageModalLabel">Problem Image</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -385,6 +435,51 @@ $result1 = mysqli_query($conn, $sql1);
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js" integrity="sha512-JnjG+Wt53GspUQXQhc+c4j8SBERsgJAoHeehagKHlxQN+MtCCmFDghX9/AcbkkNRZptyZU4zC8utK59M5L45Iw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+        //Tool Tip
+        $(function() {
+            // Initialize the tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // You can also set options manually if needed
+            $('.userreject').tooltip({
+                placement: 'top',
+                title: 'Reject'
+            });
+        });
+
+        $(function() {
+            // Initialize the tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // You can also set options manually if needed
+            $('.userapprove').tooltip({
+                placement: 'top',
+                title: 'Accept'
+            });
+        });
+
+        $(function() {
+            // Initialize the tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // You can also set options manually if needed
+            $('.showImage1').tooltip({
+                placement: 'top',
+                title: 'Before'
+            });
+        });
+        $(function() {
+            // Initialize the tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // You can also set options manually if needed
+            $('.viewcomplaint').tooltip({
+                placement: 'top',
+                title: 'View Complaint'
+            });
+        });
+
+
         $(document).ready(function() {
             $('#addnewtask').DataTable();
         });

@@ -14,7 +14,7 @@ $result3 = mysqli_query($conn, $sql3);
 $row_count3 = mysqli_num_rows($result3);
 
 //worker details fetch panna
-$sql4 = "SELECT * FROM complaints_detail WHERE status='6'";
+$sql4 = "SELECT * FROM complaints_detail WHERE status='9'";
 $result4 = mysqli_query($conn, $sql4);
 //work finished table
 $sql5 = "SELECT * FROM complaints_detail WHERE status = '14'";
@@ -52,12 +52,6 @@ $row_count7 = mysqli_num_rows($result7);
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css" />
     <!-- Bootstrap theme alertify-->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css" />
-
-
-
-
-
-
     <style>
         .nav-tabs .nav-link {
             color: #0033cc;
@@ -86,38 +80,160 @@ $row_count7 = mysqli_num_rows($result7);
 
     <!-- Additional CSS for Modal -->
     <style>
-        .modal-content {
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+        .close span {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+}
 
-        .modal-header {
-            border-bottom: none;
-        }
+.close:hover span {
+    transform: rotate(45deg);
+    color:white;
+}
+/* Close Button */
+.modal-header .close {
+    font-size: 1.5rem;
+    color: white;
+    opacity: 1;
+    transition: transform 0.3s ease;
+    outline: none; /* Removes the focus outline */
+    border: none;   /* Ensures no border around the button */
+}
 
-        .modal-body {
-            padding: 2rem;
-            background: #f9f9f9;
-        }
+.modal-header .close:focus {
+    outline: none; /* Removes focus outline when the button is clicked */
+    box-shadow: none; /* Ensures no shadow or box effect appears */
+}
 
-        .modal-footer {
-            border-top: none;
-        }
+.modal-header .close:hover {
+    transform: rotate(90deg);
+    color: #ff8080;
+}
 
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
 
-        .btn-secondary {
-            background-color: #0033cc;
-            border-color: #0033cc;
-        }
+/* priority modal */
+/* Modal Background */
+.modal-content {
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    background-color: #f5f5f5;
+   
+    border: none;
+}
 
-        .btn-secondary:hover {
-            background-color: #002a80;
-            border-color: #002a80;
-        }
+/* Header Styling with Gradient */
+.modal-header {
+    background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
+    color: white;
+    border-bottom: none;
+    padding: 10px 20px;
+    border-radius: 12px 12px 0 0;
+}
+
+.modal-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+/* Close Button */
+.modal-header .close {
+    font-size: 1.5rem;
+    color: white;
+    opacity: 1;
+    transition: transform 0.3s ease;
+}
+
+.modal-header .close:hover {
+    transform: rotate(90deg);
+    color: #ff8080;
+}
+
+/* Modal Body */
+.modal-body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Form Inputs and Labels */
+label {
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="date"],
+input[type="text"] {
+    border: none; /* Removed border */
+    border-radius: 8px;
+    padding: 5px;
+    width: 100%;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+input[type="date"]:focus,
+input[type="text"]:focus {
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Radio Buttons */
+.form-check-input[type="radio"] {
+    transform: scale(1.2);
+    margin-right: 10px;
+    outline: none; /* Removes the focus outline */
+    box-shadow: none !important; /* Removes the box-like effect when clicked */
+}
+
+.form-check-input[type="radio"]:focus {
+    box-shadow: none; /* Ensures no shadow appears when focused */
+}
+
+/* Checkbox (No toggle effect) */
+#flexSwitchCheckDefault {
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    cursor: pointer;
+    transition: none;
+    position: relative;
+}
+
+#flexSwitchCheckDefault:checked {
+    background-color: transparent;
+}
+
+#flexSwitchCheckDefault::after {
+    content: none;
+}
+
+/* Reason Input */
+#reasonInput {
+    margin-top: 10px;
+}
+
+/* Modal Footer Buttons */
+.modal-footer .btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #5a6268;
+}
 
 
 
@@ -339,7 +455,7 @@ $row_count7 = mysqli_num_rows($result7);
                                             <a class="nav-link" id="principal-tab" href="#principal" role="tab"
                                                 aria-selected="false">
                                                 <span class="hidden-xs-down">
-                                                    <i class="bi bi-people-fill"></i><b>Principal Approval</b>
+                                                    <i class="bi bi-people-fill"></i><b>Principal Approved</b>
                                                 </span>
                                             </a>
                                         </li>
@@ -391,69 +507,6 @@ $row_count7 = mysqli_num_rows($result7);
                                 <!-- Tables Start -->
                                 <div class="tab-content tabcontent-border">
 
-                                    <?php
-                                    // Set default month as the current month if no input is provided
-                                    $selectedMonth = isset($_POST['selectmonth']) ? $_POST['selectmonth'] : date('m');
-
-                                    // Fetch data based on the selected month
-                                    $sql8 = "SELECT * FROM complaints_detail WHERE status='16' AND MONTH(date_of_completion) = $selectedMonth AND YEAR(date_of_completion) = YEAR(CURDATE())";
-                                    $result8 = mysqli_query($conn, $sql8);
-                                    ?>
-
-                                    <!-- Record Table -->
-                                    <div class="tab-pane" id="record" role="tabpanel">
-                                        <form method="POST" action="">
-                                            <label for="selectmonth">Select Month (1-12): </label>
-                                            <input type="number" name="selectmonth" min="1" max="12" value="<?php echo $selectedMonth; ?>" required>
-                                            <button type="submit" class="btn btn-primary">Enter</button>
-                                        </form><span style="float:right">
-                                            <button id="download" class="btn btn-success">Download as Excel</button></span><br><br>
-
-                                        <div class="table-responsive">
-                                            <table id="record_table" class="table table-striped table-bordered">
-                                                <thead
-                                                    style=" background-color: #7460ee;  background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                    <tr>
-                                                        <th><b>S.No</b></th>
-                                                        <th><b>Work ID</b></th>
-                                                        <th><b>Venue Details</b></th>
-                                                        <th><b>Completed by</b></th>
-                                                        <th><b>Completed On</b></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $s = 1;
-                                                    while ($row = mysqli_fetch_assoc($result8)) {
-                                                        $pid = $row['id'];
-                                                    ?>
-                                                        <tr>
-                                                            <td><?php echo $s ?></td>
-                                                            <td><?php echo $row['id'] ?></td>
-                                                            <td>Venue:<?php echo $row['venue_name'] ?><br>Problem:<?php echo $row['problem_description'] ?></td>
-                                                            <td>
-                                                                <?php
-                                                                $id = "SELECT * FROM manager WHERE problem_id=$pid";
-                                                                $query_run1 = mysqli_query($conn, $id);
-                                                                $roww = mysqli_fetch_array($query_run1);
-                                                                $worker_id = $roww['worker_id'];
-
-                                                                // Fetch worker details
-                                                                $query = "SELECT * FROM worker_details WHERE worker_dept='$worker_id'";
-                                                                $query_run = mysqli_query($conn, $query);
-                                                                $User_data = mysqli_fetch_array($query_run); ?>
-                                                                Completed by: <?php echo $User_data['worker_dept'] ?>
-                                                            </td>
-                                                            <td><?php echo $row['date_of_completion'] ?></td>
-                                                        </tr>
-                                                    <?php
-                                                        $s++;
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
                                     <!-- Complaint Table -->
                                     <div class="tab-pane active show" id="complain" role="tabpanel">
                                         <div class="table-responsive">
@@ -466,7 +519,6 @@ $row_count7 = mysqli_num_rows($result7);
                                                         <th><b>Dept Name</b></th>
                                                         <th><b>Venue</b></th>
                                                         <th><b>Complaint</b></th>
-
                                                         <th><b>Picture</b></th>
                                                         <th><b>Action</b></th>
                                                     </tr>
@@ -490,7 +542,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row['id']; ?>" data-toggle="modal"
-                                                                    data-target="#imageModal">
+                                                                    >
                                                                     <i class="fas fa-image"></i> Before
                                                                 </button>
                                                             </td>
@@ -530,7 +582,12 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 <button type="button" class="btn btn-danger rejectcomplaint"
                                                                     id="rejectbutton" value="<?php echo $row['id']; ?>"
                                                                     data-toggle="modal"
-                                                                    data-target="#rejectModal">Reject</button>
+                                                                    data-target="#rejectModal">X</button>
+
+                                                                    <button type="button" class="btn btn-primary principalcomplaint"
+                                                                    id="principalbutton" value="<?php echo $row['id']; ?>"
+                                                                    data-toggle="modal"
+                                                                    data-target="#principalModal">need approve</button>
                                                             </td>
                                                         </tr>
                                                     <?php
@@ -539,6 +596,39 @@ $row_count7 = mysqli_num_rows($result7);
                                                     ?>
                                                 </tbody>
                                             </table>
+                                        </div>
+                                    </div>
+
+                                    <!--Principal | Need Approve Modal -->
+                                    <div class="modal fade" id="principalModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="principalModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="principalModalLabel">Need Approval</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="principal_Form">
+                                                        <input type="hidden" name="id" id="complaint_id89">
+                                                        <div class="form-group">
+                                                            <label for="approvalReason" class="form-label">Reason for
+                                                                Approval</label>
+                                                            <textarea class="form-control" name="reason"
+                                                                id="approvalReason" rows="3"
+                                                                placeholder="Type the reason here..."></textarea>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-danger">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -622,7 +712,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <label class="form-check-label">Low</label>
                                                         </div>
                                                         <br>
-                                                        <div class="form-check">
+
+                                                       <!--  <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
                                                                 id="flexSwitchCheckDefault" name="principal_approval">
                                                             <label class="form-check-label"
@@ -632,7 +723,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <label for="reason">Reason:</label>
                                                             <input type="text" id="reason11" name="reason11"
                                                                 class="form-control" placeholder="Enter reason">
-                                                        </div>
+                                                        </div> -->
                                                     </form>
                                                 </div>
                                                 <div class="modal-footer">
@@ -738,7 +829,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row3['id']; ?>" data-toggle="modal"
-                                                                    data-target="#imageModal">
+                                                                    >
                                                                     <i class="fas fa-image"></i> Before
                                                                 </button>
                                                             </td>
@@ -820,11 +911,12 @@ $row_count7 = mysqli_num_rows($result7);
                                                 <thead
                                                     style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                     <tr>
-                                                        <th><b>S.No</b></th>
+                                                    <th><b>S.No</b></th>
+                                                        <th><b>Raised Date</b></th>                                            
+                                                        <th><b>Venue</b></th>
                                                         <th><b>Complaint</b></th>
-                                                        <th><b>Worker Details</b></th>
-                                                        <th><b>Deadline</b></th>
                                                         <th><b>Picture</b></th>
+                                                        <th><b>Action</b></th>
                                                         <th><b>Status</b></th>
                                                     </tr>
                                                 </thead>
@@ -835,6 +927,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $s ?></td>
+                                                            <td><?php echo $row4['date_of_reg'] ?></td>
+                                                            <td><?php echo $row4['block_venue'] ?></td>
                                                             <td>
                                                                 <button type="button" value="<?php echo $row4['id']; ?>"
                                                                     class="btn btn-primary viewcomplaint"
@@ -842,24 +936,52 @@ $row_count7 = mysqli_num_rows($result7);
                                                                     data-target="#complaintDetailsModal">
                                                                     See More
                                                                 </button>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-primary"
-                                                                    value="<?php echo $row4['id']; ?>" id="seeworker"
-                                                                    data-toggle="modal" data-target="#detailsModal">
-                                                                    Details
-                                                                </button>
-                                                            </td>
-                                                            <td><?php echo $row4['days_to_complete'] ?></td>
+                                                            </td>                                                          
+                                                        
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row4['id']; ?>" data-toggle="modal"
-                                                                    data-target="#imageModal">
+                                                                    >
                                                                     <i class="fas fa-image"></i> Before
                                                                 </button>
                                                             </td>
                                                             <td>
-                                                                <span class="btn btn-danger">Pending</span>
+                                                                <button type="button"
+                                                                    class="btn btn-success dropdown-toggle acceptcomplaint"
+                                                                    value="<?php echo $row4['id']; ?>"
+                                                                    data-toggle="dropdown">Assign</button>
+                                                                <ul class="dropdown-menu">
+                                                                    <center>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="CARPENTRY">CARPENTRY</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="ELECTRICAL">ELECTRICAL</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="CIVIL">CIVIL</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="PARTITION">PARTITION</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="PLUMBING">PLUMBING</a></li>
+                                                                        <li><a href="#" class="worker-option"
+                                                                                data-toggle="modal"
+                                                                                data-target="#prioritymodal1"
+                                                                                data-value="IT INFRA">IT INFRA</a></li>
+                                                                    </center>
+                                                                </ul>
+                                                               
+                                                            </td>
+                                                            <td>
+                                                                <span class="btn btn-success">Approved</span>
                                                             </td>
                                                         </tr>
                                                     <?php
@@ -913,12 +1035,12 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row5['id']; ?>" data-toggle="modal"
-                                                                    data-target="#imageModal">
+                                                                    >
                                                                     <i class="fas fa-image"></i> Before
                                                                 </button>
                                                                 <button value="<?php echo $row5['id']; ?>" type="button"
                                                                     class="btn btn-light btn-sm imgafter"
-                                                                    data-toggle="modal" data-target="#afterImageModal">
+                                                                    data-toggle="modal" >
                                                                     <i class="fas fa-image"></i> After
                                                                 </button>
                                                             </td>
@@ -987,12 +1109,12 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row7['id']; ?>" data-toggle="modal"
-                                                                    data-target="#imageModal">
+                                                                    >
                                                                     <i class="fas fa-image"></i> Before
                                                                 </button>
                                                                 <button value="<?php echo $row7['id']; ?>" type="button"
                                                                     class="btn btn-light btn-sm imgafter"
-                                                                    data-toggle="modal" data-target="#afterImageModal">
+                                                                    data-toggle="modal" >
                                                                     <i class="fas fa-image"></i> After
                                                                 </button>
                                                             </td>
@@ -1054,12 +1176,12 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td>
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row6['id']; ?>" data-toggle="modal"
-                                                                    data-target="#imageModal">
+                                                                    >
                                                                     <i class="fas fa-image"></i> Before
                                                                 </button>
                                                                 <button value="<?php echo $row6['id']; ?>" type="button"
                                                                     class="btn btn-light btn-sm imgafter"
-                                                                    data-toggle="modal" data-target="#afterImageModal">
+                                                                    data-toggle="modal" >
                                                                     <i class="fas fa-image"></i> After
                                                                 </button>
                                                             </td>
@@ -1069,6 +1191,71 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <!-- <td>
                                                                 <span class="btn btn-success">Completed</span>
                                                             </td> -->
+                                                        </tr>
+                                                    <?php
+                                                        $s++;
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <?php
+                                    // Set default month as the current month if no input is provided
+                                    $selectedMonth = isset($_POST['selectmonth']) ? $_POST['selectmonth'] : date('m');
+
+                                    // Fetch data based on the selected month
+                                    $sql8 = "SELECT * FROM complaints_detail WHERE status='16' AND MONTH(date_of_completion) = $selectedMonth AND YEAR(date_of_completion) = YEAR(CURDATE())";
+                                    $result8 = mysqli_query($conn, $sql8);
+                                    ?>
+
+                                    <!-- Record Table -->
+                                    <div class="tab-pane" id="record" role="tabpanel">
+                                        <form method="POST" action="">
+                                            <label for="selectmonth">Select Month (1-12): </label>
+                                            <input type="number" name="selectmonth" min="1" max="12" value="<?php echo $selectedMonth; ?>" required>
+                                            <button type="submit" class="btn btn-primary">Enter</button>
+                                        </form><span style="float:right">
+                                            <button id="download" class="btn btn-success">Download as Excel</button></span><br><br>
+
+                                        <div class="table-responsive">
+                                            <table id="record_table" class="table table-striped table-bordered">
+                                                <thead
+                                                    style=" background-color: #7460ee;  background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                    <tr>
+                                                        <th><b>S.No</b></th>
+                                                        <th><b>Work ID</b></th>
+                                                        <th><b>Venue Details</b></th>
+                                                        <th><b>Completed by</b></th>
+                                                        <th><b>Completed On</b></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $s = 1;
+                                                    while ($row = mysqli_fetch_assoc($result8)) {
+                                                        $pid = $row['id'];
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $s ?></td>
+                                                            <td><?php echo $row['id'] ?></td>
+                                                            <td>Venue:<?php echo $row['venue_name'] ?><br>Problem:<?php echo $row['problem_description'] ?></td>
+                                                            <td>
+                                                                <?php
+                                                                $id = "SELECT * FROM manager WHERE problem_id=$pid";
+                                                                $query_run1 = mysqli_query($conn, $id);
+                                                                $roww = mysqli_fetch_array($query_run1);
+                                                                $worker_id = $roww['worker_id'];
+
+                                                                // Fetch worker details
+                                                                $query = "SELECT * FROM worker_details WHERE worker_dept='$worker_id'";
+                                                                $query_run = mysqli_query($conn, $query);
+                                                                $User_data = mysqli_fetch_array($query_run); ?>
+                                                                Completed by: <?php echo $User_data['worker_dept'] ?>
+                                                            </td>
+                                                            <td><?php echo $row['date_of_completion'] ?></td>
                                                         </tr>
                                                     <?php
                                                         $s++;

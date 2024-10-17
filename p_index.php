@@ -19,7 +19,8 @@ include("db.php");
   <link href="assets/libs/flot/css/float-chart.css" rel="stylesheet">
   <!-- Custom CSS -->
   <link href="dist/css/style.min.css" rel="stylesheet">
-  <link href="circle.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -43,6 +44,10 @@ include("db.php");
       -webkit-box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
       box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
     }
+    .bo{
+      margin-top: 20px;
+
+    }
   </style>
 
 
@@ -60,55 +65,55 @@ include("db.php");
   </div>
 
   <div id="main-wrapper">
-  <header class="topbar" data-navbarbg="skin5">
-            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-                <div class="navbar-header" data-logobg="skin5">
-                    <!-- This is for the sidebar toggle which is visible on mobile only -->
-                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
-                            class="ti-menu ti-close"></i></a>
-                    <a class="navbar-brand" href="index.html">
-                        <!-- Logo icon -->
-                        <b class="logo-icon p-l-8">
-                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            <!-- Dark Logo icon -->
-                            <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo" />
-                        </b>
-                        <!--End Logo icon -->
-                        <!-- Logo text -->
-                        <span class="logo-text">
-                            <!-- dark Logo text -->
-                            <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" />
-                        </span>
-                    </a>
-                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
-                        data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
-                            class="ti-more"></i></a>
-                </div>
+    <header class="topbar" data-navbarbg="skin5">
+      <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+        <div class="navbar-header" data-logobg="skin5">
+          <!-- This is for the sidebar toggle which is visible on mobile only -->
+          <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+              class="ti-menu ti-close"></i></a>
+          <a class="navbar-brand" href="p_index.php">
+            <!-- Logo icon -->
+            <b class="logo-icon p-l-8">
+              <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+              <!-- Dark Logo icon -->
+              <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo" />
+            </b>
+            <!--End Logo icon -->
+            <!-- Logo text -->
+            <span class="logo-text">
+              <!-- dark Logo text -->
+              <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" />
+            </span>
+          </a>
+          <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+            data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
+              class="ti-more"></i></a>
+        </div>
 
-                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                    <ul class="navbar-nav float-left mr-auto">
-                        <li class="nav-item d-none d-md-block"><a
-                                class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
-                                data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
-                    </ul>
-                    <ul class="navbar-nav float-right">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                                    src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
-                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i>
-                                    My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i
-                                        class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                                <div class="dropdown-divider"></div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>    <!-- ============================================================== -->
+        <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+          <ul class="navbar-nav float-left mr-auto">
+            <li class="nav-item d-none d-md-block"><a
+                class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
+                data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
+          </ul>
+          <ul class="navbar-nav float-right">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
+                  src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+              <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i>
+                  My Profile</a>
+                <a class="dropdown-item" href="javascript:void(0)"><i
+                    class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                <div class="dropdown-divider"></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header> <!-- ============================================================== -->
     <!-- End Topbar header -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
@@ -123,7 +128,7 @@ include("db.php");
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="p_index.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="requirements1.php" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Requirements</span></a></li>
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="complaint.php" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Complaint Status</span></a></li>
-            
+
 
           </ul>
 
@@ -204,34 +209,43 @@ include("db.php");
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-4 col-sm-12">
-                    <div class="diamond-container">
-                      <div class="border-animation"></div>
-                      <div class="diamond" style="background-color: #f563fe ;">
-                        <div>
-                          <h5 class="text-white">Total Complaints</h5>
-                          <h5 class="text-white"><span id="complainCount"></span></h5>
+                    <div class="cir">
+                      <div class="bo">
+                        <div class="content1">
+                          <div class="stats-box text-center p-3"
+                            style="background-color: #f563fe ;">
+                            <i class="fas fa-bell m-b-5 font-20"></i>
+                            <h5 class="text-white"><span id="complainCount"></span></h5>
+                            <small class="font-light">Total Companies</small>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-4 col-sm-12">
-                    <div class="diamond-container">
-                      <div class="border-animation"></div>
-                      <div class="diamond" style="background-color: #28df49;">
-                        <div>
-                          <h5 class="text-white">Completed</h5>
-                          <h5 class="text-white"><span id="completedCount"></span></h5>
+                    <div class="cir">
+                      <div class="bo">
+                        <div class="content1">
+                          <div class="stats-box text-center p-3"
+                            style="background-color: #28df49;">
+                            <i class="fas fa-check m-b-5 font-20"></i>
+                            <h5 class="text-white"><span id="completedCount"></span></h5>
+                            <small class="font-light">Completed</small>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-4 col-sm-12">
-                    <div class="diamond-container">
-                      <div class="border-animation"></div>
-                      <div class="diamond" style="background-color: #ecc908;">
-                        <div>
-                          <h5 class="text-white">In Progress</h5>
-                          <h5 class="text-white"><span id="inprogresscount"></span></h5>
+                    <div class="cir">
+                      <div class="bo">
+                        <div class="content1">
+                          <div class="stats-box text-center p-3"
+                            style="background-color: #ecc908;">
+                            <i class="fas fa-exclamation m-b-5 font-16"></i>
+                            <h5 class="text-white"><span id="inprogresscount"></span></h5>
+                            <small class="font-light">In Progress</small>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -239,38 +253,50 @@ include("db.php");
                 </div>
                 <div class="row">
                   <div class="col-lg-4 col-sm-12">
-                    <div class="diamond-container">
-                      <div class="border-animation"></div>
-                      <div class="diamond" style="background-color: #f1521b;">
-                        <div>
-                          <h5 class="text-white">Pending</h5>
-                          <h5 class="text-white"><span id="pendingCount"></span></h5>
+                    <div class="cir">
+                      <div class="bo">
+                        <div class="content1">
+                          <div class="stats-box text-center p-3"
+                            style="background-color: #f1521b;">
+                            <i class="fas fa-question m-b-5 font-16"></i>
+                            
+                            <h5 class="text-white"><span id="pendingCount"></span></h5>
+                            <small class="font-light">Pending</small>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-4 col-sm-12">
-                    <div class="diamond-container">
-                      <div class="border-animation"></div>
-                      <div class="diamond" style="background-color: #47b2c8  ;">
-                        <div>
-                          <h5 class="text-white">Request</h5>
-                          <h5 class="text-white"><span id="requestCount"></span></h5>
+                    <div class="cir">
+                      <div class="bo">
+                        <div class="content1">
+                          <div class="stats-box text-center p-3"
+                            style="background-color: #47b2c8  ;">
+                            <i class="mdi mdi-check-all"></i>
+                            <h5 class="text-white"><span id="requestCount"></span></h5>
+                            <small class="font-light">Request</small>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-4 col-sm-12">
-                    <div class="diamond-container">
-                      <div class="border-animation"></div>
-                      <div class="diamond" style="background-color: #545557;">
-                        <div>
-                          <h5 class="text-white">Reassign</h5>
-                          <h5 class="text-white"><span id="reassignCount"></span></h5>
+                    <div class="cir">
+                      <div class="bo">
+                        <div class="content1">
+                          <div class="stats-box text-center p-3"
+                            style="background-color: #545557;">
+                            <i class="fas fa-redo m-b-5 font-20"></i>
+                            <h5 class="text-white"><span id="reassignCount"></span></h5>
+                            <small class="font-light">Reassign</small>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                  
+                  
                 </div>
               </div>
             </div>

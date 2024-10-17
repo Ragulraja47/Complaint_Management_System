@@ -25,14 +25,20 @@ if (isset($_POST['fetch_details'])) {
     }
 
     $sql = "SELECT 
-                faculty_name, 
-                faculty_contact, 
-                block_venue, 
-                venue_name, 
-                problem_description, 
-                days_to_complete
-            FROM complaints_detail 
-            WHERE id = (SELECT problem_id FROM manager WHERE task_id = ?)";
+        f.faculty_name, 
+        f.faculty_contact, 
+        cd.block_venue, 
+        cd.venue_name, 
+        cd.problem_description, 
+        cd.days_to_complete
+    FROM 
+        complaints_detail AS cd
+    JOIN 
+        faculty AS f ON cd.faculty_id = f.faculty_id
+    WHERE 
+        cd.id = (SELECT problem_id FROM manager WHERE task_id = ?)
+";
+
 
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $task_id);
@@ -63,30 +69,35 @@ if (isset($_POST['fetch_details'])) {
 
 }  
 
-if (isset($_POST['update_status'])) {
-    $task_id = isset($_POST['task_id']) ? intval($_POST['task_id']) : null;
+if (isset($_POST['start_work'])) {
+    $id = $_POST['task_id'];
 
-    if ($task_id === null) {
-        echo json_encode(['error' => 'Task ID not provided']);
-        exit;
-    }
+   
 
     $sql = "UPDATE complaints_detail 
             SET status = 10 
-            WHERE id = (SELECT problem_id FROM manager WHERE task_id = ?)";
+            WHERE id = (SELECT problem_id FROM manager WHERE task_id = '$id')";
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $task_id);
+$query_run = mysqli_query($conn, $sql);
+if($query_run){
+    $res =[
+        "status" => 200,
+        "message" => "Work started successfully"
+    ];
+    echo json_encode($res);
+}
+else{
+    $res =[
+        "status" => 500,
+        "message" => "Work could not be started"
+    ];
+    echo json_encode($res);
+}
+}
 
-    if ($stmt->execute()) {
-        echo json_encode(['success' => 'Status updated successfully']);
-    } else {
-        echo json_encode(['error' => 'Failed to update status']);
-    }
+   
 
-    $stmt->close();
 
-} 
 
 $conn->close();
 ?>
@@ -305,5 +316,4 @@ if ($result->num_rows > 0) {
 }
 }
 $conn->close();
-
 ?>

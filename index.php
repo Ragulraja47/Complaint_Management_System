@@ -1,7 +1,4 @@
 <?php
-//session for department
-
-
 // Database connection
 $host = "localhost";  // Your database host
 $user = "root";       // Your database username
@@ -11,28 +8,72 @@ $dbname = "complaints"; // Your database name
 $conn = new mysqli($host, $user, $password, $dbname);
 //completed count
 $count = "SELECT COUNT(*) AS count FROM complaints_detail WHERE status = '16'";
-
 $result = mysqli_query($conn, $count);
 $row = mysqli_fetch_assoc($result);
 
 //in progress count
-$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status IN (17,10)";
-
+$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status = '10'";
 $result1 = mysqli_query($conn, $count1);
 $row1 = mysqli_fetch_assoc($result1);
 
 //count of waiting for approval
-$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status IN (18,11)";
-
+$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status ='18'";
 $result2 = mysqli_query($conn, $count2);
 $row2 = mysqli_fetch_assoc($result2);
 
 //new task count
 
-$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status = '7'";
+$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status  ='7'";
 
 $result3 = mysqli_query($conn, $count3);
 $row3 = mysqli_fetch_assoc($result3);
+
+
+//count for side bar starts
+
+$q1 = "SELECT * FROM complaints_detail as cd JOIN manager as m on cd.id = m.problem_id WHERE cd.status = '7' AND m.worker_id LIKE 'CIV%'";
+$q2 = "SELECT * FROM complaints_detail as cd JOIN manager as m on cd.id = m.problem_id WHERE cd.status = '7' AND m.worker_id LIKE 'CAR%'";
+$q3 = "SELECT * FROM complaints_detail as cd JOIN manager as m on cd.id = m.problem_id WHERE cd.status = '7' AND m.worker_id LIKE 'ELE%'";
+$q4 = "SELECT * FROM complaints_detail as cd JOIN manager as m on cd.id = m.problem_id WHERE cd.status = '7' AND m.worker_id LIKE 'INF%'";
+$q5 = "SELECT * FROM complaints_detail as cd JOIN manager as m on cd.id = m.problem_id WHERE cd.status = '7' AND m.worker_id LIKE 'PAR%'";
+$q6 = "SELECT * FROM complaints_detail as cd JOIN manager as m on cd.id = m.problem_id WHERE cd.status = '7' AND m.worker_id LIKE 'PLU%'";
+
+$r1 = mysqli_query($conn, $q1);
+
+$r2 = mysqli_query($conn, $q2);
+
+$r3 = mysqli_query($conn, $q3);
+
+$r4 = mysqli_query($conn, $q4);
+
+$r5 = mysqli_query($conn, $q5);
+
+$r6 = mysqli_query($conn, $q6);
+
+$c1 = mysqli_num_rows($r1);
+
+$c2 = mysqli_num_rows($r2);
+
+$c3 = mysqli_num_rows($r3);
+
+$c4 = mysqli_num_rows($r4);
+
+$c5 = mysqli_num_rows($r5);
+
+$c6 = mysqli_num_rows($r6);
+
+
+
+
+
+
+
+
+
+
+
+//count for side bar ends
+
 
 ?>
 
@@ -99,10 +140,15 @@ $row3 = mysqli_fetch_assoc($result3);
             <div class="scroll-sidebar"><br>
                 <nav class="sidebar-nav">
                 <ul id="sidebarnav" class="p-t-30">
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.php" aria-expanded="false"><i class="mdi mdi-account-circle"></i><span class="hide-menu">Profile</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="worker_taskhistory.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Task History</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="worker_helpline.html" aria-expanded="false"><i class="mdi mdi-phone"></i><span class="hide-menu">Helpline</span></a></li>
+                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
+                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
+
+                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="civil.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CIVIL(<?php echo $c1; ?>)</span></a></li>
+                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="carpenter.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CARPENTER(<?php echo $c2; ?>)</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="electrical.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">ELECTRICAL(<?php echo $c3; ?>)</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="infra.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">IT INFRA(<?php echo $c4; ?>)</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="partition.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PARTITION(<?php echo $c5; ?>)</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="plumbing.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PLUMBING(<?php echo $c6; ?>)</span></a></li>
                     </ul>
                 </nav>
             </div>
@@ -130,8 +176,8 @@ $row3 = mysqli_fetch_assoc($result3);
                         <div class="card card-hover">
                             <div class="box bg-cyan text-center">
                                 <h1 class="font-light text-white"><i class="fas fa-user"></i></h1>
-                                <h6 class="text-white"><b> Worker Name <br></b></h6>
-                                <h5 class="text-white" id="workerName" ></h5>
+                                <h3 class="text-white"><b> Name <br></b></h3>
+                                <h5 class="text-white" id="workerName" >DhandaPani</h5>
 
                             </div>
                         </div>
@@ -140,8 +186,8 @@ $row3 = mysqli_fetch_assoc($result3);
                         <div class="card card-hover">
                             <div class="box bg-success text-center">
                                 <h1 class="font-light text-white"><i class="mdi mdi-account-multiple"></i></h1>
-                                <h6 class="text-white"><b>Employment Type<br></b></h6>
-                                <h5 class="text-white" id="employmentType"></h5>
+                                <h3 class="text-white"><b>Employment Type<br></b></h3>
+                                <h5 class="text-white" id="employmentType">Full Time</h5>
 
                             </div>
                         </div>
@@ -150,8 +196,8 @@ $row3 = mysqli_fetch_assoc($result3);
                         <div class="card card-hover">
                             <div class="box bg-warning text-center">
                                 <h1 class="font-light text-white"><i class="mdi mdi-account-card-details"></i></h1>
-                                <h6 class="text-white"><b>Department<br></b></h6>
-                                <h5 id="workerdepartment" class="text-white" ></h5>
+                                <h3 class="text-white"><b>Designation<br></b></h3>
+                                <h5 id="workerdepartment" class="text-white" >Worker-Head</h5>
 
 
                             </div>
@@ -160,7 +206,7 @@ $row3 = mysqli_fetch_assoc($result3);
                 </div><br>
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title m-b-0">Issue Analysis</h4><br>
+                        <h4 class="card-title m-b-0"></h4><br>
                         <div class="row">
                             <div class="col-12 col-md-3 mb-3">
                                 <div class="cir">
@@ -277,6 +323,7 @@ $row3 = mysqli_fetch_assoc($result3);
                             console.log("Session updated: " + response);
                             // Redirect to the task history page after session update
                             var url = 'worker_taskhistory.php';
+
                             window.location.href = url;
                         },
                         error: function(xhr, status, error) {

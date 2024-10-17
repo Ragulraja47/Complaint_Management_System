@@ -103,7 +103,9 @@ if (isset($_POST['seedetails'])) {
 //Faculty Details
 if (isset($_POST['facultydetails'])) {
     $student_id1 = mysqli_real_escape_string($conn, $_POST['user_id']);
-    $query = "SELECT * FROM complaints_detail WHERE id='$student_id1'";
+    $query = "SELECT cd.*, faculty.faculty_name, faculty.department, faculty.faculty_contact, faculty.faculty_mail
+FROM complaints_detail cd
+JOIN faculty ON cd.faculty_id = faculty.faculty_id WHERE cd.id='$student_id1'";
     $query_run = mysqli_query($conn, $query);
     $User_data = mysqli_fetch_array($query_run);
     if ($query_run) {

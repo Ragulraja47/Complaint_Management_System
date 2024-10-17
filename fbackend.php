@@ -31,12 +31,8 @@ function getNextFileNumber($counterFilePath)
 }
 
 // Handle form submission
-if (isset($_POST['faculty_id']) && isset($_POST['faculty_name'])) {
+if (isset($_POST['faculty_id'])) {
     $faculty_id = mysqli_real_escape_string($conn, $_POST['faculty_id']);
-    $faculty_name = mysqli_real_escape_string($conn, $_POST['faculty_name']);
-    $department = mysqli_real_escape_string($conn, $_POST['department']);
-    $faculty_contact = mysqli_real_escape_string($conn, $_POST['faculty_contact']);
-    $faculty_mail = mysqli_real_escape_string($conn, $_POST['faculty_mail']);
     $block_venue = mysqli_real_escape_string($conn, $_POST['block_venue']);
     $venue_name = mysqli_real_escape_string($conn, $_POST['venue_name']);
     $type_of_problem = mysqli_real_escape_string($conn, $_POST['type_of_problem']);
@@ -78,8 +74,8 @@ if (isset($_POST['faculty_id']) && isset($_POST['faculty_name'])) {
 
 
     // Insert data into the database
-    $query = "INSERT INTO complaints_detail (faculty_id, faculty_name, department, faculty_contact, faculty_mail, block_venue, venue_name, type_of_problem, problem_description, images, date_of_reg, status) 
-              VALUES ('$faculty_id', '$faculty_name', '$department', '$faculty_contact', '$faculty_mail', '$block_venue', '$venue_name', '$type_of_problem', '$problem_description', '$images', '$date_of_reg', '$status')";
+    $query = "INSERT INTO complaints_detail (faculty_id, block_venue, venue_name, type_of_problem, problem_description, images, date_of_reg, status) 
+              VALUES ('$faculty_id', '$block_venue', '$venue_name', '$type_of_problem', '$problem_description', '$images', '$date_of_reg', '$status')";
 
     if (mysqli_query($conn, $query)) {
         echo json_encode(['status' => 200, 'message' => 'Success']);
@@ -137,7 +133,7 @@ if (isset($_POST['get_image'])) {
     exit; // Ensure we exit after handling the request
 }
 
-// View workers details
+//  View workers details
 if (isset($_POST['get_worker_details'])) {
     $id = $_POST['id'];
 
@@ -146,7 +142,7 @@ if (isset($_POST['get_worker_details'])) {
     SELECT w.worker_first_name, w.worker_last_name, w.worker_mobile, w.worker_mail
     FROM complaints_detail cd
     INNER JOIN manager m ON cd.id = m.problem_id
-    INNER JOIN worker_details w ON m.worker_id = w.worker_dept
+    INNER JOIN worker_details w ON m.worker_id = w.worker_id
     WHERE cd.id = ?
 ";
 
@@ -199,15 +195,15 @@ if (isset($_POST['get_status_details'])) {
         } elseif ($status == 7) {
             $statusMessage = 'Assigned to worker';
         } elseif ($status == 8) {
-            $statusMessage = ' ';
+            $statusMessage = 'Approved by Principal ';
         } elseif ($status == 9) {
-            $statusMessage = ' ';
+            $statusMessage = 'Approved by Manager ';
         } elseif ($status == 10) {
             $statusMessage = 'worker inprogress';
         } elseif ($status == 11) {
             $statusMessage = 'waiting for approval';
         } elseif ($status == 12) {
-            $statusMessage = ' ';
+            $statusMessage = 'Satisfied by Faculty';
         } elseif ($status == 13) {
             $statusMessage = 'Work completed';
         } elseif ($status == 14) {
@@ -294,19 +290,4 @@ if (isset($_POST['id'])) {
     exit;
 }
 
-// Fetch faculty details if faculty_id is provided
-if (isset($_POST['action']) && $_POST['action'] === 'fetch_faculty_details') {
-    $faculty_id = mysqli_real_escape_string($conn, $_POST['faculty_id']);
-    
-    $query = "SELECT * FROM faculty WHERE faculty_id = '$faculty_id'";
-    $result = mysqli_query($conn, $query);
-    
-    if ($result && mysqli_num_rows($result) > 0) {
-        $faculty = mysqli_fetch_assoc($result);
-        echo json_encode(['status' => 200, 'data' => $faculty]);
-    } else {
-        echo json_encode(['status' => 404, 'message' => 'Faculty not found']);
-    }
-    exit;
-}
 ?>
