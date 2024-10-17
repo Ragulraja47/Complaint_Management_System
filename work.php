@@ -891,8 +891,8 @@ Add worker</button>
                     </ul>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" style="background-color: #007bff; border: none; padding: 15px 30px; font-size: 18px;">Submit</button>
-                <button type="button" class="btn btn-secondary" style="background-color: #6c757d; border: none; padding: 15px 30px; font-size: 18px;" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" style="background-color: #007bff; border: none; padding: 12px 15px; font-size: 12px;">Submit</button>
+                <button type="button" class="btn btn-secondary" style="background-color: #6c757d; border: none; padding: 12px 15px; font-size: 12px;" data-dismiss="modal">Close</button>
             </div>
         </div>
         </form>
