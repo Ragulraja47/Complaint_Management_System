@@ -216,9 +216,11 @@ if (isset($_POST['get_status_details'])) {
         } elseif ($status == 17) {
             $statusMessage = 'In progress';
         } elseif ($status == 18) {
-            $statusMessage = 'Rejected by principle';
+            $statusMessage = 'Waiting for Approval';
         } elseif ($status == 19) {
-            $statusMessage = 'Rejected by manager';
+            $statusMessage = 'Rejected by Principal';
+        } elseif ($status == 20) {
+            $statusMessage = 'Rejected principal';
         } else {
             $statusMessage = 'Unknown status';
         }
