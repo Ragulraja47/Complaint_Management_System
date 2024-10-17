@@ -638,8 +638,10 @@ $result3 = mysqli_query($conn, $sql3);
 
                                                                                             $status = $row['status'];
                                                                                             $statusMessage = $statusMessages[$status] ?? 'Unknown status';
-                                                                                            echo $statusMessage;
                                                                                             ?>
+                                                                                            <button type="button" class="btn btn-secondary" >
+                                                                                                <?php echo $statusMessage; ?>
+                                                                                            </button>
                                                                                         </center>
                                                                                     </td>
                                                                                 </tr>

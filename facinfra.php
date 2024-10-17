@@ -186,8 +186,7 @@ $result3 = mysqli_query($conn, $sql3);
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="hod.php" aria-expanded="false"><i class="mdi mdi-comment-text"></i><span class="hide-menu">Faculty Coordinator</span></a>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="facinfra.php" aria-expanded="false"><i class="mdi mdi-comment-text"></i><span class="hide-menu">Faculty Coordinator</span></a>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -613,11 +612,12 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                                 17 => 'Work in Progress',
                                                                                                 18 => 'Waiting for Approval',
                                                                                             ];
-
                                                                                             $status = $row['status'];
                                                                                             $statusMessage = $statusMessages[$status] ?? 'Unknown status';
-                                                                                            echo $statusMessage;
                                                                                             ?>
+                                                                                            <button type="button" class="btn btn-secondary" >
+                                                                                                <?php echo $statusMessage; ?>
+                                                                                            </button>
                                                                                         </center>
                                                                                     </td>
                                                                                 </tr>
