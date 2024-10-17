@@ -206,7 +206,7 @@ if (isset($_POST['get_status_details'])) {
         } elseif ($status == 12) {
             $statusMessage = 'Satisfied by Faculty';
         } elseif ($status == 13) {
-            $statusMessage = 'Work completed';
+            $statusMessage = '';
         } elseif ($status == 14) {
             $statusMessage = 'Sent to manager for rework(Reassign)';
         } elseif ($status == 15) {

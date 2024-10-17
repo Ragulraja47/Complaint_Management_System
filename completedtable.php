@@ -560,7 +560,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                                                     </button>
                                                                                 </center>
                                                                             <?php } else { ?>
-                                                                                <?php echo $statusMessage; ?>
+                                                                                <span class="badge bg-success" style="font-size: 1.2em; color: #000; padding: 0.25em 0.5em;"><?php echo $statusMessage; ?></span>
                                                                             <?php } ?>
                                                                         </td>
                                                                     </tr>
@@ -800,13 +800,15 @@ $row_count4 = mysqli_num_rows($result4);
                                                     }
                                                 ?>
                                                     <tr>
-                                                        <td><?php echo $s; ?></td>
+                                                        <td class="text-center"><?php echo $s; ?></td>
                                                         <td class="text-center"><?php echo $row['id']; ?></td>
-                                                        <td><?php echo $row['block_venue']; ?></td>
-                                                        <td><?php echo $row['venue_name']; ?></td>
-                                                        <td><?php echo $row['problem_description']; ?></td>
-                                                        <td><?php echo $statusMessage; ?></td>
-                                                        <td><?php echo $row['feedback']; ?></td>
+                                                        <td class="text-center"><?php echo $row['block_venue']; ?></td>
+                                                        <td class="text-center"><?php echo $row['venue_name']; ?></td>
+                                                        <td class="text-center"><?php echo $row['problem_description']; ?></td>
+                                                        <td class="text-center">
+                                                        <span class="badge" style="background-color: #ff6666; font-size: 1.2em; color: #000000; padding: 0.25em 0.5em;"><?php echo $statusMessage; ?></span>
+                                                        </td>
+                                                        <td class="text-center"><?php echo $row['feedback']; ?></td>
                                                     </tr>
                                                 <?php
                                                     $s++;
