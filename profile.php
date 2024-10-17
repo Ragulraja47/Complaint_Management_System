@@ -1,3 +1,94 @@
+<?php
+// Database connection
+$host = 'localhost';
+$dbname = 'workers_db';
+$username = 'root'; // use your DB username
+$password = ''; // use your DB password
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
+
+// Initialize variables
+$name = $worker_id = $department = $mail = $phone = $gender = $worktype = "";
+$worker_exists = false;
+$target_file = "";
+
+// If form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $worker_id = $_POST['worker_id'];
+
+    // Check if the worker_id already exists in the database
+    $check_sql = "SELECT * FROM workers WHERE worker_id = ?";
+    $stmt = $pdo->prepare($check_sql);
+    $stmt->execute([$worker_id]);
+    $worker = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($worker) {
+        // Worker exists, fetch the details
+        $name = $worker['name'];
+        $gender = $worker['gender'];
+        $department = $worker['department'];
+        $worktype = $worker['worktype'];
+        $mail = $worker['mail'];
+        $phone = $worker['phone'];
+        $target_file = $worker['photo']; // Store image path for display
+        $worker_exists = true;
+    } else {
+        // If worker doesn't exist, insert new details
+        $name = $_POST['name'];
+        $gender = $_POST['gender'];
+        $department = $_POST['department'];
+        $worktype = $_POST['worktype'];
+        $mail = $_POST['mail'];
+        $phone = $_POST['phone'];
+
+        // Check if a file is uploaded
+        if (isset($_FILES['pphoto']) && $_FILES['pphoto']['error'] == UPLOAD_ERR_OK) {
+            $target_dir = "uploads/";
+            $file_name = basename($_FILES["pphoto"]["name"]);
+            $target_file = $target_dir . $file_name;
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+            // Check if the file is a valid image
+            $check = getimagesize($_FILES["pphoto"]["tmp_name"]);
+            if ($check === false) {
+                throw new Exception('File is not an image.');
+            }
+
+            // Allow certain file formats
+            $allowed_formats = ['jpg', 'jpeg', 'png', 'gif'];
+            if (!in_array($imageFileType, $allowed_formats)) {
+                throw new Exception('Only JPG, JPEG, PNG & GIF files are allowed.');
+            }
+
+            // Upload image to the server
+            if (!move_uploaded_file($_FILES["pphoto"]["tmp_name"], $target_file)) {
+                throw new Exception('Failed to upload image.');
+            }
+        } else {
+            // Handle the case where no file is uploaded or there was an error during file upload
+            throw new Exception('No file uploaded or file upload error.');
+        }
+
+        // Insert the worker details into the database, including the image path
+        $sql = "INSERT INTO workers (name, gender, worker_id, department, worktype, mail, phone, photo) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$name, $gender, $worker_id, $department, $worktype, $mail, $phone, $target_file]);
+
+        // Redirect to avoid form re-submission on page refresh
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
+    }
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -10,13 +101,10 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>basic</title>
+    <title>CMS</title>
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/libs/select2/dist/css/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/libs/jquery-minicolors/jquery.minicolors.css">
-    <link rel="stylesheet" type="text/css"
-        href="assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/libs/quill/dist/quill.snow.css">
+    <link rel="stylesheet" type="text/css" href="assets/extra-libs/multicheck/multicheck.css">
+    <link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,6 +112,18 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+    <style>
+        label {
+            font-size: 18px;
+        }
+
+        input,
+        select {
+            width: 300px;
+            height: 29px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -59,7 +159,7 @@
                         <!-- Logo text -->
                         <span class="logo-text">
                             <!-- dark Logo text -->
-                            <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" />
+                            <img src="assets/images/mkcenavlogo.png" alt="homepage" class="light-logo" />
 
                         </span>
                         <!-- Logo icon -->
@@ -96,12 +196,7 @@
                         <!-- ============================================================== -->
                         <!-- create new -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
 
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                            </div>
-                        </li>
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
@@ -111,7 +206,23 @@
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-right">
+                        <!-- ============================================================== -->
+                        <!-- Comment -->
+                        <!-- ============================================================== -->
 
+                        <!-- ============================================================== -->
+                        <!-- End Comment -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Messages -->
+                        <!-- ============================================================== -->
+
+                        <!-- ============================================================== -->
+                        <!-- End Messages -->
+                        <!-- ============================================================== -->
+
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
@@ -121,7 +232,8 @@
 
                                 <a class="dropdown-item" href="javascript:void(0)"><i
                                         class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                                <div class="dropdown-divider"></div>
+                                <!--  <div class="dropdown-divider"></div>-->
+
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -147,20 +259,15 @@
                                 href="index.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="profile.php" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span
+                                href="profile.php" aria-expanded="false"><i class="mdi mdi-account-circle"></i><span
                                     class="hide-menu">Profile</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history"
+                                class="sidebar-link waves-effect waves-dark sidebar-link" href="worker_taskhistory.php"
+                                aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Task
+                                    History</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="worker_taskhistory.php" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span
-                                    class="hide-menu">Task History</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="worker_helpline.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
+                                href="worker_helpline.html" aria-expanded="false"><i class="mdi mdi-phone"></i><span
                                     class="hide-menu">Helpline</span></a></li>
-
-                        </li>
-
-
-
-
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -180,24 +287,15 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Form Basic</h4>
+                        <h2 class="page-title">Worker Details</h2>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
                                 </ol>
                             </nav>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body colr snipcss-CLQd6">
-                <div class="d-flex flex-column align-items-center text-center ">
-                    <img src="https://mic.mkce.ac.in/assets/images/images.jpg" alt="" class="rounded-circle test"
-                        width="150">
-                    <div class="mt-3">
-
-
                     </div>
                 </div>
             </div>
@@ -206,230 +304,174 @@
             <!-- ============================================================== -->
             <!-- ============================================================== -->
             <!-- Container fluid  -->
+            <!-- ============================================================== -->
             <div class="container-fluid">
-
-                <!-- ============================================================== -->
-
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="tab-content tabcontent-border">
-                    <div class="tab-pane active" id="home" role="tabpanel">
-                        <form id="profileForm" action="profile.php" method="POST" enctype="multipart/form-data">
-                            <div id="errorbasic" class="alert alert-warning d-none"></div>
-                            <center>
-                                <img id="profile-image" src="#" alt="Uploaded Profile Image"
-                                    style="display:none; width:200px; height:200px; object-fit:cover;"><br><br>
-                            </center>
 
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationCustom03">First name *</label>
-                                    <input type="text" name="fname" class="form-control" id="fname"
-                                        placeholder="First Name" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationCustom04">Last name *</label>
-                                    <input type="text" class="form-control" name="lname" id="lname"
-                                        placeholder="Last Name" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationCustom01">Gender *</label>
-                                    <select class="form-control" name="gender" id="gender" required>
-                                        <option value="">Select</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Transgender">Transgender</option>
-                                    </select>
-                                    <div class="valid-feedback">Looks good!</div>
-                                    <div class="invalid-feedback">Please select gender.</div>
-                                </div>
-                            </div>
+                <form method="POST" action="" enctype="multipart/form-data">
+                    <center>
+                        <?php if ($target_file) { ?>
+                            <img src="<?php echo $target_file; ?>" alt="Profile Photo"
+                                style="max-width: 100px; max-height: 100px; border-radius: 50%;">
+                        <?php } ?>
+                    </center>
+                    <br><br>
+                    <div class="form-row">
 
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label for="validationCustom02">Worker Id *</label>
-                                    <input type="text" class="form-control" name="worker_id" id="worker_id"
-                                        placeholder="Enter your Register number" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="validationCustomUsername">Department *</label>
-                                    <select class="form-control" name="department" required id="dept">
-                                        <option value="">Select</option>
-                                        <option value="Electrical Work">Electrical Work</option>
-                                        <option value="Carpenter Work">Carpenter Work</option>
-                                        <option value="Civil Workg">Civil Work</option>
-                                        <option value="Partition Work">Partition Work</option>
-                                        <option value="IT infra work">IT infra work</option>
-                                        <option value="Plumbing work">Plumbing work</option>
-                                    </select>
-                                </div>
-                            </div>
+                        <div class="col-4 ">
 
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationCustom01">Mobile Number *</label>
-                                    <input type="text" class="form-control" name="mobile" id="mnumber"
-                                        placeholder="Enter Mobile Number" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationCustom01">Email ID *</label>
-                                    <input type="email" class="form-control" name="email" id="mail"
-                                        placeholder="Enter Email ID" required>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="pphoto">Profile Photo *</label>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" name="pphoto" id="pphoto" required>
-                                        <label class="custom-file-label" for="pphoto">Choose file</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <br>
-                            <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
-                        </form>
-
-
+                            <label for="name">Name:</label><br>
+                            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>"
+                                <?php if ($name)
+                                    echo 'disabled'; ?> required>
+                        </div>
+                        <div class="col-4">
+                            <label for="gender">Gender:</label><br>
+                            <select id="gender" name="gender" required>
+                                <option value="Select" <?php if ($gender == '')
+                                    echo 'selected'; ?>>Select</option>
+                                <option value="Male" <?php if ($gender == 'Male')
+                                    echo 'selected'; ?>>Male</option>
+                                <option value="Female" <?php if ($gender == 'Female')
+                                    echo 'selected'; ?>>Female</option>
+                                <option value="Other" <?php if ($gender == 'Other')
+                                    echo 'selected'; ?>>Other</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label for="worker_id">Worker ID:</label><br>
+                            <input type="text" id="worker_id" name="worker_id"
+                                value="<?php echo htmlspecialchars($worker_id); ?>" <?php if ($worker_id)
+                                       echo 'disabled'; ?> required>
+                        </div>
                     </div>
-                </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="department">Department:</label>
+                            <select id="department" name="department" required>
+                                <option value="Select" <?php if ($department == '')
+                                    echo 'selected'; ?>>Select</option>
+                                <option value="Electrical Work" <?php if ($department == 'Electrical Work')
+                                    echo 'selected'; ?>>Electrical Work</option>
+                                <option value="Carpenter Work" <?php if ($department == 'Carpenter Work')
+                                    echo 'selected'; ?>>Carpenter Work</option>
+                                <option value="Civil Work" <?php if ($department == 'Civil Work')
+                                    echo 'selected'; ?>>
+                                    Civil Work</option>
+                                <option value="Partition Work" <?php if ($department == 'Partition Work')
+                                    echo 'selected'; ?>>Partition Work</option>
+                                <option value="IT Infra Work" <?php if ($department == 'IT Infra Work')
+                                    echo 'selected'; ?>>IT Infra Work</option>
+                                <option value="Plumbing Work" <?php if ($department == 'Plumbing Work')
+                                    echo 'selected'; ?>>Plumbing Work</option>
+                                <option value="Other" <?php if ($department == 'Other')
+                                    echo 'selected'; ?>>Other</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label for="worktype">Work Type:</label>
+                            <select id="worktype" name="worktype" required>
+                                <option value="Select" <?php if ($worktype == '')
+                                    echo 'selected'; ?>>Select</option>
+                                <option value="Full Time" <?php if ($worktype == 'Full Time')
+                                    echo 'selected'; ?>>Full
+                                    Time</option>
+                                <option value="Part Time" <?php if ($worktype == 'Part Time')
+                                    echo 'selected'; ?>>Part
+                                    Time</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label for="mail">Mail:</label><br>
+                            <input type="email" id="mail" name="mail" value="<?php echo htmlspecialchars($mail); ?>"
+                                <?php if ($mail)
+                                    echo 'disabled'; ?> required>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-6">
+
+                            <label for="phone">Phone Number:</label><br>
+                            <input type="tel" id="phone" name="phone" value="<?php echo htmlspecialchars($phone); ?>"
+                                <?php if ($phone)
+                                    echo 'disabled'; ?> required>
+
+                        </div>
+                        <div class="col-6">
+
+                            <label for="pphoto">Profile Photo:</label><br>
+                            <input type="file" id="pphoto" name="pphoto" accept="image/*" required><br>
+
+                        </div>
+                    </div><br><br>
+
+                    <?php if (!$name) { // Show the submit button only if no data exists ?>
+                        <button type="submit" class="btn btn-success" value="Submit">Submit</button>
+                    <?php } ?>
+                </form>
+
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
             </div>
             <!-- ============================================================== -->
-            <!-- End Page wrapper  -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer text-center">
+                All Rights Reserved by Matrix-admin. Designed and Developed by <a
+                    href="https://wrappixel.com">WrapPixel</a>.
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
             <!-- ============================================================== -->
         </div>
-        <footer class="footer text-center">
-            2024 © M.Kumarasamy College of Engineering All Rights Reserved.
-            Developed and Maintained by Technology Innovation Hub.
-        </footer>
         <!-- ============================================================== -->
-        <!-- End Wrapper -->
+        <!-- End Page wrapper  -->
         <!-- ============================================================== -->
-        <script>
-            // Function to disable fields after form submission
-            function disableFormFields() {
-                document.querySelectorAll('input, select, button').forEach(function (el) {
-                    el.disabled = true;
-                });
-            }
-
-            // Check if the form was already submitted
-            window.onload = function () {
-                if (localStorage.getItem('formSubmitted') === 'true') {
-                    disableFormFields();
-                    // Display the previously submitted data
-                    $('#fname').val(localStorage.getItem('fname'));
-                    $('#lname').val(localStorage.getItem('lname'));
-                    $('#gender').val(localStorage.getItem('gender'));
-                    $('#worker_id').val(localStorage.getItem('worker_id'));
-                    $('#dept').val(localStorage.getItem('department'));
-                    $('#mnumber').val(localStorage.getItem('mobile'));
-                    $('#mail').val(localStorage.getItem('email'));
-                    $('#profile-image').attr('src', localStorage.getItem('profile_image')).show();
-                }
-            }
-
-            // Save the form data locally on submission
-            document.getElementById('profileForm').onsubmit = function () {
-                if (this.checkValidity()) {
-                    localStorage.setItem('formSubmitted', 'true');
-                    localStorage.setItem('fname', $('#fname').val());
-                    localStorage.setItem('lname', $('#lname').val());
-                    localStorage.setItem('gender', $('#gender').val());
-                    localStorage.setItem('worker_id', $('#worker_id').val());
-                    localStorage.setItem('department', $('#dept').val());
-                    localStorage.setItem('mobile', $('#mnumber').val());
-                    localStorage.setItem('email', $('#mail').val());
-
-                    const fileInput = document.getElementById('pphoto');
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        localStorage.setItem(, e.target.result);
-                    };
-                                }
-            };
-        </script>
-
-
-        <!-- ============================================================== -->
-        <!-- All Jquery -->
-        <!-- ============================================================== -->
-        <script src="assets/libs/jquery/dist/jquery.min.js"></script>
-        <!-- Bootstrap tether Core JavaScript -->
-        <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
-        <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- slimscrollbar scrollbar JavaScript -->
-        <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-        <script src="assets/extra-libs/sparkline/sparkline.js"></script>
-        <!--Wave Effects -->
-        <script src="dist/js/waves.js"></script>
-        <!--Menu sidebar -->
-        <script src="dist/js/sidebarmenu.js"></script>
-        <!--Custom JavaScript -->
-        <script src="dist/js/custom.min.js"></script>
-        <!-- This Page JS -->
-        <script src="assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
-        <script src="dist/js/pages/mask/mask.init.js"></script>
-        <script src="assets/libs/select2/dist/js/select2.full.min.js"></script>
-        <script src="assets/libs/select2/dist/js/select2.min.js"></script>
-        <script src="assets/libs/jquery-asColor/dist/jquery-asColor.min.js"></script>
-        <script src="assets/libs/jquery-asGradient/dist/jquery-asGradient.js"></script>
-        <script src="assets/libs/jquery-asColorPicker/dist/jquery-asColorPicker.min.js"></script>
-        <script src="assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
-        <script src="assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-        <script src="assets/libs/quill/dist/quill.min.js"></script>
-        <script>
-            //*//
-            // For select 2
-            //*//
-            $(".select2").select2();
-
-            /colorpicker/
-            $('.demo').each(function () {
-                //
-                // Dear reader, it's actually very easy to initialize MiniColors. For example:
-                //
-                //  $(selector).minicolors();
-                //
-                // The way I've done it below is just for the demo, so don't get confused
-                // by it. Also, data- attributes aren't supported at this time...they're
-                // only used for this demo.
-                //
-                $(this).minicolors({
-                    control: $(this).attr('data-control') || 'hue',
-                    position: $(this).attr('data-position') || 'bottom left',
-
-                    change: function (value, opacity) {
-                        if (!value) return;
-                        if (opacity) value += ', ' + opacity;
-                        if (typeof console === 'object') {
-                            console.log(value);
-                        }
-                    },
-                    theme: 'bootstrap'
-                });
-
-            });
-            /datwpicker/
-            jQuery('.mydatepicker').datepicker();
-            jQuery('#datepicker-autoclose').datepicker({
-                autoclose: true,
-                todayHighlight: true
-            });
-            var quill = new Quill('#editor', {
-                theme: 'snow'
-            });
-
-        </script>
-
-
-
-
-
-
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="dist/js/custom.min.js"></script>
+    <!-- this page js -->
+    <script src="assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+    <script src="assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+    <script src="assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#zero_config').DataTable();
+    </script>
 
 </body>
 

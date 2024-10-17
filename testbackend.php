@@ -61,7 +61,7 @@ if (isset($_POST["reject_complaint"])) {
     try {
         $id = mysqli_real_escape_string($conn, $_POST['id']);
         $reason = mysqli_real_escape_string($conn, $_POST['feedback']);
-        $query = "UPDATE complaints_detail SET feedback = '$reason', status = '19' WHERE id = $id";
+        $query = "UPDATE complaints_detail SET feedback = '$reason', status = '20' WHERE id = $id";
         if (mysqli_query($conn, $query)) {
             $res = [
                 'status' => 200,

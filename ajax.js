@@ -72,24 +72,32 @@ document
     }
   });
 
+
 //Jquery to pass id into accept and priority form
+// When the "Accept" button is clicked, open the modal and reset the worker details
 $(document).on("click", ".acceptcomplaint", function (e) {
   e.preventDefault();
+  
   var user_id = $(this).val(); // Get the ID from the button's value
   console.log("User ID:", user_id);
-  // Set the user_id in the hidden input field within the form
+  
+  // Set the complaint ID in the hidden input field within the form
   $("#complaint_id77").val(user_id);
+
+  // Reset the worker selection and the text in the modal
+  $("#worker_id").val(''); // Reset the worker ID
+  $("#assignedWorker").text('Assigned Worker: '); // Reset the assigned worker text
 });
 
-// Store selected worker value in hidden input field and update assigned worker text
-document.querySelectorAll(".worker-option").forEach(function (element) {
-  element.addEventListener("click", function () {
-    var worker = this.getAttribute("data-value");
-    document.getElementById("worker_id").value = worker;
-    document.getElementById("assignedWorker").textContent =
-      "Assigned Worker: " + worker;
-  });
+// Store selected worker value in hidden input field and update assigned worker text using event delegation
+$(document).on("click", ".worker-option", function () {
+  var worker = $(this).data('value');
+  
+  // Set the selected worker in the hidden input and update the text
+  $("#worker_id").val(worker);
+  $("#assignedWorker").text("Assigned Worker: " + worker);
 });
+
 
 // Toggle reason input based on Principal Approval checkbox
 document
@@ -102,6 +110,7 @@ document
       reasonInput.style.display = "none";
     }
   });
+
   $(document).on("submit", "#acceptForm", function (e) {
     e.preventDefault();
     
@@ -135,10 +144,12 @@ document
           
           // Refresh the table body only
           $("#complain_table").load(location.href + " #complain_table");
+          $("#navrefresh").load(location.href + " #navrefresh");
           $("#principal_table").load(location.href + " #principal_table > *");
           $("#worker_table").load(location.href + " #worker_table > *");
-
-        } else if (res.status == 500) {
+          updateNavbar();
+        } 
+        else if (res.status == 500) {
           alert("Something went wrong. Please try again.");
         }
       },
@@ -148,7 +159,7 @@ document
       }
     });
   });
-  
+
 
 //Jquerry to pass the id into reject form
 $(document).on("click", "#rejectbutton", function (e) {
@@ -177,14 +188,17 @@ $(document).on("submit", "#rejectForm", function (e) {
         alertify.set('notifier','position', 'bottom-right');
         alertify.error('Rejected');
         // Close modal
+        $("#navrefresh").load(location.href + " #navrefresh > *"); 
+
         $("#rejectModal").modal("hide");
 
         // Reset the form
         $("#rejectForm")[0].reset();
-        
         // Force refresh the table body with cache bypass
         $("#complain_table").load(location.href + " #complain_table > *");
-    
+        updateNavbar(); // Call this function initially if needed
+        
+        // Display success message
       } else if (res.status == 500) {
         $("#rejectModal").modal("hide");
         $("#rejectForm")[0].reset();
@@ -391,7 +405,8 @@ $(document).ready(function () {
   $(document).on("click", ".done", function () {
       var complaintfeedId = $("#complaintfeed_id").val();
       updateComplaintStatus(complaintfeedId, 16); // Status '16' for Done
-      refreshTables(); // Refresh the tables after action
+      refreshTables(); 
+      updateNavbar();
   });
 
   // When 'Reassign' is clicked (Event Delegation)
@@ -414,6 +429,7 @@ $(document).ready(function () {
       $("#datePickerModal").modal("hide"); // Close the date picker modal
       $("#exampleModal").modal("hide"); // Close the feedback modal
       refreshTables(); // Refresh the tables after action
+      updateNavbar();
   });
 
   // Function to update the complaint status
@@ -508,4 +524,48 @@ document.getElementById('download').addEventListener('click', function () {
   XLSX.utils.book_append_sheet(wb, ws, "Complaints Data");
 
   // Create and trigger the download
-  XLSX.writeFile(wb, 'complaints_data.xlsx');});  
+  XLSX.writeFile(wb, 'complaints_data.xlsx');});
+
+  $(document).ready(function() {
+    // Set the last active tab if available, or default to the first one
+    var lastActiveTab = localStorage.getItem('lastActiveTab') || '#complain'; // Default to the first tab
+
+    // Set the last active tab on page load
+    activateTab(lastActiveTab);
+
+    // Event delegation for dynamic elements
+    $(document).on('click', '.nav-link', function(e) {
+        e.preventDefault(); // Prevent default behavior
+
+        // Get the target tab and store it as the last active tab
+        var target = $(this).attr('href');
+        localStorage.setItem('lastActiveTab', target); // Store the active tab in localStorage
+
+        // Activate the clicked tab
+        activateTab(target);
+    });
+
+    // Function to activate a tab
+    function activateTab(tabId) {
+        // Hide all tabs and show the selected tab
+        $('.tab-content .tab-pane').removeClass('show active');
+        $(tabId).addClass('show active');
+
+        // Remove "active" class from all nav links and add it to the clicked link
+        $('.nav-link').removeClass('active');
+        $('.nav-link[href="' + tabId + '"]').addClass('active');
+    }
+
+    // Update navbar and reapply the last active tab
+    function updateNavbar() {
+        $("#navrefresh").load(location.href + " #navrefresh", function() {
+            // Rebind click events and reapply the last active tab
+            var lastActiveTab = localStorage.getItem('lastActiveTab') || '#complain';
+            
+            // Ensure the correct tab is active after reload
+            activateTab(lastActiveTab);
+        });
+    }
+
+});
+

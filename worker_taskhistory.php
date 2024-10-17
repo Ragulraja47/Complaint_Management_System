@@ -85,7 +85,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 WHERE 
-m.worker_id = 'INFRA' 
+m.worker_id = '$department'
 AND cd.status = '17' or cd.status = '10'";
 // Filter by department
 $stmt = $conn->prepare($sql1);
@@ -1359,7 +1359,7 @@ $notcount = mysqli_num_rows($result4);
             const fileSize = input.files[0].size / 1024;
             var ext = input.value.split(".");
             ext = ext[ext.length - 1].toLowerCase();
-            var arrayExtensions = ["jpg", "jpeg"];
+            var arrayExtensions = ["jpg", "jpeg","png"];
             if (arrayExtensions.lastIndexOf(ext) == -1) {
                 alert("Invalid file type");
                 $(input).val('');

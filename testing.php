@@ -19,7 +19,7 @@ $result4 = mysqli_query($conn, $sql4);
 //work finished table
 $sql5 = "SELECT * FROM complaints_detail WHERE status = '14'";
 $result5 = mysqli_query($conn, $sql5);
-$row_count5 =mysqli_num_rows($result5);
+$row_count5 = mysqli_num_rows($result5);
 //work completed table
 $sql6 = "SELECT * FROM complaints_detail WHERE status='16'";
 $result6 = mysqli_query($conn, $sql6);
@@ -324,8 +324,8 @@ $row_count7 = mysqli_num_rows($result7);
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="card" id="navrefresh">
-                                    <ul class="nav nav-tabs mb-3" role="tablist">
+                                <div class="card">
+                                    <ul class="nav nav-tabs mb-3" role="tablist" id="navrefresh">
                                         <li class="nav-item">
                                             <a class="nav-link active show" id="complain-tab" href="#complain"
                                                 role="tab" aria-selected="true">
@@ -356,7 +356,7 @@ $row_count7 = mysqli_num_rows($result7);
                                             <a class="nav-link" id="finished-tab" href="#finished" role="tab"
                                                 aria-selected="false">
                                                 <span class="hidden-xs-down">
-                                                    <i class="bi bi-repeat"></i><b>Worker Response(<?php echo $row_count5;?>)</b>
+                                                    <i class="bi bi-repeat"></i><b>Worker Response</b>
                                                 </span>
                                             </a>
                                         </li>
@@ -365,7 +365,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                 aria-selected="false">
                                                 <span class="hidden-xs-down">
                                                     <i class="bi bi-repeat"></i><b>Work Re-assigned
-                                                        (<?php echo $row_count7; ?>)</b>
+                                                    </b>
                                                 </span>
                                             </a>
                                         </li>
@@ -412,7 +412,7 @@ $row_count7 = mysqli_num_rows($result7);
                                         <div class="table-responsive">
                                             <table id="record_table" class="table table-striped table-bordered">
                                                 <thead
-                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                    style=" background-color: #7460ee;  background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                                                     <tr>
                                                         <th><b>S.No</b></th>
                                                         <th><b>Work ID</b></th>
@@ -455,7 +455,7 @@ $row_count7 = mysqli_num_rows($result7);
                                         </div>
                                     </div>
                                     <!-- Complaint Table -->
-                                    <div class="tab-pane active" id="complain" role="tabpanel">
+                                    <div class="tab-pane active show" id="complain" role="tabpanel">
                                         <div class="table-responsive">
                                             <table id="complain_table" class="table table-striped table-bordered">
                                                 <thead
@@ -602,7 +602,7 @@ $row_count7 = mysqli_num_rows($result7);
 
                                                         <!--deadline code-->
                                                         <label for="deadline">Set Deadline:</label> <br>
-                                                        <input type="date" name="deadline"> <br> <br>
+                                                        <input type="date" id="deadline01" name="deadline"> <br> <br>
 
 
                                                         <span>Set Priority: </span>
@@ -1220,26 +1220,26 @@ $row_count7 = mysqli_num_rows($result7);
                                     </div>
 
                                     <!-- Date Picker Modal -->
-<div class="modal fade" id="datePickerModal" tabindex="-1" role="dialog" aria-labelledby="datePickerModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="datePickerModalLabel">Set Reassign Deadline</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <label for="reassign_deadline">Reassign Deadline Date:</label>
-                <input type="date" id="reassign_deadline" name="reassign_deadline" required>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="saveDeadline">Set Deadline</button>
-            </div>
-        </div>
-    </div>
-</div>
+                                    <div class="modal fade" id="datePickerModal" tabindex="-1" role="dialog" aria-labelledby="datePickerModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="datePickerModalLabel">Set Reassign Deadline</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <label for="reassign_deadline">Reassign Deadline Date:</label>
+                                                    <input type="date" id="reassign_deadline" name="reassign_deadline" required>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-primary" id="saveDeadline">Set Deadline</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <!-- Completed Table Feedback Modal -->
                                     <div class="modal fade" id="completedfeedbackModal" tabindex="-1" role="dialog"
@@ -1299,6 +1299,28 @@ $row_count7 = mysqli_num_rows($result7);
     <script src="assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
     <script src="assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+        // Get today's date in the format 'YYYY-MM-DD'
+        var today = new Date().toISOString().split('T')[0];
+
+        // Get the date input element
+        var dateInput = document.getElementById('deadline01');
+
+        // Set the minimum and maximum date for the input field to today's date
+        dateInput.setAttribute('min', today);
+    </script>
+
+    <script>
+        // Get today's date in the format 'YYYY-MM-DD'
+        var today = new Date().toISOString().split('T')[0];
+
+        // Get the date input element
+        var dateInput = document.getElementById('reassign_deadline');
+
+        // Set the minimum and maximum date for the input field to today's date
+        dateInput.setAttribute('min', today);
+    </script>
     <script src="ajax.js"></script>
 
 
