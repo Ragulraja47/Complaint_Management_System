@@ -1206,7 +1206,14 @@ $result3 = mysqli_query($conn, $sql3);
                             $('#rejectdetails')[0].reset();
                             $('#myTable1').load(location.href + " #myTable1");
                             $('#myTable4').load(location.href + " #myTable4");
-                            table.ajax.reload()
+                            $('#myTable1').DataTable().destroy();
+                            $('#myTable4').DataTable().destroy();
+                            $("#myTable1").load(location.href + " #myTable1 > *", function() {
+                            $('#myTable1').DataTable();});
+                            $("#myTable4").load(location.href + " #myTable4 > *", function() {
+                            $('#myTable4').DataTable();});
+                            $('#navref1').load(location.href + " #navref1");
+                            $('#navref4').load(location.href + " #navref4");
 
                         } else if (res.status == 500) {
                             alertify.error('Complaint Rejected!');
@@ -1283,9 +1290,19 @@ $result3 = mysqli_query($conn, $sql3);
                         if (res.status == 500) {
                             alert(res.message);
                         } else {
-                            $('#myTable1').load(location.href + " #myTable1");
-                            $('#myTable2').load(location.href + " #myTable2");
-                            $('#myTable3').load(location.href + " #myTable3");
+                            $('#myTable1').DataTable().destroy();
+                            $('#myTable2').DataTable().destroy();
+                            $('#myTable3').DataTable().destroy();
+                            $("#myTable1").load(location.href + " #myTable1 > *", function() {
+                            $('#myTable1').DataTable();});
+                            $("#myTable2").load(location.href + " #myTable2 > *", function() {
+                            $('#myTable2').DataTable();});
+                            $("#myTable3").load(location.href + " #myTable3 > *", function() {
+                            $('#myTable3').DataTable();});
+                            $('#navref1').load(location.href + " #navref1");
+                            $('#navref2').load(location.href + " #navref2");
+                            $('#navref3').load(location.href + " #navref3");                                
+                            $('#navref4').load(location.href + " #navref4");
                         }
                     }
                 });
