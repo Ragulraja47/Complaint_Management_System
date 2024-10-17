@@ -193,7 +193,7 @@ $row_count4 = mysqli_num_rows($result4);
                             class="ti-menu ti-close"></i></a>
                     <a class="navbar-brand" href="index.html">
                         <!-- Logo icon -->
-                        <b class="logo-icon p-l-8">
+                        <b class="logo-icon p-l-10" style="padding-left:0px; border-left:0px;">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
                             <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo" />
