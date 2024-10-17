@@ -393,14 +393,6 @@ $result3 = mysqli_query($conn, $sql3);
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="card">
-                                                            <div class="card-header">
-                                                                <h4>
-                                                                    Approve All
-                                                                    <button type="button" style="float:right; font-size:20px;"
-                                                                        class="btn btn-success mdi mdi-check-all btnapproveall"></button><br>
-                                                                </h4>
-                                                            </div>
-
                                                             <div class="card-body">
                                                                 <div class="table-container">
                                                                     <table id="myTable1" class="table table-bordered table-striped fixed-size-table">
@@ -485,12 +477,12 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                             <button type="button"
                                                                                                 value="<?php echo $row['id']; ?>"
                                                                                                 id="detail_id"
-                                                                                                class="btn btn-success btnapprove">
+                                                                                                class="btn btn-success btnapprovefac">
                                                                                                 <i class="fas fa-check"></i>
                                                                                             </button>
                                                                                             <button type="button"
                                                                                                 value="<?php echo $row['id']; ?>"
-                                                                                                class="btn btn-danger btnreject"
+                                                                                                class="btn btn-danger btnrejectfac"
                                                                                                 data-toggle="modal"
                                                                                                 data-target="#rejectmodal">
                                                                                                 <i class="fas fa-times"></i>
@@ -881,7 +873,7 @@ $result3 = mysqli_query($conn, $sql3);
                     <div class="modal-body" style="font-size:larger;">
                         <textarea class="form-control"
                             placeholder="Enter Reason"
-                            name="rejfeed"
+                            name="rejfeedfac"
                             style="width:460px;height: 180px; resize:none" required></textarea>
                     </div>
                     <div class="modal-footer">
@@ -1081,7 +1073,7 @@ $result3 = mysqli_query($conn, $sql3);
             $('[data-toggle="tooltip"]').tooltip();
 
             // You can also set options manually if needed
-            $('.btnreject').tooltip({
+            $('.btnrejectfac').tooltip({
                 placement: 'top',
                 title: 'Reject'
             });
@@ -1125,18 +1117,7 @@ $result3 = mysqli_query($conn, $sql3);
             $('[data-toggle="tooltip"]').tooltip();
 
             // You can also set options manually if needed
-            $('.btnapproveall').tooltip({
-                placement: 'top',
-                title: 'Approve All'
-            });
-        });
-
-        $(function() {
-            // Initialize the tooltip
-            $('[data-toggle="tooltip"]').tooltip();
-
-            // You can also set options manually if needed
-            $('.btnapprove').tooltip({
+            $('.btnapprovefac').tooltip({
                 placement: 'top',
                 title: 'Accept'
             });
@@ -1167,12 +1148,11 @@ $result3 = mysqli_query($conn, $sql3);
 
             if (confirm('Are you sure you want to reject this complaint?')) {
                 var formdata1 = new FormData(this);
-                var reject_id = $('.btnreject').val();
-
-                formdata1.append("reject_id", reject_id);
+                var reject_idfac = $('.btnrejectfac').val();
+                formdata1.append("reject_idfac", reject_idfac);
                 $.ajax({
                     type: "POST",
-                    url: "facinfraback.php",
+                    url: "hodbackend.php",
                     data: formdata1,
                     processData: false,
                     contentType: false,
@@ -1210,19 +1190,19 @@ $result3 = mysqli_query($conn, $sql3);
         });
 
         //approve button
-        $(document).on('click', '.btnapprove', function(e) {
+        $(document).on('click', '.btnapprovefac', function(e) {
             e.preventDefault();
 
-            var approveid = $(this).val();
+            var approveidfac = $(this).val();
 
             alertify.confirm('Confirmation', 'Are you sure you want to approve this complaint?',
                 function() {
                     $.ajax({
                         type: "POST",
-                        url: "facinfraback.php",
+                        url: "hodbackend.php",
                         data: {
-                            'approvebtn': true,
-                            'approve': approveid
+                            'approvefacbtn': true,
+                            'approvefac': approveidfac
                         },
                         success: function(response) {
                             var res = jQuery.parseJSON(response);
@@ -1252,41 +1232,6 @@ $result3 = mysqli_query($conn, $sql3);
                 });
         });
 
-        //approve all button 
-        $(document).on('click', '.btnapproveall', function(e) {
-            e.preventDefault();
-            if (confirm('Are you sure you want to Approve all complaints?')) {
-                $.ajax({
-                    type: "POST",
-                    url: "facinfraback.php",
-                    data: {
-                        'approveallbtn': true
-                    },
-                    success: function(response) {
-
-                        var res = jQuery.parseJSON(response);
-                        if (res.status == 500) {
-                            alert(res.message);
-                        } else {
-                            $('#myTable1').DataTable().destroy();
-                            $('#myTable2').DataTable().destroy();
-                            $('#myTable3').DataTable().destroy();
-                            $("#myTable1").load(location.href + " #myTable1 > *", function() {
-                            $('#myTable1').DataTable();});
-                            $("#myTable2").load(location.href + " #myTable2 > *", function() {
-                            $('#myTable2').DataTable();});
-                            $("#myTable3").load(location.href + " #myTable3 > *", function() {
-                            $('#myTable3').DataTable();});
-                            $('#navref1').load(location.href + " #navref1");
-                            $('#navref2').load(location.href + " #navref2");
-                            $('#navref3').load(location.href + " #navref3");                                
-                            $('#navref4').load(location.href + " #navref4");
-                        }
-                    }
-                });
-            }
-        });
-
         // problem description
         $(document).on('click', '#seeproblem', function(e) {
             e.preventDefault();
@@ -1294,7 +1239,7 @@ $result3 = mysqli_query($conn, $sql3);
             console.log(user_id)
             $.ajax({
                 type: "POST",
-                url: "facinfraback.php",
+                url: "hodbackend.php",
                 data: {
                     'seedetails': true,
                     'user_id': user_id
@@ -1323,7 +1268,7 @@ $result3 = mysqli_query($conn, $sql3);
             console.log(user_id)
             $.ajax({
                 type: "POST",
-                url: "facinfraback.php",
+                url: "hodbackend.php",
                 data: {
                     'facultydetails': true,
                     'user_id': user_id
@@ -1351,7 +1296,7 @@ $result3 = mysqli_query($conn, $sql3);
 
             $.ajax({
                 type: "POST",
-                url: "facinfraback.php",
+                url: "hodbackend.php",
                 data: {
                     'get_image': true,
                     'task_id': task_id
@@ -1380,7 +1325,7 @@ $result3 = mysqli_query($conn, $sql3);
             // Fetch the image from the server
             $.ajax({
                 type: "POST",
-                url: "facinfraback.php",
+                url: "hodbackend.php",
                 data: {
                     'after_image': true,
                     'task_id': task_id
@@ -1408,7 +1353,7 @@ $result3 = mysqli_query($conn, $sql3);
             console.log(user_idrej)
             $.ajax({
                 type: "POST",
-                url: "facinfraback.php",
+                url: "hodbackend.php",
                 data: {
                     'seefeedback': true,
                     'user_idrej': user_idrej

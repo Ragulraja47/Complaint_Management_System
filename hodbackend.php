@@ -152,6 +152,58 @@ if (isset($_POST['seefeedback'])) {
     }
 }
 
+//Rejected Feedback for Faculty Infra
+if (isset($_POST['rejfeedfac'])) {
+    try {
+        $id = mysqli_real_escape_string($conn, $_POST['reject_idfac']);
+        $feedback = mysqli_real_escape_string($conn, $_POST['rejfeedfac']);
+
+        $query = "UPDATE complaints_detail SET feedback = '$feedback', status = '3' WHERE id = '$id'";
+
+        if (mysqli_query($conn, $query)) {
+            $res = [
+                'status' => 200,
+                'message' => 'Details Updated Successfully'
+            ];
+            echo json_encode($res);
+        } else {
+            throw new Exception('Query Failed: ' . mysqli_error($conn));
+            echo "print";
+        }
+    } catch (Exception $e) {
+        $res = [
+            'status' => 500,
+            'message' => 'Error: ' . $e->getMessage()
+        ];
+        echo json_encode($res);
+    }
+}
+
+//Approve Button for Faculty Infra
+if (isset($_POST['approvefacbtn'])) {
+    try {
+        $id = mysqli_real_escape_string($conn, $_POST['approvefac']);
+        
+        $query = "UPDATE complaints_detail SET status = '2' WHERE id='$id'";
+        
+        if (mysqli_query($conn, $query))    {
+            $res = [
+                'status' => 200,
+                'message' => 'Details Updated Successfully'
+            ];
+            echo json_encode($res);
+        } else {
+            throw new Exception('Query Failed: ' . mysqli_error($conn));
+        }
+    } catch (Exception $e) {
+        $res = [
+            'status' => 500,
+            'message' => 'Error: ' . $e->getMessage()
+        ];
+        echo json_encode($res);
+    }
+}
+
 // Get Image
 if (isset($_POST['get_image'])) {
     $task_id = isset($_POST['task_id']) ? intval($_POST['task_id']) : '';
