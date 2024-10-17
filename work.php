@@ -80,24 +80,25 @@ $c6 = mysqli_num_rows($r6);
 //count for side bar ends
 
 
-
 if (isset($_POST['work'])) {
     $work = $_POST['worker_id'];  // The department value
-    $sql8 = "SELECT worker_id FROM worker_details WHERE worker_dept = '$work'";
+    // Modify the query to select both worker_id and worker_first_name
+    $sql8 = "SELECT worker_id, worker_first_name FROM worker_details WHERE worker_dept = '$work'";
     $result8 = mysqli_query($conn, $sql8);
 
     // Prepare to output options directly
     $options = '';
 
     while ($row = mysqli_fetch_assoc($result8)) {
-        // Echo each worker's name as an option element
-        $options .= '<option value="' . $row['worker_id'] . '">' . $row['worker_id'] . '</option>';
+        // Echo each worker's ID and name as an option element (worker_id - worker_first_name)
+        $options .= '<option value="' . $row['worker_id'] . '">' . $row['worker_id'] . ' - ' . $row['worker_first_name'] . '</option>';
     }
 
     // Return the options to the AJAX request
     echo $options;
     exit();  // Stop script execution after output
 }
+
 
 
 
