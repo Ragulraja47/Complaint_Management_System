@@ -1236,7 +1236,6 @@ $(function() {
             task_id: taskId
         },
         success: function(response) {
-            console.log("Raw response:", response);
 
             // If response is a JSON string, parse it
             var data = typeof response === "string" ? JSON.parse(response) : response;
@@ -1272,7 +1271,6 @@ $(function() {
             $('.start-work-btn').click(function(e) {
                 e.preventDefault();
                 var taskId = $(this).data('task-id');
-                console.log(taskId);
 
                 $.ajax({
                     url: 'backend.php',
@@ -1413,7 +1411,6 @@ $('#ref1').load(location.href + " #ref1");
                     $('#addnewtask').DataTable().destroy();
 
 $("#addnewtask").load(location.href + " #addnewtask > *", function() {
-    // Reinitialize the DataTable after the content is loaded
     $('#addnewtask').DataTable();
 });
 $('#statusinprogress').DataTable().destroy();
@@ -1511,9 +1508,7 @@ $('#ref1').load(location.href + " #ref1");
         });
     </script>
     <script>
-        //before image showing
-        // Show image
-        // Show image
+        
         $(document).on('click', '.showbeforeimg', function(e) {
             e.preventDefault();
             var task_id = $(this).data('task-id');

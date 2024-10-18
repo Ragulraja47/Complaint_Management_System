@@ -602,7 +602,7 @@ if (isset($_POST['form1'])) {
                                     <ul class="nav nav-tabs mb-3" role="tablist" id="navrefresh">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" id="principal-tab" href="#principal" role="tab"
+                                            <a class="nav-link active" id="principal-tab" href="#principal" role="tab"
                                                 aria-selected="false">
                                                 <span class="hidden-xs-down">
                                                     <i class="bi bi-people-fill"></i><b>Assign work</b>
