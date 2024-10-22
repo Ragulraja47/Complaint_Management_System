@@ -2,18 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "complaints";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die(json_encode(['error' => 'Database connection failed']));
-}
+include('db.php');
 
 // Determine the action based on a parameter
 // Determine the action based on a parameter
@@ -99,13 +88,6 @@ else{
 
 
 
-$conn->close();
-?>
-
- <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 //work completion backend
 if (isset($_POST['update'])) {
@@ -171,21 +153,11 @@ if (isset($_POST['update'])) {
         echo "No file uploaded or file upload error.";
     }
     
-    $conn->close();
 }
-?>  
 
 
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "complaints";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+
 
 if (isset($_POST['get_bef'])) {
     $task_id = isset($_POST['task_id']) ? $_POST['task_id'] : ''; 
@@ -223,21 +195,10 @@ if (isset($_POST['get_bef'])) {
     }
 
     $stmt->close();
-    $conn->close();
     exit;
 }
-?>
 
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "complaints";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 if (isset($_POST['get_image'])) {
     $task_id = isset($_POST['task_id']) ? $_POST['task_id'] : ''; 
@@ -275,24 +236,12 @@ if (isset($_POST['get_image'])) {
     }
 
     $stmt->close();
-    $conn->close();
     exit;
 }
-?>
 
-<?php
-// Database connection
-$host = "localhost";  // Your database host
-$user = "root";       // Your database username
-$password = "";       // Your database password
-$dbname = "complaints"; // Your database name
 
-$conn = new mysqli($host, $user, $password, $dbname);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+
 
 if (isset($_GET['department'])) {
 // Fetch data from the worker_details table
@@ -315,5 +264,4 @@ if ($result->num_rows > 0) {
     ]);
 }
 }
-$conn->close();
 ?>
