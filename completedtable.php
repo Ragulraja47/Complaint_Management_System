@@ -453,6 +453,11 @@ $row_count4 = mysqli_num_rows($result4);
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
+                                                            <input type="checkbox" id="yes" name="yes" value="yes" >
+                                                            <label for="yes" >Require new Product</label><br>
+                                                            <button type="button" class="btn btn-primary" id="formbtn" data-toggle="modal" data-target="#lettermodal" style="display:none">New product form
+</button>                                                            </div>
+                                                            <div class="mb-3">
                                                                 <label for="type_of_problem" class="form-label">Type of Problem</label>
                                                                 <select class="form-control" name="type_of_problem" style="width: 100%; height:36px;">
                                                                     <option>Select</option>
@@ -994,6 +999,19 @@ $row_count4 = mysqli_num_rows($result4);
         dateInput.setAttribute('min', today);
         dateInput.setAttribute('max', today);
         dateInput.value = today;
+
+
+
+        $('input[id="yes"]').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('#formbtn').show();
+        } 
+        else{
+            $('#formbtn').hide();
+
+
+        }
+    });
     </script>
 
 
