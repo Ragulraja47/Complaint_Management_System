@@ -282,7 +282,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                 <span class="hidden-xs-down">
                                                     <i class="bi bi-people-fill"></i>
                                                     <i class="fas fa-exclamation"></i>
-                                                    <b>&nbsp Pending Work (<?php echo $row_count5; ?>)</b>
+                                                    <b>&nbsp Complaints (<?php echo $row_count5; ?>)</b>
                                                 </span>
                                             </div>
                                         </a>
