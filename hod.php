@@ -979,6 +979,12 @@ $result3 = mysqli_query($conn, $sql3);
                         <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
                             <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
                                 <div class="ms-2 me-auto">
+                                    <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Problem ID</div>
+                                    <b><span id="id" style="color: #555;"></span></b>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                <div class="ms-2 me-auto">
                                     <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Type of Problem</div>
                                     <b><span id="type_of_problem" style="color: #555;"></span></b>
                                 </div>
@@ -1329,7 +1335,7 @@ $result3 = mysqli_query($conn, $sql3);
                     if (res.status == 500) {
                         alert(res.message);
                     } else {
-                        $("#id").val(res.data.id);
+                        $("#id").text(res.data.id);
                         $("#type_of_problem").text(res.data.type_of_problem);
                         $("#block_venue").text(res.data.block_venue);
                         $("#venue_name").text(res.data.venue_name);
