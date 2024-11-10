@@ -14,6 +14,8 @@ $result = mysqli_query($conn, $query);
 
 
 
+
+
 ?>
 
 
@@ -244,7 +246,7 @@ $result = mysqli_query($conn, $query);
         <div class="page-wrapper">
             <div class="container-fluid">
             <div class="card">
-                <h3>New Product Request form</h3>
+                <h3>New Product Request</h3>
                 
                 <div class="tab-pane p-20" id="inprogress" role="tabpanel">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newprodmodal">
@@ -283,7 +285,7 @@ $result = mysqli_query($conn, $query);
                                                             <td><?php echo $row['venue'];?></td>
                                                             <td><?php echo $row['date'];?></td>
                                                             <td>
-                                                            <button type="button" class="btn btn-primary">Letter Pad</button></td>
+                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#letter">Letter Pad</button></td>
                                                             <td><button type="button" class="btn btn-success">Waiting for approval</button></td>
                                                             <td><button type="button" class="btn btn-info">Edit</button>
                                                             <button type="button" class="btn btn-danger">Delete</button></td>
@@ -308,10 +310,64 @@ $result = mysqli_query($conn, $query);
                                                            
                                         </div>
                                     </div>
+                            
                                     <!--pending work modal end -->
 
                                     </div>
+                                    <div class="modal fade" id="letter" tabindex="-1" role="dialog" aria-labelledby="letter" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="letter">Letter Pad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="font-family: Arial, sans-serif; line-height: 1.6;">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <p>Date:(date)</strong></p>
+                    </div>
 
+                    <div style="margin-bottom: 20px;">
+                        <p><strong>(faculty name)</strong><br>
+                        Infra Coordinator - (department)<br>
+                        M.Kumarasamy College of Engineering,<br>
+                        Karur.
+                        </p>
+
+                        <p>Through<br>
+                        The Head of Department,<br>
+                        Department of (dept),<br>
+                        M.Kumarasamy College of Engineering,<br>
+                        Karur.
+                        </p>
+
+                        <p>To<br>
+                        The Principal,<br>
+                        M.Kumarasamy College of Engineering,<br>
+                        Karur.
+                        </p>
+
+                        <p>Respected Sir,</p>
+                        <p><strong>Sub: Requisition for (product name) - reg.</strong></p>
+                        <p>We request you to kindly approve the purchase of a (product name)for our (department)) department as we are in need of it.</p>
+
+                        <p>Thanking you.</p>
+                    </div>
+
+                    <div style=" margin-top: 30px;">
+                        <p style="text-align: left;">Manager</strong><br></p>
+                        <p style="text-align: right;"><strong>Principal</strong>
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
                                     <div class="modal fade" id="newprodmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
