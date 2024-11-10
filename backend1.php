@@ -204,5 +204,23 @@ if(isset($_POST["add"])){
     }
 }
 
+if(isset($_POST['letterpad'])){
+
+    $req_id = $_POST['user_id'];
+    $query = "SELECT * FROM products WHERE id = '$req_id'";
+
+    $query_run = mysqli_query($conn, $query);
+    $User_data = mysqli_fetch_array($query_run);
+
+    if($query_run){
+        $res=[
+            'status'=>200,
+            'message'=>"Data fetched Successfully",
+            'data'=>$User_data
+        ];
+        echo json_encode($res);
+        return;
+    }
+}
 
 ?>

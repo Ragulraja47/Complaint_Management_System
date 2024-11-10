@@ -285,7 +285,7 @@ $result = mysqli_query($conn, $query);
                                                             <td><?php echo $row['venue'];?></td>
                                                             <td><?php echo $row['date'];?></td>
                                                             <td>
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#letter">Letter Pad</button></td>
+                                                            <button type="button" class="btn btn-primary letterpad" value="<?php echo $row['id'];?>" data-toggle="modal" data-target="#letter">Letter Pad</button></td>
                                                             <td><button type="button" class="btn btn-success">Waiting for approval</button></td>
                                                             <td><button type="button" class="btn btn-info">Edit</button>
                                                             <button type="button" class="btn btn-danger">Delete</button></td>
@@ -349,8 +349,8 @@ $result = mysqli_query($conn, $query);
                         </p>
 
                         <p>Respected Sir,</p>
-                        <p><strong>Sub: Requisition for <span id="p_name">(product name)</span> - reg.</strong></p>
-                        <p>We request you to kindly approve the purchase of a <span id="p_name">(product name)</span>for our <span id="dept">(department)</span> department as we are in need of it for <span>(description)</span></p>
+                        <p><strong>Sub: Requisition for <span id="p_name"></span> - reg.</strong></p>
+                        <p>We request you to kindly approve the purchase of a <span id="p_name1"></span> for our <span id="dept">(department)</span> department as we are in need of it for <span>(description)</span></p>
 
                         <p>Thanking you.</p>
                     </div>
@@ -551,6 +551,31 @@ $result = mysqli_query($conn, $query);
                     }
                 }
             
+        })
+       })
+
+
+       /*Letter Pad*/
+       $(document).on("click",".letterpad",function(e){
+        e.preventDefault();
+        var user_id=$(this).val();
+        console.log(user_id);
+        $.ajax({
+            type:"POST",
+            url:"backend1.php",
+            data:{
+                letterpad:true,
+                user_id:user_id
+            },
+            success:function(response){
+                var res = jQuery.parseJSON(response);
+                console.log(res);
+
+                if(res.status == 200){
+                    $('#p_name').text(res.data.name);
+                    $('#p_name1').text(res.data.name);
+                }
+            }
         })
        })
     </script>
