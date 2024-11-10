@@ -249,6 +249,10 @@ $row_count4 = mysqli_num_rows($result4);
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completedtable.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Complaints</span></a>
                         </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="newprod.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                                    class="hide-menu">New Products</span></a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -505,7 +509,46 @@ $row_count4 = mysqli_num_rows($result4);
         </button>
       </div>
       <div class="modal-body">
-        ...
+      <div style="padding: 20px; font-family: Arial, sans-serif; line-height: 1.6;">
+  <div style="text-align: right;">
+    <p>Date: 16.10.2024</p>
+  </div>
+  <div>
+    <p>From,</p>
+    <input type="text" placeholder="eg:Mrs. Sowmiya AP/EEE"><br>
+    <input type="text" placeholder="eg:Infra Coordinator - EEE,"> <br>
+     <p>  M. Kumarasamy College of Engineering,</p><br>
+     <p> Karur.</p>
+   
+  </div>
+  <div>
+    <p>Through,</p>
+    <p>The Head of Department,<br>
+       Department of EEE,<br>
+       M. Kumarasamy College of Engineering,<br>
+       Karur.
+    </p>
+  </div>
+  <div>
+    <p>To,<br>
+       The Principal,<br>
+       M. Kumarasamy College of Engineering,<br>
+       Karur.
+    </p>
+  </div>
+  <div style="margin-top: 20px;">
+    <p>Respected Sir,</p>
+    <p><strong>Subject: Requisition for color printer with scanner facilities - reg.</strong></p>
+    <p>In our department, as it is the regular routine documentation works going on and we are preparing the documents for NBA and NAAC. In this process, we are doing lots of scanning work.</p>
+    <p>Hence, we request you to kindly give approval for the purchase of a color printer with scanner facilities through ITKM for our EEE Department. We request you to kindly give necessary instructions for the same.</p>
+    <p>Thanking you,</p>
+  </div>
+  <div style="text-align: right; margin-top: 30px;">
+    <p>Manager</p>
+    <p>Principal</p>
+  </div>
+</div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

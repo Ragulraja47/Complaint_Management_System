@@ -186,7 +186,22 @@ if (isset($_POST['after_image'])) {
 }
 
 
+if(isset($_POST["add"])){
+    $product = $_POST['prod_name'];
+    $block = $_POST['block'];
+    $venue = $_POST['venue'];
+    $date = $_POST['date'];
+    $qnty = $_POST['quantity'];
 
+    $query = "INSERT INTO products(name,block,venue,date,quantity) VALUES('$product','$block','$venue','$date','$qnty') ";
+    if(mysqli_query($conn,$query)){
+        $res=[
+            'status'=>200,
+            'message'=>"Inserted Successfully"
+        ];
+        echo json_encode($res);
+    }
+}
 
 
 ?>

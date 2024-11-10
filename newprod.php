@@ -8,6 +8,10 @@ if (!isset($_SESSION['faculty_id'])) {
 
 include('db.php'); // Include the configuration file
 
+$query="SELECT * FROM products";
+$result = mysqli_query($conn, $query);
+
+
 
 
 ?>
@@ -250,21 +254,45 @@ include('db.php'); // Include the configuration file
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="table-responsive">
-                                                <table id="ProgressTable" class="table table-bordered table-striped">
+                                                <table id="producttable" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center"><b>S.No</b></th>
                                                             <th class="text-center"><b>Product Name</b></th>
+                                                            <th class="text-center"><b>Quantity</b></th>
                                                             <th class="text-center"><b>Block</b></th>
                                                             <th class="text-center"><b>Venue</b></th>
                                                             <th class="text-center"><b>Expected Date for Receiving</b></th>
-                                                            <th class="text-center"><b>Faculty Details</b></th>
+                                                            <th class="text-center"><b>Letter Pad</b></th>
                                                             <th class="text-center"><b>Status</b></th>
                                                             <th class="text-center"><b>Action</b></th>
 
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <?php
+                                                        
+                                                            $count = 1;
+                                                            while($row=mysqli_fetch_array($result)){
+                                                        ?>
+                                                        <tr>
+                                                            <td><?php echo $count++;?></td>
+                                                            <td><?php echo $row['name'];?></td>
+                                                            <td><?php echo $row['quantity'];?></td>
+                                                            <td><?php echo $row['block'];?></td>
+                                                            <td><?php echo $row['venue'];?></td>
+                                                            <td><?php echo $row['date'];?></td>
+                                                            <td>
+                                                            <button type="button" class="btn btn-primary">Letter Pad</button></td>
+                                                            <td><button type="button" class="btn btn-success">Waiting for approval</button></td>
+                                                            <td><button type="button" class="btn btn-info">Edit</button>
+                                                            <button type="button" class="btn btn-danger">Delete</button></td>
+
+
+                                                            
+                                                            </tr>
+                                                            <?php
+                                                            }?>
                                                        
                                                     </tbody>
                                                 </table>
@@ -304,6 +332,12 @@ include('db.php'); // Include the configuration file
           </div>
           <div class="input-group input-group-lg mb-3">
             <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-lg">Product Quantity</span>
+            </div>
+            <input type="text" name="quantity" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+          </div>
+          <div class="input-group input-group-lg mb-3">
+            <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-lg">Block</span>
             </div>
             <input type="text" name="block" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
@@ -318,7 +352,7 @@ include('db.php'); // Include the configuration file
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-lg">Expected Date</span>
             </div>
-            <input type="date" name="data" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+            <input type="date" name="date" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
           </div>
         </div>
       </div>
@@ -420,11 +454,8 @@ include('db.php'); // Include the configuration file
     <script>
         // DataTables
         $(document).ready(function() {
-            $('#user').DataTable();
-            $('#ProgressTable').DataTable();
-            $('#completedTable').DataTable();
-            $('#RejectionTable').DataTable();
-            $('#reassignTable').DataTable();
+            $('#producttable').DataTable();
+        
         });
     </script>
 
@@ -442,9 +473,19 @@ include('db.php'); // Include the configuration file
                 processData:false,
                 contentType:false,
                 success:function(response){
-                    var res = jQuery.parseJson(response);
+                    var res = jQuery.parseJSON(response);
+
                     if(res.status==200){
-                        alert("product request success")
+                        alert("product request success");
+                        $("#newprod")[0].reset();
+                        $("#newprodmodal").modal("hide");
+
+                        $("#producttable").load(location.href + " #producttable");
+                        
+
+
+
+
                     }
                 }
             
