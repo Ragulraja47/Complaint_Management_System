@@ -325,19 +325,19 @@ $result = mysqli_query($conn, $query);
                 </div>
                 <div class="modal-body" style="font-family: Arial, sans-serif; line-height: 1.6;">
                     <div style="text-align: center; margin-bottom: 20px;">
-                        <p>Date:(date)</strong></p>
+                        <p>Date:<span id="date">(date)</span></strong></p>
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <p><strong>(faculty name)</strong><br>
-                        Infra Coordinator - (department)<br>
+                        <p><strong><span id="f_name">(faculty name)</span></strong><br>
+                        Infra Coordinator - <span id="dept">(department)</span><br>
                         M.Kumarasamy College of Engineering,<br>
                         Karur.
                         </p>
 
                         <p>Through<br>
                         The Head of Department,<br>
-                        Department of (dept),<br>
+                        Department of <span id="dept">(dept)</span>,<br>
                         M.Kumarasamy College of Engineering,<br>
                         Karur.
                         </p>
@@ -349,8 +349,8 @@ $result = mysqli_query($conn, $query);
                         </p>
 
                         <p>Respected Sir,</p>
-                        <p><strong>Sub: Requisition for (product name) - reg.</strong></p>
-                        <p>We request you to kindly approve the purchase of a (product name)for our (department)) department as we are in need of it.</p>
+                        <p><strong>Sub: Requisition for <span id="p_name">(product name)</span> - reg.</strong></p>
+                        <p>We request you to kindly approve the purchase of a <span id="p_name">(product name)</span>for our <span id="dept">(department)</span> department as we are in need of it for <span>(description)</span></p>
 
                         <p>Thanking you.</p>
                     </div>
@@ -391,6 +391,12 @@ $result = mysqli_query($conn, $query);
               <span class="input-group-text" id="inputGroup-sizing-lg">Product Quantity</span>
             </div>
             <input type="text" name="quantity" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+          </div>
+          <div class="input-group input-group-lg mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-lg">Need for Product</span>
+            </div>
+            <input type="text" name="desc" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
           </div>
           <div class="input-group input-group-lg mb-3">
             <div class="input-group-prepend">
