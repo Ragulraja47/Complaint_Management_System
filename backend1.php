@@ -200,8 +200,11 @@ if(isset($_POST["add"])){
     $date = $_POST['date'];
     $qnty = $_POST['quantity'];
     $desc = $_POST['desc'];
+    $submit_date = date('Y-m-d');
+    $faculty_id = $_SESSION['faculty_id'];
 
-    $query = "INSERT INTO products(name,block,venue,date,quantity,description,faculty_id) VALUES('$product','$block','$venue','$date','$qnty','$desc', '$faculty_id') ";
+
+    $query = "INSERT INTO products(name,block,venue,date,quantity,description,faculty_id,raised_date) VALUES('$product','$block','$venue','$date','$qnty','$desc', '$faculty_id','$submit_date') ";
     if(mysqli_query($conn,$query)){
         $res=[
             'status'=>200,

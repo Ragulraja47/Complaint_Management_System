@@ -14,6 +14,16 @@ $faculty_id = $_SESSION['faculty_id'];
 
 $query="SELECT * FROM products WHERE faculty_id = '$faculty_id'";
 $result = mysqli_query($conn, $query);
+
+$query1 = "SELECT * FROM faculty WHERE faculty_id = '$faculty_id'";
+
+$result1 = mysqli_query($conn, $query1);
+
+$row = mysqli_fetch_assoc($result1);
+
+$fac_name =  $row['faculty_name'];
+$fac_dept = $row['department'];
+
 ?>
 
 
@@ -323,19 +333,19 @@ $result = mysqli_query($conn, $query);
                 </div>
                 <div class="modal-body" style="font-family: Arial, sans-serif; line-height: 1.6;">
                     <div style="text-align: center; margin-bottom: 20px;">
-                        <p>Date:<span id="date">(date)</span></strong></p>
+                        <p>Date:<span id="date"></span></strong></p>
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <p><strong><span id="f_name">(faculty name)</span></strong><br>
-                        Infra Coordinator - <span id="dept">(department)</span><br>
+                        <p><strong><span id="f_name"><?php echo $fac_name; ?></span></strong><br>
+                        Infra Coordinator - <span id="dept"><?php echo $fac_dept; ?></span><br>
                         M.Kumarasamy College of Engineering,<br>
                         Karur.
                         </p>
 
                         <p>Through<br>
                         The Head of Department,<br>
-                        Department of <span id="dept">(dept)</span>,<br>
+                        Department of <span id="dept"><?php echo $fac_dept; ?></span>,<br>
                         M.Kumarasamy College of Engineering,<br>
                         Karur.
                         </p>
@@ -348,7 +358,7 @@ $result = mysqli_query($conn, $query);
 
                         <p>Respected Sir,</p>
                         <p><strong>Sub: Requisition for <span id="p_name"></span> - reg.</strong></p>
-                        <p>We request you to kindly approve the purchase of a <span id="p_name1"></span> for our <span id="dept">(department)</span> department as we are in need of it for <span>(description)</span></p>
+                        <p>We request you to kindly approve the purchase of a <span id="p_name1"></span> for our <span id="dept"><?php echo $fac_dept; ?></span> department as we are in need of it for <span id="desc"></span></p>
 
                         <p>Thanking you.</p>
                     </div>
@@ -572,6 +582,8 @@ $result = mysqli_query($conn, $query);
                 if(res.status == 200){
                     $('#p_name').text(res.data.name);
                     $('#p_name1').text(res.data.name);
+                    $('#desc').text(res.data.description);
+                    $('#date').text(res.data.raised_date);
                 }
             }
         })
