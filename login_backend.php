@@ -6,6 +6,7 @@ include('db.php'); // Include the database connection file
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $faculty_id = mysqli_real_escape_string($conn, $_POST['faculty_id']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $faculty_dept = mysqli_real_escape_string($conn, $_POST['department']); // Get faculty department from form data
 
     // Query to check if faculty ID and password match
     $query = "SELECT * FROM faculty WHERE faculty_id = '$faculty_id' AND password = '$password'";
@@ -14,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // If user exists
     if (mysqli_num_rows($result) == 1) {
         $_SESSION['faculty_id'] = $faculty_id; // Store faculty ID in session
+        $_SESSION['faculty_dept'] = $faculty_dept;
         header("Location: completedtable.php"); // Redirect to the completedtable page
         exit();
     } else {
