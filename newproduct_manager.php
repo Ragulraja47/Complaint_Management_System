@@ -1,20 +1,22 @@
 <?php
-session_start(); // Ensure the session is started
+
+/*session_start(); // Ensure the session is started
 if (!isset($_SESSION['faculty_id'])) {
 
     // Redirect to login page if not logged in
     header("Location: flogin.php");
     exit();
-} 
+} */
 
 include('db.php'); // Include the configuration file
-$faculty_id = $_SESSION['faculty_id'];
+// $faculty_dept = $_SESSION['faculty_dept'];
 
 
 
-$query="SELECT * FROM products WHERE faculty_id = '$faculty_id'";
+$query="SELECT * FROM products ";
+//$query="SELECT * FROM products WHERE faculty_id = '$faculty_id'";
 $result = mysqli_query($conn, $query);
-
+$faculty_id = 1111111;
 $query1 = "SELECT * FROM faculty WHERE faculty_id = '$faculty_id'";
 
 $result1 = mysqli_query($conn, $query1);
