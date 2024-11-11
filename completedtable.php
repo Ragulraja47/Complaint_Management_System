@@ -457,11 +457,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                                     <option value="Other">other</option>
                                                                 </select>
                                                             </div>
-                                                            <div class="mb-3">
-                                                            <input type="checkbox" id="yes" name="yes" value="yes" >
-                                                            <label for="yes" >Require new Product</label><br>
-                                                            <button type="button" class="btn btn-primary" id="formbtn" data-toggle="modal" data-target="#lettermodal" style="display:none">New product form
-</button>                                                            </div>
+                                                            
                                                             <div class="mb-3">
                                                                 <label for="type_of_problem" class="form-label">Type of Problem</label>
                                                                 <select class="form-control" name="type_of_problem" style="width: 100%; height:36px;">
@@ -499,64 +495,6 @@ $row_count4 = mysqli_num_rows($result4);
                                     </div>
                                     <!--pending work modal end -->
 
-                                    <div class="modal fade" id="lettermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">letter pad</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <div style="padding: 20px; font-family: Arial, sans-serif; line-height: 1.6;">
-  <div style="text-align: right;">
-    <p>Date: 16.10.2024</p>
-  </div>
-  <div>
-    <p>From,</p>
-    <input type="text" placeholder="eg:Mrs. Sowmiya AP/EEE"><br>
-    <input type="text" placeholder="eg:Infra Coordinator - EEE,"> <br>
-     <p>  M. Kumarasamy College of Engineering,</p><br>
-     <p> Karur.</p>
-   
-  </div>
-  <div>
-    <p>Through,</p>
-    <p>The Head of Department,<br>
-       Department of EEE,<br>
-       M. Kumarasamy College of Engineering,<br>
-       Karur.
-    </p>
-  </div>
-  <div>
-    <p>To,<br>
-       The Principal,<br>
-       M. Kumarasamy College of Engineering,<br>
-       Karur.
-    </p>
-  </div>
-  <div style="margin-top: 20px;">
-    <p>Respected Sir,</p>
-    <p><strong>Subject: Requisition for color printer with scanner facilities - reg.</strong></p>
-    <p>In our department, as it is the regular routine documentation works going on and we are preparing the documents for NBA and NAAC. In this process, we are doing lots of scanning work.</p>
-    <p>Hence, we request you to kindly give approval for the purchase of a color printer with scanner facilities through ITKM for our EEE Department. We request you to kindly give necessary instructions for the same.</p>
-    <p>Thanking you,</p>
-  </div>
-  <div style="text-align: right; margin-top: 30px;">
-    <p>Manager</p>
-    <p>Principal</p>
-  </div>
-</div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
                                     <!-- Pending table Start-->
                                     <div class="row">
@@ -591,8 +529,8 @@ $row_count4 = mysqli_num_rows($result4);
                                                                     $principalforward = '';
                                                                     $managerforward = '';
                                                                     $forwardedtoprincipal = '';
-                                                                    $infraforward= '' ;
-                                                                    $sendtoworker ='';
+                                                                    $infraforward = '';
+                                                                    $sendtoworker = '';
                                                                     switch ($row['status']) {
                                                                         case 1:
                                                                             $statusMessage = 'Pending';
@@ -621,7 +559,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                                             $infraforward = 'Approved by Infra';
                                                                             $hodforward = 'Approved by HOD';
                                                                             $principalforward = ' Approved by Manager';
-                                                                            $sendtoworker ='Worker send to worker';
+                                                                            $sendtoworker = 'Worker send to worker';
                                                                             break;
                                                                         default:
                                                                             $statusMessage = 'Unknown Status';
@@ -646,50 +584,48 @@ $row_count4 = mysqli_num_rows($result4);
                                                                                         <i class="fas fa-times"></i>
                                                                                     </button>
                                                                                 </center>
-                                                                            <?php }
-                                                                            
-                                                                            else { ?>
+                                                                            <?php } else { ?>
 
-                                                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approvaldetails">Approve Details</button>                                                                      
-          
+                                                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approvaldetails">Approve Details</button>
 
-                                                                             <!--Approval Details Modal -->
-                            <div class="modal fade" id="approvaldetails" tabindex="-1" role="dialog"
-                                aria-labelledby="approvaldetailsLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="approvaldetailsLabel" style="color: #000000;" >Approval details</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
 
-                                        
-                                                                                   <b>
+                                                                                <!--Approval Details Modal -->
+                                                                                <div class="modal fade" id="approvaldetails" tabindex="-1" role="dialog"
+                                                                                    aria-labelledby="approvaldetailsLabel" aria-hidden="true">
+                                                                                    <div class="modal-dialog" role="document">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header">
+                                                                                                <h5 class="modal-title" id="approvaldetailsLabel" style="color: #000000;">Approval details</h5>
+                                                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                                                    aria-label="Close">
+                                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <div class="modal-body">
 
-                                                                                   <?php
-                                                                                   echo $statusMessage ."<br>";
-                                                                                    echo $infraforward ."<br>";
-                                                                                   echo $hodforward ."<br>";
-                                                                                   echo $managerforward ."<br>";
-                                                                                   echo $forwardedtoprincipal ."<br>";
-                                                                                   echo $principalforward ."<br>";
-                                                                                   echo $sendtoworker; 
-                                                                                   
-                                                                                   
-                                                                                                                                                                                                                                                              
-                                                                                     ?>                                                                                   
-                                                                                   
-                                                                                   </b>
-                                                                            <?php } ?>
-                                             
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+                                                                                                <b>
+
+                                                                                                    <?php
+                                                                                                    echo $statusMessage . "<br>";
+                                                                                                    echo $infraforward . "<br>";
+                                                                                                    echo $hodforward . "<br>";
+                                                                                                    echo $managerforward . "<br>";
+                                                                                                    echo $forwardedtoprincipal . "<br>";
+                                                                                                    echo $principalforward . "<br>";
+                                                                                                    echo $sendtoworker;
+
+
+
+                                                                                                    ?>
+
+                                                                                                </b>
+                                                                                            <?php } ?>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
 
 
 
@@ -708,7 +644,7 @@ $row_count4 = mysqli_num_rows($result4);
                                     </div>
                                 </div>
 
-                             
+
 
 
                                 <!------------------Complain form Page Ends----------------->
@@ -1062,16 +998,7 @@ $row_count4 = mysqli_num_rows($result4);
 
 
 
-        $('input[id="yes"]').on('change', function() {
-        if ($(this).is(':checked')) {
-            $('#formbtn').show();
-        } 
-        else{
-            $('#formbtn').hide();
-
-
-        }
-    });
+        
     </script>
 
 
