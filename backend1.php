@@ -1,6 +1,13 @@
 <?php
 include "db.php";
 
+session_start(); // Ensure the session is started
+if (!isset($_SESSION['faculty_id'])) {
+    // Redirect to login page if not logged in
+    header("Location: flogin.php");
+    exit();
+}
+
 //requirements approved
 if (isset($_POST['approve_user'])) {
     $customer_id = mysqli_real_escape_string($conn, $_POST['user_id']);
@@ -194,7 +201,7 @@ if(isset($_POST["add"])){
     $qnty = $_POST['quantity'];
     $desc = $_POST['desc'];
 
-    $query = "INSERT INTO products(name,block,venue,date,quantity,description) VALUES('$product','$block','$venue','$date','$qnty','$desc') ";
+    $query = "INSERT INTO products(name,block,venue,date,quantity,description,faculty_id) VALUES('$product','$block','$venue','$date','$qnty','$desc', '$faculty_id') ";
     if(mysqli_query($conn,$query)){
         $res=[
             'status'=>200,
