@@ -2,11 +2,7 @@
 include "db.php";
 
 session_start(); // Ensure the session is started
-if (!isset($_SESSION['faculty_id'])) {
-    // Redirect to login page if not logged in
-    header("Location: flogin.php");
-    exit();
-}
+
 
 //requirements approved
 if (isset($_POST['approve_user'])) {
@@ -201,6 +197,7 @@ if(isset($_POST["add"])){
     $qnty = $_POST['quantity'];
     $desc = $_POST['desc'];
     $submit_date = date('Y-m-d');
+
     $faculty_id = $_SESSION['faculty_id'];
 
 

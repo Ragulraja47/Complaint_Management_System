@@ -504,21 +504,7 @@ $fac_dept = $row['department'];
 
 
     <!--file size and type -->
-    <script>
-        function validateSize(input) {
-            const filesize = input.files[0].size / 1024; // Size in KB
-            var ext = input.value.split(".");
-            ext = ext[ext.length - 1].toLowerCase();
-            var arrayExtensions = ["jpg", "jpeg", "png"];
-            if (arrayExtensions.lastIndexOf(ext) == -1) {
-                swal("Invalid Image Format, Only .jpeg, .jpg, .png format allowed", "", "error");
-                $(input).val('');
-            } else if (filesize > 2048) {
-                swal("File is too large, Maximum 2 MB is allowed", "", "error");
-                $(input).val('');
-            }
-        }
-    </script>
+
 
 
     <script>
@@ -543,7 +529,10 @@ $fac_dept = $row['department'];
                 processData:false,
                 contentType:false,
                 success:function(response){
+                    console.log("hi daaa");
+                    console.log(response);
                     var res = jQuery.parseJSON(response);
+
 
                     if(res.status==200){
                         alert("product request success");
@@ -567,7 +556,7 @@ $fac_dept = $row['department'];
        $(document).on("click",".letterpad",function(e){
         e.preventDefault();
         var user_id=$(this).val();
-        console.log(user_id);
+        console.log(user_id);   
         $.ajax({
             type:"POST",
             url:"backend1.php",

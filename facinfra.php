@@ -186,7 +186,8 @@ $result3 = mysqli_query($conn, $sql3);
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="facinfra.php" aria-expanded="false"><i class="mdi mdi-comment-text"></i><span class="hide-menu">Faculty Coordinator</span></a>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="facinfra.php" aria-expanded="false"><i class="mdi mdi-comment-text"></i><span class="hide-menu">Complaints</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="newproduct_infra.php" aria-expanded="false"><i class="mdi mdi-comment-text"></i><span class="hide-menu">New Product</span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

@@ -1,30 +1,27 @@
 <?php
 
-/*session_start(); // Ensure the session is started
-if (!isset($_SESSION['faculty_id'])) {
+session_start(); // Ensure the session is started
 
-    // Redirect to login page if not logged in
-    header("Location: flogin.php");
-    exit();
-} */
 
 include('db.php'); // Include the configuration file
-// $faculty_dept = $_SESSION['faculty_dept'];
-
-
-
-$query="SELECT * FROM products ";
-//$query="SELECT * FROM products WHERE faculty_id = '$faculty_id'";
-$result = mysqli_query($conn, $query);
-$faculty_id = 1111111;
+$faculty_id = $_SESSION['faculty_id'];
 $query1 = "SELECT * FROM faculty WHERE faculty_id = '$faculty_id'";
-
 $result1 = mysqli_query($conn, $query1);
+$row = mysqli_fetch_array($result1);
 
-$row = mysqli_fetch_assoc($result1);
+$dept= $row['department'];
 
-$fac_name =  $row['faculty_name'];
-$fac_dept = $row['department'];
+
+
+
+
+
+$query="SELECT * FROM products WHERE faculty_id IN (SELECT faculty_id FROM faculty WHERE department = '$dept')";
+
+$result = mysqli_query($conn, $query);
+
+
+
 
 ?>
 
@@ -240,11 +237,11 @@ $fac_dept = $row['department'];
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30 in">
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completedtable.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="facinfra.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Complaints</span></a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="newprod.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="newproduct_infra.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">New Product</span></a>
                         </li>
                     </ul>
@@ -297,8 +294,8 @@ $fac_dept = $row['department'];
                                                             <td>
                                                             <button type="button" class="btn btn-primary letterpad" value="<?php echo $row['id'];?>" data-toggle="modal" data-target="#letter">Letter Pad</button></td>
                                                             <td><button type="button" class="btn btn-success">Waiting for approval</button></td>
-                                                            <td><button type="button" class="btn btn-info">Edit</button>
-                                                            <button type="button" class="btn btn-danger">Delete</button></td>
+                                                            <td><button type="button" class="btn btn-success">Approve</button>
+                                                            <button type="button" class="btn btn-danger">reject</button></td>
 
 
                                                             
@@ -378,11 +375,11 @@ $fac_dept = $row['department'];
             </div>
         </div>
     </div>
-                                    <div class="modal fade" id="newprodmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="newprodmodal" tabindex="-1" role="dialog" aria-labelledby="newprodmodalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Product Details</h5>
+        <h5 class="modal-title" id="newprodmodalLabel">Add Product Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
