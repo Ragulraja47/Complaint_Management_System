@@ -230,4 +230,38 @@ if(isset($_POST['letterpad'])){
     }
 }
 
+if(isset($_POST['infra_approve'])){
+
+    $req_id = $_POST['user_id'];
+    $query = "UPDATE products SET status = 1 WHERE id = $req_id";
+
+    $query_run = mysqli_query($conn, $query);
+    if($query_run){
+        $res=[
+            'status'=>200,
+            'message'=>"Data fetched Successfully"
+   
+        ];
+        echo json_encode($res);
+        return;
+    }
+}
+
+if(isset($_POST['hod_approve'])){
+
+    $req_id = $_POST['user'];
+    $query = "UPDATE products SET status = 2 WHERE id = $req_id";
+
+    $query_run = mysqli_query($conn, $query);
+    if($query_run){
+        $res=[
+            'status'=>200,
+            'message'=>"Data fetched Successfully"
+   
+        ];
+        echo json_encode($res);
+        return;
+    }
+}
+
 ?>

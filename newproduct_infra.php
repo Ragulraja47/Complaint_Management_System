@@ -294,8 +294,8 @@ $result = mysqli_query($conn, $query);
                                                             <td>
                                                             <button type="button" class="btn btn-primary letterpad" value="<?php echo $row['id'];?>" data-toggle="modal" data-target="#letter">Letter Pad</button></td>
                                                             <td><button type="button" class="btn btn-success">Waiting for approval</button></td>
-                                                            <td><button type="button" class="btn btn-success">Approve</button>
-                                                            <button type="button" class="btn btn-danger">reject</button></td>
+                                                            <td><button type="button" class="btn btn-success infra_approve" value="<?php echo $row['id']; ?>">Approve</button>
+                                                            <button type="button" class="btn btn-danger infra_reject" value="<?php echo $row['id']; ?>">reject</button></td>
 
 
                                                             
@@ -583,6 +583,51 @@ $result = mysqli_query($conn, $query);
                     $('#p_name1').text(res.data.name);
                     $('#desc').text(res.data.description);
                     $('#date').text(res.data.raised_date);
+                }
+            }
+        })
+       })
+
+       $(document).on("click",".infra_approve", function(e){
+        e.preventDefault();
+        var user = $(this).val();
+        console.log(user);
+        $.ajax({
+            type:"POST",
+            url:"backend1.php",
+            data:{
+                infra_approve:true,
+                user_id:user
+            },
+            success:function(response){
+                var res = jQuery.parseJSON(response);
+                console.log(res);
+
+                if(res.status == 200){
+                    alert("Requirement Approved Sucessfully!!");
+                }
+            }
+        })
+       })
+
+       $(document).on('click',".infra_reject",function(e){
+        e.preventDefault();
+        var user = $(this).val();
+        console.log(user);
+
+        $.ajax({
+            type:"POST",
+            url:"testbackend.php",
+            data:{
+                infra_reject:true,
+                user : user
+            },
+            success:function(response){
+                var res = jQuery.parseJSON(response);
+                console.log(res);
+
+                if(res.status == 200){
+                    alert("Requirement Rejected Sucessfully!!");
                 }
             }
         })

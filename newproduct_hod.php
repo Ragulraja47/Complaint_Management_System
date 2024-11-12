@@ -294,8 +294,8 @@ $result = mysqli_query($conn, $query);
                                                             <td>
                                                             <button type="button" class="btn btn-primary letterpad" value="<?php echo $row['id'];?>" data-toggle="modal" data-target="#letter">Letter Pad</button></td>
                                                             <td><button type="button" class="btn btn-success">Waiting for approval</button></td>
-                                                            <td><button type="button" class="btn btn-info">Edit</button>
-                                                            <button type="button" class="btn btn-danger">Delete</button></td>
+                                                            <td><button type="button" class="btn btn-success hodapprove" value=<?php echo $row['id'];?> >Approve</button>
+                                                            <button type="button" class="btn btn-danger hodreject" value=<?php echo $row['id']; ?> >Reject</button></td>
 
 
                                                             
@@ -586,6 +586,30 @@ $result = mysqli_query($conn, $query);
                 }
             }
         })
+       })
+
+       $(document).on('click',".hodapprove",function(e){
+         e.preventDefault();
+         var user = $(this).val();
+         console.log(user);
+
+         $.ajax({
+            type:"POST",
+            url:"backend1.php",
+            data:{
+                hod_approve:true,
+                user:user
+            },
+            success:function(response){
+                var res = jQuery.parseJSON(response);
+                console.log(res);
+
+                if(res.status == 200){
+                    alert("Requiurement Accepted Sucessfully!!");
+                }
+            }
+
+         })
        })
     </script>
 </body>

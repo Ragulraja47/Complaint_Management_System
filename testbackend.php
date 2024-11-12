@@ -70,7 +70,7 @@ if (isset($_POST["reject_complaint"])) {
         if (mysqli_query($conn, $query)) {
             $res = [
                 'status' => 200,
-               
+
             ];
             echo json_encode($res);
         } else {
@@ -94,7 +94,7 @@ if (isset($_POST['accept_complaint'])) {
     $worker = $_POST['worker'];
 
 
-/*     $principal_approval = isset($_POST['principal_approval']) ? 6 : 7;
+    /*     $principal_approval = isset($_POST['principal_approval']) ? 6 : 7;
     $reason = isset($_POST['reason11']) ? $_POST['reason11'] : ''; */
     // Insert into manager table
     $insertQuery = "INSERT INTO manager (problem_id, worker_id, priority) VALUES ('$problem_id', '$worker', '$priority')";
@@ -103,7 +103,7 @@ if (isset($_POST['accept_complaint'])) {
         $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
         if (mysqli_query($conn, $updateQuery)) {
             $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
-          /*   $updateQuery7 = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason') ";
+            /*   $updateQuery7 = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason') ";
             if (mysqli_query($conn, $updateQuery7)) {
                 $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
             } else {
@@ -132,7 +132,7 @@ if (isset($_POST['id'])) {
     $stmt->close();
     // Return the feedback
     echo $feedback;
-} 
+}
 
 // Handle reply submission for principal's query
 if (isset($_POST['submit_comment_reply'])) {
@@ -188,7 +188,7 @@ if (isset($_POST['complaintfeed_id']) && isset($_POST['status'])) {
 
 if (isset($_POST['get_aimage'])) {
     // Get the problem_id from POST request
-    $problem_id = isset($_POST['problem2_id']) ? $_POST['problem2_id'] : ''; 
+    $problem_id = isset($_POST['problem2_id']) ? $_POST['problem2_id'] : '';
 
     // Validate problem_id
     if (empty($problem_id)) {
@@ -312,7 +312,7 @@ if (isset($_POST['facfeedview'])) {
 if (isset($_POST['principal_complaint'])) {
     $problem_id = $_POST['id'];
     $reason = $_POST['reason'];
-/*     $principal_approval = isset($_POST['principal_approval']) ? 6 : 7;
+    /*     $principal_approval = isset($_POST['principal_approval']) ? 6 : 7;
     $reason = isset($_POST['reason11']) ? $_POST['reason11'] : ''; */
     // Insert into manager table
     $insertQuery = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason')";
@@ -321,7 +321,7 @@ if (isset($_POST['principal_complaint'])) {
         $updateQuery = "UPDATE complaints_detail SET status='6' WHERE id='$problem_id'";
         if (mysqli_query($conn, $updateQuery)) {
             $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
-          /*   $updateQuery7 = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason') ";
+            /*   $updateQuery7 = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason') ";
             if (mysqli_query($conn, $updateQuery7)) {
                 $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
             } else {
@@ -337,20 +337,20 @@ if (isset($_POST['principal_complaint'])) {
 }
 
 
-if(isset($_POST["manager_approve"])){
-  $deadline = $_POST["deadline"];
-  $id = $_POST["problem_id"];
-  $query = "UPDATE complaints_detail SET days_to_complete='$deadline' , status='9' WHERE id= $id";
+if (isset($_POST["manager_approve"])) {
+    $deadline = $_POST["deadline"];
+    $id = $_POST["problem_id"];
+    $query = "UPDATE complaints_detail SET days_to_complete='$deadline' , status='9' WHERE id= $id";
 
-  if(mysqli_query($conn, $query)){
-    $res = [
-        "status" => 200,
-        "msg" => "complaint accepted sucessfully"
-    ];
-    echo json_encode($res);
-  }else{
-    echo 'Error updating status';
-  }
+    if (mysqli_query($conn, $query)) {
+        $res = [
+            "status" => 200,
+            "msg" => "complaint accepted sucessfully"
+        ];
+        echo json_encode($res);
+    } else {
+        echo 'Error updating status';
+    }
 }
 
 //reject reason from principal
@@ -408,4 +408,18 @@ if (isset($_POST['get_worker_phone'])) {
     }
 }
 
-?>
+//REquirement Reject
+
+if (isset($_POST["infra_reject"])) {
+    $id = $_POST["user"];
+
+    $query = "UPDATE products SET status = 6 WHERE id = '$id'";
+    $run = mysqli_query($conn, $query);
+    if ($run) {
+        $res = [
+            "status" => 200,
+            "msg" => "Product rejected successfully"
+        ];
+        echo json_encode($res);
+    }
+}
