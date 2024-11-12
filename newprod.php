@@ -296,7 +296,7 @@ $fac_dept = $row['department'];
                                                             <button type="button" class="btn btn-primary letterpad" value="<?php echo $row['id'];?>" data-toggle="modal" data-target="#letter">Letter Pad</button></td>
                                                             <td><button type="button" class="btn btn-success">Waiting for approval</button></td>
                                                             <td><button type="button" class="btn btn-info">Edit</button>
-                                                            <button type="button" class="btn btn-danger">Delete</button></td>
+                                                            <button type="button" class="btn btn-danger" id="deleteprod" value="<?php echo $row['id']; ?>">Delete</button></td>
 
 
                                                             
@@ -573,6 +573,30 @@ $fac_dept = $row['department'];
                     $('#p_name1').text(res.data.name);
                     $('#desc').text(res.data.description);
                     $('#date').text(res.data.raised_date);
+                }
+            }
+        })
+       });
+
+       $(document).on("click","#deleteprod",function(e){
+        e.preventDefault();
+        var prod_id = $(this).val();
+        console.log(prod_id);
+        $.ajax({
+            type:"POST",
+            url:"backend1.php",
+            data:{
+                delete:true,
+                prod_id:prod_id
+        },
+            success:function(response){
+                
+                var res  = jQuery.parseJSON(response);
+                if(res.status == 200){
+                    alert("Product Request Deleted");
+                }
+                else{
+                    alert("error");
                 }
             }
         })

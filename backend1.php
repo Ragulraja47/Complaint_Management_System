@@ -264,4 +264,29 @@ if(isset($_POST['hod_approve'])){
     }
 }
 
+if(isset($_POST['delete']))
+{
+    $id = $_POST['prod_id'];
+    $query = "DELETE FROM products WHERE id='$id'";
+    $run = mysqli_query($conn,$query);
+    
+        if($run){
+            $res=[
+                'status'=>200,
+                'message'=>"Inserted Successfully"
+            ];
+            echo json_encode($res);
+           
+        }
+    
+            else{
+                $res=[
+                    "status"=>500,
+                    "message"=>"Failed to delete"
+                ];
+                echo json_encode($res);
+            
+            }
+}
+
 ?>
