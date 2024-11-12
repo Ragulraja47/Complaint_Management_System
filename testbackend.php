@@ -423,3 +423,17 @@ if (isset($_POST["infra_reject"])) {
         echo json_encode($res);
     }
 }
+
+if (isset($_POST["hod_reject"])) {
+    $id = $_POST["user"];
+
+    $query = "UPDATE products SET status = 7 WHERE id = '$id'";
+    $run = mysqli_query($conn, $query);
+    if ($run) {
+        $res = [
+            "status" => 200,
+            "msg" => "Product rejected successfully"
+        ];
+        echo json_encode($res);
+    }
+}

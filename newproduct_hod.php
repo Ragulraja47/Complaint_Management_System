@@ -611,6 +611,32 @@ $result = mysqli_query($conn, $query);
 
          })
        })
+
+       $(document).on('click','.hodreject',function(e){
+        e.preventDefault();
+        var user = $(this).val();
+        console.log(user);
+
+        confirm('Are you sure you want to Reject this!!');
+
+        $.ajax({
+            type:"POST",
+            url:"testbackend.php",
+            data:{
+                hod_reject:true,
+                user:user
+            },
+            success:function(response){
+                var res = jQuery.parseJSON(response);
+                console.log(res);
+
+                if(res.status == 200){
+                    alert("Requierement Rejected Sucessfully!!");
+                }
+                
+            }
+        })
+       })
     </script>
 </body>
 <div scrible-ignore="" id="skribel_annotation_ignore_browserExtensionFlag" class="skribel_chromeExtension"
