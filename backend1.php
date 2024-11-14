@@ -314,4 +314,17 @@ if(isset($_POST['verify'])){
     }
 }
 
+if(isset($_POST['pverify'])){
+    $id = $_POST['id'];
+    $query = "UPDATE products SET letterstatus = '2' WHERE id='$id'";
+    $query_run = mysqli_query($conn,$query);
+    if($query_run){
+        $res=[
+            "status"=>200,
+            "message"=>"success"
+        ];
+        echo json_encode($res);
+    }
+}
+
 ?>
