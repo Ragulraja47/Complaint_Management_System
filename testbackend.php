@@ -410,10 +410,11 @@ if (isset($_POST['get_worker_phone'])) {
 
 //REquirement Reject
 
-if (isset($_POST["infra_reject"])) {
-    $id = $_POST["user"];
+if (isset($_POST["hod_reject"])) {
+    $id = $_POST["id"];
+    $reason = $_POST["feedback"];
 
-    $query = "UPDATE products SET status = 6 WHERE id = '$id'";
+    $query = "UPDATE products SET status = 7 , reason = '$reason' WHERE id = '$id'";
     $run = mysqli_query($conn, $query);
     if ($run) {
         $res = [
@@ -424,10 +425,11 @@ if (isset($_POST["infra_reject"])) {
     }
 }
 
-if (isset($_POST["hod_reject"])) {
-    $id = $_POST["user"];
+if (isset($_POST["infra_reject"])) {
+    $id = $_POST["id"];
+    $reason = $_POST["feedback"];
 
-    $query = "UPDATE products SET status = 7 WHERE id = '$id'";
+    $query = "UPDATE products SET status = 6 , reason = '$reason' WHERE id = '$id'";
     $run = mysqli_query($conn, $query);
     if ($run) {
         $res = [
