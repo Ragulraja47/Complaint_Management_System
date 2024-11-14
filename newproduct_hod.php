@@ -156,6 +156,15 @@ $result = mysqli_query($conn, $query);
         .spbutton:active {
             background-color: rgb(130, 0, 0);
         }
+        .verification-status {
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .status-icon {
+            font-size: 1.2em;
+            margin-right: 5px;
+        }
     </style>
 </head>
 
@@ -340,15 +349,15 @@ $result = mysqli_query($conn, $query);
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <p><strong><span id="f_name"><?php echo $fac_name; ?></span></strong><br>
-                            Infra Coordinator - <span id="dept"><?php echo $fac_dept; ?></span><br>
+                        <p><strong><span id="f_name"></span></strong><br>
+                            Infra Coordinator - <span id="dept"></span><br>
                             M.Kumarasamy College of Engineering,<br>
                             Karur.
                         </p>
 
                         <p>Through<br>
                             The Head of Department,<br>
-                            Department of <span id="dept"><?php echo $fac_dept; ?></span>,<br>
+                            Department of <span id="dept1"></span>,<br>
                             M.Kumarasamy College of Engineering,<br>
                             Karur.
                         </p>
@@ -361,25 +370,48 @@ $result = mysqli_query($conn, $query);
 
                         <p>Respected Sir,</p>
                         <p><strong>Sub: Requisition for <span id="p_name"></span> - reg.</strong></p>
-                        <p>We request you to kindly approve the purchase of a <span id="p_name1"></span> for our <span id="dept"><?php echo $fac_dept; ?></span> department as we are in need of it for <span id="desc"></span></p>
+                        <p>We request you to kindly approve the purchase of a <span id="p_name1"></span> for our <span id="dept2"></span> department as we are in need of it for <span id="desc"></span></p>
 
                         <p>Thanking you.</p>
                     </div>
 
-                    <div style=" margin-top: 30px;">
-                        <p style="text-align: left;">Manager</strong><br></p>
-                        <p style="text-align: right;"><strong>Principal</strong>
-                        </p>
+                    <div class="row" style="margin-top: 30px;">
+                        <div class="col text-left d-flex flex-column align-items-center">
+                            <span id="manager-signature" class="verification-status">
+                                <span class="status-icon border  p-3 d-flex justify-content-center align-items-center"
+                                    style="color: yellow; border: 2px solid yellow; width: 40px; height: 40px; font-size: 1.5em;">
+                                    &#x2753;
+                                </span>
+                                <br>
+                                <span>Verified by Manager</span>
+                            </span>
+                        </div>
+                        <div class="col text-right d-flex flex-column align-items-center">
+                            <span id="principal-signature" class="verification-status">
+                                <span class="status-icon border  p-3 d-flex justify-content-center align-items-center"
+                                    style="color: yellow; border: 2px solid yellow; width: 40px; height: 40px; font-size: 1.5em;">
+                                    &#x2753;
+                                </span>
+                                <br>
+                                <span>Verified by Principal</span>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="newprodmodal" tabindex="-1" role="dialog" aria-labelledby="newprodmodalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -604,6 +636,7 @@ $result = mysqli_query($conn, $query);
         $(document).on("click", ".letterpad", function(e) {
             e.preventDefault();
             var user_id = $(this).val();
+            let status = 0;
             console.log(user_id);
             $.ajax({
                 type: "POST",
@@ -621,10 +654,44 @@ $result = mysqli_query($conn, $query);
                         $('#p_name1').text(res.data.name);
                         $('#desc').text(res.data.description);
                         $('#date').text(res.data.raised_date);
+
+                        $('#f_name').text(res.data1.faculty_name);
+                        $('#dept').text(res.data1.department);
+                        $('#dept1').text(res.data1.department);
+                        $('#dept2').text(res.data1.department);
+                        $('#letterstatus').text(res.data.letterstatus);
+                        $("#verify_id").val(res.data.id);
+                        status = parseInt(res.data.letterstatus, 10);
+
+                        updateSignatures(status);
                     }
                 }
             })
         })
+
+        function updateSignatures(status) {
+            if (status === 1) {
+                document.getElementById("manager-signature").querySelector(".status-icon").innerHTML = "&#x2714;"; // Green checkmark
+                document.getElementById("manager-signature").querySelector(".status-icon").style.color = "green";
+                document.getElementById("principal-signature").querySelector(".status-icon").innerHTML = "&#x2753;";
+                document.getElementById("principal-signature").querySelector(".status-icon").style.color = "yellow";
+            } else if (status === 2) {
+                document.getElementById("manager-signature").querySelector(".status-icon").innerHTML = "&#x2714;"; // Green checkmark
+                document.getElementById("manager-signature").querySelector(".status-icon").style.color = "green";
+                document.getElementById("principal-signature").querySelector(".status-icon").innerHTML = "&#x2714;"; // Green checkmark
+                document.getElementById("principal-signature").querySelector(".status-icon").style.color = "green";
+            } else {
+                document.getElementById("manager-signature").querySelector(".status-icon").innerHTML = "&#x2753;";
+                document.getElementById("manager-signature").querySelector(".status-icon").style.color = "yellow";
+                document.getElementById("principal-signature").querySelector(".status-icon").innerHTML = "&#x2753;";
+                document.getElementById("principal-signature").querySelector(".status-icon").style.color = "yellow";
+            }
+        }
+
+        // Call the function when the modal loads or status updates
+        document.addEventListener("DOMContentLoaded", updateSignatures);
+   
+
 
         $(document).on('click', ".hodapprove", function(e) {
             e.preventDefault();
