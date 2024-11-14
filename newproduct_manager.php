@@ -13,19 +13,9 @@ include('db.php'); // Include the configuration file
 
 
 
-$query="SELECT * FROM products ";
+$query = "SELECT * FROM products ";
 //$query="SELECT * FROM products WHERE faculty_id = '$faculty_id'";
 $result = mysqli_query($conn, $query);
-$faculty_id = 1111111;
-$query1 = "SELECT * FROM faculty WHERE faculty_id = '$faculty_id'";
-
-$result1 = mysqli_query($conn, $query1);
-
-$row = mysqli_fetch_assoc($result1);
-
-$fac_name =  $row['faculty_name'];
-$fac_dept = $row['department'];
-
 ?>
 
 
@@ -158,6 +148,16 @@ $fac_dept = $row['department'];
         .spbutton:active {
             background-color: rgb(130, 0, 0);
         }
+
+        .verification-status {
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .status-icon {
+            font-size: 1.2em;
+            margin-right: 5px;
+        }
     </style>
 </head>
 
@@ -255,76 +255,78 @@ $fac_dept = $row['department'];
         </aside>
         <div class="page-wrapper">
             <div class="container-fluid">
-            <div class="card">
-                <h3>New Product Request</h3>
-                
-                <div class="tab-pane p-20" id="inprogress" role="tabpanel">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newprodmodal">
-  Add
-</button>
-<br><br>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="table-responsive">
-                                                <table id="producttable" class="table table-bordered table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="text-center"><b>S.No</b></th>
-                                                            <th class="text-center"><b>Product Name</b></th>
-                                                            <th class="text-center"><b>Quantity</b></th>
-                                                            <th class="text-center"><b>Block</b></th>
-                                                            <th class="text-center"><b>Venue</b></th>
-                                                            <th class="text-center"><b>Expected Date for Receiving</b></th>
-                                                            <th class="text-center"><b>Letter Pad</b></th>
-                                                            <th class="text-center"><b>Status</b></th>
-                                                            <th class="text-center"><b>Action</b></th>
+                <div class="card">
+                    <h3>New Product Request</h3>
 
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                        
-                                                            $count = 1;
-                                                            while($row=mysqli_fetch_array($result)){
-                                                        ?>
-                                                        <tr>
-                                                            <td><?php echo $count++;?></td>
-                                                            <td><?php echo $row['name'];?></td>
-                                                            <td><?php echo $row['quantity'];?></td>
-                                                            <td><?php echo $row['block'];?></td>
-                                                            <td><?php echo $row['venue'];?></td>
-                                                            <td><?php echo $row['date'];?></td>
-                                                            <td>
-                                                            <button type="button" class="btn btn-primary letterpad" value="<?php echo $row['id'];?>" data-toggle="modal" data-target="#letter">Letter Pad</button></td>
-                                                            <td><button type="button" class="btn btn-success">Waiting for approval</button></td>
-                                                            <td><button type="button" class="btn btn-info">Edit</button>
-                                                            <button type="button" class="btn btn-danger">Delete</button></td>
+                    <div class="tab-pane p-20" id="inprogress" role="tabpanel">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newprodmodal">
+                            Add
+                        </button>
+                        <br><br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table id="producttable" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center"><b>S.No</b></th>
+                                                <th class="text-center"><b>Product Name</b></th>
+                                                <th class="text-center"><b>Quantity</b></th>
+                                                <th class="text-center"><b>Block</b></th>
+                                                <th class="text-center"><b>Venue</b></th>
+                                                <th class="text-center"><b>Expected Date for Receiving</b></th>
+                                                <th class="text-center"><b>Letter Pad</b></th>
+                                                <th class="text-center"><b>Status</b></th>
+                                                <th class="text-center"><b>Action</b></th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+
+                                            $count = 1;
+                                            while ($row = mysqli_fetch_array($result)) {
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $count++; ?></td>
+                                                    <td><?php echo $row['name']; ?></td>
+                                                    <td><?php echo $row['quantity']; ?></td>
+                                                    <td><?php echo $row['block']; ?></td>
+                                                    <td><?php echo $row['venue']; ?></td>
+                                                    <td><?php echo $row['date']; ?></td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary letterpad" value="<?php echo $row['id']; ?>" data-toggle="modal" data-target="#letter">Letter Pad</button>
+                                                    </td>
+                                                    <td><button type="button" class="btn btn-success">Waiting for approval</button></td>
+                                                    <td><button type="button" class="btn btn-info">Edit</button>
+                                                        <button type="button" class="btn btn-danger">Delete</button>
+                                                    </td>
 
 
-                                                            
-                                                            </tr>
-                                                            <?php
-                                                            }?>
-                                                       
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                                                </tr>
+                                            <?php
+                                            } ?>
+
+                                        </tbody>
+                                    </table>
                                 </div>
-                             
+                            </div>
+                        </div>
+                    </div>
 
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+        <!--pending work modal end -->
 
     </div>
-                
-                                                           
-                                        </div>
-                                    </div>
-                            
-                                    <!--pending work modal end -->
-
-                                    </div>
-                                    <div class="modal fade" id="letter" tabindex="-1" role="dialog" aria-labelledby="letter" aria-hidden="true">
+    <div class="modal fade" id="letter" tabindex="-1" role="dialog" aria-labelledby="letter" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -339,108 +341,125 @@ $fac_dept = $row['department'];
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <p><strong><span id="f_name"><?php echo $fac_name; ?></span></strong><br>
-                        Infra Coordinator - <span id="dept"><?php echo $fac_dept; ?></span><br>
-                        M.Kumarasamy College of Engineering,<br>
-                        Karur.
+                        <p><strong><span id="f_name"></span></strong><br>
+                            Infra Coordinator - <span id="dept"></span><br>
+                            M.Kumarasamy College of Engineering,<br>
+                            Karur.
                         </p>
 
                         <p>Through<br>
-                        The Head of Department,<br>
-                        Department of <span id="dept"><?php echo $fac_dept; ?></span>,<br>
-                        M.Kumarasamy College of Engineering,<br>
-                        Karur.
+                            The Head of Department,<br>
+                            Department of <span id="dept1"></span>,<br>
+                            M.Kumarasamy College of Engineering,<br>
+                            Karur.
                         </p>
 
                         <p>To<br>
-                        The Principal,<br>
-                        M.Kumarasamy College of Engineering,<br>
-                        Karur.
+                            The Principal,<br>
+                            M.Kumarasamy College of Engineering,<br>
+                            Karur.
                         </p>
 
                         <p>Respected Sir,</p>
                         <p><strong>Sub: Requisition for <span id="p_name"></span> - reg.</strong></p>
-                        <p>We request you to kindly approve the purchase of a <span id="p_name1"></span> for our <span id="dept"><?php echo $fac_dept; ?></span> department as we are in need of it for <span id="desc"></span></p>
+                        <p>We request you to kindly approve the purchase of a <span id="p_name1"></span> for our <span id="dept2"></span> department as we are in need of it for <span id="desc"></span></p>
 
                         <p>Thanking you.</p>
                     </div>
 
-                    <div style=" margin-top: 30px;">
-                        <p style="text-align: left;">Manager</strong><br></p>
-                        <p style="text-align: right;"><strong>Principal</strong>
-                        </p>
+                    <div class="row" style="margin-top: 30px;">
+                        <div class="col text-left d-flex flex-column align-items-center">
+                            <span id="manager-signature" class="verification-status">
+                                <span class="status-icon border  p-3 d-flex justify-content-center align-items-center"
+                                    style="color: yellow; border: 2px solid yellow; width: 40px; height: 40px; font-size: 1.5em;">
+                                    &#x2753;
+                                </span>
+                                <br>
+                                <span>Verified by Manager</span>
+                            </span>
+                        </div>
+                        <div class="col text-right d-flex flex-column align-items-center">
+                            <span id="principal-signature" class="verification-status">
+                                <span class="status-icon border  p-3 d-flex justify-content-center align-items-center"
+                                    style="color: yellow; border: 2px solid yellow; width: 40px; height: 40px; font-size: 1.5em;">
+                                    &#x2753;
+                                </span>
+                                <br>
+                                <span>Verified by Principal</span>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button"  id="verify_id"  class="btn btn-success verify">Verify</button>
                 </div>
             </div>
         </div>
     </div>
-                                    <div class="modal fade" id="newprodmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Product Details</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="newprod">
-        <div class="d-flex flex-column">
-          <div class="input-group input-group-lg mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-lg">Product Name</span>
+    <div class="modal fade" id="newprodmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Product Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newprod">
+                        <div class="d-flex flex-column">
+                            <div class="input-group input-group-lg mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-lg">Product Name</span>
+                                </div>
+                                <input type="text" name="prod_name" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                            <div class="input-group input-group-lg mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-lg">Product Quantity</span>
+                                </div>
+                                <input type="text" name="quantity" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                            <div class="input-group input-group-lg mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-lg">Need for Product</span>
+                                </div>
+                                <input type="text" name="desc" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                            <div class="input-group input-group-lg mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-lg">Block</span>
+                                </div>
+                                <input type="text" name="block" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                            <div class="input-group input-group-lg mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-lg">Venue</span>
+                                </div>
+                                <input type="text" name="venue" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                            <div class="input-group input-group-lg mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-lg">Expected Date</span>
+                                </div>
+                                <input type="date" name="date" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
             </div>
-            <input type="text" name="prod_name" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
-          </div>
-          <div class="input-group input-group-lg mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-lg">Product Quantity</span>
-            </div>
-            <input type="text" name="quantity" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
-          </div>
-          <div class="input-group input-group-lg mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-lg">Need for Product</span>
-            </div>
-            <input type="text" name="desc" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
-          </div>
-          <div class="input-group input-group-lg mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-lg">Block</span>
-            </div>
-            <input type="text" name="block" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
-          </div>
-          <div class="input-group input-group-lg mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-lg">Venue</span>
-            </div>
-            <input type="text" name="venue" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
-          </div>
-          <div class="input-group input-group-lg mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-lg">Expected Date</span>
-            </div>
-            <input type="date" name="date" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
-          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Add</button>
-      </div>
     </div>
-  </div>
-    </div>  
 
-</div>
-        <footer class="footer text-center">
-            <b> 2024 © M.Kumarasamy College of Engineering All Rights Reserved.
-                <br> Developed and Maintained by Technology Innovation Hub</b>.
-        </footer>
+    </div>
+    <footer class="footer text-center">
+        <b> 2024 © M.Kumarasamy College of Engineering All Rights Reserved.
+            <br> Developed and Maintained by Technology Innovation Hub</b>.
+    </footer>
     </div>
 
 
@@ -493,15 +512,14 @@ $fac_dept = $row['department'];
 
 
         $('input[id="yes"]').on('change', function() {
-        if ($(this).is(':checked')) {
-            $('#formbtn').show();
-        } 
-        else{
-            $('#formbtn').hide();
+            if ($(this).is(':checked')) {
+                $('#formbtn').show();
+            } else {
+                $('#formbtn').hide();
 
 
-        }
-    });
+            }
+        });
     </script>
 
 
@@ -527,69 +545,128 @@ $fac_dept = $row['department'];
         // DataTables
         $(document).ready(function() {
             $('#producttable').DataTable();
-        
+
         });
     </script>
 
 
     <script>
-       $(document).on("submit","#newprod",function(e){
-        e.preventDefault();
-        var form = new FormData(this);
-        console.log(form);
-        form.append("add",true);
+        $(document).on("submit", "#newprod", function(e) {
+            e.preventDefault();
+            var form = new FormData(this);
+            console.log(form);
+            form.append("add", true);
             $.ajax({
-                type:"POST",
-                url:"backend1.php",
-                data:form,
-                processData:false,
-                contentType:false,
-                success:function(response){
+                type: "POST",
+                url: "backend1.php",
+                data: form,
+                processData: false,
+                contentType: false,
+                success: function(response) {
                     var res = jQuery.parseJSON(response);
 
-                    if(res.status==200){
+                    if (res.status == 200) {
                         alert("product request success");
                         $("#newprod")[0].reset();
                         $("#newprodmodal").modal("hide");
 
                         $("#producttable").load(location.href + " #producttable");
-                        
+
 
 
 
 
                     }
                 }
-            
+
+            })
         })
-       })
 
 
-       /*Letter Pad*/
-       $(document).on("click",".letterpad",function(e){
-        e.preventDefault();
-        var user_id=$(this).val();
-        console.log(user_id);
-        $.ajax({
-            type:"POST",
-            url:"backend1.php",
-            data:{
-                letterpad:true,
-                user_id:user_id
-            },
-            success:function(response){
-                var res = jQuery.parseJSON(response);
-                console.log(res);
+        /*Letter Pad*/
+        $(document).on("click", ".letterpad", function(e) {
+            e.preventDefault();
+            var user_id = $(this).val();
+            /* var leterr_status = $("#letter_id").val(user_id); */
+            let status = 0;
+            console.log(user_id);
+            $.ajax({
+                type: "POST",
+                url: "backend1.php",
+                data: {
+                    letterpad: true,
+                    user_id: user_id
+                },
+                success: function(response) {
+                    var res = jQuery.parseJSON(response);
+                    console.log(res);
 
-                if(res.status == 200){
-                    $('#p_name').text(res.data.name);
-                    $('#p_name1').text(res.data.name);
-                    $('#desc').text(res.data.description);
-                    $('#date').text(res.data.raised_date);
+                    if (res.status == 200) {
+                        $('#p_name').text(res.data.name);
+                        $('#p_name1').text(res.data.name);
+                        $('#desc').text(res.data.description);
+                        $('#date').text(res.data.raised_date);
+
+                        $('#f_name').text(res.data1.faculty_name);
+                        $('#dept').text(res.data1.department);
+                        $('#dept1').text(res.data1.department);
+                        $('#dept2').text(res.data1.department);
+                        $('#letterstatus').text(res.data.letterstatus);
+                        $("#verify_id").val(res.data.id);
+                        status = parseInt(res.data.letterstatus, 10);
+
+                        updateSignatures(status);
+                    }
                 }
-            }
+            })
+        });
+
+        $(document).on("click",".verify",function(e){
+            e.preventDefault();
+            var id = $(this).val();
+            console.log(id);
+            $.ajax({
+                type:"POST",
+                url:"backend1.php",
+                data:{
+                    verify:true,
+                    id:id
+                },
+                success:function(response){
+                    var res = jQuery.parseJSON(response);
+                    if(res.status == 200){
+                        alert("verified");
+                    }
+                }
+            })
         })
-       })
+
+
+        /*  var status = 1;
+         console.log(status); */
+
+
+        function updateSignatures(status) {
+            if (status === 1) {
+                document.getElementById("manager-signature").querySelector(".status-icon").innerHTML = "&#x2714;"; // Green checkmark
+                document.getElementById("manager-signature").querySelector(".status-icon").style.color = "green";
+                document.getElementById("principal-signature").querySelector(".status-icon").innerHTML = "&#x2753;";
+                document.getElementById("principal-signature").querySelector(".status-icon").style.color = "yellow";
+            } else if (status === 2) {
+                document.getElementById("manager-signature").querySelector(".status-icon").innerHTML = "&#x2714;"; // Green checkmark
+                document.getElementById("manager-signature").querySelector(".status-icon").style.color = "green";
+                document.getElementById("principal-signature").querySelector(".status-icon").innerHTML = "&#x2714;"; // Green checkmark
+                document.getElementById("principal-signature").querySelector(".status-icon").style.color = "green";
+            } else {
+                document.getElementById("manager-signature").querySelector(".status-icon").innerHTML = "&#x2753;";
+                document.getElementById("manager-signature").querySelector(".status-icon").style.color = "yellow";
+                document.getElementById("principal-signature").querySelector(".status-icon").innerHTML = "&#x2753;";
+                document.getElementById("principal-signature").querySelector(".status-icon").style.color = "yellow";
+            }
+        }
+
+        // Call the function when the modal loads or status updates
+        document.addEventListener("DOMContentLoaded", updateSignatures);
     </script>
 </body>
 <div scrible-ignore="" id="skribel_annotation_ignore_browserExtensionFlag" class="skribel_chromeExtension"

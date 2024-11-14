@@ -215,15 +215,27 @@ if(isset($_POST['letterpad'])){
 
     $req_id = $_POST['user_id'];
     $query = "SELECT * FROM products WHERE id = '$req_id'";
+    $query1 = "SELECT faculty_id from products WHERE id='$req_id'";
+    $query_run1 = mysqli_query($conn, $query1);
+    $User_data2= mysqli_fetch_array($query_run1);
+
+    $name = $User_data2['faculty_id'];
+
+    $query2 = "SELECT * FROM faculty WHERE faculty_id='$name'";
+    $query_run2 = mysqli_query($conn, $query2);
+
 
     $query_run = mysqli_query($conn, $query);
     $User_data = mysqli_fetch_array($query_run);
+    $User_data1 = mysqli_fetch_array($query_run2);
+
 
     if($query_run){
         $res=[
             'status'=>200,
             'message'=>"Data fetched Successfully",
-            'data'=>$User_data
+            'data'=>$User_data,
+            'data1'=>$User_data1,
         ];
         echo json_encode($res);
         return;
@@ -287,6 +299,19 @@ if(isset($_POST['delete']))
                 echo json_encode($res);
             
             }
+}
+
+if(isset($_POST['verify'])){
+    $id = $_POST['id'];
+    $query = "UPDATE products SET letterstatus = '1' WHERE id='$id'";
+    $query_run = mysqli_query($conn,$query);
+    if($query_run){
+        $res=[
+            "status"=>200,
+            "message"=>"success"
+        ];
+        echo json_encode($res);
+    }
 }
 
 ?>

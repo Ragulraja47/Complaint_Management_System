@@ -158,15 +158,14 @@ $result = mysqli_query($conn, $query);
         }
 
         .verification-status {
-    font-weight: bold;
-    font-size: 1em;
-}
+            font-weight: bold;
+            font-size: 1em;
+        }
 
-.status-icon {
-    font-size: 1.2em;
-    margin-right: 5px;
-}
-
+        .status-icon {
+            font-size: 1.2em;
+            margin-right: 5px;
+        }
     </style>
 </head>
 
@@ -377,24 +376,33 @@ $result = mysqli_query($conn, $query);
                         <p>Thanking you.</p>
                     </div>
 
-                    <div style="margin-top: 30px;">
-                        <p style="text-align: left;">
+                    <div class="row" style="margin-top: 30px;">
+                        <div class="col text-left d-flex flex-column align-items-center">
                             <span id="manager-signature" class="verification-status">
-                                <span class="status-icon" style="color: yellow;">&#x2753;</span>
+                                <span class="status-icon border  p-3 d-flex justify-content-center align-items-center"
+                                    style="color: yellow; border: 2px solid yellow; width: 40px; height: 40px; font-size: 1.5em;">
+                                    &#x2753;
+                                </span>
+                                <br>
                                 <span>Verified by Manager</span>
                             </span>
-                        </p>
-                        <p style="text-align: right;">
+                        </div>
+                        <div class="col text-right d-flex flex-column align-items-center">
                             <span id="principal-signature" class="verification-status">
-                                <span class="status-icon" style="color: yellow;">&#x2753;</span>
+                                <span class="status-icon border  p-3 d-flex justify-content-center align-items-center"
+                                    style="color: yellow; border: 2px solid yellow; width: 40px; height: 40px; font-size: 1.5em;">
+                                    &#x2753;
+                                </span>
+                                <br>
                                 <span>Verified by Principal</span>
                             </span>
-                        </p>
+                        </div>
                     </div>
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -699,32 +707,34 @@ $result = mysqli_query($conn, $query);
 
 
 
-        // Assuming you fetch `status` from your database
-let status = 9; // Example status; adjust this based on actual status
 
-// Function to update the signature icons based on status
-function updateSignatures() {
-    if (status === 9) {
-        // Manager verified
-        document.getElementById("manager-signature").querySelector(".status-icon").innerHTML = "&#x2714;"; // Green checkmark
-        document.getElementById("manager-signature").querySelector(".status-icon").style.color = "green";
-        
-        // Principal verified (add similar logic here if necessary)
-        document.getElementById("principal-signature").querySelector(".status-icon").innerHTML = "&#x2714;"; // Green checkmark
-        document.getElementById("principal-signature").querySelector(".status-icon").style.color = "green";
-    } else {
-        // Default state with yellow question mark if not verified
-        document.getElementById("manager-signature").querySelector(".status-icon").innerHTML = "&#x2753;";
-        document.getElementById("manager-signature").querySelector(".status-icon").style.color = "yellow";
-        
-        document.getElementById("principal-signature").querySelector(".status-icon").innerHTML = "&#x2753;";
-        document.getElementById("principal-signature").querySelector(".status-icon").style.color = "yellow";
-    }
-}
+        let status = 0;
 
-// Call the function when the modal loads or status updates
-document.addEventListener("DOMContentLoaded", updateSignatures);
+        function updateSignatures() {
+            if (status === 1) {
 
+                document.getElementById("manager-signature").querySelector(".status-icon").innerHTML = "&#x2714;"; // Green checkmark
+                document.getElementById("manager-signature").querySelector(".status-icon").style.color = "green";
+                document.getElementById("principal-signature").querySelector(".status-icon").innerHTML = "&#x2753;";
+                document.getElementById("principal-signature").querySelector(".status-icon").style.color = "yellow";
+            } else if (status == 2) {
+
+                document.getElementById("manager-signature").querySelector(".status-icon").innerHTML = "&#x2714;"; // Green checkmark
+                document.getElementById("manager-signature").querySelector(".status-icon").style.color = "green";
+                document.getElementById("principal-signature").querySelector(".status-icon").innerHTML = "&#x2714;"; // Green checkmark
+                document.getElementById("principal-signature").querySelector(".status-icon").style.color = "green";
+            } else {
+
+                document.getElementById("manager-signature").querySelector(".status-icon").innerHTML = "&#x2753;";
+                document.getElementById("manager-signature").querySelector(".status-icon").style.color = "yellow";
+
+                document.getElementById("principal-signature").querySelector(".status-icon").innerHTML = "&#x2753;";
+                document.getElementById("principal-signature").querySelector(".status-icon").style.color = "yellow";
+            }
+        }
+
+        // Call the function when the modal loads or status updates
+        document.addEventListener("DOMContentLoaded", updateSignatures);
     </script>
 </body>
 <div scrible-ignore="" id="skribel_annotation_ignore_browserExtensionFlag" class="skribel_chromeExtension"
