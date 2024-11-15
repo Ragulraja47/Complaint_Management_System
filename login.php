@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["worker_id"] = $worker_id;
         $success_flag = true; // Set the success flag for SweetAlert
 
-        if ($row["usertype"] == "user") {
+        if ($row["usertype"] == "head") {
             // Delay redirect to show SweetAlert
             echo "<script>
                     setTimeout(function() {

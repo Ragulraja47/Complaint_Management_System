@@ -1,39 +1,57 @@
 <?php
-// Database connection
 include('db.php');
+
+// Database connection
+session_start();
+
+if (isset($_SESSION['worker_id'])) {
+    $worker_id = $_SESSION['worker_id'];
+   
+} else {
+    die("Couldn't find department in session.");
+}
+
+$qry = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
+$qry_run = mysqli_query($conn,$qry);
+$srow  = mysqli_fetch_array($qry_run);
+$dept = $srow['worker_dept'];
+
+
+
 
 // Prepare and execute the query to filter by department
 //New task query
-
-$sql = "SELECT 
-    cd.id,
-    cd.faculty_id,
-    faculty.faculty_name,
-    faculty.department,
-    faculty.faculty_contact,
-    faculty.faculty_mail,
-    cd.block_venue,
-    cd.venue_name,
-    cd.type_of_problem,
-    cd.problem_description,
-    cd.images,
-    cd.date_of_reg,
-    cd.days_to_complete,
-    cd.task_completion,
-    cd.status,
-    cd.feedback,
-    m.task_id,
-    m.priority
-FROM 
-    complaints_detail AS cd
-JOIN 
-    manager AS m ON cd.id = m.problem_id
-JOIN 
-    faculty ON cd.faculty_id = faculty.faculty_id
-WHERE 
-        (m.worker_id  LIKE 'PLU%')
-AND 
-    cd.status = '7'";
+$sql = "
+    SELECT 
+        cd.id,
+        cd.faculty_id,
+        faculty.faculty_name,
+        faculty.department,
+        faculty.faculty_contact,
+        faculty.faculty_mail,
+        cd.block_venue,
+        cd.venue_name,
+        cd.type_of_problem,
+        cd.problem_description,
+        cd.images,
+        cd.date_of_reg,
+        cd.days_to_complete,
+        cd.task_completion,
+        cd.status,
+        cd.feedback,
+        m.task_id,
+        m.priority
+    FROM 
+        complaints_detail AS cd
+    JOIN 
+        manager AS m ON cd.id = m.problem_id
+    JOIN 
+        faculty ON cd.faculty_id = faculty.faculty_id
+    WHERE 
+        (m.worker_dept='$dept')
+    AND 
+        cd.status = '7'
+";
 
 // Filter by department
 $stmt = $conn->prepare($sql);
@@ -45,35 +63,37 @@ $newcount = mysqli_num_rows($result);
 
 
 //inprogress query
-$sql1 = "SELECT 
-    cd.id,
-    cd.faculty_id,
-    faculty.faculty_name,
-    faculty.department,
-    faculty.faculty_contact,
-    faculty.faculty_mail,
-    cd.block_venue,
-    cd.venue_name,
-    cd.type_of_problem,
-    cd.problem_description,
-    cd.images,
-    cd.date_of_reg,
-    cd.days_to_complete,
-    cd.task_completion,
-    cd.status,
-    cd.feedback,
-    m.task_id,
-    m.priority
-FROM 
-    complaints_detail AS cd
-JOIN 
-    manager AS m ON cd.id = m.problem_id
-JOIN 
-    faculty ON cd.faculty_id = faculty.faculty_id
-WHERE 
-        (m.worker_id  LIKE 'PLU%')
-AND 
-    cd.status = '10'";
+$sql1 = "
+    SELECT 
+        cd.id,
+        cd.faculty_id,
+        faculty.faculty_name,
+        faculty.department,
+        faculty.faculty_contact,
+        faculty.faculty_mail,
+        cd.block_venue,
+        cd.venue_name,
+        cd.type_of_problem,
+        cd.problem_description,
+        cd.images,
+        cd.date_of_reg,
+        cd.days_to_complete,
+        cd.task_completion,
+        cd.status,
+        cd.feedback,
+        m.task_id,
+        m.priority
+    FROM 
+        complaints_detail AS cd
+    JOIN 
+        manager AS m ON cd.id = m.problem_id
+    JOIN 
+        faculty ON cd.faculty_id = faculty.faculty_id
+    WHERE 
+        (m.worker_dept='$dept')
+    AND 
+        cd.status = '10'
+";
 
 // Filter by department
 $stmt = $conn->prepare($sql1);
@@ -83,36 +103,38 @@ $progcount = mysqli_num_rows($result1);
 
 
 //waiting for approval query
-$sql2 = "SELECT 
-    cd.id,
-    cd.faculty_id,
-    faculty.faculty_name,
-    faculty.department,
-    faculty.faculty_contact,
-    faculty.faculty_mail,
-    cd.block_venue,
-    cd.venue_name,
-    cd.type_of_problem,
-    cd.problem_description,
-    cd.images,
-    cd.date_of_reg,
-    cd.days_to_complete,
-    cd.task_completion,
-    cd.status,
-    cd.reason,
-    cd.feedback,
-    m.task_id,
-    m.priority
-FROM 
-    complaints_detail AS cd
-JOIN 
-    manager AS m ON cd.id = m.problem_id
-JOIN 
-    faculty ON cd.faculty_id = faculty.faculty_id
-WHERE 
-        (m.worker_id  LIKE 'PLU%')
-AND 
-    (cd.status = '11' OR cd.status = '18')";
+$sql2 = "
+    SELECT 
+        cd.id,
+        cd.faculty_id,
+        faculty.faculty_name,
+        faculty.department,
+        faculty.faculty_contact,
+        faculty.faculty_mail,
+        cd.block_venue,
+        cd.venue_name,
+        cd.type_of_problem,
+        cd.problem_description,
+        cd.images,
+        cd.date_of_reg,
+        cd.days_to_complete,
+        cd.task_completion,
+        cd.status,
+        cd.reason,
+        cd.feedback,
+        m.task_id,
+        m.priority
+    FROM 
+        complaints_detail AS cd
+    JOIN 
+        manager AS m ON cd.id = m.problem_id
+    JOIN 
+        faculty ON cd.faculty_id = faculty.faculty_id
+    WHERE 
+        (m.worker_dept='$dept')
+    AND 
+        (cd.status = '11' OR cd.status = '18')
+";
 
 // Filter by department
 $stmt = $conn->prepare($sql2);
@@ -122,36 +144,38 @@ $waitcount = mysqli_num_rows($result2);
 
 
 //completed query
-$sql3 = "SELECT 
-    cd.id,
-    cd.faculty_id,
-    faculty.faculty_name,
-    faculty.department,
-    faculty.faculty_contact,
-    faculty.faculty_mail,
-    cd.block_venue,
-    cd.venue_name,
-    cd.type_of_problem,
-    cd.problem_description,
-    cd.images,
-    cd.date_of_reg,
-    cd.days_to_complete,
-    cd.task_completion,
-    cd.date_of_completion,
-    cd.status,
-    cd.feedback,
-    m.task_id,
-    m.priority
-FROM 
-    complaints_detail AS cd
-JOIN 
-    manager AS m ON cd.id = m.problem_id
-JOIN 
-    faculty ON cd.faculty_id = faculty.faculty_id
-WHERE 
-        (m.worker_id  LIKE 'PLU%')
-AND 
-    cd.status = '16'";
+$sql3 = "
+    SELECT 
+        cd.id,
+        cd.faculty_id,
+        faculty.faculty_name,
+        faculty.department,
+        faculty.faculty_contact,
+        faculty.faculty_mail,
+        cd.block_venue,
+        cd.venue_name,
+        cd.type_of_problem,
+        cd.problem_description,
+        cd.images,
+        cd.date_of_reg,
+        cd.days_to_complete,
+        cd.task_completion,
+        cd.date_of_completion,
+        cd.status,
+        cd.feedback,
+        m.task_id,
+        m.priority
+    FROM 
+        complaints_detail AS cd
+    JOIN 
+        manager AS m ON cd.id = m.problem_id
+    JOIN 
+        faculty ON cd.faculty_id = faculty.faculty_id
+    WHERE 
+        (m.worker_dept='$dept')
+    AND 
+        cd.status = '16'
+";
 
 // Filter by department
 $stmt = $conn->prepare($sql3);
@@ -161,36 +185,39 @@ $compcount = mysqli_num_rows($result3);
 
 
 //not approved query
-$sql4 = "SELECT 
-    cd.id,
-    cd.faculty_id,
-    faculty.faculty_name,
-    faculty.department,
-    faculty.faculty_contact,
-    faculty.faculty_mail,
-    cd.block_venue,
-    cd.venue_name,
-    cd.type_of_problem,
-    cd.problem_description,
-    cd.images,
-    cd.date_of_reg,
-    cd.days_to_complete,
-    cd.task_completion,
-    cd.date_of_completion,
-    cd.status,
-    cd.feedback,
-    m.task_id,
-    m.priority
-FROM 
-    complaints_detail AS cd
-JOIN 
-    manager AS m ON cd.id = m.problem_id
-JOIN 
-    faculty ON cd.faculty_id = faculty.faculty_id
-WHERE 
-        (m.worker_id  LIKE 'PLU%')
-AND 
-    cd.status = '15'";
+$sql4 = "
+    SELECT 
+        cd.id,
+        cd.faculty_id,
+        faculty.faculty_name,
+        faculty.department,
+        faculty.faculty_contact,
+        faculty.faculty_mail,
+        cd.block_venue,
+        cd.venue_name,
+        cd.type_of_problem,
+        cd.problem_description,
+        cd.images,
+        cd.date_of_reg,
+        cd.days_to_complete,
+        cd.task_completion,
+        cd.date_of_completion,
+        cd.status,
+        cd.feedback,
+        m.task_id,
+        m.priority
+    FROM 
+        complaints_detail AS cd
+    JOIN 
+        manager AS m ON cd.id = m.problem_id
+    JOIN 
+        faculty ON cd.faculty_id = faculty.faculty_id
+    WHERE 
+        (m.worker_dept='$dept')
+    AND 
+        cd.status = '15'
+";
+
 
 // Filter by department
 $stmt = $conn->prepare($sql4);
@@ -242,6 +269,9 @@ $c6 = mysqli_num_rows($r6);
 
 
 
+
+
+
 //count for side bar ends
 
 ?>
@@ -261,7 +291,7 @@ $c6 = mysqli_num_rows($r6);
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-    <title>Plumbing</title>
+    <title>CIVIL</title>
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -374,15 +404,9 @@ $c6 = mysqli_num_rows($r6);
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                 <ul id="sidebarnav" class="p-t-30">
-                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
-                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
-
-                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="civil.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CIVIL(<?php echo $c1; ?>)</span></a></li>
-                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="carpenter.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CARPENTER(<?php echo $c2; ?>)</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="electrical.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">ELECTRICAL(<?php echo $c3; ?>)</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="infra.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">IT INFRA(<?php echo $c4; ?>)</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="partition.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PARTITION(<?php echo $c5; ?>)</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="plumbing.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PLUMBING(<?php echo $c6; ?>)</span></a></li>
+                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="workall.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu"><?php echo $srow['worker_dept'] ?></span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -403,12 +427,12 @@ $c6 = mysqli_num_rows($r6);
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Plumbing</h4>
+                        <h4 class="page-title">CIVIL</h4>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Plumbing</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Civil</li>
                                 </ol>
                             </nav>
                         </div>
@@ -428,7 +452,8 @@ $c6 = mysqli_num_rows($r6);
                 <div class="row">
                     <div class="col-md-12">
 
-                        
+                        <!-- Tabs -->
+                       
                         <!-- Tabs -->
                         <div class="card" >
                             <div id="navref">
@@ -507,7 +532,7 @@ $c6 = mysqli_num_rows($r6);
                                                         echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
                                                     ?>
                                                         <td class='text-center'>
-                                                        <button type='button' class='btn btn margin-5 view-complaint
+                                                            <button type='button' class='btn btn margin-5 view-complaint
                                                             '
                                                                 data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                 <i class="fas fa-eye" style="font-size: 25px;"></i>
@@ -700,7 +725,7 @@ $c6 = mysqli_num_rows($r6);
                                                                     echo "<td class='text-center'>" . htmlspecialchars($row['priority']) . "</td>";
                                                                     ?>
                                                                     <td class='text-center'>
-                                                                        <button type='button' class='btn margin-5 showbeforeimg'
+                                                                        <button type='button' class='btn  margin-5 showbeforeimg'
                                                                             data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                             <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                         </button>
@@ -955,7 +980,7 @@ $c6 = mysqli_num_rows($r6);
                                                                 </button>
 
                                                                 <!-- Align the second button to the right -->
-                                                                <button type="button" class="btn showImage"
+                                                                <button type="button" class="btn I"
                                                                     style="margin-left:-12px;" data-toggle="modal"
                                                                     data-target="#Modal4" data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
@@ -1020,7 +1045,6 @@ $c6 = mysqli_num_rows($r6);
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-md" role="document">
         <div class="modal-content" style="border-radius: 8px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); background-color: #f9f9f9;">
@@ -1091,6 +1115,8 @@ $c6 = mysqli_num_rows($r6);
         </div>
     </div>
 </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -1149,6 +1175,7 @@ $c6 = mysqli_num_rows($r6);
     <script src="dist/js/custom.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script>
+
 $(function() {
                 // Initialize the tooltip
                 $('[data-toggle="tooltip"]').tooltip();
@@ -1171,6 +1198,8 @@ $(function() {
                     title: 'Before'
                 });
             });
+
+            
 
             $(function() {
                 // Initialize the tooltip
@@ -1390,6 +1419,14 @@ $('#ref1').load(location.href + " #ref1");
 
                 // Refresh specific sections dynamically
                 setTimeout(function() {
+                    $('#ref1').load(location.href + " #ref1");
+                            $('#ref2').load(location.href + " #ref2");
+
+                            $('#ref3').load(location.href + " #ref3");
+
+                            $('#ref4').load(location.href + " #ref4");
+
+                            $('#ref5').load(location.href + " #ref5");
                     $('#addnewtask').DataTable().destroy();
 
 $("#addnewtask").load(location.href + " #addnewtask > *", function() {
@@ -1424,14 +1461,6 @@ $("#statusnotapproved").load(location.href + " #statusnotapproved > *", function
     $('#statusnotapproved').DataTable();
 });
 
-$('#ref1').load(location.href + " #ref1");
-                            $('#ref2').load(location.href + " #ref2");
-
-                            $('#ref3').load(location.href + " #ref3");
-
-                            $('#ref4').load(location.href + " #ref4");
-
-                            $('#ref5').load(location.href + " #ref5");
                 }, 500); // Adding a delay to ensure the sections are reloaded after the update
             },
             error: function() {
@@ -1453,7 +1482,7 @@ $('#ref1').load(location.href + " #ref1");
         //after image showing
         // Show image
         // Show image
-        $(document).on('click', '.showImage', function(e) {
+        $(document).on('click', '.I', function(e) {
             e.preventDefault(); // Prevent form submission
             var task_id = $(this).data('task-id');
             console.log(task_id);

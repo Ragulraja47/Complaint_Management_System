@@ -1,5 +1,22 @@
 <?php
 include("db.php");
+
+
+session_start();
+
+
+
+if (isset($_SESSION['worker_id'])) {
+    $worker_id = $_SESSION['worker_id'];
+   
+} else {
+    die("Couldn't find department in session.");
+}
+
+$qry = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
+$qry_run = mysqli_query($conn,$qry);
+$srow  = mysqli_fetch_array($qry_run);
+$dept = $srow['worker_dept'];
 //query for 1st table input 
 //Faculty complaint table
 $sql1 = "SELECT * FROM complaints_detail WHERE status='4'";
@@ -14,11 +31,35 @@ $result3 = mysqli_query($conn, $sql3);
 $row_count3 = mysqli_num_rows($result3);
 
 //worker details fetch panna
-$sql4 = "
-SELECT cd.*, faculty.faculty_name, faculty.department, faculty.faculty_contact, faculty.faculty_mail
-FROM complaints_detail cd
-JOIN faculty ON cd.faculty_id = faculty.faculty_id
-WHERE cd.status = '9'
+$sql4 = "SELECT 
+cd.id,
+cd.faculty_id,
+faculty.faculty_name,
+faculty.department,
+faculty.faculty_contact,
+faculty.faculty_mail,
+cd.block_venue,
+cd.venue_name,
+cd.type_of_problem,
+cd.problem_description,
+cd.images,
+cd.date_of_reg,
+cd.days_to_complete,
+cd.task_completion,
+cd.status,
+cd.feedback,
+m.task_id,
+m.priority
+FROM 
+complaints_detail AS cd
+JOIN 
+manager AS m ON cd.id = m.problem_id
+JOIN 
+faculty ON cd.faculty_id = faculty.faculty_id
+WHERE 
+(m.worker_dept = '$dept')
+AND 
+cd.status = '9'
 ";
 $result4 = mysqli_query($conn, $sql4);
 //work finished table
@@ -77,13 +118,16 @@ $c6 = mysqli_num_rows($r6);
 
 
 
+
+
+
 //count for side bar ends
 
 
 if (isset($_POST['work'])) {
-    $work = $_POST['worker_id'];  // The department value
+    $work = $_POST['worker_dept'];  // The department value
     // Modify the query to select both worker_id and worker_first_name
-    $sql8 = "SELECT worker_id, worker_first_name FROM worker_details WHERE worker_dept = '$work'";
+    $sql8 = "SELECT worker_id, worker_first_name FROM worker_details WHERE worker_dept = '$work' AND usertype = 'worker'";
     $result8 = mysqli_query($conn, $sql8);
 
     // Prepare to output options directly
@@ -104,11 +148,10 @@ if (isset($_POST['work'])) {
 
 if (isset($_POST['form'])) {
     $problem_id = $_POST['problem_id'] ?? null;
-    $priority = $_POST['priority'] ?? null;
     $worker = $_POST['worker'] ?? null;
 
-    if ($problem_id && $priority && $worker) {
-        $insertQuery = "INSERT INTO manager (problem_id, worker_id, priority) VALUES ('$problem_id', '$worker', '$priority')";
+    if ($problem_id && $worker) {
+        $insertQuery = "UPDATE manager SET worker_id='$worker' WHERE problem_id='$problem_id'";
         if (mysqli_query($conn, $insertQuery)) {
             $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
             if (mysqli_query($conn, $updateQuery)) {
@@ -562,13 +605,10 @@ if (isset($_POST['form1'])) {
                     <ul id="sidebarnav" class="p-t-30">
                         <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="workall.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu"><?php echo $srow['worker_dept'] ?></span></a></li>
 
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="civil.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CIVIL(<?php echo $c1; ?>)</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="carpenter.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CARPENTER(<?php echo $c2; ?>)</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="electrical.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">ELECTRICAL(<?php echo $c3; ?>)</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="infra.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">IT INFRA(<?php echo $c4; ?>)</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="partition.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PARTITION(<?php echo $c5; ?>)</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="plumbing.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PLUMBING(<?php echo $c6; ?>)</span></a></li>
+
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -883,21 +923,7 @@ if (isset($_POST['form1'])) {
                                                             </select>
                                                         </div>
 
-                                                        <span class="font-weight-bold" style="display: block; margin-bottom: 10px;">Set Priority:</span>
-                                                        <ul class="list-group" style="list-style: none; padding: 0;">
-                                                            <li class="list-group-item" style="padding: 10px; background-color: #ffffff; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 5px;">
-                                                                <input type="radio" class="form-check-input" name="priority" value="High" required>
-                                                                <label class="form-check-label">High</label>
-                                                            </li>
-                                                            <li class="list-group-item" style="padding: 10px; background-color: #ffffff; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 5px;">
-                                                                <input type="radio" class="form-check-input" name="priority" value="Medium">
-                                                                <label class="form-check-label">Medium</label>
-                                                            </li>
-                                                            <li class="list-group-item" style="padding: 10px; background-color: #ffffff; border: 1px solid #ddd; border-radius: 4px;">
-                                                                <input type="radio" class="form-check-input" name="priority" value="Low">
-                                                                <label class="form-check-label">Low</label>
-                                                            </li>
-                                                        </ul>
+                                                       
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-primary" style="background-color: #007bff; border: none; padding: 12px 15px; font-size: 12px;">Submit</button>
@@ -1121,38 +1147,13 @@ if (isset($_POST['form1'])) {
                                                             </td>
                                                             <td class="text-center">
                                                                 <button type="button"
-                                                                    class="btn btn-success dropdown-toggle acceptcomplaint"
+                                                                    class="btn btn-success dropdown-toggle acceptcomplaint worker"
                                                                     value="<?php echo $row4['id']; ?>"
-                                                                    data-toggle="dropdown"><i class="fas fa-check"></i></button>
-                                                                <ul class="dropdown-menu">
-                                                                    <center>
-                                                                        <li><a href="#" class="worker"
                                                                                 data-toggle="modal"
                                                                                 data-target="#prioritymodal1"
-                                                                                data-value="CARPENTER   ">CARPENTER</a></li>
-                                                                        <li><a href="#" class="worker"
-                                                                                data-toggle="modal"
-                                                                                data-target="#prioritymodal1"
-                                                                                data-value="ELECTRICAL">ELECTRICAL</a></li>
-                                                                        <li><a href="#" class="worker"
-                                                                                data-toggle="modal"
-                                                                                data-target="#prioritymodal1"
-                                                                                data-value="CIVIL">CIVIL</a></li>
-                                                                        <li><a href="#" class="worker"
-                                                                                data-toggle="modal"
-                                                                                data-target="#prioritymodal1"
-                                                                                data-value="PARTITION">PARTITION</a></li>
-                                                                        <li><a href="#" class="worker"
-                                                                                data-toggle="modal"
-                                                                                data-target="#prioritymodal1"
-                                                                                data-value="PLUMBING">PLUMBING</a></li>
-                                                                        <li><a href="#" class="worker"
-                                                                                data-toggle="modal"
-                                                                                data-target="#prioritymodal1"
-                                                                                data-value="INFRA">INFRA</a></li>
-                                                                    </center>
-                                                                </ul>
-
+                                                                                data-value="<?php echo $srow['worker_dept'] ?>"
+                                                                    ><i class="fas fa-check"></i></button>
+                                                               
                                                             </td>
                                                             <td>
                                                                 <span class="btn btn-success">Approved</span>
@@ -1752,15 +1753,15 @@ if (isset($_POST['form1'])) {
         });
         $(document).on("click", ".worker", function(e) {
             e.preventDefault();
-            var worker_id = $(this).data("value");
-            console.log(worker_id);
+            var worker_dept = $(this).data("value");
+            console.log(worker_dept);
 
             $.ajax({
                 url: "work.php",
                 type: "POST",
                 data: {
                     "work": true,
-                    "worker_id": worker_id
+                    "worker_dept": worker_dept
                 },
                 success: function(response) {
                     // Inject the received HTML options into the <select> element
@@ -1774,6 +1775,7 @@ if (isset($_POST['form1'])) {
         $(document).on("submit", "#form20", function(e) {
             e.preventDefault();
             var dt = new FormData(this);
+            console.log(dt);
             dt.append("form", true);
 
             $.ajax({
@@ -1786,6 +1788,7 @@ if (isset($_POST['form1'])) {
                     // Directly check if response contains "Success" or "Error"
                     if (response.includes("Success")) {
                         alertify.success("asigned successfully!");
+                    
                         $('#prioritymodal1').hide();
                         window.location.reload();
 
