@@ -434,7 +434,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                         aria-label="Close">
                                                 </div>
                                                 <div>
-                                                    <form id="addnewuser" enctype="multipart/form-data">
+                                                    <form id="addnewuser" enctype="multipart/form-data" onsubmit="handleSubmit(event)">
                                                         <div class="modal-body">
                                                             <div class="mb-3">
                                                                 <input type="hidden" id="hidden_faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>">
@@ -447,17 +447,22 @@ $row_count4 = mysqli_num_rows($result4);
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="venue" class="form-label">Venue</label>
-                                                                <select class="form-control" name="venue_name"
+                                                                <select id="dropdown" class="form-control" name="venue_name" onchange="checkIfOthers()"
                                                                     style="width: 100%; height:36px;">
                                                                     <option>Select</option>
                                                                     <option value="class">Class Room</option>
                                                                     <option value="department">Department</option>
                                                                     <option value="lab">Lab</option>
                                                                     <option value="staff_room">Staff Room</option>
-                                                                    <option value="Other">other</option>
+                                                                    <option id="oth" value="Other">Others</option>
                                                                 </select>
                                                             </div>
-                                                            
+
+                                                            <div id="othersInput" style="display: none;">
+                                                                <label class="form-label" for="otherValue">Please specify:</label>
+                                                                <input class="form-control" type="text" id="otherValue" name="otherValue"> <br>
+                                                            </div>
+
                                                             <div class="mb-3">
                                                                 <label for="type_of_problem" class="form-label">Type of Problem</label>
                                                                 <select class="form-control" name="type_of_problem" style="width: 100%; height:36px;">
@@ -465,7 +470,6 @@ $row_count4 = mysqli_num_rows($result4);
                                                                     <option value="Electrical Work">ELECTRICAL</option>
                                                                     <option value="Carpenter Work">CARPENTER</option>
                                                                     <option value="Civil Work">CIVIL</option>
-                                                                    <option value="Partition Work">PARTITION</option>
                                                                     <option value="IT Infra Work">IT INFRA </option>
                                                                     <option value="Plumbing Work">PLUMBING </option>
                                                                     <option value="Other">other </option>
@@ -483,7 +487,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                                 <input type="hidden" class="form-control" name="date_of_reg" id="date_of_reg" required>
                                                             </div>
                                                         </div>
-                                                        <input type="hidden" name="status" value="1">
+                                                        <input type="hidden" name="status" value="2">
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -532,12 +536,10 @@ $row_count4 = mysqli_num_rows($result4);
                                                                     $infraforward = '';
                                                                     $sendtoworker = '';
                                                                     switch ($row['status']) {
-                                                                        case 1:
+                                                                        case 2:
                                                                             $statusMessage = 'Pending';
                                                                             break;
-                                                                        case 2:
-                                                                            $infraforward = 'Approved by Infra';
-                                                                            break;
+
                                                                         case 4:
                                                                             $infraforward = 'Approved by Infra';
                                                                             $hodforward = 'Approved by HOD';
@@ -578,7 +580,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                                             </button>
                                                                         </td>
                                                                         <td class="text-center">
-                                                                            <?php if ($row['status'] == 1) { ?>
+                                                                            <?php if ($row['status'] == 2) { ?>
                                                                                 <center>
                                                                                     <button class="btn btndelete btn-danger" type="button" value="<?php echo $row['id']; ?>">
                                                                                         <i class="fas fa-times"></i>
@@ -995,10 +997,6 @@ $row_count4 = mysqli_num_rows($result4);
         dateInput.setAttribute('min', today);
         dateInput.setAttribute('max', today);
         dateInput.value = today;
-
-
-
-        
     </script>
 
 
@@ -1233,6 +1231,39 @@ $row_count4 = mysqli_num_rows($result4);
                 }
             });
         });
+
+        function checkIfOthers() {
+    const dropdown = document.getElementById('dropdown');
+    const othersInput = document.getElementById('othersInput');
+
+    // Show the input field if "Others" is selected
+    if (dropdown.value === 'Other') {
+        othersInput.style.display = 'block';
+    } else {
+        othersInput.style.display = 'none';
+    }
+}
+
+function handleSubmit(event) {
+    event.preventDefault();  // Prevent form submission for demo purposes
+    const dropdown = document.getElementById('dropdown');
+    const selectedValue = dropdown.value;
+    let finalValue;
+
+    // Get the appropriate value based on the dropdown selection
+    if (selectedValue === 'Other') {
+        finalValue = document.getElementById('otherValue').value;
+    } else {
+        finalValue = selectedValue;
+    }
+
+    console.log("Selected Category:", finalValue);
+    // You can then send this data to the backend or process it further
+    $("#oth").val(finalValue);
+}
+
+
+
     </script>
 </body>
 <div scrible-ignore="" id="skribel_annotation_ignore_browserExtensionFlag" class="skribel_chromeExtension"
