@@ -683,9 +683,9 @@ $row_count4 = mysqli_num_rows($result4);
                                                             <th class="text-center"><b>S.No</b></th>
                                                             <th class="text-center"><b>Problem_idb></th>
                                                             <th class="text-center"><b>Venue</b></th>
-                                                            <th class="text-center"><b>Problem</b></th>
                                                             <th class="text-center"><b>Problem description</b></th>
                                                             <th class="text-center"><b>Date Of submission</b></th>
+                                                            <th class="text-center"><b>Deadline</b></th>
                                                             <th class="text-center"><b>Worker Details</b></th>
                                                             <th class="text-center"><b>Feedback</b></th>
                                                         </tr>
@@ -699,9 +699,15 @@ $row_count4 = mysqli_num_rows($result4);
                                                                 <td class="text-center"><?php echo $s; ?></td>
                                                                 <td class="text-center"><?php echo $row['id']; ?></td>
                                                                 <td class="text-center"><?php echo $row['block_venue']; ?></td>
-                                                                <td class="text-center"><?php echo $row['type_of_problem']; ?></td>
                                                                 <td class="text-center"><?php echo $row['problem_description']; ?></td>
                                                                 <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
+                                                                <td class="text-center"
+                                                                    <?php if ($row['extend_date'] == 1) { ?>
+                                                                    style="color: red;"
+                                                                    <?php } ?>>
+                                                                    <?php echo $row['days_to_complete']; ?>
+                                                                </td>
+
                                                                 <td class="text-center">
                                                                     <button type="button" class="btn btn-light showWorkerDetails" value="<?php echo $row['id']; ?>">
                                                                         <?php
@@ -1233,37 +1239,34 @@ $row_count4 = mysqli_num_rows($result4);
         });
 
         function checkIfOthers() {
-    const dropdown = document.getElementById('dropdown');
-    const othersInput = document.getElementById('othersInput');
+            const dropdown = document.getElementById('dropdown');
+            const othersInput = document.getElementById('othersInput');
 
-    // Show the input field if "Others" is selected
-    if (dropdown.value === 'Other') {
-        othersInput.style.display = 'block';
-    } else {
-        othersInput.style.display = 'none';
-    }
-}
+            // Show the input field if "Others" is selected
+            if (dropdown.value === 'Other') {
+                othersInput.style.display = 'block';
+            } else {
+                othersInput.style.display = 'none';
+            }
+        }
 
-function handleSubmit(event) {
-    event.preventDefault();  // Prevent form submission for demo purposes
-    const dropdown = document.getElementById('dropdown');
-    const selectedValue = dropdown.value;
-    let finalValue;
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent form submission for demo purposes
+            const dropdown = document.getElementById('dropdown');
+            const selectedValue = dropdown.value;
+            let finalValue;
 
-    // Get the appropriate value based on the dropdown selection
-    if (selectedValue === 'Other') {
-        finalValue = document.getElementById('otherValue').value;
-    } else {
-        finalValue = selectedValue;
-    }
+            // Get the appropriate value based on the dropdown selection
+            if (selectedValue === 'Other') {
+                finalValue = document.getElementById('otherValue').value;
+            } else {
+                finalValue = selectedValue;
+            }
 
-    console.log("Selected Category:", finalValue);
-    // You can then send this data to the backend or process it further
-    $("#oth").val(finalValue);
-}
-
-
-
+            console.log("Selected Category:", finalValue);
+            // You can then send this data to the backend or process it further
+            $("#oth").val(finalValue);
+        }
     </script>
 </body>
 <div scrible-ignore="" id="skribel_annotation_ignore_browserExtensionFlag" class="skribel_chromeExtension"
