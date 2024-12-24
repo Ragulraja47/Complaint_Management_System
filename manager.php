@@ -388,7 +388,7 @@ $row_count7 = mysqli_num_rows($result7);
             <div class="lds-pos"></div>
         </div>
     </div>
-   
+
 
     <div id="main-wrapper">
         <header class="topbar" data-navbarbg="skin5">
@@ -416,16 +416,16 @@ $row_count7 = mysqli_num_rows($result7);
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
                             class="ti-more"></i></a>
                 </div>
-                
+
 
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
                     <ul class="navbar-nav float-left mr-auto">
                         <li class="nav-item d-none d-md-block"><a
                                 class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
                                 data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
-                                
+
                     </ul>
-                   
+
                     <ul class="navbar-nav float-right">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
@@ -456,8 +456,8 @@ $row_count7 = mysqli_num_rows($result7);
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="manager.php" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
                                     class="hide-menu">Complaints</span></a></li>
-                                  
-                                    
+
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -484,48 +484,48 @@ $row_count7 = mysqli_num_rows($result7);
                 </div>
             </div>
             <button type="button" class="btn btn-primary" style="margin-left:1080px;" data-toggle="modal" data-target="#addworker">
-            Add worker</button>
-            
-
-                                    <div class="modal fade" id="addworker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content" style="border-radius: 8px; border: 1px solid #ccc;">
-                                            <div class="modal-header" style="background-color: #f8f9fa; border-bottom: 2px solid #e9ecef;">
-                                                <h5 class="modal-title" id="exampleModalLabel">Add Worker</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <form id="workers">
-                                                <div class="modal-body" style="padding: 20px; background-color: #f5f5f5;">
-                                                    <input type="text" name="w_name" placeholder="Enter Worker Name" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
-                                                    <select id="department" name="w_dept" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
-                                                        <option value="all">Select department</option>
-                                                        <option value="civil">Civil</option>
-                                                        <option value="electrical">Electrical</option>
-                                                        <option value="itkm">itkm</option>
-
-                                                    </select>                                                
+                Add worker</button>
 
 
-                                                    <select id="gender" name="w_gender" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
-                                                        <option value="all">Select Gender</option>
-                                                        <option value="male">Male</option>
-                                                        <option value="female">Female</option>
-                                                    </select>
+            <div class="modal fade" id="addworker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="border-radius: 8px; border: 1px solid #ccc;">
+                        <div class="modal-header" style="background-color: #f8f9fa; border-bottom: 2px solid #e9ecef;">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Worker</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="workers">
+                            <div class="modal-body" style="padding: 20px; background-color: #f5f5f5;">
+                                <input type="text" name="w_name" placeholder="Enter Worker Name" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                                <select id="department" name="w_dept" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                                    <option value="all">Select department</option>
+                                    <option value="civil">Civil</option>
+                                    <option value="electrical">Electrical</option>
+                                    <option value="itkm">itkm</option>
 
-                                                
+                                </select>
 
-                                                    <input type="text" name="w_phone" placeholder="Enter Phone Number" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" style="background-color: #6c757d; border: none; padding: 10px 20px;">Close</button>
-                                                    <button type="submit" class="btn btn-primary" style="background-color: #007bff; border: none; padding: 10px 20px;">Add</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+
+                                <select id="gender" name="w_gender" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                                    <option value="all">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+
+
+
+                                <input type="text" name="w_phone" placeholder="Enter Phone Number" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" style="background-color: #6c757d; border: none; padding: 10px 20px;">Close</button>
+                                <button type="submit" class="btn btn-primary" style="background-color: #007bff; border: none; padding: 10px 20px;">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
@@ -858,10 +858,10 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td class="text-center"> <button class="btn btn-light deadline_extend"
-                                                            value="<?php echo $row3["id"]; ?>" data-toggle="modal"
+                                                                    value="<?php echo $row3["id"]; ?>" data-toggle="modal"
                                                                     data-target="#extend_date">
-                                                                
-                                                            <?php echo $row3['days_to_complete'] ?></button></td>
+
+                                                                    <?php echo $row3['days_to_complete'] ?></button></td>
                                                             <td class="text-center">
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row3['id']; ?>" data-toggle="modal" data-target="#imageModal">
@@ -1656,610 +1656,637 @@ $row_count7 = mysqli_num_rows($result7);
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <label for="extend_deadline">Extend Deadline Date:</label>
-                                            <input type="date" id="extend_deadline" name="extend_deadline" required>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-primary" id="#####">Set Deadline</button>
+                                            <form id="extenddead">
+                                                <input type="hidden" name="id" id="deadline_id">
+                                                <label for="extend_deadline">Extend Deadline Date:</label>
+                                                <input type="date" id="extend_deadline" name="extend_deadline" required>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-primary">Set Deadline</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
+
+
+
+
+
                             </div>
-
-
-
-
-
                         </div>
+
+
                     </div>
-
-
                 </div>
+                <!-- ============================================================== -->
+                <!-- End Container fluid  -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- footer -->
+                <!-- ============================================================== -->
+                <footer class="footer text-center">
+                    <b>2024 © M.Kumarasamy College of Engineering All Rights Reserved.<br>
+                        Developed and Maintained by Technology Innovation Hub.
+                    </b>
+                </footer>
+                <!-- ============================================================== -->
+                <!-- End footer -->
+                <!-- ============================================================== -->
+
+                <!-- ============================================================== -->
+                <!-- End Page wrapper  -->
+                <!-- ============================================================== -->
             </div>
             <!-- ============================================================== -->
-            <!-- End Container fluid  -->
+            <!-- End Wrapper -->
             <!-- ============================================================== -->
             <!-- ============================================================== -->
-            <!-- footer -->
+            <!-- All Jquery -->
             <!-- ============================================================== -->
-            <footer class="footer text-center">
-                <b>2024 © M.Kumarasamy College of Engineering All Rights Reserved.<br>
-                    Developed and Maintained by Technology Innovation Hub.
-                </b>
-            </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
+            <!-- jQuery -->
+            <script src="assets/libs/jquery/dist/jquery.min.js"></script>
 
-            <!-- ============================================================== -->
-            <!-- End Page wrapper  -->
-            <!-- ============================================================== -->
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Wrapper -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- All Jquery -->
-        <!-- ============================================================== -->
-        <!-- jQuery -->
-        <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+            <!-- Datatables -->
+            <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 
-        <!-- Datatables -->
-        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+            <!-- Perfect Scrollbar -->
+            <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 
-        <!-- Perfect Scrollbar -->
-        <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+            <!-- Bootstrap tether Core JavaScript -->
+            <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+            <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 
-        <!-- Bootstrap tether Core JavaScript -->
-        <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
-        <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+            <!-- Other Scripts -->
+            <script src="assets/extra-libs/sparkline/sparkline.js"></script>
+            <script src="dist/js/waves.js"></script>
+            <script src="dist/js/sidebarmenu.js"></script>
+            <script src="dist/js/custom.min.js"></script>
 
-        <!-- Other Scripts -->
-        <script src="assets/extra-libs/sparkline/sparkline.js"></script>
-        <script src="dist/js/waves.js"></script>
-        <script src="dist/js/sidebarmenu.js"></script>
-        <script src="dist/js/custom.min.js"></script>
+            <!-- Popper.js for Bootstrap 4 -->
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
 
-        <!-- Popper.js for Bootstrap 4 -->
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
+            <!-- JavaScript Sweetalert-->
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-        <!-- JavaScript Sweetalert-->
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+            <!-- JavaScript Alertify-->
+            <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
 
-        <!-- JavaScript Alertify-->
-        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+            <!--Download as XL-Sheet-->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
-        <!--Download as XL-Sheet-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
 
+            <script>
+                //Tool Tip
+                $(function() {
+                    // Initialize the tooltip
+                    $('[data-toggle="tooltip"]').tooltip();
 
-        <script>
-            //Tool Tip
-            $(function() {
-                // Initialize the tooltip
-                $('[data-toggle="tooltip"]').tooltip();
-
-                // You can also set options manually if needed
-                $('.rejectcomplaint').tooltip({
-                    placement: 'top',
-                    title: 'Reject'
-                });
-            });
-
-            $(function() {
-                // Initialize the tooltip
-                $('[data-toggle="tooltip"]').tooltip();
-
-                // You can also set options manually if needed
-                $('.managerapprove').tooltip({
-                    placement: 'top',
-                    title: 'Accept'
-                });
-            });
-
-            $(function() {
-                // Initialize the tooltip
-                $('[data-toggle="tooltip"]').tooltip();
-
-                // You can also set options manually if needed
-                $('.principalcomplaint').tooltip({
-                    placement: 'top',
-                    title: 'Principal Approval'
-                });
-            });
-
-            $(function() {
-                // Initialize the tooltip
-                $('[data-toggle="tooltip"]').tooltip();
-
-                // You can also set options manually if needed
-                $('.showImage').tooltip({
-                    placement: 'top',
-                    title: 'Before'
-                });
-            });
-
-            $(function() {
-                // Initialize the tooltip
-                $('[data-toggle="tooltip"]').tooltip();
-
-                // You can also set options manually if needed
-                $('.imgafter').tooltip({
-                    placement: 'top',
-                    title: 'After'
-                });
-            });
-
-            $(function() {
-                // Initialize the tooltip
-                $('[data-toggle="tooltip"]').tooltip();
-
-                // You can also set options manually if needed
-                $('.viewcomplaint').tooltip({
-                    placement: 'top',
-                    title: 'View Complaint'
-                });
-            });
-
-
-            $(document).ready(function() {
-                $("#principal_table").DataTable();
-            });
-            $(document).ready(function() {
-                $("#complain_table").DataTable();
-            });
-            $(document).ready(function() {
-                $("#worker_table").DataTable();
-            });
-            $(document).ready(function() {
-                $("#finished_table").DataTable();
-            });
-            $(document).ready(function() {
-                $("#reassigned_table").DataTable();
-            });
-            $(document).ready(function() {
-                $("#completed_table").DataTable();
-            });
-            $(document).ready(function() {
-                $("#record_table").DataTable();
-            });
-        </script>
-        <script>
-            //reject complaint
-            $(document).on("click", "#rejectbutton", function(e) {
-                e.preventDefault();
-                var user_id = $(this).val(); // Get the ID from the button's value
-                console.log("User ID:", user_id);
-                // Set the user_id in the hidden input field within the form
-                $("#complaint_id99").val(user_id);
-            });
-            $(document).on("submit", "#rejectForm", function(e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                formData.append("reject_complaint", true);
-
-                $.ajax({
-                    type: "POST",
-                    url: "testbackend.php",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        var res = jQuery.parseJSON(response);
-
-                        if (res.status == 200) {
-
-                            alert("Are you sure? you want to reject it!!");
-                            alertify.set('notifier', 'position', 'top-right');
-                            alertify.error('Rejected');
-                            // Close modal
-                            $("#navref1").load(location.href + " #navref1");
-                            $("#navref2").load(location.href + " #navref2");
-
-
-
-                            $("#rejectModal").modal("hide");
-
-                            // Reset the form
-                            $("#rejectForm")[0].reset();
-                            // Force refresh the table body with cache bypass
-
-                            // Before loading new content, destroy the existing DataTable instance
-                            $('#complain_table').DataTable().destroy();
-
-                            $("#complain_table").load(location.href + " #complain_table > *", function() {
-                                // Reinitialize the DataTable after the content is loaded
-                                $('#complain_table').DataTable();
-                            });
-
-                            // Display success message
-                        } else if (res.status == 500) {
-                            $("#rejectModal").modal("hide");
-                            $("#rejectForm")[0].reset();
-                            alert("Something went wrong. Please try again.");
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        alert("An error occurred while processing your request.");
-                    },
-                });
-            });
-
-
-            //pass worker department tp approve model
-            //approve by manager
-            $(document).on("click", ".managerapprove", function(e) {
-                e.preventDefault();
-                var user_id = $(this).val(); // Get the ID from the button's value
-                console.log("User ID:", user_id);
-                // pass id to model - form
-                $("#complaint_id56").val(user_id);
-
-                // Reset the worker selection in modal for next selection
-                $("#worker_id").val('');
-                $("#assignedWorker").text('Assigned Worker: ');
-            });
-
-            $(document).on('click', ".worker", function(e) {
-                e.preventDefault();
-                var worker = $(this).data('value');
-
-                console.log(worker);
-
-                //pass values to model
-                $("#worker_id").val(worker);
-                $("#assignedWorker").text("Assigned Worker: " + worker);
-            })
-
-            $(document).on("submit", "#managerapproveForm", function(e) {
-                e.preventDefault();
-                var data = new FormData(this);
-                console.log(data);
-                data.append("manager_approve", true);
-
-                $.ajax({
-                    url: "testbackend.php",
-                    type: "POST",
-                    data: data,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        var res = jQuery.parseJSON(response);
-                        console.log(res);
-                        if (res.status == 200) {
-                            swal({
-                                title: "success!",
-                                text: "Complaint accepted sucessfully!",
-                                icon: "success",
-                                button: "Ok",
-                                timer: null
-                            });
-
-                            $("#managerapproveModal").modal("hide");
-
-                            // Reset the form
-                            $("#managerapproveForm")[0].reset();
-
-
-                            $('#complain_table').DataTable().destroy();
-                            $('#principal_table').DataTable().destroy();
-
-                            $("#complain_table").load(location.href + " #complain_table > *", function() {
-                                // Reinitialize the DataTable after the content is loaded
-                                $('#complain_table').DataTable();
-                            });
-                            $("#principal_table").load(location.href + " #principal_table > *", function() {
-                                // Reinitialize the DataTable after the content is loaded
-                                $('#principal_table').DataTable();
-                            });
-                            $("#navref1").load(location.href + " #navref1");
-                            $("#navref2").load(location.href + " #navref2");
-
-
-
-                        } else {
-                            alert("Failed to accept complaint");
-                        }
-                    },
-                });
-            });
-
-
-            //Principal approval
-            $(document).on("click", "#principalbutton", function(e) {
-                e.preventDefault();
-                var user_id = $(this).val(); // Get the ID from the button's value
-                console.log("User ID:", user_id);
-                // Set the user_id in the hidden input field within the form
-                $("#complaint_id89").val(user_id);
-            });
-            $(document).on("submit", "#principal_Form", function(e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                formData.append("principal_complaint", true);
-
-                $.ajax({
-                    type: "POST",
-                    url: "testbackend.php",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        var res = jQuery.parseJSON(response);
-
-                        if (res.status == 200) {
-
-                            swal({
-                                title: "success!",
-                                text: "Complaint sent to Principal sucessfully!",
-                                icon: "success",
-                                button: "Ok",
-                                timer: null
-                            });
-                            // Close modal
-                            $("#principalModal").modal("hide");
-
-                            // Reset the form
-                            $("#principal_Form")[0].reset();
-                            // Force refresh the table body with cache bypass
-                            $('#complain_table').DataTable().destroy();
-                            $("#complain_table").load(location.href + " #complain_table > *", function() {
-                                // Reinitialize the DataTable after the content is loaded
-                                $('#complain_table').DataTable();
-                            });
-                            $("#navref1").load(location.href + " #navref1");
-                            $("#navref2").load(location.href + " #navref2");
-
-
-
-                            // Display success message
-                        } else if (res.status == 500) {
-                            $("#principalModal").modal("hide");
-                            $("#principal_Form")[0].reset();
-                            alert("Something went wrong. Please try again.");
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        alert("An error occurred while processing your request.");
-                    },
-                });
-            });
-
-
-            //jquerry for view complaint
-            $(document).on("click", ".viewcomplaint", function(e) {
-                e.preventDefault();
-                var user_id = $(this).val();
-                console.log(user_id);
-                $.ajax({
-                    type: "POST",
-                    url: "testbackend.php",
-                    data: {
-                        view_complaint: true,
-                        user_id: user_id,
-                    },
-                    success: function(response) {
-                        var res = jQuery.parseJSON(response);
-                        console.log(res);
-                        if (res.status == 500) {
-                            alert(res.message);
-                        } else {
-                            //$('#student_id2').val(res.data.uid);
-                            $("#id").text(res.data.id);
-                            $("#type_of_problem").text(res.data.type_of_problem);
-                            $("#problem_description").text(res.data.problem_description);
-                            $("#faculty_name").text(res.data.faculty_name);
-                            $("#faculty_mail").text(res.data.faculty_mail);
-                            $("#faculty_contact").text(res.data.faculty_contact);
-                            $("#block_venue").text(res.data.block_venue);
-                            $("#venue_name").text(res.data.venue_name);
-                            $("#complaintDetailsModal").modal("show");
-                        }
-                    },
-                });
-            });
-
-            //Before image
-            $(document).on("click", ".showImage", function() {
-                var problem_id = $(this).val(); // Get the problem_id from button value
-                console.log(problem_id); // Ensure this logs correctly
-                $.ajax({
-                    type: "POST",
-                    url: "testbackend.php",
-                    data: {
-                        get_image: true,
-                        problem_id: problem_id, // Correct POST key
-                    },
-                    dataType: "json", // Automatically parses JSON responses
-                    success: function(response) {
-                        console.log(response); // Log the parsed JSON response
-                        if (response.status == 200) {
-                            // Dynamically set the image source
-                            $("#modalImage").attr("src", "uploads/" + response.data.images);
-                            // Show the modal
-                            $("#imageModal").modal("show");
-                        } else {
-                            // Handle case where no image is found
-                            alert(
-                                response.message || "An error occurred while retrieving the image."
-                            );
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        // Log the full error details for debugging
-                        console.error("AJAX Error: ", xhr.responseText);
-                        alert(
-                            "An error occurred: " +
-                            error +
-                            "\nStatus: " +
-                            status +
-                            "\nDetails: " +
-                            xhr.responseText
-                        );
-                    },
-                });
-            });
-
-            //principal question 
-            $(document).ready(function() {
-                // When the button is clicked, populate the modal with the query
-                $(".openQueryModal").on("click", function() {
-                    // Check if the button is disabled
-                    if ($(this).is(':disabled')) {
-                        return; // Do nothing if the button is disabled
-                    }
-
-                    var commentQuery = $(this).data("comment-query");
-                    var taskId = $(this).data("task-id");
-                    // Set the comment query text in the modal
-                    $("#commentQueryText").text(commentQuery);
-                    // Store the task_id for later use when submitting the answer
-                    $("#submitReply").data("task-id", taskId);
+                    // You can also set options manually if needed
+                    $('.rejectcomplaint').tooltip({
+                        placement: 'top',
+                        title: 'Reject'
+                    });
                 });
 
-                // Handle form submission when 'Submit Reply' is clicked
-                $("#submitReply").on("click", function() {
-                    var taskId = $(this).data("task-id");
-                    var commentReply = $("#commentReply").val();
+                $(function() {
+                    // Initialize the tooltip
+                    $('[data-toggle="tooltip"]').tooltip();
 
-                    // AJAX request to send the reply to the backend
+                    // You can also set options manually if needed
+                    $('.managerapprove').tooltip({
+                        placement: 'top',
+                        title: 'Accept'
+                    });
+                });
+
+                $(function() {
+                    // Initialize the tooltip
+                    $('[data-toggle="tooltip"]').tooltip();
+
+                    // You can also set options manually if needed
+                    $('.principalcomplaint').tooltip({
+                        placement: 'top',
+                        title: 'Principal Approval'
+                    });
+                });
+
+                $(function() {
+                    // Initialize the tooltip
+                    $('[data-toggle="tooltip"]').tooltip();
+
+                    // You can also set options manually if needed
+                    $('.showImage').tooltip({
+                        placement: 'top',
+                        title: 'Before'
+                    });
+                });
+
+                $(function() {
+                    // Initialize the tooltip
+                    $('[data-toggle="tooltip"]').tooltip();
+
+                    // You can also set options manually if needed
+                    $('.imgafter').tooltip({
+                        placement: 'top',
+                        title: 'After'
+                    });
+                });
+
+                $(function() {
+                    // Initialize the tooltip
+                    $('[data-toggle="tooltip"]').tooltip();
+
+                    // You can also set options manually if needed
+                    $('.viewcomplaint').tooltip({
+                        placement: 'top',
+                        title: 'View Complaint'
+                    });
+                });
+
+
+                $(document).ready(function() {
+                    $("#principal_table").DataTable();
+                });
+                $(document).ready(function() {
+                    $("#complain_table").DataTable();
+                });
+                $(document).ready(function() {
+                    $("#worker_table").DataTable();
+                });
+                $(document).ready(function() {
+                    $("#finished_table").DataTable();
+                });
+                $(document).ready(function() {
+                    $("#reassigned_table").DataTable();
+                });
+                $(document).ready(function() {
+                    $("#completed_table").DataTable();
+                });
+                $(document).ready(function() {
+                    $("#record_table").DataTable();
+                });
+            </script>
+            <script>
+                //reject complaint
+                $(document).on("click", "#rejectbutton", function(e) {
+                    e.preventDefault();
+                    var user_id = $(this).val(); // Get the ID from the button's value
+                    console.log("User ID:", user_id);
+                    // Set the user_id in the hidden input field within the form
+                    $("#complaint_id99").val(user_id);
+                });
+                $(document).on("submit", "#rejectForm", function(e) {
+                    e.preventDefault();
+                    var formData = new FormData(this);
+                    formData.append("reject_complaint", true);
+
                     $.ajax({
-                        url: "testbackend.php", // Your backend file
                         type: "POST",
-                        data: {
-                            task_id: taskId,
-                            comment_reply: commentReply,
-                            submit_comment_reply: true,
-                        },
+                        url: "testbackend.php",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
                         success: function(response) {
                             var res = jQuery.parseJSON(response);
+
                             if (res.status == 200) {
-                                alert(res.message);
-                                $("#principalQueryModal").modal("hide");
-                                // Reload the table to reflect changes
-                                $("#worker_table").load(location.href + " #worker_table");
-                            } else {
+
+                                alert("Are you sure? you want to reject it!!");
+                                alertify.set('notifier', 'position', 'top-right');
+                                alertify.error('Rejected');
+                                // Close modal
+                                $("#navref1").load(location.href + " #navref1");
+                                $("#navref2").load(location.href + " #navref2");
+
+
+
+                                $("#rejectModal").modal("hide");
+
+                                // Reset the form
+                                $("#rejectForm")[0].reset();
+                                // Force refresh the table body with cache bypass
+
+                                // Before loading new content, destroy the existing DataTable instance
+                                $('#complain_table').DataTable().destroy();
+
+                                $("#complain_table").load(location.href + " #complain_table > *", function() {
+                                    // Reinitialize the DataTable after the content is loaded
+                                    $('#complain_table').DataTable();
+                                });
+
+                                // Display success message
+                            } else if (res.status == 500) {
+                                $("#rejectModal").modal("hide");
+                                $("#rejectForm")[0].reset();
                                 alert("Something went wrong. Please try again.");
                             }
                         },
                         error: function(xhr, status, error) {
-                            console.error("Error:", error);
-                            alert("Something went wrong. Please try again.");
+                            alert("An error occurred while processing your request.");
                         },
                     });
                 });
-            });
-
-            //verify once again
 
 
-            $(document).on("click", ".facfeed", function(e) {
-                e.preventDefault();
-                var user_id = $(this).val();
-                console.log(user_id);
-                $.ajax({
-                    type: "POST",
-                    url: "testbackend.php",
-                    data: {
-                        facfeedview: true,
-                        user_id: user_id,
-                    },
-                    success: function(response) {
-                        var res = jQuery.parseJSON(response);
-                        console.log(res);
-                        if (res.status == 500) {
-                            alert(res.message);
-                        } else {
-                            //$('#student_id2').val(res.data.uid);
-                            $("#ffeed").val(res.data.feedback);
-                            $("#exampleModal").modal("show");
+                //pass worker department tp approve model
+                //approve by manager
+                $(document).on("click", ".managerapprove", function(e) {
+                    e.preventDefault();
+                    var user_id = $(this).val(); // Get the ID from the button's value
+                    console.log("User ID:", user_id);
+                    // pass id to model - form
+                    $("#complaint_id56").val(user_id);
+
+                    // Reset the worker selection in modal for next selection
+                    $("#worker_id").val('');
+                    $("#assignedWorker").text('Assigned Worker: ');
+                });
+
+                $(document).on('click', ".worker", function(e) {
+                    e.preventDefault();
+                    var worker = $(this).data('value');
+
+                    console.log(worker);
+
+                    //pass values to model
+                    $("#worker_id").val(worker);
+                    $("#assignedWorker").text("Assigned Worker: " + worker);
+                })
+
+                $(document).on("submit", "#managerapproveForm", function(e) {
+                    e.preventDefault();
+                    var data = new FormData(this);
+                    console.log(data);
+                    data.append("manager_approve", true);
+
+                    $.ajax({
+                        url: "testbackend.php",
+                        type: "POST",
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            var res = jQuery.parseJSON(response);
+                            console.log(res);
+                            if (res.status == 200) {
+                                swal({
+                                    title: "success!",
+                                    text: "Complaint accepted sucessfully!",
+                                    icon: "success",
+                                    button: "Ok",
+                                    timer: null
+                                });
+
+                                $("#managerapproveModal").modal("hide");
+
+                                // Reset the form
+                                $("#managerapproveForm")[0].reset();
+
+
+                                $('#complain_table').DataTable().destroy();
+                                $('#principal_table').DataTable().destroy();
+
+                                $("#complain_table").load(location.href + " #complain_table > *", function() {
+                                    // Reinitialize the DataTable after the content is loaded
+                                    $('#complain_table').DataTable();
+                                });
+                                $("#principal_table").load(location.href + " #principal_table > *", function() {
+                                    // Reinitialize the DataTable after the content is loaded
+                                    $('#principal_table').DataTable();
+                                });
+                                $("#navref1").load(location.href + " #navref1");
+                                $("#navref2").load(location.href + " #navref2");
+
+
+
+                            } else {
+                                alert("Failed to accept complaint");
+                            }
+                        },
+                    });
+                });
+
+
+                //Principal approval
+                $(document).on("click", "#principalbutton", function(e) {
+                    e.preventDefault();
+                    var user_id = $(this).val(); // Get the ID from the button's value
+                    console.log("User ID:", user_id);
+                    // Set the user_id in the hidden input field within the form
+                    $("#complaint_id89").val(user_id);
+                });
+                $(document).on("submit", "#principal_Form", function(e) {
+                    e.preventDefault();
+                    var formData = new FormData(this);
+                    formData.append("principal_complaint", true);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "testbackend.php",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            var res = jQuery.parseJSON(response);
+
+                            if (res.status == 200) {
+
+                                swal({
+                                    title: "success!",
+                                    text: "Complaint sent to Principal sucessfully!",
+                                    icon: "success",
+                                    button: "Ok",
+                                    timer: null
+                                });
+                                // Close modal
+                                $("#principalModal").modal("hide");
+
+                                // Reset the form
+                                $("#principal_Form")[0].reset();
+                                // Force refresh the table body with cache bypass
+                                $('#complain_table').DataTable().destroy();
+                                $("#complain_table").load(location.href + " #complain_table > *", function() {
+                                    // Reinitialize the DataTable after the content is loaded
+                                    $('#complain_table').DataTable();
+                                });
+                                $("#navref1").load(location.href + " #navref1");
+                                $("#navref2").load(location.href + " #navref2");
+
+
+
+                                // Display success message
+                            } else if (res.status == 500) {
+                                $("#principalModal").modal("hide");
+                                $("#principal_Form")[0].reset();
+                                alert("Something went wrong. Please try again.");
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            alert("An error occurred while processing your request.");
+                        },
+                    });
+                });
+
+
+                //jquerry for view complaint
+                $(document).on("click", ".viewcomplaint", function(e) {
+                    e.preventDefault();
+                    var user_id = $(this).val();
+                    console.log(user_id);
+                    $.ajax({
+                        type: "POST",
+                        url: "testbackend.php",
+                        data: {
+                            view_complaint: true,
+                            user_id: user_id,
+                        },
+                        success: function(response) {
+                            var res = jQuery.parseJSON(response);
+                            console.log(res);
+                            if (res.status == 500) {
+                                alert(res.message);
+                            } else {
+                                //$('#student_id2').val(res.data.uid);
+                                $("#id").text(res.data.id);
+                                $("#type_of_problem").text(res.data.type_of_problem);
+                                $("#problem_description").text(res.data.problem_description);
+                                $("#faculty_name").text(res.data.faculty_name);
+                                $("#faculty_mail").text(res.data.faculty_mail);
+                                $("#faculty_contact").text(res.data.faculty_contact);
+                                $("#block_venue").text(res.data.block_venue);
+                                $("#venue_name").text(res.data.venue_name);
+                                $("#complaintDetailsModal").modal("show");
+                            }
+                        },
+                    });
+                });
+
+                //Before image
+                $(document).on("click", ".showImage", function() {
+                    var problem_id = $(this).val(); // Get the problem_id from button value
+                    console.log(problem_id); // Ensure this logs correctly
+                    $.ajax({
+                        type: "POST",
+                        url: "testbackend.php",
+                        data: {
+                            get_image: true,
+                            problem_id: problem_id, // Correct POST key
+                        },
+                        dataType: "json", // Automatically parses JSON responses
+                        success: function(response) {
+                            console.log(response); // Log the parsed JSON response
+                            if (response.status == 200) {
+                                // Dynamically set the image source
+                                $("#modalImage").attr("src", "uploads/" + response.data.images);
+                                // Show the modal
+                                $("#imageModal").modal("show");
+                            } else {
+                                // Handle case where no image is found
+                                alert(
+                                    response.message || "An error occurred while retrieving the image."
+                                );
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            // Log the full error details for debugging
+                            console.error("AJAX Error: ", xhr.responseText);
+                            alert(
+                                "An error occurred: " +
+                                error +
+                                "\nStatus: " +
+                                status +
+                                "\nDetails: " +
+                                xhr.responseText
+                            );
+                        },
+                    });
+                });
+
+                //principal question 
+                $(document).ready(function() {
+                    // When the button is clicked, populate the modal with the query
+                    $(".openQueryModal").on("click", function() {
+                        // Check if the button is disabled
+                        if ($(this).is(':disabled')) {
+                            return; // Do nothing if the button is disabled
                         }
-                    },
-                });
-            });
 
-            $(document).ready(function() {
-                var complaintfeedId = null; // Store complaintfeed_id globally
-
-                // Open the feedback modal and set the complaintfeed ID (Event Delegation)
-                $(document).on("click", ".facfeed", function() {
-                    complaintfeedId = $(this).val();
-                    $("#complaintfeed_id").val(complaintfeedId); // Store complaintfeed ID in the hidden input
-                });
-
-                // When 'Done' is clicked (Event Delegation)
-                $(document).on("click", ".done", function() {
-                    var complaintfeedId = $("#complaintfeed_id").val();
-                    updateComplaintStatus(complaintfeedId, 16); // Status '16' for Done
-                    swal({
-                        title: "success!",
-                        text: "Completed sucessfully!",
-                        icon: "success",
-                        button: "Ok",
-                        timer: null
+                        var commentQuery = $(this).data("comment-query");
+                        var taskId = $(this).data("task-id");
+                        // Set the comment query text in the modal
+                        $("#commentQueryText").text(commentQuery);
+                        // Store the task_id for later use when submitting the answer
+                        $("#submitReply").data("task-id", taskId);
                     });
 
-                    $('#finished_table').DataTable().destroy();
-                    $('#completed_table').DataTable().destroy();
+                    // Handle form submission when 'Submit Reply' is clicked
+                    $("#submitReply").on("click", function() {
+                        var taskId = $(this).data("task-id");
+                        var commentReply = $("#commentReply").val();
 
-                    $("#finished_table").load(location.href + " #finished_table > *", function() {
-                        // Reinitialize the DataTable after the content is loaded
-                        $('#finished_table').DataTable();
+                        // AJAX request to send the reply to the backend
+                        $.ajax({
+                            url: "testbackend.php", // Your backend file
+                            type: "POST",
+                            data: {
+                                task_id: taskId,
+                                comment_reply: commentReply,
+                                submit_comment_reply: true,
+                            },
+                            success: function(response) {
+                                var res = jQuery.parseJSON(response);
+                                if (res.status == 200) {
+                                    alert(res.message);
+                                    $("#principalQueryModal").modal("hide");
+                                    // Reload the table to reflect changes
+                                    $("#worker_table").load(location.href + " #worker_table");
+                                } else {
+                                    alert("Something went wrong. Please try again.");
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error:", error);
+                                alert("Something went wrong. Please try again.");
+                            },
+                        });
                     });
-                    $("#completed_table").load(location.href + " #completed_table > *", function() {
-                        // Reinitialize the DataTable after the content is loaded
-                        $('#completed_table').DataTable();
-                    });
-                    $("#navref3").load(location.href + " #navref3");
-                    $("#navref4").load(location.href + " #navref4");
-                    $("#navref5").load(location.href + " #navref5");
                 });
 
-                // When 'Reassign' is clicked (Event Delegation)
-                $(document).on("click", ".reass", function() {
-                    $("#datePickerModal").modal("show"); // Show the modal to select deadline
+                //verify once again
+
+
+                $(document).on("click", ".facfeed", function(e) {
+                    e.preventDefault();
+                    var user_id = $(this).val();
+                    console.log(user_id);
+                    $.ajax({
+                        type: "POST",
+                        url: "testbackend.php",
+                        data: {
+                            facfeedview: true,
+                            user_id: user_id,
+                        },
+                        success: function(response) {
+                            var res = jQuery.parseJSON(response);
+                            console.log(res);
+                            if (res.status == 500) {
+                                alert(res.message);
+                            } else {
+                                //$('#student_id2').val(res.data.uid);
+                                $("#ffeed").val(res.data.feedback);
+                                $("#exampleModal").modal("show");
+                            }
+                        },
+                    });
                 });
 
-                // When 'Set Deadline' is clicked in the date picker modal
-                $(document).on("click", "#saveDeadline", function() {
-                    var reassign_deadline = $("#reassign_deadline").val(); // Get the selected deadline
+                $(document).ready(function() {
+                    var complaintfeedId = null; // Store complaintfeed_id globally
 
-                    if (!reassign_deadline) {
-                        alert("Please select a deadline date.");
-                        return;
+                    // Open the feedback modal and set the complaintfeed ID (Event Delegation)
+                    $(document).on("click", ".facfeed", function() {
+                        complaintfeedId = $(this).val();
+                        $("#complaintfeed_id").val(complaintfeedId); // Store complaintfeed ID in the hidden input
+                    });
+
+                    // When 'Done' is clicked (Event Delegation)
+                    $(document).on("click", ".done", function() {
+                        var complaintfeedId = $("#complaintfeed_id").val();
+                        updateComplaintStatus(complaintfeedId, 16); // Status '16' for Done
+                        swal({
+                            title: "success!",
+                            text: "Completed sucessfully!",
+                            icon: "success",
+                            button: "Ok",
+                            timer: null
+                        });
+
+                        $('#finished_table').DataTable().destroy();
+                        $('#completed_table').DataTable().destroy();
+
+                        $("#finished_table").load(location.href + " #finished_table > *", function() {
+                            // Reinitialize the DataTable after the content is loaded
+                            $('#finished_table').DataTable();
+                        });
+                        $("#completed_table").load(location.href + " #completed_table > *", function() {
+                            // Reinitialize the DataTable after the content is loaded
+                            $('#completed_table').DataTable();
+                        });
+                        $("#navref3").load(location.href + " #navref3");
+                        $("#navref4").load(location.href + " #navref4");
+                        $("#navref5").load(location.href + " #navref5");
+                    });
+
+                    // When 'Reassign' is clicked (Event Delegation)
+                    $(document).on("click", ".reass", function() {
+                        $("#datePickerModal").modal("show"); // Show the modal to select deadline
+                    });
+
+                    // When 'Set Deadline' is clicked in the date picker modal
+                    $(document).on("click", "#saveDeadline", function() {
+                        var reassign_deadline = $("#reassign_deadline").val(); // Get the selected deadline
+
+                        if (!reassign_deadline) {
+                            alert("Please select a deadline date.");
+                            return;
+                        }
+
+                        var complaintfeedId = $("#complaintfeed_id").val();
+                        updateComplaintStatus(complaintfeedId, 15, reassign_deadline); // Status '15' for Reassign with deadline
+                        swal({
+                            title: "success!",
+                            text: "Reassigned sucessfully!",
+                            icon: "success",
+                            button: "Ok",
+                            timer: null
+                        });
+                        $("#datePickerModal").modal("hide"); // Close the date picker modal
+                        $("#exampleModal").modal("hide"); // Close the feedback modal
+
+                        $('#finished_table').DataTable().destroy();
+                        $('#reassigned_table').DataTable().destroy();
+
+                        $("#finished_table").load(location.href + " #finished_table > *", function() {
+                            // Reinitialize the DataTable after the content is loaded
+                            $('#finished_table').DataTable();
+                        });
+                        $("#reassigned_table").load(location.href + " #reassigned_table > *", function() {
+                            // Reinitialize the DataTable after the content is loaded
+                            $('#reassigned_table').DataTable();
+                        });
+                        $("#navref3").load(location.href + " #navref3");
+                        $("#navref4").load(location.href + " #navref4");
+                        $("#navref5").load(location.href + " #navref5");
+                    });
+
+                    // Function to update the complaint status
+                    function updateComplaintStatus(complaintfeedId, status, reassign_deadline = null) {
+                        $.ajax({
+                            type: "POST",
+                            url: "testbackend.php",
+                            data: {
+                                complaintfeed_id: complaintfeedId,
+                                status: status,
+                                reassign_deadline: reassign_deadline, // Only pass this if status is 'reassign'
+                            },
+                            success: function(response) {
+                                var res = jQuery.parseJSON(response);
+                                if (res.status == 500) {
+                                    alert(res.message);
+                                }
+                            },
+                            error: function() {
+                                alert("An error occurred while updating the status.");
+                            }
+                        });
                     }
-
-                    var complaintfeedId = $("#complaintfeed_id").val();
-                    updateComplaintStatus(complaintfeedId, 15, reassign_deadline); // Status '15' for Reassign with deadline
-                    swal({
-                        title: "success!",
-                        text: "Reassigned sucessfully!",
-                        icon: "success",
-                        button: "Ok",
-                        timer: null
-                    });
-                    $("#datePickerModal").modal("hide"); // Close the date picker modal
-                    $("#exampleModal").modal("hide"); // Close the feedback modal
-
-                    $('#finished_table').DataTable().destroy();
-                    $('#reassigned_table').DataTable().destroy();
-
-                    $("#finished_table").load(location.href + " #finished_table > *", function() {
-                        // Reinitialize the DataTable after the content is loaded
-                        $('#finished_table').DataTable();
-                    });
-                    $("#reassigned_table").load(location.href + " #reassigned_table > *", function() {
-                        // Reinitialize the DataTable after the content is loaded
-                        $('#reassigned_table').DataTable();
-                    });
-                    $("#navref3").load(location.href + " #navref3");
-                    $("#navref4").load(location.href + " #navref4");
-                    $("#navref5").load(location.href + " #navref5");
                 });
+
+
 
                 // Function to update the complaint status
                 function updateComplaintStatus(complaintfeedId, status, reassign_deadline = null) {
@@ -2273,193 +2300,212 @@ $row_count7 = mysqli_num_rows($result7);
                         },
                         success: function(response) {
                             var res = jQuery.parseJSON(response);
+                            alert(res.message);
                             if (res.status == 500) {
                                 alert(res.message);
                             }
-                        },
-                        error: function() {
-                            alert("An error occurred while updating the status.");
                         }
                     });
                 }
-            });
 
-
-
-            // Function to update the complaint status
-            function updateComplaintStatus(complaintfeedId, status, reassign_deadline = null) {
-                $.ajax({
-                    type: "POST",
-                    url: "testbackend.php",
-                    data: {
-                        complaintfeed_id: complaintfeedId,
-                        status: status,
-                        reassign_deadline: reassign_deadline, // Only pass this if status is 'reassign'
-                    },
-                    success: function(response) {
-                        var res = jQuery.parseJSON(response);
-                        alert(res.message);
-                        if (res.status == 500) {
-                            alert(res.message);
-                        }
-                    }
+                //Reject Reason from principal
+                $(document).on("click", ".rejectreasonbtn", function(e) {
+                    e.preventDefault();
+                    var id12 = $(this).val();
+                    console.log(id12);
+                    $.ajax({
+                        type: "POST",
+                        url: "testbackend.php",
+                        data: {
+                            get_reject_reason: true,
+                            problem_id: id12,
+                        },
+                        success: function(response) {
+                            var res = jQuery.parseJSON(response);
+                            console.log(res);
+                            if (res.status == 500) {
+                                alert(res.message);
+                            } else {
+                                $("#feedback").text(res.data.feedback);
+                            }
+                        },
+                    });
                 });
-            }
 
-            //Reject Reason from principal
-            $(document).on("click", ".rejectreasonbtn", function(e) {
-                e.preventDefault();
-                var id12 = $(this).val();
-                console.log(id12);
-                $.ajax({
-                    type: "POST",
-                    url: "testbackend.php",
-                    data: {
-                        get_reject_reason: true,
-                        problem_id: id12,
-                    },
-                    success: function(response) {
-                        var res = jQuery.parseJSON(response);
-                        console.log(res);
-                        if (res.status == 500) {
-                            alert(res.message);
-                        } else {
-                            $("#feedback").text(res.data.feedback);
+
+                //after image
+                $(document).on("click", ".imgafter", function() {
+                    var problem_id = $(this).val(); // Get the problem_id from button value
+                    console.log(problem_id); // Ensure this logs correctly
+                    $.ajax({
+                        type: "POST",
+                        url: "testbackend.php",
+                        data: {
+                            get_aimage: true,
+                            problem2_id: problem_id, // Correct POST key
+                        },
+                        dataType: "json", // Automatically parses JSON responses
+                        success: function(response) {
+                            console.log(response); // Log the parsed JSON response
+                            if (response.status == 200) { // Use 'response' instead of 'res'
+                                // Dynamically set the image source
+                                $("#modalImage2").attr("src", response.data.after_photo);
+                                // Show the modal
+                                $("#afterImageModal").modal("show");
+                            } else {
+                                // Handle case where no image is found
+                                alert(response.message || "An error occurred while retrieving the image.");
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error: ", status, error);
                         }
-                    },
+                    });
                 });
-            });
+                $('#afterImageModal').on('hidden.bs.modal', function() {
+                    // Reset the image source to a default or blank placeholder
+                    $("#modalImage2").attr("src", "path/to/placeholder_image.jpg");
+                });
+                document.getElementById('download').addEventListener('click', function() {
+                    var wb = XLSX.utils.book_new();
+                    var ws = XLSX.utils.table_to_sheet(document.getElementById('record_table'));
+                    XLSX.utils.book_append_sheet(wb, ws, "Complaints Data");
 
+                    // Create and trigger the download
+                    XLSX.writeFile(wb, 'complaints_data.xlsx');
+                });
 
-            //after image
-            $(document).on("click", ".imgafter", function() {
-                var problem_id = $(this).val(); // Get the problem_id from button value
-                console.log(problem_id); // Ensure this logs correctly
-                $.ajax({
-                    type: "POST",
-                    url: "testbackend.php",
-                    data: {
-                        get_aimage: true,
-                        problem2_id: problem_id, // Correct POST key
-                    },
-                    dataType: "json", // Automatically parses JSON responses
-                    success: function(response) {
-                        console.log(response); // Log the parsed JSON response
-                        if (response.status == 200) { // Use 'response' instead of 'res'
-                            // Dynamically set the image source
-                            $("#modalImage2").attr("src", response.data.after_photo);
-                            // Show the modal
-                            $("#afterImageModal").modal("show");
-                        } else {
-                            // Handle case where no image is found
-                            alert(response.message || "An error occurred while retrieving the image.");
+                //worker phone number fertch
+                $(document).on('click', ".worker_det", function(e) {
+                    e.preventDefault();
+                    var prblm_id = $(this).val();
+                    console.log(prblm_id);
+                    $.ajax({
+                        type: "POST",
+                        url: "testbackend.php",
+                        data: {
+                            get_worker_phone: true,
+                            prblm_id: prblm_id,
+                        },
+                        success: function(response) {
+                            var res = jQuery.parseJSON(response);
+                            console.log(res);
+                            if (res.status == 500) {
+                                alert(res.message);
+                            } else {
+                                $("#worker_mobile").text(res.data.worker_mobile);
+                                // Set the href attribute for the call button to dial the worker's mobile number
+                                $('#callWorkerBtn').attr('href', 'tel:' + response.worker_mobile);
+                                $("#workerdetailmodal").modal("show");
+                            }
+                        },
+                    });
+                });
+
+                //exctend deadline
+                $(document).on("click", ".deadline_extend", function(e) {
+                    e.preventDefault();
+                    var user = $(this).val();
+                    console.log(user);
+                    $("#deadline_id").val(user);
+                });
+                $(document).on("submit", "#extenddead", function(e) {
+                    e.preventDefault();
+                    console.log("Haii!!");
+                    var data = new FormData(this);
+                    console.log(data);
+                    data.append("extend_deadlinedate", true);
+                    $.ajax({
+                        url: "testbackend.php",
+                        type: "POST",
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            var res = jQuery.parseJSON(response);
+                            console.log(res);
+                            if (res.status == 200) {
+                                swal({
+                                    title: "success!",
+                                    text: "Complaint accepted sucessfully!",
+                                    icon: "success",
+                                    button: "Ok",
+                                    timer: null
+                                });
+                                $("#extend_date").modal("hide");
+                                $("#extenddead")[0].reset();
+                                $('#worker_table').DataTable().destroy();
+                                $("#worker_table").load(location.href + " #worker_table > *", function() {
+                                    // Reinitialize the DataTable after the content is loaded
+                                    $('#worker_table').DataTable();
+                                });
+                            }
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX Error: ", status, error);
-                    }
-                });
-            });
-            $('#afterImageModal').on('hidden.bs.modal', function() {
-                // Reset the image source to a default or blank placeholder
-                $("#modalImage2").attr("src", "path/to/placeholder_image.jpg");
-            });
-            document.getElementById('download').addEventListener('click', function() {
-                var wb = XLSX.utils.book_new();
-                var ws = XLSX.utils.table_to_sheet(document.getElementById('record_table'));
-                XLSX.utils.book_append_sheet(wb, ws, "Complaints Data");
+                    })
+                })
 
-                // Create and trigger the download
-                XLSX.writeFile(wb, 'complaints_data.xlsx');
-            });
+                //Add worker
+                $(document).on("submit", "#workers", function(e) {
+                    e.preventDefault();
+                    var dt = new FormData(this);
+                    console.log(dt);
+                    dt.append("form1", true);
+                    $.ajax({
+                        url: "testbackend.php",
+                        type: "POST",
+                        data: dt,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            if (response.includes("Success")) {
+                                $("#addworker").modal("hide");
+                                $('#workers')[0].reset();
 
-            //worker phone number fertch
-            $(document).on('click', ".worker_det", function(e) {
-                e.preventDefault();
-                var prblm_id = $(this).val();
-                console.log(prblm_id);
-                $.ajax({
-                    type: "POST",
-                    url: "testbackend.php",
-                    data: {
-                        get_worker_phone: true,
-                        prblm_id: prblm_id,
-                    },
-                    success: function(response) {
-                        var res = jQuery.parseJSON(response);
-                        console.log(res);
-                        if (res.status == 500) {
-                            alert(res.message);
-                        } else {
-                            $("#worker_mobile").text(res.data.worker_mobile);
-                            // Set the href attribute for the call button to dial the worker's mobile number
-                            $('#callWorkerBtn').attr('href', 'tel:' + response.worker_mobile);
-                            $("#workerdetailmodal").modal("show");
+
+
+                            } else {
+                                alert("Error");
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            alert("An error occurred: " + error);
                         }
-                    },
-                });
-            });
-            $(document).on("submit", "#workers", function(e) {
-            e.preventDefault();
-            var dt = new FormData(this);
-            console.log(dt);
-            dt.append("form1", true);
-            $.ajax({
-                url: "testbackend.php",
-                type: "POST",
-                data: dt,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.includes("Success")) {
-                        $("#addworker").modal("hide");
-                        $('#workers')[0].reset();
+                    });
+                })
+            </script>
 
+            <script>
+                // Get today's date in the format 'YYYY-MM-DD'
+                var today = new Date().toISOString().split('T')[0];
 
+                // Get the date input element
+                var dateInput = document.getElementById('deadline01');
 
-                    } else {
-                        alert("Error");
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert("An error occurred: " + error);
-                }
-            });
-        })
-        </script>
+                // Set the minimum and maximum date for the input field to today's date
+                dateInput.setAttribute('min', today);
+            </script>
 
-        <script>
-            // Get today's date in the format 'YYYY-MM-DD'
-            var today = new Date().toISOString().split('T')[0];
+            <script>
+                // Get today's date in the format 'YYYY-MM-DD'
+                var today = new Date().toISOString().split('T')[0];
 
-            // Get the date input element
-            var dateInput = document.getElementById('deadline01');
+                // Get the date input element
+                var dateInput = document.getElementById('reassign_deadline');
 
-            // Set the minimum and maximum date for the input field to today's date
-            dateInput.setAttribute('min', today);
-        </script>
+                // Set the minimum and maximum date for the input field to today's date
+                dateInput.setAttribute('min', today);
+            </script>
 
-        <script>
-            // Get today's date in the format 'YYYY-MM-DD'
-            var today = new Date().toISOString().split('T')[0];
+            <script>
+                // Get today's date in the format 'YYYY-MM-DD'
+                var today = new Date().toISOString().split('T')[0];
 
-            // Get the date input element
-            var dateInput = document.getElementById('reassign_deadline');
+                // Get the date input element
+                var dateInput = document.getElementById('extend_deadline');
 
-            // Set the minimum and maximum date for the input field to today's date
-            dateInput.setAttribute('min', today);
-        </script>
-
-<script>
-            // Get today's date in the format 'YYYY-MM-DD'
-            var today = new Date().toISOString().split('T')[0];
-
-            // Get the date input element
-            var dateInput = document.getElementById('extend_deadline');
-
-            // Set the minimum and maximum date for the input field to today's date
-            dateInput.setAttribute('min', today);
-        </script>
+                // Set the minimum and maximum date for the input field to today's date
+                dateInput.setAttribute('min', today);
+            </script>
 
 </body>
 

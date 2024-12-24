@@ -451,3 +451,26 @@ if (isset($_POST['form1'])) {
         exit;
     }
 }
+
+//dead line extend
+if (isset($_POST["extend_deadlinedate"])) {
+    try {
+        $id = mysqli_real_escape_string($conn, $_POST['id']);
+        $dead_date = mysqli_real_escape_string($conn, $_POST['extend_deadline']);
+        $query = "UPDATE complaints_detail SET days_to_complete = '$dead_date',extend_date = '1'  WHERE id = $id";
+        if (mysqli_query($conn, $query)) {
+            $res = [
+                'status' => 200,
+            ];
+            echo json_encode($res);
+        } else {
+            throw new Exception('Query Failed: ' . mysqli_error($conn));
+        }
+    } catch (Exception $e) {
+        $res = [
+            'status' => 500,
+            'message' => 'Error: ' . $e->getMessage()
+        ];
+        echo json_encode($res);
+    }
+}
