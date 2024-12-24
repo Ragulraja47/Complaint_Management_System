@@ -806,7 +806,11 @@ $row_count7 = mysqli_num_rows($result7);
                                                                     echo $worker_name['worker_first_name']; ?>
                                                                 </button>
                                                             </td>
-                                                            <td class="text-center"><?php echo $row3['days_to_complete'] ?></td>
+                                                            <td class="text-center"> <button class="btn btn-light deadline_extend"
+                                                            value="<?php echo $row3["id"]; ?>" data-toggle="modal"
+                                                                    data-target="#extend_date">
+                                                                
+                                                            <?php echo $row3['days_to_complete'] ?></button></td>
                                                             <td class="text-center">
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row3['id']; ?>" data-toggle="modal" data-target="#imageModal">
@@ -1590,6 +1594,28 @@ $row_count7 = mysqli_num_rows($result7);
                                 </div>
                             </div>
 
+                            <!--extend_deadline date Modal -->
+                            <div class="modal fade" id="extend_date" tabindex="-1" role="dialog" aria-labelledby="extend_dateLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-primary text-white">
+                                            <h5 class="modal-title" id="extend_dateLabel">Dead-line extend</h5>
+                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <label for="extend_deadline">Extend Deadline Date:</label>
+                                            <input type="date" id="extend_deadline" name="extend_deadline" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-primary" id="#####">Set Deadline</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 
 
 
@@ -2341,6 +2367,17 @@ $row_count7 = mysqli_num_rows($result7);
 
             // Get the date input element
             var dateInput = document.getElementById('reassign_deadline');
+
+            // Set the minimum and maximum date for the input field to today's date
+            dateInput.setAttribute('min', today);
+        </script>
+
+<script>
+            // Get today's date in the format 'YYYY-MM-DD'
+            var today = new Date().toISOString().split('T')[0];
+
+            // Get the date input element
+            var dateInput = document.getElementById('extend_deadline');
 
             // Set the minimum and maximum date for the input field to today's date
             dateInput.setAttribute('min', today);
