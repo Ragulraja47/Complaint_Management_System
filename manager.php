@@ -158,6 +158,8 @@ $row_count7 = mysqli_num_rows($result7);
         }
 
         .modal-header .close:hover {
+
+
             transform: rotate(90deg);
             color: #ff8080;
         }
@@ -386,6 +388,7 @@ $row_count7 = mysqli_num_rows($result7);
             <div class="lds-pos"></div>
         </div>
     </div>
+   
 
     <div id="main-wrapper">
         <header class="topbar" data-navbarbg="skin5">
@@ -413,13 +416,16 @@ $row_count7 = mysqli_num_rows($result7);
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
                             class="ti-more"></i></a>
                 </div>
+                
 
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
                     <ul class="navbar-nav float-left mr-auto">
                         <li class="nav-item d-none d-md-block"><a
                                 class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
                                 data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
+                                
                     </ul>
+                   
                     <ul class="navbar-nav float-right">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
@@ -450,6 +456,8 @@ $row_count7 = mysqli_num_rows($result7);
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="manager.php" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
                                     class="hide-menu">Complaints</span></a></li>
+                                  
+                                    
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -475,6 +483,49 @@ $row_count7 = mysqli_num_rows($result7);
                     </div>
                 </div>
             </div>
+            <button type="button" class="btn btn-primary" style="margin-left:1080px;" data-toggle="modal" data-target="#addworker">
+            Add worker</button>
+            
+
+                                    <div class="modal fade" id="addworker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content" style="border-radius: 8px; border: 1px solid #ccc;">
+                                            <div class="modal-header" style="background-color: #f8f9fa; border-bottom: 2px solid #e9ecef;">
+                                                <h5 class="modal-title" id="exampleModalLabel">Add Worker</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form id="workers">
+                                                <div class="modal-body" style="padding: 20px; background-color: #f5f5f5;">
+                                                    <input type="text" name="w_name" placeholder="Enter Worker Name" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                                                    <select id="department" name="w_dept" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                                                        <option value="all">Select department</option>
+                                                        <option value="civil">Civil</option>
+                                                        <option value="electrical">Electrical</option>
+                                                        <option value="itkm">itkm</option>
+
+                                                    </select>                                                
+
+
+                                                    <select id="gender" name="w_gender" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                                                        <option value="all">Select Gender</option>
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                    </select>
+
+                                                
+
+                                                    <input type="text" name="w_phone" placeholder="Enter Phone Number" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" style="background-color: #6c757d; border: none; padding: 10px 20px;">Close</button>
+                                                    <button type="submit" class="btn btn-primary" style="background-color: #007bff; border: none; padding: 10px 20px;">Add</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
@@ -2348,6 +2399,33 @@ $row_count7 = mysqli_num_rows($result7);
                     },
                 });
             });
+            $(document).on("submit", "#workers", function(e) {
+            e.preventDefault();
+            var dt = new FormData(this);
+            console.log(dt);
+            dt.append("form1", true);
+            $.ajax({
+                url: "testbackend.php",
+                type: "POST",
+                data: dt,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.includes("Success")) {
+                        $("#addworker").modal("hide");
+                        $('#workers')[0].reset();
+
+
+
+                    } else {
+                        alert("Error");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert("An error occurred: " + error);
+                }
+            });
+        })
         </script>
 
         <script>
