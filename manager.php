@@ -858,10 +858,10 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td class="text-center"> <button class="btn btn-light deadline_extend"
-                                                            value="<?php echo $row3["id"]; ?>" data-toggle="modal"
+                                                                    value="<?php echo $row3["id"]; ?>" data-toggle="modal"
                                                                     data-target="#extend_date">
-                                                                
-                                                            <?php echo $row3['days_to_complete'] ?></button></td>
+
+                                                                    <?php echo $row3['days_to_complete'] ?></button></td>
                                                             <td class="text-center">
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row3['id']; ?>" data-toggle="modal" data-target="#imageModal">
@@ -1656,12 +1656,16 @@ $row_count7 = mysqli_num_rows($result7);
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <label for="extend_deadline">Extend Deadline Date:</label>
-                                            <input type="date" id="extend_deadline" name="extend_deadline" required>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-primary" id="#####">Set Deadline</button>
+                                            <form id="extenddead">
+                                                <input type="hidden" name="id" id="deadline_id">
+                                                <label for="extend_deadline">Extend Deadline Date:</label>
+                                                <input type="date" id="extend_deadline" name="extend_deadline" required>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-primary">Set Deadline</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -2399,33 +2403,6 @@ $row_count7 = mysqli_num_rows($result7);
                     },
                 });
             });
-            $(document).on("submit", "#workers", function(e) {
-            e.preventDefault();
-            var dt = new FormData(this);
-            console.log(dt);
-            dt.append("form1", true);
-            $.ajax({
-                url: "testbackend.php",
-                type: "POST",
-                data: dt,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.includes("Success")) {
-                        $("#addworker").modal("hide");
-                        $('#workers')[0].reset();
-
-
-
-                    } else {
-                        alert("Error");
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert("An error occurred: " + error);
-                }
-            });
-        })
         </script>
 
         <script>
@@ -2450,7 +2427,7 @@ $row_count7 = mysqli_num_rows($result7);
             dateInput.setAttribute('min', today);
         </script>
 
-<script>
+        <script>
             // Get today's date in the format 'YYYY-MM-DD'
             var today = new Date().toISOString().split('T')[0];
 
