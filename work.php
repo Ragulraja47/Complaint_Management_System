@@ -656,8 +656,7 @@ if (isset($_POST['form1'])) {
                                     </ul>
                                 </div>
 
-                                <button type="button" class="btn btn-primary" style="margin-left:1080px;" data-toggle="modal" data-target="#addworker">
-                                    Add worker</button>
+                                
                                 <div class="modal fade" id="addworker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content" style="border-radius: 8px; border: 1px solid #ccc;">
