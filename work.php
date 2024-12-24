@@ -8,7 +8,6 @@ session_start();
 
 if (isset($_SESSION['worker_id'])) {
     $worker_id = $_SESSION['worker_id'];
-   
 } else {
     die("Couldn't find department in session.");
 }
@@ -133,10 +132,13 @@ if (isset($_POST['work'])) {
     // Prepare to output options directly
     $options = '';
 
+
     while ($row = mysqli_fetch_assoc($result8)) {
         // Echo each worker's ID and name as an option element (worker_id - worker_first_name)
         $options .= '<option value="' . $row['worker_id'] . '">' . $row['worker_id'] . ' - ' . $row['worker_first_name'] . '</option>';
+
     }
+
 
     // Return the options to the AJAX request
     echo $options;
@@ -148,9 +150,15 @@ if (isset($_POST['work'])) {
 
 if (isset($_POST['form'])) {
     $problem_id = $_POST['problem_id'] ?? null;
-    $worker = $_POST['worker'] ?? null;
+    if($_POST['worker']){
+        $worker = $_POST['worker'];
+    }
+    else{
+        $worker = $_POST['otherworkername'];
+    }
 
-    if ($problem_id && $worker) {
+
+    if ($problem_id) {
         $insertQuery = "UPDATE manager SET worker_id='$worker' WHERE problem_id='$problem_id'";
         if (mysqli_query($conn, $insertQuery)) {
             $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
@@ -174,7 +182,6 @@ if (isset($_POST['form'])) {
 
 if (isset($_POST['form1'])) {
     $name = $_POST['w_name'];
-    $dept = $_POST['w_dept'];
     $contact = $_POST['w_phone'];
     $gender = $_POST['w_gender'];
 
@@ -201,8 +208,8 @@ if (isset($_POST['form1'])) {
     $worker_id = $dept_prefix . str_pad($number, 2, '0', STR_PAD_LEFT);
 
     // Step 4: Insert the new worker with the generated worker_id
-    $insertQuery = "INSERT INTO worker_details (worker_id, worker_first_name, worker_dept, worker_mobile, worker_gender) 
-                    VALUES ('$worker_id', '$name', '$dept', '$contact', '$gender')";
+    $insertQuery = "INSERT INTO worker_details (worker_id, worker_first_name, worker_dept, worker_mobile, worker_gender,usertype) 
+                    VALUES ('$worker_id', '$name', '$dept', '$contact', '$gender','worker')";
 
     if (mysqli_query($conn, $insertQuery)) {
         echo "Success: Worker added with ID $worker_id!";
@@ -681,14 +688,7 @@ if (isset($_POST['form1'])) {
                                                         <option value="female">Female</option>
                                                     </select>
 
-                                                    <select name="w_dept" id="dept" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
-                                                        <option value="CIVIL">CIVIL</option>
-                                                        <option value="CARPENTER">CARPENTER</option>
-                                                        <option value="ELECTRICAL">ELECTRICAL</option>
-                                                        <option value="INFRA">INFRA</option>
-                                                        <option value="PARTITION">PARTITION</option>
-                                                        <option value="PLUMBING">PLUMBING</option>
-                                                    </select>
+                                                
 
                                                     <input type="text" name="w_phone" placeholder="Enter Phone Number" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
                                                 </div>
@@ -706,131 +706,10 @@ if (isset($_POST['form1'])) {
                                 <div class="tab-content tabcontent-border">
 
 
-                                    <!-- Complaint Table -->
-                                    <div class="tab-pane" id="complain" role="tabpanel">
-                                        <div class="table-responsive">
-                                            <table id="complain_table" class="table table-striped table-bordered">
-                                                <thead
-                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                    <tr>
-                                                        <th><b>S.No</b></th>
-                                                        <th><b>Raised</b></th>
-                                                        <th><b>Dept Name</b></th>
-                                                        <th><b>Venue</b></th>
-                                                        <th><b>Complaint</b></th>
-                                                        <th><b>Picture</b></th>
-                                                        <th><b>Action</b></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $s = 1;
-                                                    while ($row = mysqli_fetch_assoc($result1)) {
-                                                    ?>
-                                                        <tr>
-                                                            <td><?php echo $s ?></td>
-                                                            <td><?php echo $row['date_of_reg'] ?></td>
-                                                            <td><?php echo $row['department'] ?></td>
-                                                            <td><?php echo $row['block_venue'] ?></td>
-                                                            <td><button type="button" value="<?php echo $row['id']; ?>"
-                                                                    class="btn btn-primary viewcomplaint"
-                                                                    data-toggle="modal"
-                                                                    data-target="#complaintDetailsModal"> <i class="fas fa-eye" style="font-size: 25px;"></i>
-                                                                </button>
-                                                            </td>
-
-                                                            <td>
-                                                                <button type="button" class="btn btn-light btn-sm showImage"
-                                                                    value="<?php echo $row['id']; ?>" data-toggle="modal">
-                                                                    <i class="fas fa-image"></i> Before
-                                                                </button>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button"
-                                                                    class="btn btn-success dropdown-toggle acceptcomplaint"
-                                                                    value="<?php echo $row['id']; ?>"
-                                                                    data-toggle="dropdown">Accept</button>
-                                                                <ul class="dropdown-menu">
-                                                                    <center>
-                                                                        <li><a href="#" class="worker-option"
-                                                                                data-toggle="modal"
-                                                                                data-target="#prioritymodal1"
-                                                                                data-value="CARPENTER">CARPENTER</a></li>
-                                                                        <li><a href="#" class="worker-option"
-                                                                                data-toggle="modal"
-                                                                                data-target="#prioritymodal1"
-                                                                                data-value="ELECTRICAL">ELECTRICAL</a></li>
-                                                                        <li><a href="#" class="worker-option"
-                                                                                data-toggle="modal"
-                                                                                data-target="#prioritymodal1"
-                                                                                data-value="CIVIL">CIVIL</a></li>
-                                                                        <li><a href="#" class="worker-option"
-                                                                                data-toggle="modal"
-                                                                                data-target="#prioritymodal1"
-                                                                                data-value="PARTITION">PARTITION</a></li>
-                                                                        <li><a href="#" class="worker-option"
-                                                                                data-toggle="modal"
-                                                                                data-target="#prioritymodal1"
-                                                                                data-value="PLUMBING">PLUMBING</a></li>
-                                                                        <li><a href="#" class="worker-option"
-                                                                                data-toggle="modal"
-                                                                                data-target="#prioritymodal1"
-                                                                                data-value="IT INFRA">IT INFRA</a></li>
-                                                                    </center>
-                                                                </ul>
-                                                                <button type="button" class="btn btn-danger rejectcomplaint"
-                                                                    id="rejectbutton" value="<?php echo $row['id']; ?>"
-                                                                    data-toggle="modal"
-                                                                    data-target="#rejectModal">X</button>
-
-                                                                <button type="button" class="btn btn-primary principalcomplaint"
-                                                                    id="principalbutton" value="<?php echo $row['id']; ?>"
-                                                                    data-toggle="modal"
-                                                                    data-target="#principalModal">need approve</button>
-                                                            </td>
-                                                        </tr>
-                                                    <?php
-                                                        $s++;
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                    
 
                                     <!--Principal | Need Approve Modal -->
-                                    <div class="modal fade" id="principalModal" tabindex="-1" role="dialog"
-                                        aria-labelledby="principalModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="principalModalLabel">Need Approval</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form id="principal_Form">
-                                                        <input type="hidden" name="id" id="complaint_id89">
-                                                        <div class="form-group">
-                                                            <label for="approvalReason" class="form-label">Reason for
-                                                                Approval</label>
-                                                            <textarea class="form-control" name="reason"
-                                                                id="approvalReason" rows="3"
-                                                                placeholder="Type the reason here..."></textarea>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-danger">Submit</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                   
                                     <!-- Complaint Details Modal -->
                                     <div class="modal fade" id="complaintDetailsModal" tabindex="-1" role="dialog" aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
@@ -918,10 +797,14 @@ if (isset($_POST['form1'])) {
 
                                                         <div class="form-group" style="margin-bottom: 15px;">
                                                             <label for="worker" class="font-weight-bold" style="display: block; margin-bottom: 5px;">Assign Worker:</label>
-                                                            <select class="form-control" name="worker" id="worker" style="width: 100%; height: 40px; border-radius: 4px; border: 1px solid #ccc;">
-                                                                <option value="">Select Worker</option>
+                                                            <select class="form-control"  name="worker" id="worker" style="width: 100%; height: 40px; border-radius: 4px; border: 1px solid #ccc;">
                                                             </select>
                                                         </div>
+                                                        <input type="checkbox" id="oth" name="oth"  onclick="checkIfOthers()">Others
+                                                        <div id="othersInput" style="display: none;">
+                                                                <label class="form-label" for="otherValue">Please specify:</label>
+                                                                <input  type="text" id="otherValue" name="otherworkername"> <br>
+                                                            </div>
 
                                                        
                                                 </div>
@@ -939,171 +822,9 @@ if (isset($_POST['form1'])) {
 
 
 
-                                    <!-- Reject Modal -->
-                                    <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog"
-                                        aria-labelledby="rejectModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="rejectModalLabel">Reject Complaint</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form id="rejectForm">
-                                                        <input type="hidden" name="id" id="complaint_id99">
-                                                        <div class="form-group">
-                                                            <label for="rejectReason" class="form-label">Reason for
-                                                                rejection</label>
-                                                            <textarea class="form-control" name="feedback"
-                                                                id="rejectReason" rows="3"
-                                                                placeholder="Type the reason here..."></textarea>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-danger">Submit</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                
 
-                                    <!-- Worker Table -->
-                                    <div class="tab-pane" id="worker" role="tabpanel">
-                                        <div class="table-responsive">
-                                            <table id="worker_table" class="table table-striped table-bordered">
-                                                <thead
-                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                    <tr>
-                                                        <th><b>S.No</b></th>
-                                                        <th><b>Complaint</b></th>
-                                                        <th><b>Worker Details</b></th>
-                                                        <th><b>Deadline</b></th>
-                                                        <th><b>Picture</b></th>
-                                                        <th><b>Status</b></th>
-                                                        <th><b>Principal Query</b></th>
-                                                        <th><b>Your Reply</b></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $s = 1;
-                                                    $current_date = date('Y-m-d'); // Get current date in 'YYYY-MM-DD' format
-
-                                                    while ($row3 = mysqli_fetch_assoc($result3)) {
-                                                        $deadline = $row3['days_to_complete'];
-                                                        $h = $row3['id']; // complaint id
-
-                                                        // Fetch query from manager table
-                                                        $querydisplay = "SELECT * FROM manager WHERE problem_id=$h";
-                                                        $resultdisplay = mysqli_query($conn, $querydisplay);
-                                                        $rowdis = mysqli_fetch_assoc($resultdisplay);
-                                                        $comment_query = $rowdis['comment_query'];
-                                                        $comment_reply = $rowdis['comment_reply']; // Fetch the reply
-                                                        $reply_date = $rowdis['reply_date']; // Fetch the reply date
-                                                        $task_id = $rowdis['task_id']; // Unique ID from manager table
-
-                                                        // Check if comment_reply has a value to assign the green color class
-                                                        $buttonClass = empty($comment_reply) ? 'btn-primary' : 'btn-success';
-
-                                                        // Check if current date is equal to or greater than the deadline
-                                                        $rowBackground = ($current_date >= $deadline) ? 'background-color: #ffcccc;' : '';
-                                                    ?>
-                                                        <tr style="<?php echo $rowBackground; ?>">
-                                                            <td><?php echo $s ?></td>
-                                                            <td>
-                                                                <button type="button" value="<?php echo $row3['id']; ?>"
-                                                                    class="btn btn-primary viewcomplaint"
-                                                                    data-toggle="modal"
-                                                                    data-target="#complaintDetailsModal">See More</button>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-primary"
-                                                                    value="<?php echo $row3['id']; ?>" id="seeworker"
-                                                                    data-toggle="modal"
-                                                                    data-target="#detailsModal">Details</button>
-                                                            </td>
-                                                            <td><?php echo $row3['days_to_complete'] ?></td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-light btn-sm showImage"
-                                                                    value="<?php echo $row3['id']; ?>" data-toggle="modal">
-                                                                    <i class="fas fa-image"></i> Before
-                                                                </button>
-                                                            </td>
-                                                            <td><span class="btn btn-warning">In Progress</span></td>
-
-                                                            <td>
-                                                                <button type="button"
-                                                                    class="btn <?php echo $buttonClass; ?> openQueryModal"
-                                                                    data-task-id="<?php echo $task_id; ?>"
-                                                                    data-comment-query="<?php echo $comment_query; ?>"
-                                                                    data-toggle="modal"
-                                                                    data-target="#principalQueryModal"
-                                                                    <?php echo empty($comment_query) ? 'disabled' : ''; ?>>
-                                                                    <?php echo empty($comment_query) ? 'No Query' : 'View Query'; ?>
-                                                                </button>
-                                                            </td>
-
-
-                                                            <!-- Display Comment Reply and Date if available -->
-                                                            <td>
-                                                                <?php if (!empty($comment_reply)): ?>
-                                                                    <span> <?php echo $comment_reply; ?></span>
-                                                                    <br>
-                                                                    <span class="">Reply Date: <?php echo $reply_date; ?></span>
-                                                                <?php else: ?>
-                                                                    <span class="badge badge-secondary">No Reply Yet</span>
-                                                                <?php endif; ?>
-                                                            </td>
-                                                        </tr>
-                                                    <?php
-                                                        $s++;
-                                                    }
-                                                    ?>
-                                                </tbody>
-
-
-                                            </table>
-                                        </div>
-                                    </div>
-
-
-                                    <!-- Principal Question Modal -->
-                                    <div class="modal fade" id="principalQueryModal" tabindex="-1" role="dialog"
-                                        aria-labelledby="principalQueryLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="principalQueryLabel">Principal's Query
-                                                    </h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- Question from comment_query -->
-                                                    <p id="commentQueryText"></p>
-                                                    <!-- Input for reply -->
-                                                    <div class="form-group">
-                                                        <label for="commentReply">Your Reply</label>
-                                                        <input type="text" class="form-control" id="commentReply"
-                                                            placeholder="Enter your reply">
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary"
-                                                        id="submitReply">Submit Reply</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                
 
                                     <!-- Principal Table -->
                                     <div class="tab-pane active show" id="principal" role="tabpanel">
@@ -1168,210 +889,11 @@ if (isset($_POST['form1'])) {
                                         </div>
                                     </div>
 
-                                    <!-- Work Finished Table -->
-                                    <div class="tab-pane" id="finished" role="tabpanel">
-                                        <div class="table-responsive">
-                                            <table id="finished_table" class="table table-striped table-bordered">
-                                                <thead
-                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                    <tr>
-                                                        <th><b>S.No</b></th>
-                                                        <th><b>Complaint</b></th>
-                                                        <th><b>Worker Details</b></th>
-                                                        <th><b>Date of Completion</b></th>
-                                                        <th><b>Picture</b></th>
-                                                        <th><b>Faculty Feedback/Action</b></th>
-                                                        <th><b>Status</b></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $s = 1;
-                                                    while ($row5 = mysqli_fetch_assoc($result5)) {
-                                                    ?>
-                                                        <tr>
-                                                            <td><?php echo $s ?></td>
-                                                            <td>
-                                                                <button type="button" value="<?php echo $row5['id']; ?>"
-                                                                    class="btn btn-primary viewcomplaint"
-                                                                    data-toggle="modal"
-                                                                    data-target="#complaintDetailsModal">
-                                                                    See More
-                                                                </button>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-primary"
-                                                                    value="<?php echo $row5['id']; ?>" id="seeworker"
-                                                                    data-toggle="modal" data-target="#detailsModal">
-                                                                    Details
-                                                                </button>
-                                                            </td>
-                                                            <td><?php echo $row5['date_of_completion'] ?></td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-light btn-sm showImage"
-                                                                    value="<?php echo $row5['id']; ?>" data-toggle="modal">
-                                                                    <i class="fas fa-image"></i> Before
-                                                                </button>
-                                                                <button value="<?php echo $row5['id']; ?>" type="button"
-                                                                    class="btn btn-light btn-sm imgafter"
-                                                                    data-toggle="modal">
-                                                                    <i class="fas fa-image"></i> After
-                                                                </button>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-primary facfeed"
-                                                                    value="<?php echo $row5['id']; ?>" data-toggle="modal"
-                                                                    data-target="#exampleModal">
-                                                                    Feedback
-                                                                </button>
-                                                            </td>
-                                                            <td>
-                                                                <span
-                                                                    class="btn btn-success"><?php echo $row5['task_completion'] ?></span>
-                                                            </td>
-                                                        </tr>
-                                                    <?php
-                                                        $s++;
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                 
 
-                                    <!-- Resigned Table -->
-                                    <div class="tab-pane" id="reassigned" role="tabpanel">
-                                        <div class="table-responsive">
-                                            <table id="reassigned_table" class="table table-striped table-bordered">
-                                                <thead
-                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                    <tr>
-                                                        <th><b>S.No</b></th>
-                                                        <th><b>Complaint</b></th>
-                                                        <th><b>Worker Details</b></th>
-                                                        <th><b>Date of Reassigned</b></th>
-                                                        <th><b>Deadline</b></th>
-                                                        <th><b>Picture</b></th>
-                                                        <th><b>Faculty Feedback</b></th>
-                                                        <!-- <th><b>Status</b></th> -->
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $s = 1;
-                                                    while ($row7 = mysqli_fetch_assoc($result7)) {
-                                                    ?>
-                                                        <tr>
-                                                            <td><?php echo $s ?></td>
-                                                            <td>
-                                                                <button type="button" value="<?php echo $row7['id']; ?>"
-                                                                    class="btn btn-primary viewcomplaint"
-                                                                    data-toggle="modal"
-                                                                    data-target="#complaintDetailsModal">
-                                                                    See More
-                                                                </button>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-primary"
-                                                                    value="<?php echo $row7['id']; ?>" id="seeworker"
-                                                                    data-toggle="modal" data-target="#detailsModal">
-                                                                    Details
-                                                                </button>
-                                                            </td>
-                                                            <td><?php echo $row7['reassign_date'] ?></td>
-                                                            <td><?php echo $row7['days_to_complete'] ?></td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-light btn-sm showImage"
-                                                                    value="<?php echo $row7['id']; ?>" data-toggle="modal">
-                                                                    <i class="fas fa-image"></i> Before
-                                                                </button>
-                                                                <button value="<?php echo $row7['id']; ?>" type="button"
-                                                                    class="btn btn-light btn-sm imgafter"
-                                                                    data-toggle="modal">
-                                                                    <i class="fas fa-image"></i> After
-                                                                </button>
-                                                            </td>
-                                                            <td>
-                                                                <?php echo $row7['feedback']; ?>
-                                                            </td>
-                                                            <!-- <td>
-                                                                <span class="btn btn-warning">Reassigned</span>
-                                                            </td> -->
-                                                        </tr>
-                                                    <?php
-                                                        $s++;
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                               
 
-                                    <!-- Completed Table -->
-                                    <div class="tab-pane" id="completed" role="tabpanel">
-                                        <div class="table-responsive">
-                                            <table id="completed_table" class="table table-striped table-bordered">
-                                                <thead
-                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                    <tr>
-                                                        <th><b>S.No</b></th>
-                                                        <th><b>Complaint</b></th>
-                                                        <th><b>Worker Details</b></th>
-                                                        <th><b>Date of Completion</b></th>
-                                                        <th><b>Picture</b></th>
-                                                        <th><b>Faculty Feedback</b></th>
-                                                        <!-- <th><b>Status</b></th> -->
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $s = 1;
-                                                    while ($row6 = mysqli_fetch_assoc($result6)) {
-                                                    ?>
-                                                        <tr>
-                                                            <td><?php echo $s ?></td>
-                                                            <td>
-                                                                <button type="button" value="<?php echo $row6['id']; ?>"
-                                                                    class="btn btn-primary viewcomplaint"
-                                                                    data-toggle="modal"
-                                                                    data-target="#complaintDetailsModal">
-                                                                    See More
-                                                                </button>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-primary"
-                                                                    value="<?php echo $row6['id']; ?>" id="seeworker"
-                                                                    data-toggle="modal" data-target="#detailsModal">
-                                                                    Details
-                                                                </button>
-                                                            </td>
-                                                            <td><?php echo $row6['date_of_completion'] ?></td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-light btn-sm showImage"
-                                                                    value="<?php echo $row6['id']; ?>" data-toggle="modal">
-                                                                    <i class="fas fa-image"></i> Before
-                                                                </button>
-                                                                <button value="<?php echo $row6['id']; ?>" type="button"
-                                                                    class="btn btn-light btn-sm imgafter"
-                                                                    data-toggle="modal">
-                                                                    <i class="fas fa-image"></i> After
-                                                                </button>
-                                                            </td>
-                                                            <td>
-                                                                <?php echo $row6['feedback']; ?>
-                                                            </td>
-                                                            <!-- <td>
-                                                                <span class="btn btn-success">Completed</span>
-                                                            </td> -->
-                                                        </tr>
-                                                    <?php
-                                                        $s++;
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                  
 
                                     <!-- Record Table -->
 
@@ -1940,6 +1462,23 @@ if (isset($_POST['form1'])) {
                 }
             });
         });
+
+        function checkIfOthers() {
+    const dropdown = document.getElementById('oth');
+    const othersInput = document.getElementById('othersInput');
+    const sel = document.getElementById('worker');
+
+    // Show the input field if "Others" is selected
+    if (dropdown.checked) {
+        othersInput.style.display = 'block';
+        sel.value="";
+    } else {
+        othersInput.style.display = 'none';
+
+    }
+}
+
+
 
         $(document).on("submit", "#workers", function(e) {
             e.preventDefault();

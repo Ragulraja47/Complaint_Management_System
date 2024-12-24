@@ -427,12 +427,12 @@ $c6 = mysqli_num_rows($r6);
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">CIVIL</h4>
+                        <h4 class="page-title"></h4>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Civil</li>
+                                    <li class="breadcrumb-item active" aria-current="page"></li>
                                 </ol>
                             </nav>
                         </div>
