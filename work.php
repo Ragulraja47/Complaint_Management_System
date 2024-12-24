@@ -149,18 +149,11 @@ if (isset($_POST['work'])) {
 
 
 if (isset($_POST['form'])) {
-    $problem_id = $_POST['problem_id'] ?? null;
-    if($_POST['worker']){
-        $worker = $_POST['worker'];
-    }
-    else{
-        $worker = $_POST['otherworkername'];
-    }
+    $problem_id = $_POST['user_id'] ?? null;
+   
 
 
     if ($problem_id) {
-        $insertQuery = "UPDATE manager SET worker_id='$worker' WHERE problem_id='$problem_id'";
-        if (mysqli_query($conn, $insertQuery)) {
             $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
             if (mysqli_query($conn, $updateQuery)) {
                 echo "Success: Complaint accepted and status updated successfully!";
@@ -173,10 +166,6 @@ if (isset($_POST['form'])) {
             echo "Error: Failed to insert data into manager table.";
             exit;
         }
-    } else {
-        echo "Error: Required fields are missing.";
-        exit;
-    }
 }
 
 
@@ -868,11 +857,8 @@ if (isset($_POST['form1'])) {
                                                             </td>
                                                             <td class="text-center">
                                                                 <button type="button"
-                                                                    class="btn btn-success dropdown-toggle acceptcomplaint worker"
+                                                                    class="btn btn-success acceptcomplaint worker"
                                                                     value="<?php echo $row4['id']; ?>"
-                                                                                data-toggle="modal"
-                                                                                data-target="#prioritymodal1"
-                                                                                data-value="<?php echo $srow['worker_dept'] ?>"
                                                                     ><i class="fas fa-check"></i></button>
                                                                
                                                             </td>
@@ -1294,24 +1280,25 @@ if (isset($_POST['form1'])) {
 
 
 
-        $(document).on("submit", "#form20", function(e) {
+        $(document).on("click", ".acceptcomplaint", function(e) {
             e.preventDefault();
-            var dt = new FormData(this);
-            console.log(dt);
-            dt.append("form", true);
+            var user_id = $(this).val();
+            console.log(user_id);
+
+
 
             $.ajax({
                 url: "work.php",
                 type: "POST",
-                data: dt,
-                processData: false,
-                contentType: false,
+                data: {
+            'form': true,
+            'user_id': user_id
+          },
                 success: function(response) {
                     // Directly check if response contains "Success" or "Error"
                     if (response.includes("Success")) {
                         alertify.success("asigned successfully!");
                     
-                        $('#prioritymodal1').hide();
                         window.location.reload();
 
                     } else {
@@ -1328,19 +1315,7 @@ if (isset($_POST['form1'])) {
 
 
 
-        $(document).on("click", ".acceptcomplaint", function(e) {
-            e.preventDefault();
-
-            var user_id = $(this).val(); // Get the ID from the button's value
-            console.log("User ID:", user_id);
-
-            // Set the complaint ID in the hidden input field within the form
-            $("#complaint_id77").val(user_id);
-
-            // Reset the worker selection and the text in the modal
-            $("#worker_id").val(''); // Reset the worker ID
-            $("#assignedWorker").text('Assigned Worker: '); // Reset the assigned worker text
-        });
+      
     </script>
 
     <script>
