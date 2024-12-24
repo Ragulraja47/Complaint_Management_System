@@ -802,7 +802,7 @@ if (isset($_POST['form1'])) {
                                                         </div>
                                                         <input type="checkbox" id="oth" name="oth"  onclick="checkIfOthers()">Others
                                                         <div id="othersInput" style="display: none;">
-                                                                <label class="form-label" for="otherValue">Please specify:</label>
+                                                                <label class="form-label" for="otherValue">Worker name:</label>
                                                                 <input  type="text" id="otherValue" name="otherworkername"> <br>
                                                             </div>
 

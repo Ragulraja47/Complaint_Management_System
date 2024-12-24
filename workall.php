@@ -835,7 +835,7 @@ $c6 = mysqli_num_rows($r6);
                                                                     echo "<td class='text-center'>In Progress</td>";
                                                                     ?>
                                                                     <td class='text-center'>
-                                                                        <button type='button' class='work-comp btn btn-primary margin-5 '
+                                                                        <button type='button' class='work-comp btn btn-primary margin-5'data-value="<?php echo $srow['worker_dept'] ?>"
                                                                             data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                             Work Completion
                                                                         </button>
@@ -869,10 +869,22 @@ $c6 = mysqli_num_rows($r6);
             <div class="modal-body">
                 <!--form-->
                 <form id="taskCompletionForm">
+                <input type="hidden" name="problem_id" id="complaint_id77" value="">
+
                     <div class="mb-3">
                         <label class="form-label">Task ID</label>
                         <input type="text" class="form-control" id="taskid" disabled readonly>
                     </div>
+                    <div class="form-group" style="margin-bottom: 15px;">
+                                                            <label for="worker" class="font-weight-bold" style="display: block; margin-bottom: 5px;">Assign Worker:</label>
+                                                            <select class="form-control"  name="worker" id="worker" style="width: 100%; height: 40px; border-radius: 4px; border: 1px solid #ccc;">
+                                                            </select>
+                                                        </div>
+                                                        <input type="checkbox" id="oth" name="oth"  onclick="checkIfOthers()">Others
+                                                        <div id="othersInput" style="display: none;">
+                                                                <label class="form-label" for="otherValue">Please specify:</label>
+                                                                <input  type="text" id="otherValue" name="otherworkername"> <br>
+                                                            </div>
                     <div class="mb-3">
                         <label class="form-label">Add Image-Proof</label>
                         <input onchange="validateSize(this)" class="form-control" type="file" id="imgafter">
@@ -891,12 +903,13 @@ $c6 = mysqli_num_rows($r6);
                         <label class="form-label">Reason</label>
                         <input type="text" class="form-control" id="reason" name="reason" placeholder="Enter reason for partial completion">
                     </div>
-                </form>
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button id="save-btn" type="button" class="btn btn-primary">Save</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -1373,6 +1386,7 @@ $('#ref1').load(location.href + " #ref1");
             $('#reason-container').show();
         } 
     });
+   
   
 
     // Handle save button click for work completion
@@ -1381,6 +1395,11 @@ $('#ref1').load(location.href + " #ref1");
         var completionStatus = $('input[name="completionStatus"]:checked').val();
         var imgAfter = $('#imgafter')[0].files[0];
         var reason = $('#reason').val(); // Capture reason from the input field
+        var w_name = $('#worker').val();
+        var o_name = $('#otherValue').val();
+        var p_id = $('#complaint_id77').val();
+        console.log(w_name);
+        console.log(o_name);
 
         if (!taskId || !completionStatus) {
             Swal.fire({
@@ -1397,6 +1416,9 @@ $('#ref1').load(location.href + " #ref1");
         formData.append('task_id', taskId);
         formData.append('completion_status', completionStatus);
         formData.append('reason', reason); // Append reason to form data
+        formData.append('w_name',w_name);
+        formData.append('o_name',o_name);
+        formData.append('p_id',p_id);
 
         if (imgAfter) {
             formData.append('img_after', imgAfter);
@@ -1472,6 +1494,22 @@ $("#statusnotapproved").load(location.href + " #statusnotapproved > *", function
             }
         });
     });
+
+    function checkIfOthers() {
+    const dropdown = document.getElementById('oth');
+    const othersInput = document.getElementById('othersInput');
+    const sel = document.getElementById('worker');
+
+    // Show the input field if "Others" is selected
+    if (dropdown.checked) {
+        othersInput.style.display = 'block';
+        sel.value="";
+    } else {
+        othersInput.style.display = 'none';
+
+    }
+}
+
 
     // Show the reason input field only when 'Partially Completed' is selected
   
@@ -1576,6 +1614,40 @@ $("#statusnotapproved").load(location.href + " #statusnotapproved > *", function
             }
 
         }
+
+
+        $(document).on("click", ".work-comp", function(e) {
+            e.preventDefault();
+
+            var user_id = $(this).val(); // Get the ID from the button's value
+            console.log("User ID:", user_id);
+
+            // Set the complaint ID in the hidden input field within the form
+            $("#complaint_id77").val(user_id);
+
+            // Reset the worker selection and the text in the modal
+            $("#worker_id").val(''); // Reset the worker ID
+            $("#assignedWorker").text('Assigned Worker: '); // Reset the assigned worker text
+        });
+
+        $(document).on("click", ".work-comp", function(e) {
+            e.preventDefault();
+            var worker_dept = $(this).data("value");
+            console.log(worker_dept);
+
+            $.ajax({
+                url: "backend.php",
+                type: "POST",
+                data: {
+                    "work": true,
+                    "worker_dept": worker_dept
+                },
+                success: function(response) {
+                    // Inject the received HTML options into the <select> element
+                    $('#worker').html(response);
+                }
+            });
+        });
     </script>
 
 
