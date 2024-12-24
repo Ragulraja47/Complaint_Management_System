@@ -869,7 +869,6 @@ $c6 = mysqli_num_rows($r6);
             <div class="modal-body">
                 <!--form-->
                 <form id="taskCompletionForm">
-                <input type="hidden" name="problem_id" id="complaint_id77" value="">
 
                     <div class="mb-3">
                         <label class="form-label">Task ID</label>

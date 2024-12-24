@@ -118,14 +118,19 @@ if (isset($_POST['update'])) {
     $completionStatus = $_POST['completion_status'];
     $reason = $_POST['reason'];
     $p_id = $_POST['p_id'];
-    if($_POST['w_name']== null){
-        $name = $_POST['o_name'];
-    }
-    else{
-        $name = $_POST['w_name'];
-    }
+    $oname = $_POST['w_name'];
+    $wname = $_POST['o_name'];
+    $name = current(array_filter([$oname, $wname]));
+
     
-    $insertQuery = "UPDATE manager SET worker_id='$name' WHERE problem_id='$p_id'";
+
+ 
+        
+   
+    
+    
+    
+    $insertQuery = "UPDATE manager SET worker_id='$name' WHERE task_id='$taskId'";
     if (mysqli_query($conn, $insertQuery)) {
         $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
         if (mysqli_query($conn, $updateQuery)) {
