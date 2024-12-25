@@ -6,7 +6,7 @@ $sql1 = "
 SELECT cd.*, faculty.faculty_name, faculty.department, faculty.faculty_contact, faculty.faculty_mail
 FROM complaints_detail cd
 JOIN faculty ON cd.faculty_id = faculty.faculty_id
-WHERE cd.status = '4'
+WHERE cd.status IN ('4','9')
 ";
 $result1 = mysqli_query($conn, $sql1);
 $row_count1 = mysqli_num_rows($result1);
@@ -1463,11 +1463,6 @@ $row_count7 = mysqli_num_rows($result7);
                             </div>
 
 
-
-
-
-
-
                             <!-- Before Image Modal -->
                             <div class="modal fade" id="imageModal" tabindex="-1" role="dialog"
                                 aria-labelledby="imageModalLabel" aria-hidden="true">
@@ -1659,7 +1654,12 @@ $row_count7 = mysqli_num_rows($result7);
                                             <form id="extenddead">
                                                 <input type="hidden" name="id" id="deadline_id">
                                                 <label for="extend_deadline">Extend Deadline Date:</label>
-                                                <input type="date" id="extend_deadline" name="extend_deadline" required>
+                                                <input type="date" id="extend_deadline" name="extend_deadline" required> <br> <br>
+                                                <label for="extendReason" class="form-label">Reason for
+                                                        Extend:</label>
+                                                    <textarea class="form-control" name="reason"
+                                                        id="extendReason" rows="3"
+                                                        placeholder="Type the reason here..."></textarea>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                                     <button type="submit" class="btn btn-primary">Set Deadline</button>

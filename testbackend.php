@@ -457,7 +457,8 @@ if (isset($_POST["extend_deadlinedate"])) {
     try {
         $id = mysqli_real_escape_string($conn, $_POST['id']);
         $dead_date = mysqli_real_escape_string($conn, $_POST['extend_deadline']);
-        $query = "UPDATE complaints_detail SET days_to_complete = '$dead_date',extend_date = '1'  WHERE id = $id";
+        $reason = mysqli_real_escape_string($conn, $_POST['reason']);
+        $query = "UPDATE complaints_detail SET days_to_complete = '$dead_date',extend_date = '1' ,extend_reason = '$reason'  WHERE id = $id";
         if (mysqli_query($conn, $query)) {
             $res = [
                 'status' => 200,

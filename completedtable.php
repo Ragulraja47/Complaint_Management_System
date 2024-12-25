@@ -48,7 +48,7 @@ $row_count4 = mysqli_num_rows($result4);
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>Faculty Login</title>
+    <title>MIC-MKCE</title>
     <!-- Custom CSS -->
     <link href="assets/libs/flot/css/float-chart.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -442,11 +442,11 @@ $row_count4 = mysqli_num_rows($result4);
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label for="block" class="form-label">Block</label>
+                                                                <label for="block" class="form-label">Block <span style="color: red;">*</span></label>
                                                                 <input type="text" class="form-control" name="block_venue" placeholder="Eg:RK-206" required>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="venue" class="form-label">Venue</label>
+                                                                <label for="venue" class="form-label">Venue <span style="color: red;">*</span></label>
                                                                 <select id="dropdown" class="form-control" name="venue_name" onchange="checkIfOthers()"
                                                                     style="width: 100%; height:36px;">
                                                                     <option>Select</option>
@@ -459,29 +459,26 @@ $row_count4 = mysqli_num_rows($result4);
                                                             </div>
 
                                                             <div id="othersInput" style="display: none;">
-                                                                <label class="form-label" for="otherValue">Please specify:</label>
+                                                                <label class="form-label" for="otherValue">Please specify: <span style="color: red;">*</span></label>
                                                                 <input class="form-control" type="text" id="otherValue" name="otherValue"> <br>
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label for="type_of_problem" class="form-label">Type of Problem</label>
+                                                                <label for="type_of_problem" class="form-label">Type of Problem <span style="color: red;">*</span></label>
                                                                 <select class="form-control" name="type_of_problem" style="width: 100%; height:36px;">
                                                                     <option>Select</option>
                                                                     <option value="elecrtical">ELECTRICAL</option>
-                                                                    <option value="Carpenter Work">CARPENTER</option>
                                                                     <option value="civil">CIVIL</option>
                                                                     <option value="itkm">IT INFRA </option>
-                                                                    <option value="Plumbing Work">PLUMBING </option>
-                                                                    <option value="Other">other </option>
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="description" class="form-label">Problem Description</label>
+                                                                <label for="description" class="form-label">Problem Description <span style="color: red;">*</span></label>
                                                                 <input type="text" class="form-control" name="problem_description" placeholder="Enter Description" required>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="images" class="form-label">Image</label>
-                                                                <input type="file" class="form-control" name="images" id="images" onchange="validateSize(this)">
+                                                                <label for="images" class="form-label">Image <span style="color: red;">*</span> </label>
+                                                                <input type="file" class="form-control" name="images" id="images" onchange="validateSize(this)" required>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <input type="hidden" class="form-control" name="date_of_reg" id="date_of_reg" required>
@@ -701,12 +698,19 @@ $row_count4 = mysqli_num_rows($result4);
                                                                 <td class="text-center"><?php echo $row['block_venue']; ?></td>
                                                                 <td class="text-center"><?php echo $row['problem_description']; ?></td>
                                                                 <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
-                                                                <td class="text-center"
+                                                                <td class="text-center">
                                                                     <?php if ($row['extend_date'] == 1) { ?>
-                                                                    style="color: red;"
-                                                                    <?php } ?>>
-                                                                    <?php echo $row['days_to_complete']; ?>
+                                                                        <button type="button" class="btn btn-danger extenddeadline"
+                                                                            id="extendbutton" value="<?php echo $row['id']; ?>"
+                                                                            data-toggle="modal"
+                                                                            data-target="#extendModal">
+                                                                            <?php echo $row['days_to_complete']; ?>
+                                                                        </button>
+                                                                    <?php } else { ?>
+                                                                        <?php echo $row['days_to_complete']; ?>
+                                                                    <?php } ?>
                                                                 </td>
+
 
                                                                 <td class="text-center">
                                                                     <button type="button" class="btn btn-light showWorkerDetails" value="<?php echo $row['id']; ?>">
@@ -727,6 +731,40 @@ $row_count4 = mysqli_num_rows($result4);
                                                                     <?php } ?>
                                                                 </td>
                                                             </tr>
+
+                                                            <!-- Extend Modal -->
+                                                            <div class="modal fade" id="extendModal" tabindex="-1" role="dialog"
+                                                                aria-labelledby="extendModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="extendModalLabel">Reject Complaint</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                                aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <form id="rejectForm">
+                                                                                <input type="hidden" name="id" id="complaint_id99">
+                                                                                <div class="form-group">
+                                                                                    <label for="rejectReason" class="form-label">Reason for
+                                                                                        Deadline Extension:</label> <br>
+                                                                                    <br>
+                                                                                    <textarea readonly style="width: 100%; height: 80px; font-size: 14px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; color: #333; resize: none; overflow-y: auto;"><?php echo $row['extend_reason']; ?></textarea>
+
+
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary"
+                                                                                        data-dismiss="modal">Close</button>
+                                                                                    </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
                                                         <?php
                                                             $s++;
                                                         }
@@ -737,6 +775,9 @@ $row_count4 = mysqli_num_rows($result4);
                                         </div>
                                     </div>
                                 </div>
+
+
+
                                 <!------------------Work in Progress Table Ends----------------->
 
 
