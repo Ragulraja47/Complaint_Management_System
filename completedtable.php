@@ -467,10 +467,10 @@ $row_count4 = mysqli_num_rows($result4);
                                                                 <label for="type_of_problem" class="form-label">Type of Problem</label>
                                                                 <select class="form-control" name="type_of_problem" style="width: 100%; height:36px;">
                                                                     <option>Select</option>
-                                                                    <option value="Electrical Work">ELECTRICAL</option>
+                                                                    <option value="elecrtical">ELECTRICAL</option>
                                                                     <option value="Carpenter Work">CARPENTER</option>
-                                                                    <option value="Civil Work">CIVIL</option>
-                                                                    <option value="IT Infra Work">IT INFRA </option>
+                                                                    <option value="civil">CIVIL</option>
+                                                                    <option value="itkm">IT INFRA </option>
                                                                     <option value="Plumbing Work">PLUMBING </option>
                                                                     <option value="Other">other </option>
                                                                 </select>
