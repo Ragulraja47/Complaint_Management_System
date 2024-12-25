@@ -94,7 +94,7 @@ if (isset($_POST['manager_approve'])) {
     $deadline = $_POST["deadline"];
 
     // Insert into manager table
-    $insertQuery = "INSERT INTO manager (problem_id, worker_id, priority) VALUES ('$problem_id', '$worker', '$priority')";
+    $insertQuery = "INSERT INTO manager (problem_id, worker_dept, priority) VALUES ('$problem_id', '$worker', '$priority')";
     if (mysqli_query($conn, $insertQuery)) {
         // Update status in complaints_detail table
         $updateQuery = "UPDATE complaints_detail SET days_to_complete='$deadline' , status='9' WHERE id='$problem_id'";

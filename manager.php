@@ -643,15 +643,15 @@ $row_count7 = mysqli_num_rows($result7);
                                                                         <li><a href="#" class="worker"
                                                                                 data-toggle="modal"
                                                                                 data-target="#managerapproveModal"
-                                                                                data-value="ELECTRICAL">ELECTRICAL</a></li>
+                                                                                data-value="electrical">ELECTRICAL</a></li>
                                                                         <li><a href="#" class="worker"
                                                                                 data-toggle="modal"
                                                                                 data-target="#managerapproveModal"
-                                                                                data-value="CIVIL">CIVIL</a></li>
+                                                                                data-value="civil">CIVIL</a></li>
                                                                         <li><a href="#" class="worker"
                                                                                 data-toggle="modal"
                                                                                 data-target="#managerapproveModal"
-                                                                                data-value="ITKM">ITKM</a></li>
+                                                                                data-value="itkm">ITKM</a></li>
                                                                     </center>
                                                                 </ul>
 
