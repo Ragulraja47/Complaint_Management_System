@@ -1,5 +1,4 @@
 <?php
-
 // Database connection
 $host = "localhost";  // Your database host
 $user = "root";       // Your database username
@@ -7,24 +6,41 @@ $password = "";       // Your database password
 $dbname = "complaints"; // Your database name
 
 $conn = new mysqli($host, $user, $password, $dbname);
+
+session_start();
+
+
+
+if (isset($_SESSION['worker_id'])) {
+    $worker_id = $_SESSION['worker_id'];
+} else {
+    die("Couldn't find department in session.");
+}
+
+$qry = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
+$qry_run = mysqli_query($conn,$qry);
+$srow  = mysqli_fetch_array($qry_run);
+$dept = $srow['worker_dept'];
+
+
 //completed count
-$count = "SELECT COUNT(*) AS count FROM complaints_detail WHERE status = '16'";
+$count = "SELECT COUNT(*) AS count0 FROM complaints_detail WHERE status = '16' AND type_of_problem = '$dept'";
 $result = mysqli_query($conn, $count);
-$row = mysqli_fetch_assoc($result);
+$row0 = mysqli_fetch_assoc($result);
 
 //in progress count
-$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status = '10'";
+$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status = '10' AND type_of_problem = '$dept'";
 $result1 = mysqli_query($conn, $count1);
 $row1 = mysqli_fetch_assoc($result1);
 
 //count of waiting for approval
-$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status ='18'";
+$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status ='11' AND type_of_problem = '$dept'";
 $result2 = mysqli_query($conn, $count2);
 $row2 = mysqli_fetch_assoc($result2);
 
 //new task count
 
-$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status  ='7'";
+$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status  ='7' AND type_of_problem = '$dept'";
 
 $result3 = mysqli_query($conn, $count3);
 $row3 = mysqli_fetch_assoc($result3);
@@ -66,7 +82,6 @@ $c6 = mysqli_num_rows($r6);
 
 
 
-session_start();
 
 
 
@@ -221,7 +236,7 @@ $row  = mysqli_fetch_array($qry_run);
                                             <div class="stats-box text-center p-3"
                                                 style="background-color:rgb(252, 119, 71);">
                                                 <i class="fas fa-bell m-b-5 font-20"></i>
-                                                <h1 class="m-b-0 m-t-5"></h1>
+                                                <h1 class="m-b-0 m-t-5"><?php echo $row0['count0']; ?></h1>
                                                 <small class="font-light">Task Completed</small>
                                             </div>
                                         </div>
@@ -235,7 +250,7 @@ $row  = mysqli_fetch_array($qry_run);
                                             <div class="stats-box text-center p-3"
                                                 style="background-color:rgb(241, 74, 74);">
                                                 <i class="fas fa-exclamation m-b-5 font-16"></i>
-                                                <h1 class="m-b-0 m-t-5"><?php echo $row3['count3'] ?></h1>
+                                                <h1 class="m-b-0 m-t-5"><?php echo $row3['count3']; ?></h1>
                                                 <small class="font-light">New Tasks</small>
                                             </div>
                                         </div>
