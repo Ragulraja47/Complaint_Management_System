@@ -886,7 +886,7 @@ $c6 = mysqli_num_rows($r6);
                                                         <input type="checkbox" id="oth" name="oth"  onclick="checkIfOthers()">Others
                                                         <div id="othersInput" style="display: none;">
                                                                 <label class="form-label" for="otherValue">Please specify:</label>
-                                                                <input  type="text" id="otherValue" name="otherworkername"> <br>
+                                                                <input placeholder="Enter worker details"  type="text" id="otherValue" name="otherworkername"> <br>
                                                             </div>
                     <div class="mb-3">
                         <label class="form-label">Add Image-Proof</label>
