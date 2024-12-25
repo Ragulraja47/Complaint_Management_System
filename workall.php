@@ -1422,6 +1422,9 @@ $('#ref1').load(location.href + " #ref1");
         if (imgAfter) {
             formData.append('img_after', imgAfter);
         }
+        for (const [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+}
 
         // AJAX request to submit the form data
         $.ajax({

@@ -118,8 +118,8 @@ if (isset($_POST['update'])) {
     $completionStatus = $_POST['completion_status'];
     $reason = $_POST['reason'];
     $p_id = $_POST['p_id'];
-    $oname = $_POST['w_name'];
-    $wname = $_POST['o_name'];
+    $oname = $_POST['o_name'];
+    $wname = $_POST['w_name'];
     $name = current(array_filter([$oname, $wname]));
 
     
