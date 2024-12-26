@@ -212,138 +212,399 @@ if (isset($_POST['form1'])) {
 
 
 ?>
-
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
 <head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <title>MIC - MKCE</title>
 
-    <title>Worker</title>
-    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="assets/extra-libs/multicheck/multicheck.css">
+    <link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+
+    <!-- CSS Alertify-->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css" />
+    <!-- Bootstrap theme alertify-->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css" />
     <style>
-        .nav-tabs .nav-item.show .nav-link,
-        .nav-tabs .nav-link.active {
-            color: white;
-            background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
-            padding: 11px 15px;
+        .nav-tabs .nav-link {
+            color: #0033cc;
         }
 
-        .nav-tabs .nav-item.show .nav-link,
-        .nav-tabs .nav-link.active:hover {
+        .nav-tabs .nav-link.active {
+            background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
+            color: white;
+        }
+
+        /* Dropdown animation */
+        .dropdown-menu {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .dropdown-menu.show {
+            opacity: 1;
+        }
+
+        .selected-priority {
+            background-color: blue;
+            color: white;
+        }
+    </style>
+
+    <!-- Additional CSS for Modal -->
+    <style>
+        .close span {
+            display: inline-block;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .close:hover span {
+            transform: rotate(45deg);
+            color: white;
+        }
+
+        /* Close Button */
+        .modal-header .close {
+            font-size: 1.5rem;
+            color: white;
+            opacity: 1;
+            transition: transform 0.3s ease;
+            outline: none;
+            /* Removes the focus outline */
+            border: none;
+            /* Ensures no border around the button */
+        }
+
+        .modal-header .close:focus {
+            outline: none;
+            /* Removes focus outline when the button is clicked */
+            box-shadow: none;
+            /* Ensures no shadow or box effect appears */
+        }
+
+        .modal-header .close:hover {
+            transform: rotate(90deg);
+            color: #ff8080;
+        }
+
+
+        /* priority modal */
+        /* Modal Background */
+        .modal-content {
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            background-color: #f5f5f5;
+
             border: none;
         }
 
-        a {
-            color: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
-            padding: 11px 15px;
-        }
-
-        .nav-tabs .nav-item.show .nav-link,
-        .nav-tabs a:hover {
-            color: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
-            border: 4px solid gray;
-            /* Include the border within the button size */
-            padding: 8px 15px;
-            /* Adjust padding to maintain the button's size */
-        }
-
-        th {
-            /* background-color: #7460ee; */
+        /* Header Styling with Gradient */
+        .modal-header {
             background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
             color: white;
+            border-bottom: none;
+            padding: 10px 20px;
+            border-radius: 12px 12px 0 0;
         }
 
-        @media (min-width:1300px) and (max-width:1800px) {
-            /* For mobile phones: */
+        .modal-title {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
 
+        /* Close Button */
+        .modal-header .close {
+            font-size: 1.5rem;
+            color: white;
+            opacity: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-header .close:hover {
+            transform: rotate(90deg);
+            color: #ff8080;
+        }
+
+        /* Modal Body */
+        .modal-body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Form Inputs and Labels */
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="date"],
+        input[type="text"] {
+            border: none;
+            /* Removed border */
+            border-radius: 8px;
+            padding: 5px;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="date"]:focus,
+        input[type="text"]:focus {
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Radio Buttons */
+        .form-check-input[type="radio"] {
+            transform: scale(1.2);
+            margin-right: 10px;
+            outline: none;
+            /* Removes the focus outline */
+            box-shadow: none !important;
+            /* Removes the box-like effect when clicked */
+        }
+
+        .form-check-input[type="radio"]:focus {
+            box-shadow: none;
+            /* Ensures no shadow appears when focused */
+        }
+
+        /* Checkbox (No toggle effect) */
+        #flexSwitchCheckDefault {
+            width: auto;
+            height: auto;
+            background-color: transparent;
+            cursor: pointer;
+            transition: none;
+            position: relative;
+        }
+
+        #flexSwitchCheckDefault:checked {
+            background-color: transparent;
+        }
+
+        #flexSwitchCheckDefault::after {
+            content: none;
+        }
+
+        /* Reason Input */
+        #reasonInput {
+            margin-top: 10px;
+        }
+
+        /* Modal Footer Buttons */
+        .modal-footer .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .modal-footer .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .modal-footer .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .modal-footer .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+
+
+
+        /* Dropdown styling */
+        ul.dropdown-menu {
+            background-color: #f8f9fa;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            padding: 7px 0;
+            text-align: center;
+            opacity: 0;
+            /* Start hidden */
+            transform: translateY(-20px);
+            /* Slightly above */
+            /* Smooth transition */
+            visibility: hidden;
+            /* Initially hidden */
+        }
+
+        ul.dropdown-menu.show {
+            opacity: 1;
+            /* Fully visible */
+            transform: translateY(0);
+            /* Return to original position */
+            visibility: visible;
+            /* Visible */
+        }
+
+        ul.dropdown-menu li {
+            display: block;
+        }
+
+        ul.dropdown-menu li a {
+            display: block;
+            padding: 5px 12px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            /* Smooth hover effect */
+        }
+
+        ul.dropdown-menu li a:hover {
+            background-color: #e9ecef;
+            color: #0056b3;
+            border-radius: 10px;
+            transform: scale(1.05);
+            /* Slight zoom effect on hover */
+        }
+
+        /* Center the dropdown items */
+        ul.dropdown-menu center {
+            display: block;
+        }
+
+        /* Animation for dropdown items (staggered effect) */
+        ul.dropdown-menu li {
+            animation: fadeIn 0.4s ease forwards;
+            opacity: 0;
+            /* Initially invisible */
+        }
+
+        /* Staggering delay for each item */
+        ul.dropdown-menu li:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        ul.dropdown-menu li:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        ul.dropdown-menu li:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        ul.dropdown-menu li:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        ul.dropdown-menu li:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+
+        ul.dropdown-menu li:nth-child(6) {
+            animation-delay: 0.30s;
+        }
+
+        /* Keyframes for dropdown items */
+        @keyframes fadeIn {
+            0% {
+                transform: translateY(-20px);
+                /* Move vertically */
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                /* Move to original position */
+                opacity: 1;
+            }
         }
     </style>
-    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
     <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>
             <div class="lds-pos"></div>
         </div>
     </div>
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
+
     <div id="main-wrapper">
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
         <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin5">
-                    <!-- Sidebar toggle for mobile -->
-                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-
-                    <!-- Logo -->
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+                            class="ti-menu ti-close"></i></a>
                     <a class="navbar-brand" href="index.html">
-
+                        <!-- Logo icon -->
+                        <b class="logo-icon p-l-8">
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                            <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo" />
+                        </b>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
                         <span class="logo-text">
-                            <img src="assets/images/mkcenavlogo.png" alt="homepage" class="light-logo" />
+                            <!-- dark Logo text -->
+                            <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" />
                         </span>
                     </a>
-
-                    <!-- Toggle for mobile -->
-                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+                        data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
+                            class="ti-more"></i></a>
                 </div>
 
-                <!-- Navbar items -->
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
                     <ul class="navbar-nav float-left mr-auto">
-                        <li class="nav-item d-none d-md-block">
-                            <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
-                        </li>
-                        <!-- Additional items can be added here -->
+                        <li class="nav-item d-none d-md-block"><a
+                                class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
+                                data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
                     </ul>
-                    <a href="login.php" class="btn btn-danger">
-                        <i class=" fas fa-sign-out-alt" style="font-size: 15px;"></i>
-                    </a>
-
-
+                    <ul class="navbar-nav float-right">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
+                                    src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i>
+                                    My Profile</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i
+                                        class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </nav>
         </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
+
         <aside class="left-sidebar" data-sidebarbg="skin5">
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
-                <ul id="sidebarnav" class="p-t-30">
-                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
+                    <ul id="sidebarnav" class="p-t-30">
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
                         <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="workall.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu"><?php echo $srow['worker_dept'] ?></span></a></li>
+
+
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -351,13 +612,6 @@ if (isset($_POST['form1'])) {
             <!-- End Sidebar scroll-->
         </aside>
 
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
-       
         <div class="page-wrapper">
             <div class="page-breadcrumb">
                 <div class="row">

@@ -6,6 +6,29 @@ include('db.php');
 
 // Determine the action based on a parameter
 // Determine the action based on a parameter
+
+
+if (isset($_POST['work'])) {
+    $work = $_POST['worker_dept'];  // The department value
+    // Modify the query to select both worker_id and worker_first_name
+    $sql8 = "SELECT worker_id, worker_first_name FROM worker_details WHERE worker_dept = '$work' AND usertype = 'worker'";
+    $result8 = mysqli_query($conn, $sql8);
+
+    // Prepare to output options directly
+    $options = '';
+
+
+    while ($row = mysqli_fetch_assoc($result8)) {
+        // Echo each worker's ID and name as an option element (worker_id - worker_first_name)
+        $options .= '<option value="' . $row['worker_id'] . '">' . $row['worker_id'] . ' - ' . $row['worker_first_name'] . '</option>';
+
+    }
+
+
+    // Return the options to the AJAX request
+    echo $options;
+    exit();  // Stop script execution after output
+}
 if (isset($_POST['fetch_details'])) {
     $task_id = isset($_POST['task_id']) ? intval($_POST['task_id']) : null;
 
@@ -94,64 +117,80 @@ if (isset($_POST['update'])) {
     $taskId = $_POST['task_id'];
     $completionStatus = $_POST['completion_status'];
     $reason = $_POST['reason'];
+    $p_id = $_POST['p_id'];
+    $oname = $_POST['o_name'];
+    $wname = $_POST['w_name'];
+    $name = current(array_filter([$oname, $wname]));
 
-    // Database connection
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "complaints";
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Update status and task_completion in the complaints_detail table
-    $updateComplaintSql = "UPDATE complaints_detail 
-                           SET status = 11, task_completion = ?,reason = ?,date_of_completion = NOW()
-                           WHERE id = (SELECT problem_id FROM manager WHERE task_id = ?)";
-    if ($stmt = $conn->prepare($updateComplaintSql)) {
-        $stmt->bind_param("ssi", $completionStatus,$reason,$taskId);
-        if (!$stmt->execute()) {
-            echo "Update failed: (" . $stmt->errno . ") " . $stmt->error;
-        } else {
-            echo "Complaint status and task completion updated successfully.";
-        }
-        $stmt->close();
-    } else {
-        echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
-    }
-
-    // Handle file upload
-    $imgAfterName = null;
-    if (isset($_FILES['img_after']) && $_FILES['img_after']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = 'imgafter/';
-        $imgAfterName = basename($_FILES['img_after']['name']); // This stores only the file name
-        $uploadFile = $uploadDir . $imgAfterName; // Full path to move the file
     
-        if (move_uploaded_file($_FILES['img_after']['tmp_name'], $uploadFile)) {
-            echo "File successfully uploaded: " . $imgAfterName;
+
+ 
+        
+   
     
-            // Insert only the image name into worker_taskdet table
-            $insertTaskDetSql = "INSERT INTO worker_taskdet (task_id, task_completion, after_photo, work_completion_date) 
-                                 VALUES (?, ?, ?, NOW())";
-            if ($stmt = $conn->prepare($insertTaskDetSql)) {
-                // Pass the image name (not the path) to the database
-                $stmt->bind_param("sss", $taskId, $completionStatus, $imgAfterName);
+    
+    
+    $insertQuery = "UPDATE manager SET worker_id='$name' WHERE task_id='$taskId'";
+    if (mysqli_query($conn, $insertQuery)) {
+        $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
+        if (mysqli_query($conn, $updateQuery)) {
+          
+        
+            // Update status and task_completion in the complaints_detail table
+            $updateComplaintSql = "UPDATE complaints_detail 
+                                   SET status = 11, task_completion = ?,reason = ?,date_of_completion = NOW()
+                                   WHERE id = (SELECT problem_id FROM manager WHERE task_id = ?)";
+            if ($stmt = $conn->prepare($updateComplaintSql)) {
+                $stmt->bind_param("ssi", $completionStatus,$reason,$taskId);
                 if (!$stmt->execute()) {
-                    echo "Insertion into worker_taskdet failed: (" . $stmt->errno . ") " . $stmt->error;
+                    echo "Update failed: (" . $stmt->errno . ") " . $stmt->error;
                 } else {
-                    echo "Record inserted successfully into worker_taskdet.";
+                    echo "Complaint status and task completion updated successfully.";
                 }
                 $stmt->close();
             } else {
                 echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
             }
-        } else {
-            echo "File upload failed.";
+        
+            // Handle file upload
+            $imgAfterName = null;
+            if (isset($_FILES['img_after']) && $_FILES['img_after']['error'] === UPLOAD_ERR_OK) {
+                $uploadDir = 'imgafter/';
+                $imgAfterName = basename($_FILES['img_after']['name']); // This stores only the file name
+                $uploadFile = $uploadDir . $imgAfterName; // Full path to move the file
+            
+                if (move_uploaded_file($_FILES['img_after']['tmp_name'], $uploadFile)) {
+                    echo "File successfully uploaded: " . $imgAfterName;
+            
+                    // Insert only the image name into worker_taskdet table
+                    $insertTaskDetSql = "INSERT INTO worker_taskdet (task_id, task_completion, after_photo, work_completion_date) 
+                                         VALUES (?, ?, ?, NOW())";
+                    if ($stmt = $conn->prepare($insertTaskDetSql)) {
+                        // Pass the image name (not the path) to the database
+                        $stmt->bind_param("sss", $taskId, $completionStatus, $imgAfterName);
+                        if (!$stmt->execute()) {
+                            echo "Insertion into worker_taskdet failed: (" . $stmt->errno . ") " . $stmt->error;
+                        } else {
+                            echo "Record inserted successfully into worker_taskdet.";
+                        }
+                        $stmt->close();
+                    } else {
+                        echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+                    }
+                } else {
+                    echo "File upload failed.";
+                }
+            } else {
+                echo "No file uploaded or file upload error.";
+            }   
+
         }
-    } else {
-        echo "No file uploaded or file upload error.";
     }
+   
+
+
+    // Database connection
+  
     
 }
 

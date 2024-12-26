@@ -6,24 +6,41 @@ $password = "";       // Your database password
 $dbname = "complaints"; // Your database name
 
 $conn = new mysqli($host, $user, $password, $dbname);
+
+session_start();
+
+
+
+if (isset($_SESSION['worker_id'])) {
+    $worker_id = $_SESSION['worker_id'];
+} else {
+    die("Couldn't find department in session.");
+}
+
+$qry = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
+$qry_run = mysqli_query($conn,$qry);
+$srow  = mysqli_fetch_array($qry_run);
+$dept = $srow['worker_dept'];
+
+
 //completed count
-$count = "SELECT COUNT(*) AS count FROM complaints_detail WHERE status = '16'";
+$count = "SELECT COUNT(*) AS count0 FROM complaints_detail WHERE status = '16' AND type_of_problem = '$dept'";
 $result = mysqli_query($conn, $count);
-$row = mysqli_fetch_assoc($result);
+$row0 = mysqli_fetch_assoc($result);
 
 //in progress count
-$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status = '10'";
+$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status = '10' AND type_of_problem = '$dept'";
 $result1 = mysqli_query($conn, $count1);
 $row1 = mysqli_fetch_assoc($result1);
 
 //count of waiting for approval
-$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status ='18'";
+$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status ='11' AND type_of_problem = '$dept'";
 $result2 = mysqli_query($conn, $count2);
 $row2 = mysqli_fetch_assoc($result2);
 
 //new task count
 
-$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status  ='7'";
+$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status  ='7' AND type_of_problem = '$dept'";
 
 $result3 = mysqli_query($conn, $count3);
 $row3 = mysqli_fetch_assoc($result3);
@@ -68,7 +85,16 @@ $c6 = mysqli_num_rows($r6);
 
 
 
+if (isset($_SESSION['worker_id'])) {
+    $worker_id = $_SESSION['worker_id'];
+   
+} else {
+    die("Couldn't find department in session.");
+}
 
+$qry = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
+$qry_run = mysqli_query($conn,$qry);
+$row  = mysqli_fetch_array($qry_run);
 
 
 
@@ -143,12 +169,7 @@ $c6 = mysqli_num_rows($r6);
                     <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
                 <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
 
-                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="civil.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CIVIL(<?php echo $c1; ?>)</span></a></li>
-                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="carpenter.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">CARPENTER(<?php echo $c2; ?>)</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="electrical.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">ELECTRICAL(<?php echo $c3; ?>)</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="infra.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">IT INFRA(<?php echo $c4; ?>)</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="partition.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PARTITION(<?php echo $c5; ?>)</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="plumbing.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">PLUMBING(<?php echo $c6; ?>)</span></a></li>
+                    <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="workall.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu"><?php echo $row['worker_dept'] ?></span></a></li>
                     </ul>
                 </nav>
             </div>
@@ -177,7 +198,7 @@ $c6 = mysqli_num_rows($r6);
                             <div class="box bg-cyan text-center">
                                 <h1 class="font-light text-white"><i class="fas fa-user"></i></h1>
                                 <h3 class="text-white"><b> Name <br></b></h3>
-                                <h5 class="text-white" id="workerName" >DhandaPani</h5>
+                                <h5 class="text-white" id="workerName" ><?php echo $row['worker_first_name']?></h5>
 
                             </div>
                         </div>
@@ -187,7 +208,7 @@ $c6 = mysqli_num_rows($r6);
                             <div class="box bg-success text-center">
                                 <h1 class="font-light text-white"><i class="mdi mdi-account-multiple"></i></h1>
                                 <h3 class="text-white"><b>Employment Type<br></b></h3>
-                                <h5 class="text-white" id="employmentType">Full Time</h5>
+                                <h5 class="text-white" id="employmentType"><?php echo $row['work_emp_type']?></h5>
 
                             </div>
                         </div>
@@ -215,7 +236,7 @@ $c6 = mysqli_num_rows($r6);
                                             <div class="stats-box text-center p-3"
                                                 style="background-color:rgb(252, 119, 71);">
                                                 <i class="fas fa-bell m-b-5 font-20"></i>
-                                                <h1 class="m-b-0 m-t-5"><?php echo $row['count'] ?></h1>
+                                                <h1 class="m-b-0 m-t-5"><?php echo $row0['count0']; ?></h1>
                                                 <small class="font-light">Task Completed</small>
                                             </div>
                                         </div>
@@ -229,7 +250,7 @@ $c6 = mysqli_num_rows($r6);
                                             <div class="stats-box text-center p-3"
                                                 style="background-color:rgb(241, 74, 74);">
                                                 <i class="fas fa-exclamation m-b-5 font-16"></i>
-                                                <h1 class="m-b-0 m-t-5"><?php echo $row3['count3'] ?></h1>
+                                                <h1 class="m-b-0 m-t-5"><?php echo $row3['count3']; ?></h1>
                                                 <small class="font-light">New Tasks</small>
                                             </div>
                                         </div>
@@ -292,58 +313,10 @@ $c6 = mysqli_num_rows($r6);
     <script src="assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="dist/js/pages/chart/chart-page-init.js"></script>
-    <script>
         
-        $(document).ready(function() {
-    $.ajax({
-        url: 'fetch_data.php',
-        type: 'POST',
-        data: {
-            department:true// Pass the department value to PHP
-        },
-        success: function(data) {
-            var res = jQuery.parseJSON(data);
-        
-            console.log(res); // Ensure the data is being fetched correctly
-            
-            // Update the dashboard with the fetched data
-            $("#workerName").html('<span style="font-weight: 900;">' + res.name + '</span>');
-            $("#employmentType").html('<span style="font-weight: 900;">' + res.employment_type + '</span>');
-            $("#workerdepartment").html('<span style="font-weight: 900;">' + res.department + '</span>');
-
-            // Attach a click event to redirect when 'Task History' is clicked
-            $('#view-work-task-history').click(function() {
-                if (res.department) {
-                    // Make an AJAX request to update the session with the new department value
-                    $.ajax({
-                        url: 'update_session.php',
-                        type: 'POST',
-                        data: { department: res.department },
-                        success: function(response) {
-                            console.log("Session updated: " + response);
-                            // Redirect to the task history page after session update
-                            var url = 'worker_taskhistory.php';
-
-                            window.location.href = url;
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("Error updating session: " + error);
-                        }
-                    });
-                } else {
-                    console.log("No department found.");
-                }
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error("Error fetching data: " + error);
-        }
-    });
-});
-
-
-</script>
+       
 
 </body>
 
 </html>
+

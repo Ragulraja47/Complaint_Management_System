@@ -70,7 +70,7 @@ if (isset($_POST["reject_complaint"])) {
         if (mysqli_query($conn, $query)) {
             $res = [
                 'status' => 200,
-               
+
             ];
             echo json_encode($res);
         } else {
@@ -87,28 +87,19 @@ if (isset($_POST["reject_complaint"])) {
 
 
 //Accept reason
-if (isset($_POST['accept_complaint'])) {
+if (isset($_POST['manager_approve'])) {
     $problem_id = $_POST['problem_id'];
-    $worker_id = $_POST['worker_id'];
+    $worker = $_POST['worker_id'];
     $priority = $_POST['priority'];
-    $worker = $_POST['worker'];
+    $deadline = $_POST["deadline"];
 
-
-/*     $principal_approval = isset($_POST['principal_approval']) ? 6 : 7;
-    $reason = isset($_POST['reason11']) ? $_POST['reason11'] : ''; */
     // Insert into manager table
-    $insertQuery = "INSERT INTO manager (problem_id, worker_id, priority) VALUES ('$problem_id', '$worker', '$priority')";
+    $insertQuery = "INSERT INTO manager (problem_id, worker_dept, priority) VALUES ('$problem_id', '$worker', '$priority')";
     if (mysqli_query($conn, $insertQuery)) {
         // Update status in complaints_detail table
-        $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
+        $updateQuery = "UPDATE complaints_detail SET days_to_complete='$deadline' , status='9' WHERE id='$problem_id'";
         if (mysqli_query($conn, $updateQuery)) {
             $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
-          /*   $updateQuery7 = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason') ";
-            if (mysqli_query($conn, $updateQuery7)) {
-                $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
-            } else {
-                $response = ['status' => 500, 'message' => 'Failed to update comments table.'];
-            } */
         } else {
             $response = ['status' => 500, 'message' => 'Failed to update complaint status.'];
         }
@@ -132,7 +123,7 @@ if (isset($_POST['id'])) {
     $stmt->close();
     // Return the feedback
     echo $feedback;
-} 
+}
 
 // Handle reply submission for principal's query
 if (isset($_POST['submit_comment_reply'])) {
@@ -188,7 +179,7 @@ if (isset($_POST['complaintfeed_id']) && isset($_POST['status'])) {
 
 if (isset($_POST['get_aimage'])) {
     // Get the problem_id from POST request
-    $problem_id = isset($_POST['problem2_id']) ? $_POST['problem2_id'] : ''; 
+    $problem_id = isset($_POST['problem2_id']) ? $_POST['problem2_id'] : '';
 
     // Validate problem_id
     if (empty($problem_id)) {
@@ -312,7 +303,7 @@ if (isset($_POST['facfeedview'])) {
 if (isset($_POST['principal_complaint'])) {
     $problem_id = $_POST['id'];
     $reason = $_POST['reason'];
-/*     $principal_approval = isset($_POST['principal_approval']) ? 6 : 7;
+    /*     $principal_approval = isset($_POST['principal_approval']) ? 6 : 7;
     $reason = isset($_POST['reason11']) ? $_POST['reason11'] : ''; */
     // Insert into manager table
     $insertQuery = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason')";
@@ -321,7 +312,7 @@ if (isset($_POST['principal_complaint'])) {
         $updateQuery = "UPDATE complaints_detail SET status='6' WHERE id='$problem_id'";
         if (mysqli_query($conn, $updateQuery)) {
             $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
-          /*   $updateQuery7 = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason') ";
+            /*   $updateQuery7 = "INSERT INTO comments (problem_id, reason) VALUES ('$problem_id','$reason') ";
             if (mysqli_query($conn, $updateQuery7)) {
                 $response = ['status' => 200, 'message' => 'Complaint accepted and status updated successfully!'];
             } else {
@@ -336,22 +327,6 @@ if (isset($_POST['principal_complaint'])) {
     echo json_encode($response);
 }
 
-
-if(isset($_POST["manager_approve"])){
-  $deadline = $_POST["deadline"];
-  $id = $_POST["problem_id"];
-  $query = "UPDATE complaints_detail SET days_to_complete='$deadline' , status='9' WHERE id= $id";
-
-  if(mysqli_query($conn, $query)){
-    $res = [
-        "status" => 200,
-        "msg" => "complaint accepted sucessfully"
-    ];
-    echo json_encode($res);
-  }else{
-    echo 'Error updating status';
-  }
-}
 
 //reject reason from principal
 if (isset($_POST['get_reject_reason'])) {
@@ -408,4 +383,120 @@ if (isset($_POST['get_worker_phone'])) {
     }
 }
 
-?>
+//REquirement Reject
+
+if (isset($_POST["hod_reject"])) {
+    $id = $_POST["id"];
+    $reason = $_POST["feedback"];
+
+    $query = "UPDATE products SET status = 7 , reason = '$reason' WHERE id = '$id'";
+    $run = mysqli_query($conn, $query);
+    if ($run) {
+        $res = [
+            "status" => 200,
+            "msg" => "Product rejected successfully"
+        ];
+        echo json_encode($res);
+    }
+}
+
+if (isset($_POST["infra_reject"])) {
+    $id = $_POST["id"];
+    $reason = $_POST["feedback"];
+
+    $query = "UPDATE products SET status = 6 , reason = '$reason' WHERE id = '$id'";
+    $run = mysqli_query($conn, $query);
+    if ($run) {
+        $res = [
+            "status" => 200,
+            "msg" => "Product rejected successfully"
+        ];
+        echo json_encode($res);
+    }
+}
+
+if (isset($_POST['form1'])) {
+    $name = $_POST['w_name'];
+    $contact = $_POST['w_phone'];
+    $gender = $_POST['w_gender'];
+    $dept = $_POST['w_dept'];
+
+    $dept_prefix = strtoupper(substr($dept, 0, 3));  // Extract first 3 letters and convert to uppercase
+
+    $checkQuery = "SELECT SUBSTRING(worker_id, 4) AS id_number FROM worker_details 
+                   WHERE worker_id LIKE '$dept_prefix%' 
+                   ORDER BY CAST(SUBSTRING(worker_id, 4) AS UNSIGNED) DESC LIMIT 1";
+
+    $result = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $number = intval($row['id_number']) + 1; 
+    } else {
+        $number = 1;
+    }
+
+    // Step 3: Format the number to always be 2 digits (e.g., 01, 02, 03, 04)
+    $worker_id = $dept_prefix . str_pad($number, 2, '0', STR_PAD_LEFT);
+
+    // Step 4: Insert the new worker with the generated worker_id
+    $insertQuery = "INSERT INTO worker_details (worker_id, worker_first_name, worker_dept, worker_mobile, worker_gender,usertype) 
+                    VALUES ('$worker_id', '$name', '$dept', '$contact', '$gender','worker')";
+
+    if (mysqli_query($conn, $insertQuery)) {
+        echo "Success: Worker added with ID $worker_id!";
+        exit;
+    } else {
+        echo "Error: Could not insert worker details.";
+        exit;
+    }
+}
+
+//dead line extend
+if (isset($_POST["extend_deadlinedate"])) {
+    try {
+        $id = mysqli_real_escape_string($conn, $_POST['id']);
+        $dead_date = mysqli_real_escape_string($conn, $_POST['extend_deadline']);
+        $reason = mysqli_real_escape_string($conn, $_POST['reason']);
+        $query = "UPDATE complaints_detail SET days_to_complete = '$dead_date',extend_date = '1' ,extend_reason = '$reason'  WHERE id = $id";
+        if (mysqli_query($conn, $query)) {
+            $res = [
+                'status' => 200,
+            ];
+            echo json_encode($res);
+        } else {
+            throw new Exception('Query Failed: ' . mysqli_error($conn));
+        }
+    } catch (Exception $e) {
+        $res = [
+            'status' => 500,
+            'message' => 'Error: ' . $e->getMessage()
+        ];
+        echo json_encode($res);
+    }
+}
+
+
+
+//reassign_complaint
+if (isset($_POST["reassign_complaint"])) {
+    try {
+        $id = mysqli_real_escape_string($conn, $_POST['user_id']);
+        $worker_dept = mysqli_real_escape_string($conn, $_POST['worker']);
+        $query = "UPDATE manager SET worker_dept = '$worker_dept'  WHERE problem_id = $id";
+        if (mysqli_query($conn, $query)) {
+            $res = [
+                'status' => 200,
+            ];
+            echo json_encode($res);
+        } else {
+            throw new Exception('Query Failed: ' . mysqli_error($conn));
+        }
+    } catch (Exception $e) {
+        $res = [
+            'status' => 500,
+            'message' => 'Error: ' . $e->getMessage()
+        ];
+        echo json_encode($res);
+    }
+}

@@ -1,6 +1,9 @@
 <?php
 include "db.php";
 
+session_start(); // Ensure the session is started
+
+
 //requirements approved
 if (isset($_POST['approve_user'])) {
     $customer_id = mysqli_real_escape_string($conn, $_POST['user_id']);
@@ -186,7 +189,142 @@ if (isset($_POST['after_image'])) {
 }
 
 
+if(isset($_POST["add"])){
+    $product = $_POST['prod_name'];
+    $block = $_POST['block'];
+    $venue = $_POST['venue'];
+    $date = $_POST['date'];
+    $qnty = $_POST['quantity'];
+    $desc = $_POST['desc'];
+    $submit_date = date('Y-m-d');
+
+    $faculty_id = $_SESSION['faculty_id'];
 
 
+    $query = "INSERT INTO products(name,block,venue,date,quantity,description,faculty_id,raised_date) VALUES('$product','$block','$venue','$date','$qnty','$desc', '$faculty_id','$submit_date') ";
+    if(mysqli_query($conn,$query)){
+        $res=[
+            'status'=>200,
+            'message'=>"Inserted Successfully"
+        ];
+        echo json_encode($res);
+    }
+}
+
+if(isset($_POST['letterpad'])){
+
+    $req_id = $_POST['user_id'];
+    $query = "SELECT * FROM products WHERE id = '$req_id'";
+    $query1 = "SELECT faculty_id from products WHERE id='$req_id'";
+    $query_run1 = mysqli_query($conn, $query1);
+    $User_data2= mysqli_fetch_array($query_run1);
+
+    $name = $User_data2['faculty_id'];
+
+    $query2 = "SELECT * FROM faculty WHERE faculty_id='$name'";
+    $query_run2 = mysqli_query($conn, $query2);
+
+
+    $query_run = mysqli_query($conn, $query);
+    $User_data = mysqli_fetch_array($query_run);
+    $User_data1 = mysqli_fetch_array($query_run2);
+
+
+    if($query_run){
+        $res=[
+            'status'=>200,
+            'message'=>"Data fetched Successfully",
+            'data'=>$User_data,
+            'data1'=>$User_data1,
+        ];
+        echo json_encode($res);
+        return;
+    }
+}
+
+if(isset($_POST['infra_approve'])){
+
+    $req_id = $_POST['user_id'];
+    $query = "UPDATE products SET status = 1 WHERE id = $req_id";
+
+    $query_run = mysqli_query($conn, $query);
+    if($query_run){
+        $res=[
+            'status'=>200,
+            'message'=>"Data fetched Successfully"
+   
+        ];
+        echo json_encode($res);
+        return;
+    }
+}
+
+if(isset($_POST['hod_approve'])){
+
+    $req_id = $_POST['user'];
+    $query = "UPDATE products SET status = 2 WHERE id = $req_id";
+
+    $query_run = mysqli_query($conn, $query);
+    if($query_run){
+        $res=[
+            'status'=>200,
+            'message'=>"Data fetched Successfully"
+   
+        ];
+        echo json_encode($res);
+        return;
+    }
+}
+
+if(isset($_POST['delete']))
+{
+    $id = $_POST['prod_id'];
+    $query = "DELETE FROM products WHERE id='$id'";
+    $run = mysqli_query($conn,$query);
+    
+        if($run){
+            $res=[
+                'status'=>200,
+                'message'=>"Inserted Successfully"
+            ];
+            echo json_encode($res);
+           
+        }
+    
+            else{
+                $res=[
+                    "status"=>500,
+                    "message"=>"Failed to delete"
+                ];
+                echo json_encode($res);
+            
+            }
+}
+
+if(isset($_POST['verify'])){
+    $id = $_POST['id'];
+    $query = "UPDATE products SET letterstatus = '1' WHERE id='$id'";
+    $query_run = mysqli_query($conn,$query);
+    if($query_run){
+        $res=[
+            "status"=>200,
+            "message"=>"success"
+        ];
+        echo json_encode($res);
+    }
+}
+
+if(isset($_POST['pverify'])){
+    $id = $_POST['id'];
+    $query = "UPDATE products SET letterstatus = '2' WHERE id='$id'";
+    $query_run = mysqli_query($conn,$query);
+    if($query_run){
+        $res=[
+            "status"=>200,
+            "message"=>"success"
+        ];
+        echo json_encode($res);
+    }
+}
 
 ?>

@@ -48,7 +48,7 @@ $row_count4 = mysqli_num_rows($result4);
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>Faculty Login</title>
+    <title>MIC-MKCE</title>
     <!-- Custom CSS -->
     <link href="assets/libs/flot/css/float-chart.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -249,6 +249,10 @@ $row_count4 = mysqli_num_rows($result4);
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completedtable.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Complaints</span></a>
                         </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="newprod.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                                    class="hide-menu">New Products</span></a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -282,7 +286,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                 <span class="hidden-xs-down">
                                                     <i class="bi bi-people-fill"></i>
                                                     <i class="fas fa-exclamation"></i>
-                                                    <b>&nbsp Pending Work (<?php echo $row_count5; ?>)</b>
+                                                    <b>&nbsp Complaints (<?php echo $row_count5; ?>)</b>
                                                 </span>
                                             </div>
                                         </a>
@@ -430,7 +434,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                         aria-label="Close">
                                                 </div>
                                                 <div>
-                                                    <form id="addnewuser" enctype="multipart/form-data">
+                                                    <form id="addnewuser" enctype="multipart/form-data" onsubmit="handleSubmit(event)">
                                                         <div class="modal-body">
                                                             <div class="mb-3">
                                                                 <input type="hidden" id="hidden_faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>">
@@ -438,52 +442,49 @@ $row_count4 = mysqli_num_rows($result4);
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label for="block" class="form-label">Block</label>
+                                                                <label for="block" class="form-label">Block <span style="color: red;">*</span></label>
                                                                 <input type="text" class="form-control" name="block_venue" placeholder="Eg:RK-206" required>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="venue" class="form-label">Venue</label>
-                                                                <select class="form-control" name="venue_name"
+                                                                <label for="venue" class="form-label">Venue <span style="color: red;">*</span></label>
+                                                                <select id="dropdown" class="form-control" name="venue_name" onchange="checkIfOthers()"
                                                                     style="width: 100%; height:36px;">
                                                                     <option>Select</option>
                                                                     <option value="class">Class Room</option>
                                                                     <option value="department">Department</option>
                                                                     <option value="lab">Lab</option>
                                                                     <option value="staff_room">Staff Room</option>
-                                                                    <option value="Other">Other</option>
+                                                                    <option id="oth" value="Other">Others</option>
                                                                 </select>
                                                             </div>
+
+                                                            <div id="othersInput" style="display: none;">
+                                                                <label class="form-label" for="otherValue">Please specify: <span style="color: red;">*</span></label>
+                                                                <input class="form-control" type="text" id="otherValue" name="otherValue"> <br>
+                                                            </div>
+
                                                             <div class="mb-3">
-                                                            <input type="checkbox" id="yes" name="yes" value="yes" >
-                                                            <label for="yes" >Require new Product</label><br>
-                                                            <button type="button" class="btn btn-primary" id="formbtn" data-toggle="modal" data-target="#lettermodal" style="display:none">New product form
-</button>                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="type_of_problem" class="form-label">Type of Problem</label>
+                                                                <label for="type_of_problem" class="form-label">Type of Problem <span style="color: red;">*</span></label>
                                                                 <select class="form-control" name="type_of_problem" style="width: 100%; height:36px;">
                                                                     <option>Select</option>
-                                                                    <option value="Electrical Work">ELECTRICAL</option>
-                                                                    <option value="Carpenter Work">CARPENTER</option>
-                                                                    <option value="Civil Work">CIVIL</option>
-                                                                    <option value="Partition Work">PARTITION</option>
-                                                                    <option value="IT Infra Work">IT INFRA </option>
-                                                                    <option value="Plumbing Work">PLUMBING </option>
-                                                                    <option value="Other">other </option>
+                                                                    <option value="elecrtical">ELECTRICAL</option>
+                                                                    <option value="civil">CIVIL</option>
+                                                                    <option value="itkm">IT INFRA </option>
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="description" class="form-label">Problem Description</label>
+                                                                <label for="description" class="form-label">Problem Description <span style="color: red;">*</span></label>
                                                                 <input type="text" class="form-control" name="problem_description" placeholder="Enter Description" required>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="images" class="form-label">Image</label>
-                                                                <input type="file" class="form-control" name="images" id="images" onchange="validateSize(this)">
+                                                                <label for="images" class="form-label">Image <span style="color: red;">*</span> </label>
+                                                                <input type="file" class="form-control" name="images" id="images" onchange="validateSize(this)" required>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <input type="hidden" class="form-control" name="date_of_reg" id="date_of_reg" required>
                                                             </div>
                                                         </div>
-                                                        <input type="hidden" name="status" value="1">
+                                                        <input type="hidden" name="status" value="2">
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -494,6 +495,7 @@ $row_count4 = mysqli_num_rows($result4);
                                         </div>
                                     </div>
                                     <!--pending work modal end -->
+
 
                                     <!-- Pending table Start-->
                                     <div class="row">
@@ -528,15 +530,13 @@ $row_count4 = mysqli_num_rows($result4);
                                                                     $principalforward = '';
                                                                     $managerforward = '';
                                                                     $forwardedtoprincipal = '';
-                                                                    $infraforward= '' ;
-                                                                    $sendtoworker ='';
+                                                                    $infraforward = '';
+                                                                    $sendtoworker = '';
                                                                     switch ($row['status']) {
-                                                                        case 1:
+                                                                        case 2:
                                                                             $statusMessage = 'Pending';
                                                                             break;
-                                                                        case 2:
-                                                                            $infraforward = 'Approved by Infra';
-                                                                            break;
+
                                                                         case 4:
                                                                             $infraforward = 'Approved by Infra';
                                                                             $hodforward = 'Approved by HOD';
@@ -558,7 +558,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                                             $infraforward = 'Approved by Infra';
                                                                             $hodforward = 'Approved by HOD';
                                                                             $principalforward = ' Approved by Manager';
-                                                                            $sendtoworker ='Worker send to worker';
+                                                                            $sendtoworker = 'Worker send to worker';
                                                                             break;
                                                                         default:
                                                                             $statusMessage = 'Unknown Status';
@@ -577,61 +577,54 @@ $row_count4 = mysqli_num_rows($result4);
                                                                             </button>
                                                                         </td>
                                                                         <td class="text-center">
-                                                                            <?php if ($row['status'] == 1) { ?>
+                                                                            <?php if ($row['status'] == 2) { ?>
                                                                                 <center>
                                                                                     <button class="btn btndelete btn-danger" type="button" value="<?php echo $row['id']; ?>">
                                                                                         <i class="fas fa-times"></i>
                                                                                     </button>
                                                                                 </center>
-                                                                            <?php }
-                                                                            
-                                                                            else { ?>
+                                                                            <?php } else { ?>
 
-                                                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approvaldetails">Approve Details</button>                                                                      
-          
+                                                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approvaldetails">Approve Details</button>
 
-                                                                             <!--Approval Details Modal -->
-                            <div class="modal fade" id="approvaldetails" tabindex="-1" role="dialog"
-                                aria-labelledby="approvaldetailsLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="approvaldetailsLabel" style="color: #000000;" >Approval details</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
 
-                                        
-                                                                                   <b>
+                                                                                <!--Approval Details Modal -->
+                                                                                <div class="modal fade" id="approvaldetails" tabindex="-1" role="dialog"
+                                                                                    aria-labelledby="approvaldetailsLabel" aria-hidden="true">
+                                                                                    <div class="modal-dialog" role="document">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header">
+                                                                                                <h5 class="modal-title" id="approvaldetailsLabel" style="color: #000000;">Approval details</h5>
+                                                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                                                    aria-label="Close">
+                                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <div class="modal-body">
 
-                                                                                   <?php
-                                                                                   echo $statusMessage ."<br>";
-                                                                                    echo $infraforward ."<br>";
-                                                                                   echo $hodforward ."<br>";
-                                                                                   echo $managerforward ."<br>";
-                                                                                   echo $forwardedtoprincipal ."<br>";
-                                                                                   echo $principalforward ."<br>";
-                                                                                   echo $sendtoworker; 
-                                                                                   
-                                                                                   
-                                                                                                                                                                                                                                                              
-                                                                                     ?>                                                                                   
-                                                                                   
-                                                                                   </b>
-                                                                            <?php } ?>
-                                             
-                                        </div>
-                                        <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Close</button>
-                                                    <!-- <button type="submit" class="btn btn-danger">Submit</button> -->
-                                                </div>
-                                    </div>
-                                </div>
-                            </div>
+
+                                                                                                <b>
+
+                                                                                                    <?php
+                                                                                                    echo $statusMessage . "<br>";
+                                                                                                    echo $infraforward . "<br>";
+                                                                                                    echo $hodforward . "<br>";
+                                                                                                    echo $managerforward . "<br>";
+                                                                                                    echo $forwardedtoprincipal . "<br>";
+                                                                                                    echo $principalforward . "<br>";
+                                                                                                    echo $sendtoworker;
+
+
+
+                                                                                                    ?>
+
+                                                                                                </b>
+                                                                                            <?php } ?>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
 
 
 
@@ -650,7 +643,7 @@ $row_count4 = mysqli_num_rows($result4);
                                     </div>
                                 </div>
 
-                             
+
 
 
                                 <!------------------Complain form Page Ends----------------->
@@ -687,9 +680,9 @@ $row_count4 = mysqli_num_rows($result4);
                                                             <th class="text-center"><b>S.No</b></th>
                                                             <th class="text-center"><b>Problem_idb></th>
                                                             <th class="text-center"><b>Venue</b></th>
-                                                            <th class="text-center"><b>Problem</b></th>
                                                             <th class="text-center"><b>Problem description</b></th>
                                                             <th class="text-center"><b>Date Of submission</b></th>
+                                                            <th class="text-center"><b>Deadline</b></th>
                                                             <th class="text-center"><b>Worker Details</b></th>
                                                             <th class="text-center"><b>Feedback</b></th>
                                                         </tr>
@@ -703,17 +696,36 @@ $row_count4 = mysqli_num_rows($result4);
                                                                 <td class="text-center"><?php echo $s; ?></td>
                                                                 <td class="text-center"><?php echo $row['id']; ?></td>
                                                                 <td class="text-center"><?php echo $row['block_venue']; ?></td>
-                                                                <td class="text-center"><?php echo $row['type_of_problem']; ?></td>
                                                                 <td class="text-center"><?php echo $row['problem_description']; ?></td>
                                                                 <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
+                                                                <td class="text-center">
+                                                                    <?php if ($row['extend_date'] == 1) { ?>
+                                                                        <button type="button" class="btn btn-danger extenddeadline"
+                                                                            id="extendbutton" value="<?php echo $row['id']; ?>"
+                                                                            data-toggle="modal"
+                                                                            data-target="#extendModal">
+                                                                            <?php echo $row['days_to_complete']; ?>
+                                                                        </button>
+                                                                    <?php } else { ?>
+                                                                        <?php echo $row['days_to_complete']; ?>
+                                                                    <?php } ?>
+                                                                </td>
+
+
                                                                 <td class="text-center">
                                                                     <button type="button" class="btn btn-light showWorkerDetails" value="<?php echo $row['id']; ?>">
                                                                         <?php
                                                                         $prblm_id = $row['id'];
-                                                                        $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
+                                                                        $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_dept FROM manager WHERE problem_id = '$prblm_id')";
                                                                         $querry_run = mysqli_query($conn, $querry);
                                                                         $worker_name = mysqli_fetch_array($querry_run);
-                                                                        echo $worker_name['worker_first_name']; ?>
+                                                                        if($worker_name['worker_first_name']!= null){
+                                                                            echo $worker_name['worker_first_name']; 
+                                                                        }
+                                                                        else {
+                                                                            echo "NA";
+                                                                        }
+                                                                       ?>
                                                                     </button>
                                                                 </td>
                                                                 <td class="text-center">
@@ -725,6 +737,40 @@ $row_count4 = mysqli_num_rows($result4);
                                                                     <?php } ?>
                                                                 </td>
                                                             </tr>
+
+                                                            <!-- Extend Modal -->
+                                                            <div class="modal fade" id="extendModal" tabindex="-1" role="dialog"
+                                                                aria-labelledby="extendModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="extendModalLabel">Reject Complaint</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                                aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <form id="rejectForm">
+                                                                                <input type="hidden" name="id" id="complaint_id99">
+                                                                                <div class="form-group">
+                                                                                    <label for="rejectReason" class="form-label">Reason for
+                                                                                        Deadline Extension:</label> <br>
+                                                                                    <br>
+                                                                                    <textarea readonly style="width: 100%; height: 80px; font-size: 14px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; color: #333; resize: none; overflow-y: auto;"><?php echo $row['extend_reason']; ?></textarea>
+
+
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary"
+                                                                                        data-dismiss="modal">Close</button>
+                                                                                    </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
                                                         <?php
                                                             $s++;
                                                         }
@@ -735,6 +781,9 @@ $row_count4 = mysqli_num_rows($result4);
                                         </div>
                                     </div>
                                 </div>
+
+
+
                                 <!------------------Work in Progress Table Ends----------------->
 
 
@@ -1001,19 +1050,6 @@ $row_count4 = mysqli_num_rows($result4);
         dateInput.setAttribute('min', today);
         dateInput.setAttribute('max', today);
         dateInput.value = today;
-
-
-
-        $('input[id="yes"]').on('change', function() {
-        if ($(this).is(':checked')) {
-            $('#formbtn').show();
-        } 
-        else{
-            $('#formbtn').hide();
-
-
-        }
-    });
     </script>
 
 
@@ -1248,6 +1284,36 @@ $row_count4 = mysqli_num_rows($result4);
                 }
             });
         });
+
+        function checkIfOthers() {
+            const dropdown = document.getElementById('dropdown');
+            const othersInput = document.getElementById('othersInput');
+
+            // Show the input field if "Others" is selected
+            if (dropdown.value === 'Other') {
+                othersInput.style.display = 'block';
+            } else {
+                othersInput.style.display = 'none';
+            }
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent form submission for demo purposes
+            const dropdown = document.getElementById('dropdown');
+            const selectedValue = dropdown.value;
+            let finalValue;
+
+            // Get the appropriate value based on the dropdown selection
+            if (selectedValue === 'Other') {
+                finalValue = document.getElementById('otherValue').value;
+            } else {
+                finalValue = selectedValue;
+            }
+
+            console.log("Selected Category:", finalValue);
+            // You can then send this data to the backend or process it further
+            $("#oth").val(finalValue);
+        }
     </script>
 </body>
 <div scrible-ignore="" id="skribel_annotation_ignore_browserExtensionFlag" class="skribel_chromeExtension"
