@@ -470,6 +470,8 @@ $row_count4 = mysqli_num_rows($result4);
                                                                     <option value="elecrtical">ELECTRICAL</option>
                                                                     <option value="civil">CIVIL</option>
                                                                     <option value="itkm">IT INFRA </option>
+                                                                    <option value="transport">TRANSPORT</option>
+                                                                    <option value="house">HOUSE KEEPING </option>
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
