@@ -475,3 +475,28 @@ if (isset($_POST["extend_deadlinedate"])) {
         echo json_encode($res);
     }
 }
+
+
+
+//reassign_complaint
+if (isset($_POST["reassign_complaint"])) {
+    try {
+        $id = mysqli_real_escape_string($conn, $_POST['user_id']);
+        $worker_dept = mysqli_real_escape_string($conn, $_POST['worker']);
+        $query = "UPDATE manager SET worker_dept = '$worker_dept'  WHERE problem_id = $id";
+        if (mysqli_query($conn, $query)) {
+            $res = [
+                'status' => 200,
+            ];
+            echo json_encode($res);
+        } else {
+            throw new Exception('Query Failed: ' . mysqli_error($conn));
+        }
+    } catch (Exception $e) {
+        $res = [
+            'status' => 500,
+            'message' => 'Error: ' . $e->getMessage()
+        ];
+        echo json_encode($res);
+    }
+}

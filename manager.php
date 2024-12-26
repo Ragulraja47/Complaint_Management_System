@@ -634,12 +634,38 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 </button>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="button"
+
+
+                                                            <?php if ($row['status'] == 9) { ?>
+                                                                        <button type="button" class="btn btn-warning reassign"
+                                                                            id="reassignbutton" value="<?php echo $row['id']; ?>"
+                                                                            data-toggle="dropdown">
+                                                                            Reassign
+                                                                        </button>
+                                                                        <ul class="dropdown-menu">
+
+                                                                        <center>
+                                                                        <li><a href="#" class="reass1"                                                    
+                                                                                data-value="electrical">ELECTRICAL</a></li>
+                                                                        <li><a href="#" class="reass1"                                                                                
+                                                                                data-value="civil">CIVIL</a></li>
+                                                                        <li><a href="#" class="reass1"                                                                                
+                                                                                data-value="itkm">ITKM</a></li>
+                                                                    </center>
+                                                                    
+                                                                </ul>
+
+
+                                                                
+              
+                                                                    <?php } else { ?>
+                                                                        <button type="button"
                                                                     class="btn btn-success  managerapprove"
                                                                     value="<?php echo $row['id']; ?>" data-toggle="dropdown"><i class="fas fa-check"></i>
                                                                 </button>
                                                                 <ul class="dropdown-menu">
-                                                                    <center>
+
+                                                                <center>
                                                                         <li><a href="#" class="worker"
                                                                                 data-toggle="modal"
                                                                                 data-target="#managerapproveModal"
@@ -653,7 +679,13 @@ $row_count7 = mysqli_num_rows($result7);
                                                                                 data-target="#managerapproveModal"
                                                                                 data-value="itkm">ITKM</a></li>
                                                                     </center>
+                                                                    
                                                                 </ul>
+                                                                    <?php } ?>
+
+
+
+                                                                
 
                                                                 <button type="button" class="btn btn-danger rejectcomplaint"
                                                                     id="rejectbutton" value="<?php echo $row['id']; ?>"
@@ -1916,6 +1948,75 @@ $row_count7 = mysqli_num_rows($result7);
                     $("#worker_id").val(worker);
                     $("#assignedWorker").text("Assigned Worker: " + worker);
                 })
+                
+                //reassign for manager
+                $(document).on("click", ".reassign", function(e) {
+                    e.preventDefault();
+                    var user_id = $(this).val(); // Get the ID from the button's value
+                    console.log("User ID:", user_id);
+
+                    $(document).data("user_id2", user_id);
+                                  
+                });
+
+                $(document).on('click', ".reass1", function(e) {
+                    e.preventDefault();
+                    var worker = $(this).data('value');
+                    var user_id = $(document).data("user_id2");
+
+                    console.log(worker);
+                    console.log("User ID:", user_id);
+
+                    $.ajax({
+                        url: "testbackend.php",
+                        type: "POST",
+                        data: {
+                user_id: user_id,
+                worker: worker,
+                reassign_complaint: true,
+            },
+                        success: function(response) {
+                            var res = jQuery.parseJSON(response);
+                            console.log(res);
+                            if (res.status == 200) {
+                                swal({
+                                    title: "success!",
+                                    text: "Complaint accepted sucessfully!",
+                                    icon: "success",
+                                    button: "Ok",
+                                    timer: null
+                                });
+
+                                $("#managerapproveModal").modal("hide");
+
+                                // Reset the form
+                                $("#managerapproveForm")[0].reset();
+
+
+                                $('#complain_table').DataTable().destroy();
+                                $('#principal_table').DataTable().destroy();
+
+                                $("#complain_table").load(location.href + " #complain_table > *", function() {
+                                    // Reinitialize the DataTable after the content is loaded
+                                    $('#complain_table').DataTable();
+                                });
+                                $("#principal_table").load(location.href + " #principal_table > *", function() {
+                                    // Reinitialize the DataTable after the content is loaded
+                                    $('#principal_table').DataTable();
+                                });
+                                $("#navref1").load(location.href + " #navref1");
+                                $("#navref2").load(location.href + " #navref2");
+
+
+
+                            } else {
+                                alert("Failed to accept complaint");
+                            }
+                        },
+                    });
+
+                    
+                });
 
                 $(document).on("submit", "#managerapproveForm", function(e) {
                     e.preventDefault();

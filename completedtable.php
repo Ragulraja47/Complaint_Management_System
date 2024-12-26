@@ -716,10 +716,16 @@ $row_count4 = mysqli_num_rows($result4);
                                                                     <button type="button" class="btn btn-light showWorkerDetails" value="<?php echo $row['id']; ?>">
                                                                         <?php
                                                                         $prblm_id = $row['id'];
-                                                                        $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
+                                                                        $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_dept FROM manager WHERE problem_id = '$prblm_id')";
                                                                         $querry_run = mysqli_query($conn, $querry);
                                                                         $worker_name = mysqli_fetch_array($querry_run);
-                                                                        echo $worker_name['worker_first_name']; ?>
+                                                                        if($worker_name['worker_first_name']!= null){
+                                                                            echo $worker_name['worker_first_name']; 
+                                                                        }
+                                                                        else {
+                                                                            echo "NA";
+                                                                        }
+                                                                       ?>
                                                                     </button>
                                                                 </td>
                                                                 <td class="text-center">
