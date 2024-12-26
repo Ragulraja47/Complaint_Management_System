@@ -485,7 +485,7 @@ $c6 = mysqli_num_rows($r6);
                             <!-- Tab panes -->
                             <div class="tab-content tabcontent-border">
                                 <!--completed start-->
-                                <div class="tab-pane active p-20" id="completed" role="tabpanel">
+                                <div class="tab-pane p-20" id="completed" role="tabpanel">
                                     <div class="p-20">
                                         <div class="table-responsive">
                                             <h5 class="card-title">Completed Tasks</h5>
@@ -584,7 +584,7 @@ $c6 = mysqli_num_rows($r6);
                                 </div>
                                 <!--completed end-->
                                 <!--new task start-->
-                                <div class="tab-pane  p-10" id="newtask" role="tabpanel">
+                                <div class="tab-pane active p-10" id="newtask" role="tabpanel">
                                     <div class="p-10">
                                         <div class="card">
                                             <div class="card-body" style="padding: 10px;">
