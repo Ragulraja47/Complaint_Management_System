@@ -1276,7 +1276,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 $worker_id = $roww['worker_id'];
 
                                                                 // Fetch worker details
-                                                                $query = "SELECT * FROM worker_details WHERE worker_dept='$worker_id'";
+                                                                $query = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
                                                                 $query_run = mysqli_query($conn, $query);
                                                                 $User_data = mysqli_fetch_array($query_run); ?>
                                                                 Completed by: <?php echo $User_data['worker_first_name'] ?> | <br>
