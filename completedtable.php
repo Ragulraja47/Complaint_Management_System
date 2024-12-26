@@ -450,7 +450,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                                     <option value="department">Department</option>
                                                                     <option value="lab">Lab</option>
                                                                     <option value="staff_room">Staff Room</option>
-                                                                    <option value="Other">other</option>
+                                                                    <option value="Other">Other</option>
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
