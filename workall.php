@@ -584,7 +584,7 @@ $c6 = mysqli_num_rows($r6);
                                 </div>
                                 <!--completed end-->
                                 <!--new task start-->
-                                <div class="tab-pane active p-10" id="newtask" role="tabpanel">
+                                <div class="tab-pane active    p-10" id="newtask" role="tabpanel">
                                     <div class="p-10">
                                         <div class="card">
                                             <div class="card-body" style="padding: 10px;">
@@ -647,10 +647,7 @@ $c6 = mysqli_num_rows($r6);
                                                             ?>
                                                         </tbody>
                                                     </table>
-
                                                 </div>
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -722,8 +719,7 @@ $c6 = mysqli_num_rows($r6);
                                                             '
                                                                 data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
                                                                 <i class="fas fa-eye" style="font-size: 25px;"></i>
-
-                                                            </button>
+                                                               </button>
                                                                     </td>
                                                                     <?php
                                                                     echo "<td class='text-center'>" . htmlspecialchars($row['priority']) . "</td>";
