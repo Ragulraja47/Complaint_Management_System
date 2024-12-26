@@ -883,7 +883,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                     data-target="#workerdetailmodal">
                                                                     <?php
                                                                     $prblm_id = $row3['id'];
-                                                                    $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
+                                                                    $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_dept FROM manager WHERE problem_id = '$prblm_id')";
                                                                     $querry_run = mysqli_query($conn, $querry);
                                                                     $worker_name = mysqli_fetch_array($querry_run);
                                                                     echo $worker_name['worker_first_name']; ?>
@@ -990,11 +990,17 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 <button type="button" class="btn btn-light worker_det" value="<?php echo $row5["id"]; ?>" data-toggle="modal"
                                                                     data-target="#workerdetailmodal">
                                                                     <?php
-                                                                    $prblm_id = $row5['id'];
-                                                                    $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
-                                                                    $querry_run = mysqli_query($conn, $querry);
-                                                                    $worker_name = mysqli_fetch_array($querry_run);
-                                                                    echo $worker_name['worker_first_name']; ?>
+                                                                        $prblm_id = $row5['id'];
+                                                                        $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_dept FROM manager WHERE problem_id = '$prblm_id')";
+                                                                        $querry_run = mysqli_query($conn, $querry);
+                                                                        $worker_name = mysqli_fetch_array($querry_run);
+                                                                        if($worker_name['worker_first_name']!= null){
+                                                                            echo $worker_name['worker_first_name']; 
+                                                                        }
+                                                                        else {
+                                                                            echo "NA";
+                                                                        }
+                                                                       ?>
                                                                 </button>
                                                             </td>
                                                             <td class="text-center"><?php echo $row5['date_of_completion'] ?></td>
@@ -1170,7 +1176,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                     data-target="#workerdetailmodal">
                                                                     <?php
                                                                     $prblm_id = $row6['id'];
-                                                                    $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_id FROM manager WHERE problem_id = '$prblm_id')";
+                                                                    $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_dept FROM manager WHERE problem_id = '$prblm_id')";
                                                                     $querry_run = mysqli_query($conn, $querry);
                                                                     $worker_name = mysqli_fetch_array($querry_run);
                                                                     echo $worker_name['worker_first_name']; ?>
@@ -1270,7 +1276,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 $worker_id = $roww['worker_id'];
 
                                                                 // Fetch worker details
-                                                                $query = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
+                                                                $query = "SELECT * FROM worker_details WHERE worker_dept='$worker_id'";
                                                                 $query_run = mysqli_query($conn, $query);
                                                                 $User_data = mysqli_fetch_array($query_run); ?>
                                                                 Completed by: <?php echo $User_data['worker_first_name'] ?> | <br>
