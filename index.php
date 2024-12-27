@@ -23,27 +23,10 @@ $srow  = mysqli_fetch_array($qry_run);
 $dept = $srow['worker_dept'];
 
 
-//completed count
-$count = "SELECT COUNT(*) AS count0 FROM complaints_detail WHERE status = '16' AND type_of_problem = '$dept'";
-$result = mysqli_query($conn, $count);
-$row0 = mysqli_fetch_assoc($result);
 
-//in progress count
-$count1 = "SELECT COUNT(*) AS count1 FROM complaints_detail WHERE status = '10' AND type_of_problem = '$dept'";
-$result1 = mysqli_query($conn, $count1);
-$row1 = mysqli_fetch_assoc($result1);
-
-//count of waiting for approval
-$count2 = "SELECT COUNT(*) AS count2 FROM complaints_detail WHERE status ='11' AND type_of_problem = '$dept'";
-$result2 = mysqli_query($conn, $count2);
-$row2 = mysqli_fetch_assoc($result2);
 
 //new task count
 
-$count3 = "SELECT COUNT(*) AS count3 FROM complaints_detail WHERE status  ='7' AND type_of_problem = '$dept'";
-
-$result3 = mysqli_query($conn, $count3);
-$row3 = mysqli_fetch_assoc($result3);
 
 
 //count for side bar starts
@@ -99,7 +82,211 @@ $row  = mysqli_fetch_array($qry_run);
 
 
 //count for side bar ends
+// Prepare and execute the query to filter by department
+//New task query
+$sql = "
+    SELECT 
+        cd.id,
+        cd.faculty_id,
+        faculty.faculty_name,
+        faculty.department,
+        faculty.faculty_contact,
+        faculty.faculty_mail,
+        cd.block_venue,
+        cd.venue_name,
+        cd.type_of_problem,
+        cd.problem_description,
+        cd.images,
+        cd.date_of_reg,
+        cd.days_to_complete,
+        cd.task_completion,
+        cd.status,
+        cd.feedback,
+        m.task_id,
+        m.priority
+    FROM 
+        complaints_detail AS cd
+    JOIN 
+        manager AS m ON cd.id = m.problem_id
+    JOIN 
+        faculty ON cd.faculty_id = faculty.faculty_id
+    WHERE 
+        (m.worker_dept='$dept')
+    AND 
+        cd.status = '9'
+";
 
+// Filter by department
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+$newcount = mysqli_num_rows($result);
+
+
+
+
+//inprogress query
+$sql1 = "
+    SELECT 
+        cd.id,
+        cd.faculty_id,
+        faculty.faculty_name,
+        faculty.department,
+        faculty.faculty_contact,
+        faculty.faculty_mail,
+        cd.block_venue,
+        cd.venue_name,
+        cd.type_of_problem,
+        cd.problem_description,
+        cd.images,
+        cd.date_of_reg,
+        cd.days_to_complete,
+        cd.task_completion,
+        cd.status,
+        cd.feedback,
+        m.task_id,
+        m.priority
+    FROM 
+        complaints_detail AS cd
+    JOIN 
+        manager AS m ON cd.id = m.problem_id
+    JOIN 
+        faculty ON cd.faculty_id = faculty.faculty_id
+    WHERE 
+        (m.worker_dept='$dept')
+    AND 
+        cd.status = '10'
+";
+
+// Filter by department
+$stmt = $conn->prepare($sql1);
+$stmt->execute();
+$result1 = $stmt->get_result();
+$progcount = mysqli_num_rows($result1);
+
+
+//waiting for approval query
+$sql2 = "
+    SELECT 
+        cd.id,
+        cd.faculty_id,
+        faculty.faculty_name,
+        faculty.department,
+        faculty.faculty_contact,
+        faculty.faculty_mail,
+        cd.block_venue,
+        cd.venue_name,
+        cd.type_of_problem,
+        cd.problem_description,
+        cd.images,
+        cd.date_of_reg,
+        cd.days_to_complete,
+        cd.task_completion,
+        cd.status,
+        cd.reason,
+        cd.feedback,
+        m.task_id,
+        m.priority
+    FROM 
+        complaints_detail AS cd
+    JOIN 
+        manager AS m ON cd.id = m.problem_id
+    JOIN 
+        faculty ON cd.faculty_id = faculty.faculty_id
+    WHERE 
+        (m.worker_dept='$dept')
+    AND 
+        (cd.status = '11' OR cd.status = '18')
+";
+
+// Filter by department
+$stmt = $conn->prepare($sql2);
+$stmt->execute();
+$result2 = $stmt->get_result();
+$waitcount = mysqli_num_rows($result2);
+
+
+//completed query
+$sql3 = "
+    SELECT 
+        cd.id,
+        cd.faculty_id,
+        faculty.faculty_name,
+        faculty.department,
+        faculty.faculty_contact,
+        faculty.faculty_mail,
+        cd.block_venue,
+        cd.venue_name,
+        cd.type_of_problem,
+        cd.problem_description,
+        cd.images,
+        cd.date_of_reg,
+        cd.days_to_complete,
+        cd.task_completion,
+        cd.date_of_completion,
+        cd.status,
+        cd.feedback,
+        m.task_id,
+        m.priority
+    FROM 
+        complaints_detail AS cd
+    JOIN 
+        manager AS m ON cd.id = m.problem_id
+    JOIN 
+        faculty ON cd.faculty_id = faculty.faculty_id
+    WHERE 
+        (m.worker_dept='$dept')
+    AND 
+        cd.status = '16'
+";
+
+// Filter by department
+$stmt = $conn->prepare($sql3);
+$stmt->execute();
+$result3 = $stmt->get_result();
+$compcount = mysqli_num_rows($result3);
+
+
+//not approved query
+$sql4 = "
+    SELECT 
+        cd.id,
+        cd.faculty_id,
+        faculty.faculty_name,
+        faculty.department,
+        faculty.faculty_contact,
+        faculty.faculty_mail,
+        cd.block_venue,
+        cd.venue_name,
+        cd.type_of_problem,
+        cd.problem_description,
+        cd.images,
+        cd.date_of_reg,
+        cd.days_to_complete,
+        cd.task_completion,
+        cd.date_of_completion,
+        cd.status,
+        cd.feedback,
+        m.task_id,
+        m.priority
+    FROM 
+        complaints_detail AS cd
+    JOIN 
+        manager AS m ON cd.id = m.problem_id
+    JOIN 
+        faculty ON cd.faculty_id = faculty.faculty_id
+    WHERE 
+        (m.worker_dept='$dept')
+    AND 
+        cd.status = '15'
+";
+
+
+// Filter by department
+$stmt = $conn->prepare($sql4);
+$stmt->execute();
+$result4 = $stmt->get_result();
+$notcount = mysqli_num_rows($result4);
 
 ?>
 
@@ -236,7 +423,7 @@ $row  = mysqli_fetch_array($qry_run);
                                             <div class="stats-box text-center p-3"
                                                 style="background-color:rgb(252, 119, 71);">
                                                 <i class="fas fa-bell m-b-5 font-20"></i>
-                                                <h1 class="m-b-0 m-t-5"><?php echo $row0['count0']; ?></h1>
+                                                <h1 class="m-b-0 m-t-5"><?php echo $compcount ?></h1>
                                                 <small class="font-light">Task Completed</small>
                                             </div>
                                         </div>
@@ -250,7 +437,7 @@ $row  = mysqli_fetch_array($qry_run);
                                             <div class="stats-box text-center p-3"
                                                 style="background-color:rgb(241, 74, 74);">
                                                 <i class="fas fa-exclamation m-b-5 font-16"></i>
-                                                <h1 class="m-b-0 m-t-5"><?php echo $row3['count3']; ?></h1>
+                                                <h1 class="m-b-0 m-t-5"><?php echo $newcount ?></h1>
                                                 <small class="font-light">New Tasks</small>
                                             </div>
                                         </div>
@@ -264,7 +451,7 @@ $row  = mysqli_fetch_array($qry_run);
                                             <div class="stats-box text-center p-3"
                                                 style="background-color:rgb(70, 160, 70);">
                                                 <i class="fas fa-check m-b-5 font-20"></i>
-                                                <h1 class="m-b-0 m-t-5"><?php echo $row1['count1'] ?></h1>
+                                                <h1 class="m-b-0 m-t-5"><?php echo $progcount;?></h1>
                                                 <small class="font-light">Task in progress</small>
                                             </div>
                                         </div>
@@ -278,7 +465,7 @@ $row  = mysqli_fetch_array($qry_run);
                                             <div class="stats-box text-center p-3"
                                                 style="background-color: rgb(187, 187, 35);">
                                                 <i class="fas fa-redo m-b-5 font-20"></i>
-                                                <h1 class="m-b-0 m-t-5"><?php echo $row2['count2'] ?></h1>
+                                                <h1 class="m-b-0 m-t-5"><?php echo $waitcount?></h1>
                                                 <small class="font-light">Tasks waiting for approval</small>
                                             </div>
                                         </div>

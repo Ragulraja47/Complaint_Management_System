@@ -1,54 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 
-    <style>
-        .stars span {
-  font-size: 2rem;
-  cursor: pointer;
-  color: gray; /* Default color for unlit stars */
-  transition: color 0.3s;
-}
-
-.stars span.highlighted {
-  color: gold; /* Color for lit stars */
-}
-
-    </style>
-</head>
-<body>
-<div class="stars" id="star-rating">
-  <span data-value="1">&#9733;</span>
-  <span data-value="2">&#9733;</span>
-  <span data-value="3">&#9733;</span>
-  <span data-value="4">&#9733;</span>
-  <span data-value="5">&#9733;</span>
-</div>
-<p id="rating-value">Rating: 0</p>
-
-<script>
-    const stars = document.querySelectorAll("#star-rating span");
-const ratingValue = document.getElementById("rating-value");
-
-stars.forEach((star, index) => {
-  star.addEventListener("click", () => {
-    // Remove the "highlighted" class from all stars
-    stars.forEach(s => s.classList.remove("highlighted"));
-    
-    // Add the "highlighted" class to all stars up to the clicked one
-    for (let i = 0; i <= index; i++) {
-      stars[i].classList.add("highlighted");
+  <style>
+    .stars span {
+      font-size: 2rem;
+      cursor: pointer;
+      color: gray;
+      /* Default color for unlit stars */
+      transition: color 0.3s;
     }
 
-    // Update the rating value
-    ratingValue.textContent = `Rating: ${index + 1}`;
-  });
-});
+    .stars span.highlighted {
+      color: gold;
+      /* Color for lit stars */
+    }
+  </style>
+</head>
 
-</script>
+<body>
+  <div class="stars" id="star-rating">
+    <span data-value="1">&#9733;</span>
+    <span data-value="2">&#9733;</span>
+    <span data-value="3">&#9733;</span>
+    <span data-value="4">&#9733;</span>
+    <span data-value="5">&#9733;</span>
+  </div>
+  <p id="rating-value">Rating: <span id="ratevalue">0</span></p>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    const stars = document.querySelectorAll("#star-rating span");
+    const ratingValue = document.getElementById("rating-value");
+    const ratevalue = document.getElementById("ratevalue");
+
+    stars.forEach((star, index) => {
+      star.addEventListener("click", () => {
+        // Remove the "highlighted" class from all stars hidhlited is used in Style
+        stars.forEach(s => s.classList.remove("highlighted"));
+
+        // Add the "highlighted" class to all stars up to the clicked one
+        for (let i = 0; i <= index; i++) {
+          stars[i].classList.add("highlighted");
+        }
+
+        // Update the rating value
+        ratingValue.textContent = `Rating: ${index + 1}`;
+        ratevalue.textContent = `${index + 1}`;
+        var rating = ratevalue.textContent;
+        $(document).data("ratings", rating);
+
+        var store_rating = $(document).data("ratings");
+        console.log(store_rating);
+      });
+    });
+  </script>
 
 </body>
+
 </html>

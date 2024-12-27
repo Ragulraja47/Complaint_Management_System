@@ -236,14 +236,15 @@ if (isset($_POST['get_status_details'])) {
 }
 
 // Handle feedback form submission
-if (isset($_POST['id'])) {
+if (isset($_POST['get_feedback'])) {
+
     $id = $_POST['id'];
-    $satisfaction = $_POST['satisfaction']; // Get satisfaction (13 for Satisfied, 14 for Not Satisfied)
-    $feedback = $_POST['feedback'];
+    $feedback = $_POST['satisfaction_feedback']; // Combined feedback and satisfaction value
+    $rating = $_POST['ratings']; // Get rating
 
     // Validate inputs
-    if (empty($id) || empty($feedback) || empty($satisfaction)) {
-        echo json_encode(['status' => 400, 'message' => 'Problem ID, Feedback, or Satisfaction is missing']);
+    if (empty($id) || empty($feedback)) {
+        echo json_encode(['status' => 400, 'message' => 'Problem ID or Feedback is missing']);
         exit;
     }
 
@@ -263,14 +264,13 @@ if (isset($_POST['id'])) {
 
     $stmt->close();
 
-    // Update feedback if it exists, otherwise insert a new one
+    // Update feedback if it exists, and set status to 14
     if ($feedbackExists) {
-        // Update existing feedback and status
-        $query = "UPDATE complaints_detail SET feedback = ?, status = ? WHERE id = ?";
+        // Update existing feedback, rating, and set status to 14
+        $query = "UPDATE complaints_detail SET feedback = ?, rating = ?, status = 14 WHERE id = ?";
     } else {
-        // Insert new feedback (though, this case might not happen since the record should exist)
-        // You can adjust logic here if necessary, but we'll proceed with update as the case.
-        $query = "UPDATE complaints_detail SET feedback = ?, status = ? WHERE id = ?";
+        // Insert new feedback (same query logic as update), with status set to 14
+        $query = "UPDATE complaints_detail SET feedback = ?, rating = ?, status = 14 WHERE id = ?";
     }
 
     $stmt = $conn->prepare($query);
@@ -280,7 +280,8 @@ if (isset($_POST['id'])) {
         exit;
     }
 
-    $stmt->bind_param('sii', $feedback, $satisfaction, $id);
+    // Bind parameters including the combined feedback value, rating, and ID
+    $stmt->bind_param('sii', $feedback, $rating, $id);
 
     if ($stmt->execute()) {
         echo json_encode(['status' => 200, 'message' => 'Feedback updated successfully']);
@@ -292,5 +293,7 @@ if (isset($_POST['id'])) {
     $conn->close();
     exit;
 }
+
+
 
 ?>
