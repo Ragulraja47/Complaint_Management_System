@@ -6,6 +6,7 @@ session_start();
 
 
 
+
 if (isset($_SESSION['worker_id'])) {
     $worker_id = $_SESSION['worker_id'];
 } else {
@@ -107,21 +108,7 @@ $c5 = mysqli_num_rows($r5);
 
 $c6 = mysqli_num_rows($r6);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //count for side bar ends
-
 
 if (isset($_POST['work'])) {
     $work = $_POST['worker_dept'];  // The department value
@@ -145,14 +132,9 @@ if (isset($_POST['work'])) {
     exit();  // Stop script execution after output
 }
 
-
-
-
 if (isset($_POST['form'])) {
     $problem_id = $_POST['user_id'] ?? null;
    
-
-
     if ($problem_id) {
             $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
             if (mysqli_query($conn, $updateQuery)) {
@@ -211,10 +193,14 @@ if (isset($_POST['form1'])) {
 
 
 
+
+
+
 ?>
 
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -342,9 +328,9 @@ if (isset($_POST['form1'])) {
                 <nav class="sidebar-nav">
                 <ul id="sidebarnav" class="p-t-30">
                 <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="workall.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu"><?php echo $srow['worker_dept'] ?></span></a></li>
-                    </ul>
+                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
+                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="workall.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu"><?php echo $srow['worker_dept'] ?></span></a></li>
+                </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
@@ -900,7 +886,6 @@ if (isset($_POST['form1'])) {
                 </div>
             </div>
         </div>
-    </div>
 
     <footer class="footer text-center">
         <b>2024 © M.Kumarasamy College of Engineering All Rights Reserved.<br>

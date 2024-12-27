@@ -456,9 +456,11 @@ $c6 = mysqli_num_rows($r6);
                        
                         <!-- Tabs -->
                         <div class="card" >
+                            <div class="card-body">
+                                <div class="card">
                             <div id="navref">
                             <!-- Nav tabs -->
-                            <ul class="nav nav-tabs" role="tablist">
+                            <ul class="nav nav-tabs mb-3" role="tablist">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#newtask"
                                         role="tab"><span class="hidden-sm-up"></span><div id="ref2"> <span
                                             class="hidden-xs-down"><b>NewTask(<?php echo $newcount ?>)</b></span></div></a> </li>
