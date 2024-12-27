@@ -584,6 +584,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                         <center>
                                                                                             <button type="button"
                                                                                                 class="btn btn-link faculty" id="facultyinfo"
+                                                                                                data-value="<?php echo $row['fac_id']; ?>"
                                                                                                 data-toggle="modal" value="<?php echo $row['id']; ?>"
                                                                                                 data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?></button>
                                                                                         </center>
@@ -708,6 +709,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                         <center>
                                                                                             <button type="button"
                                                                                                 class="btn btn-link faculty" id="facultyinfo"
+                                                                                                data-value="<?php echo $row['fac_id']; ?>"
                                                                                                 data-toggle="modal" value="<?php echo $row['id']; ?>"
                                                                                                 data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?></button>
                                                                                         </center>
@@ -817,6 +819,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                         <center>
                                                                                             <button type="button"
                                                                                                 class="btn btn-link faculty" id="facultyinfo"
+                                                                                                data-value="<?php echo $row['fac_id']; ?>"
                                                                                                 data-toggle="modal" value="<?php echo $row['id']; ?>"
                                                                                                 data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?></button>
                                                                                         </center>
