@@ -136,7 +136,7 @@ if (isset($_POST['form'])) {
     $problem_id = $_POST['user_id'] ?? null;
    
     if ($problem_id) {
-            $updateQuery = "UPDATE complaints_detail SET status='8' WHERE id='$problem_id'";
+            $updateQuery = "UPDATE complaints_detail SET status='10' WHERE id='$problem_id'";
             if (mysqli_query($conn, $updateQuery)) {
                 echo "Success: Complaint accepted and status updated successfully!";
                 exit;
@@ -617,9 +617,12 @@ if (isset($_POST['form1'])) {
                                     <?php
                                     // Set default month as the current month if no input is provided
                                     $selectedMonth = isset($_POST['selectmonth']) ? $_POST['selectmonth'] : date('m');
+                                    
+
+
 
                                     // Fetch data based on the selected month
-                                    $sql8 = "SELECT * FROM complaints_detail WHERE status='16' AND MONTH(date_of_completion) = $selectedMonth AND YEAR(date_of_completion) = YEAR(CURDATE())";
+                                    $sql8 = "SELECT * FROM complaints_detail WHERE status='16'AND type_of_problem='$dept' AND MONTH(date_of_completion) = $selectedMonth AND YEAR(date_of_completion) = YEAR(CURDATE())";
                                     $result8 = mysqli_query($conn, $sql8);
                                     ?>
 
@@ -734,8 +737,10 @@ if (isset($_POST['form1'])) {
                                         </div>
                                     </div>
 
-                                    <!-- Ans query Modal -->
-                                    <div class="modal fade" id="ansquery" tabindex="-1" role="dialog"
+                                    <!-- Ans 
+                                      Modal -->
+                                    <div class="modal fade" id="ans
+                                    " tabindex="-1" role="dialog"
                                         aria-labelledby="detailsModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">

@@ -555,7 +555,7 @@ $c6 = mysqli_num_rows($r6);
 
                                                                 <!-- Align the second button to the right -->
                                                                 <button type="button" class="btn"
-                                                                    style="margin-left:8px;" data-toggle="modal"
+                                                                    style="margin-left:2px;" data-toggle="modal"
                                                                     data-target="#Modal4">
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
@@ -566,7 +566,7 @@ $c6 = mysqli_num_rows($r6);
                                                         echo "<td class='text-center'>" . htmlspecialchars($row['date_of_completion']) . "</td>";
 
                                                         ?>
-                                                        <td><button type="button" class="btn btn-info"
+                                                        <td class="text-center"><button type="button" class="btn btn-info "
                                                                 data-toggle="modal">
                                                                 Completed
                                                             </button></td>
