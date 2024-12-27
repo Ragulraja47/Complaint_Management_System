@@ -524,3 +524,31 @@ if (isset($_POST["manager_feedbacks"])) {
         echo json_encode($res);
     }
 }
+
+//backend for worker details
+/* if (isset($_POST['fac_feed_rate'])) {
+    header('Content-Type: application/json');
+
+    $id = mysqli_real_escape_string($conn, $_POST['id']);
+
+
+    $rate = "SELECT * FROM complaints_detail WHERE id='$id'";
+    $query_run1 = mysqli_query($conn, $rate);
+    $User_data = mysqli_fetch_array($query_run1);
+    if ($query_run1) {
+        $res = [
+            'status' => 200,
+            'message' => 'details Fetch Successfully by id',
+            'data' => $User_data
+        ];
+        echo json_encode($res);
+        return;
+    } else {
+        $res = [
+            'status' => 500,
+            'message' => 'Details Not Deleted'
+        ];
+        echo json_encode($res);
+        return;
+    }
+} */
