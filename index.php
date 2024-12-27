@@ -113,7 +113,7 @@ $sql = "
     WHERE 
         (m.worker_dept='$dept')
     AND 
-        cd.status = '7'
+        cd.status = '9'
 ";
 
 // Filter by department

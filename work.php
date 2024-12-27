@@ -136,7 +136,7 @@ if (isset($_POST['form'])) {
     $problem_id = $_POST['user_id'] ?? null;
    
     if ($problem_id) {
-            $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
+            $updateQuery = "UPDATE complaints_detail SET status='8' WHERE id='$problem_id'";
             if (mysqli_query($conn, $updateQuery)) {
                 echo "Success: Complaint accepted and status updated successfully!";
                 exit;

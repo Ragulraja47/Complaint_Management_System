@@ -461,10 +461,8 @@ $c6 = mysqli_num_rows($r6);
                             <div id="navref">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs mb-3" role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#newtask"
-                                        role="tab"><span class="hidden-sm-up"></span><div id="ref2"> <span
-                                            class="hidden-xs-down"><b>NewTask(<?php echo $newcount ?>)</b></span></div></a> </li>
-                                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#inprogressdiv"
+                           
+                                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#inprogressdiv"
                                         role="tab"><span class="hidden-sm-up"></span> <div id="ref4"><span
                                             class="hidden-xs-down"><b>InProgress(<?php echo $progcount ?>)</b></span></div></a> </li>
                                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#waitingforapproval"
@@ -585,76 +583,7 @@ $c6 = mysqli_num_rows($r6);
                                     </div>
                                 </div>
                                 <!--completed end-->
-                                <!--new task start-->
-                                <div class="tab-pane active    p-10" id="newtask" role="tabpanel">
-                                    <div class="p-10">
-                                        <div class="card">
-                                            <div class="card-body" style="padding: 10px;">
-                                                <h5 class="card-title">New Tasks</h5>
-                                                <div class="table-responsive">
-                                                    <table id="addnewtask" class="table table-striped table-bordered">
-                                                        <thead style="background-color: rgb(220, 20, 70); color: white;">
-                                                            <tr>
-                                                                <th class="text-center"><b>S.No</b></th>
-                                                                <th class="col-md-2 text-center"><b>Complaint Date</b></th>
-                                                                <th class="text-center"><b>Task ID</b></th>
-                                                                <th class="text-center col-md-1"><b>Dept</b></th>
-                                                                <th class="col-md-2 text-center"><b>Complaint</b></th>
-                                                                <th class="text-center"><b>Priority</b></th>
-                                                                <th class="text-center"><b>Photos</b></th>
-                                                                <th class="text-center"><b>Deadline</b></th>
-                                                                <th class="text-center"><b>Status</b></th>
-                                                                <th class="text-center"><b>Action</b></th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
-                                                            $count = 1;
-                                                            while ($row = $result->fetch_assoc()) {
-                                                                echo "<tr>";
-                                                                echo "<td class='text-center'>" . $count++ . "</td>";
-                                                                echo "<td class='text-center'>" . htmlspecialchars($row['date_of_reg']) . "</td>";
-                                                                echo "<td class='text-center'>" . htmlspecialchars($row['task_id']) . "</td>";
-                                                                echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
-                                                            ?>
-                                                                <td class='text-center'>
-                                                                <button type='button' class='btn btn margin-5 view-complaint
-                                                            '
-                                                                data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                <i class="fas fa-eye" style="font-size: 25px;"></i>
-
-                                                            </button>
-                                                                </td>
-                                                                <?php
-                                                                echo "<td class='text-center'>" . htmlspecialchars($row['priority']) . "</td>";
-                                                                ?>
-                                                                <td class='text-center'>
-                                                                    <button type='button' class='btn margin-5 showbeforeimg'
-                                                                        data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                        <i class="fas fa-image" style="font-size: 25px;"></i>
-                                                                    </button>
-                                                                </td>
-                                                                <?php
-                                                                echo "<td class='text-center'>" . htmlspecialchars($row['days_to_complete']) . "</td>";
-                                                                echo "<td class='text-center'>Pending</td>";
-                                                                ?>
-                                                                <td class='text-center'>
-                                                                    <button id='reload-table-btn' type='button' class='btn btn-primary margin-5 start-work-btn '
-                                                                        data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'>
-                                                                        Start to work
-                                                                    </button>
-                                                                </td>
-                                                            <?php echo "</tr>";
-                                                            }
-                                                            ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--new task end-->
+                              
                                 <div class="tab-pane p-10" id="notapproved" role="tabpanel">
                                     <div class="p-10">
                                         <div class="p-10">
@@ -757,7 +686,7 @@ $c6 = mysqli_num_rows($r6);
                                     </div>
                                 </div>
                                 <!--Inprogress-->
-                                <div class="tab-pane p-10" id="inprogressdiv" role="tabpanel">
+                                <div class="tab-pane active p-10" id="inprogressdiv" role="tabpanel">
                                     <div class="p-10">
                                         <div class="p-10">
                                             <div class="card">
