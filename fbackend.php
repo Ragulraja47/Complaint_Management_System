@@ -33,6 +33,8 @@ function getNextFileNumber($counterFilePath)
 // Handle form submission
 if (isset($_POST['faculty_id'])) {
     $faculty_id = mysqli_real_escape_string($conn, $_POST['faculty_id']);
+    $fac_id = mysqli_real_escape_string($conn,$_POST['cfaculty']);
+    $fac_id = preg_replace('/\D/', '', $fac_id); 
     $block_venue = mysqli_real_escape_string($conn, $_POST['block_venue']);
     $venue_name = mysqli_real_escape_string($conn, $_POST['venue_name']);
     $type_of_problem = mysqli_real_escape_string($conn, $_POST['type_of_problem']);
@@ -74,8 +76,8 @@ if (isset($_POST['faculty_id'])) {
 
 
     // Insert data into the database
-    $query = "INSERT INTO complaints_detail (faculty_id, block_venue, venue_name, type_of_problem, problem_description, images, date_of_reg, status) 
-              VALUES ('$faculty_id', '$block_venue', '$venue_name', '$type_of_problem', '$problem_description', '$images', '$date_of_reg', '$status')";
+    $query = "INSERT INTO complaints_detail (faculty_id,fac_id,block_venue, venue_name, type_of_problem, problem_description, images, date_of_reg, status) 
+              VALUES ('$faculty_id','$fac_id', '$block_venue', '$venue_name', '$type_of_problem', '$problem_description', '$images', '$date_of_reg', '$status')";
 
     if (mysqli_query($conn, $query)) {
         echo json_encode(['status' => 200, 'message' => 'Success']);
