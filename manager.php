@@ -651,6 +651,10 @@ $row_count7 = mysqli_num_rows($result7);
                                                                                 data-value="civil">CIVIL</a></li>
                                                                         <li><a href="#" class="reass1"                                                                                
                                                                                 data-value="itkm">ITKM</a></li>
+                                                                        <li><a href="#" class="reass1"                                                                                
+                                                                                data-value="transport">TRANSPORT</a></li>
+                                                                        <li><a href="#" class="reass1"                                                                                
+                                                                                data-value="house">HOUSE KEEPING</a></li>
                                                                     </center>
                                                                     
                                                                 </ul>
@@ -678,6 +682,14 @@ $row_count7 = mysqli_num_rows($result7);
                                                                                 data-toggle="modal"
                                                                                 data-target="#managerapproveModal"
                                                                                 data-value="itkm">ITKM</a></li>
+                                                                        <li><a href="#" class="worker"
+                                                                                data-toggle="modal"
+                                                                                data-target="#managerapproveModal"
+                                                                                data-value="transport">TRANSPORT</a></li>
+                                                                        <li><a href="#" class="worker"
+                                                                                data-toggle="modal"
+                                                                                data-target="#managerapproveModal"
+                                                                                data-value="house">HOUSE KEEPING</a></li>
                                                                     </center>
                                                                     
                                                                 </ul>
