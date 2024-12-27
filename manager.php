@@ -378,6 +378,20 @@ $row_count7 = mysqli_num_rows($result7);
             /* Light background on hover */
             color: black;
         }
+
+        /*star rating*/
+        .stars span {
+            font-size: 2rem;
+            cursor: pointer;
+            color: gray;
+            /* Default color for unlit stars */
+            transition: color 0.3s;
+        }
+
+        .stars span.highlighted {
+            color: gold;
+            /* Color for lit stars */
+        }
     </style>
 </head>
 
@@ -657,11 +671,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                                 data-value="house">HOUSE KEEPING</a></li>
                                                                     </center>
                                                                     
-                                                                </ul>
-
-
-                                                                
-              
+                                                                </ul>              
                                                                     <?php } else { ?>
                                                                         <button type="button"
                                                                     class="btn btn-success  managerapprove"
@@ -694,10 +704,6 @@ $row_count7 = mysqli_num_rows($result7);
                                                                     
                                                                 </ul>
                                                                     <?php } ?>
-
-
-
-                                                                
 
                                                                 <button type="button" class="btn btn-danger rejectcomplaint"
                                                                     id="rejectbutton" value="<?php echo $row['id']; ?>"
@@ -1613,13 +1619,52 @@ $row_count7 = mysqli_num_rows($result7);
                                             <input type="hidden" id="complaintfeed_id" value="">
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-success done"
-                                                data-dismiss="modal">Done</button>
+                                            <button type="button" class="btn btn-success"
+                                                data-dismiss="modal" data-toggle="modal"
+                                                data-target="#DoneModal">Done</button>
                                             <button type="button" class="btn btn-danger reass">Reassign</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                             <!--Manager Feedback Modal for complete work-->
+                             <div class="modal fade" id="DoneModal" tabindex="-1" aria-labelledby="DoneModalLabel" aria-hidden="true">
+                             <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="principalModalLabel">Need Approval</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                                <form id="manager_feedback"> 
+                                                    <div class="stars" id="star-rating">
+                                                        <h5>Give Rating:</h5>
+                                                        <span data-value="1">&#9733;</span>
+                                                        <span data-value="2">&#9733;</span>
+                                                        <span data-value="3">&#9733;</span>
+                                                        <span data-value="4">&#9733;</span>
+                                                        <span data-value="5">&#9733;</span>
+                                                    </div>
+                                                    <p id="rating-value">Rating: <span id="ratevalue">0</span></p>
+
+                                                    <div class="mb-3">
+                                                        <label for="feedback" class="form-label">Feedback</label>
+                                                        <textarea name="feedback12" id="mfeedback" class="form-control" placeholder="Enter Feedback" style="width: 100%; height: 150px;" require></textarea>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger done">Submit</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             <!-- Reassign deadline Modal -->
                             <div class="modal fade" id="datePickerModal" tabindex="-1" role="dialog" aria-labelledby="datePickerModalLabel" aria-hidden="true">
@@ -2308,8 +2353,9 @@ $row_count7 = mysqli_num_rows($result7);
 
                     // Open the feedback modal and set the complaintfeed ID (Event Delegation)
                     $(document).on("click", ".facfeed", function() {
-                        complaintfeedId = $(this).val();
+                        var complaintfeedId = $(this).val();
                         $("#complaintfeed_id").val(complaintfeedId); // Store complaintfeed ID in the hidden input
+                        $(document).data("feedid",complaintfeedId)
                     });
 
                     // When 'Done' is clicked (Event Delegation)
@@ -2390,7 +2436,7 @@ $row_count7 = mysqli_num_rows($result7);
                             data: {
                                 complaintfeed_id: complaintfeedId,
                                 status: status,
-                                reassign_deadline: reassign_deadline, // Only pass this if status is 'reassign'
+                                reassign_deadline: reassign_deadline, // Only pass this when we give 'reassign'
                             },
                             success: function(response) {
                                 var res = jQuery.parseJSON(response);
@@ -2591,6 +2637,51 @@ $row_count7 = mysqli_num_rows($result7);
                         }
                     });
                 })
+
+                $(document).on("submit","#manager_feedback",function(e){
+                    e.preventDefault();
+                    var fd = new FormData(this);
+                    console.log(fd);
+
+                    var store_rating = $(document).data("ratings");
+                    console.log(store_rating);
+                    fd.append("ratings",store_rating);
+                    fd.append("manager_feedbacks",true);
+                    var manfeed = $(document).data("feedid")
+                    console.log(manfeed);
+                    fd.append("id",manfeed);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "testbackend.php",
+                        data: fd,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            var res = jQuery.parseJSON(response);
+
+                            if (res.status == 200) {
+                                // Close modal
+                                $("#DoneModal").modal("hide");
+
+                                // Reset the form
+                                $("#manager_feedback")[0].reset();
+                            
+                
+                                // Display success message
+                            } else if (res.status == 500) {
+                                $("#DoneModal").modal("hide");
+                                $("#manager_feedback")[0].reset();
+                                alert(res.message);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            alert("An error occurred while processing your request.");
+                        },
+                    });
+                });
+
+
             </script>
 
             <script>
@@ -2625,6 +2716,33 @@ $row_count7 = mysqli_num_rows($result7);
                 // Set the minimum and maximum date for the input field to today's date
                 dateInput.setAttribute('min', today);
             </script>
+
+<script>
+        //Star Rating Coding
+        const stars = document.querySelectorAll("#star-rating span");
+        const ratingValue = document.getElementById("rating-value");
+        const ratevalue = document.getElementById("ratevalue");
+
+
+
+        stars.forEach((star, index) => {
+            star.addEventListener("click", () => {
+                // Remove the "highlighted" class from all stars hidhlited is used in Style
+                stars.forEach(s => s.classList.remove("highlighted"));
+
+                // Add the "highlighted" class to all stars up to the clicked one
+                for (let i = 0; i <= index; i++) {
+                    stars[i].classList.add("highlighted");
+                }
+
+                // Update the rating value
+                ratingValue.textContent = `Rating: ${index + 1}`;
+                ratevalue.textContent = `${index + 1}`;
+                var rating = ratevalue.textContent;
+                $(document).data("ratings", rating);
+            });
+        });
+    </script>
 
 </body>
 

@@ -26,29 +26,6 @@ if (isset($_POST['approvebtn'])) {
     }
 }
 
-//Approve All Button
-if (isset($_POST['approveallbtn'])) {
-    try {        
-        $query = "UPDATE complaints_detail SET status = '4' WHERE status='2' ";
-
-        if (mysqli_query($conn, $query)) {
-            $res = [
-                'status' => 200,
-                'message' => 'Details Updated Successfully'
-            ];
-            echo json_encode($res);
-        } else {
-            throw new Exception('Query Failed: ' . mysqli_error($conn));
-        }
-    } catch (Exception $e) {
-        $res = [
-            'status' => 500,
-            'message' => 'Error: ' . $e->getMessage()
-        ];
-        echo json_encode($res);
-    }
-}
-
 //Rejected Feedback
 if (isset($_POST['rejfeed'])) {
     try {

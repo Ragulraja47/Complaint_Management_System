@@ -271,10 +271,6 @@ $resultfac = mysqli_query($conn,$facquery);
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completedtable.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Complaints</span></a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="newprod.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">New Products</span></a>
-                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
