@@ -185,14 +185,10 @@ $result3 = mysqli_query($conn, $sql3);
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
-                <ul id="sidebarnav" class="p-t-30 in">
+                    <ul id="sidebarnav" class="p-t-30 in">
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="hod.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Complaints</span></a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="newproduct_hod.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">New Product</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -239,75 +235,75 @@ $result3 = mysqli_query($conn, $sql3);
                                 <div class="card-body">
                                     <h4 class="card-title">Complaint Details</h4>
                                     <div class="card">
-                                            <ul class="nav nav-tabs mb-3" role="tablist">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active show" data-toggle="tab" href="#dashboard"
-                                                        role="tab" aria-selected="true"><span class="hidden-sm-up"></span>
-                                                        <span class="hidden-xs-down"><i
-                                                                class="mdi mdi-view-grid"></i><b>&nbsp Dashboard</b></span></a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#pending"
-                                                        role="tab" aria-selected="false"><span class="hidden-sm-up"></span>
-                                                        <div id="navref1">
+                                        <ul class="nav nav-tabs mb-3" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active show" data-toggle="tab" href="#dashboard"
+                                                    role="tab" aria-selected="true"><span class="hidden-sm-up"></span>
+                                                    <span class="hidden-xs-down"><i
+                                                            class="mdi mdi-view-grid"></i><b>&nbsp Dashboard</b></span></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#pending"
+                                                    role="tab" aria-selected="false"><span class="hidden-sm-up"></span>
+                                                    <div id="navref1">
                                                         <span class="hidden-xs-down">
                                                             <i class="fas fa-clock"></i>
                                                             <b>&nbsp Pending ( <?php $query2 = "SELECT COUNT(*) as pending FROM complaints_detail WHERE  status ='2'";
-                                                            $output2 = mysqli_query($conn, $query2);
-                                                            $row2 = mysqli_fetch_assoc($output2);
-                                                            $pendingCount = $row2['pending'];
-                                                            echo $pendingCount;
-                                                            ?> ) </b>
+                                                                                $output2 = mysqli_query($conn, $query2);
+                                                                                $row2 = mysqli_fetch_assoc($output2);
+                                                                                $pendingCount = $row2['pending'];
+                                                                                echo $pendingCount;
+                                                                                ?> ) </b>
                                                         </span>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#approved" role="tab"
-                                                        aria-selected="false"><span class="hidden-sm-up"></span>
-                                                        <div id="navref2">
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#approved" role="tab"
+                                                    aria-selected="false"><span class="hidden-sm-up"></span>
+                                                    <div id="navref2">
                                                         <span class="hidden-xs-down">
                                                             <i class="fas fa-check"></i><b>&nbsp Approved ( <?php $query2 = "SELECT COUNT(*) as approved FROM complaints_detail WHERE (status ='4' or status ='6' or status='7' or status='10' or status='11' or status='13' or status='14' or status='15' or status='17' or status='18')";
-                                                            $output2 = mysqli_query($conn, $query2);
-                                                            $row2 = mysqli_fetch_assoc($output2);
-                                                            $pendingCount = $row2['approved'];
-                                                            echo $pendingCount;
-                                                            ?> )</b>
+                                                                                                            $output2 = mysqli_query($conn, $query2);
+                                                                                                            $row2 = mysqli_fetch_assoc($output2);
+                                                                                                            $pendingCount = $row2['approved'];
+                                                                                                            echo $pendingCount;
+                                                                                                            ?> )</b>
                                                         </span>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#completed" role="tab"
-                                                        aria-selected="false"><span class="hidden-sm-up"></span> 
-                                                        <div id="navref3">
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#completed" role="tab"
+                                                    aria-selected="false"><span class="hidden-sm-up"></span>
+                                                    <div id="navref3">
                                                         <span class="hidden-xs-down">
                                                             <i class="mdi mdi-check-all"></i><b>&nbsp Completed ( <?php $query2 = "SELECT COUNT(*) as completed FROM complaints_detail WHERE  status ='16'";
-                                                            $output2 = mysqli_query($conn, $query2);
-                                                            $row2 = mysqli_fetch_assoc($output2);
-                                                            $pendingCount = $row2['completed'];
-                                                            echo $pendingCount;
-                                                            ?> )</b>
+                                                                                                                    $output2 = mysqli_query($conn, $query2);
+                                                                                                                    $row2 = mysqli_fetch_assoc($output2);
+                                                                                                                    $pendingCount = $row2['completed'];
+                                                                                                                    echo $pendingCount;
+                                                                                                                    ?> )</b>
                                                         </span>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#rejected" role="tab"
-                                                        aria-selected="false"><span class="hidden-sm-up"></span> 
-                                                        <div id="navref4">
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#rejected" role="tab"
+                                                    aria-selected="false"><span class="hidden-sm-up"></span>
+                                                    <div id="navref4">
                                                         <span class="hidden-xs-down">
                                                             <i class="mdi mdi-close-circle"></i><b>&nbsp Rejected ( <?php $query2 = "SELECT COUNT(*) as rejected FROM complaints_detail WHERE (status ='5' or status ='19' or status='20')";
-                                                            $output2 = mysqli_query($conn, $query2);
-                                                            $row2 = mysqli_fetch_assoc($output2);
-                                                            $pendingCount = $row2['rejected'];
-                                                            echo $pendingCount;
-                                                            ?> )</b>
+                                                                                                                    $output2 = mysqli_query($conn, $query2);
+                                                                                                                    $row2 = mysqli_fetch_assoc($output2);
+                                                                                                                    $pendingCount = $row2['rejected'];
+                                                                                                                    echo $pendingCount;
+                                                                                                                    ?> )</b>
                                                         </span>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
                                         <!-------------------------dashboard------------------------------>
                                         <div class="tab-content tabcontent-border">
                                             <div class="tab-pane p-20 active show" id="dashboard" role="tabpanel">
@@ -416,9 +412,9 @@ $result3 = mysqli_query($conn, $sql3);
                                                         <div class="card">
                                                             <div class="card-header">
                                                                 <h4>
-                                                                    Approve All
+                                                                    Raise Complaint
                                                                     <button type="button" style="float:right; font-size:20px;"
-                                                                        class="btn btn-success mdi mdi-check-all btnapproveall"></button><br>
+                                                                        class="btn btn-info mdi mdi-plus-box-outline btnraisecomp" data-toggle="modal" data-target="#cmodal"></button><br>
                                                                 </h4>
                                                             </div>
 
@@ -637,7 +633,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                             $status = $row['status'];
                                                                                             $statusMessage = $statusMessages[$status] ?? 'Unknown status';
                                                                                             ?>
-                                                                                            <button type="button" class="btn btn-secondary" >
+                                                                                            <button type="button" class="btn btn-secondary">
                                                                                                 <?php echo $statusMessage; ?>
                                                                                             </button>
                                                                                         </center>
@@ -1016,6 +1012,79 @@ $result3 = mysqli_query($conn, $sql3);
         </div>
     </div>
 
+    <!-- Raise Complaint Modal -->
+    <div id="cmodal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header"
+                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                    <h5 class="modal-title">Raise Complaint</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="addnewuser" enctype="multipart/form-data" onsubmit="handleSubmit(event)">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <input type="hidden" id="hidden_faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>">
+                            <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="block" class="form-label">Block <span style="color: red;">*</span></label>
+                            <input type="text" class="form-control" name="block_venue" placeholder="Eg:RK-206" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="venue" class="form-label">Venue <span style="color: red;">*</span></label>
+                            <select id="dropdown" class="form-control" name="venue_name" onchange="checkIfOthers()">
+                                <option>Select</option>
+                                <option value="class">Class Room</option>
+                                <option value="department">Department</option>
+                                <option value="lab">Lab</option>
+                                <option value="staff_room">Staff Room</option>
+                                <option id="oth" value="Other">Others</option>
+                            </select>
+                        </div>
+
+                        <div id="othersInput" style="display: none;">
+                            <label class="form-label" for="otherValue">Please specify: <span style="color: red;">*</span></label>
+                            <input class="form-control" type="text" id="otherValue" name="otherValue">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="type_of_problem" class="form-label">Type of Problem <span style="color: red;">*</span></label>
+                            <select class="form-control" name="type_of_problem">
+                                <option>Select</option>
+                                <option value="elecrtical">ELECTRICAL</option>
+                                <option value="civil">CIVIL</option>
+                                <option value="itkm">IT INFRA</option>
+                                <option value="transport">TRANSPORT</option>
+                                <option value="house">HOUSE KEEPING</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Problem Description <span style="color: red;">*</span></label>
+                            <input type="text" class="form-control" name="problem_description" placeholder="Enter Description" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="images" class="form-label">Image <span style="color: red;">*</span> </label>
+                            <input type="file" class="form-control" name="images" id="images" onchange="validateSize(this)" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="hidden" class="form-control" name="date_of_reg" id="date_of_reg" required>
+                        </div>
+                    </div>
+                    <input type="hidden" name="status" value="2">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Image Modal-->
     <div id="imageModal1" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -1102,6 +1171,32 @@ $result3 = mysqli_query($conn, $sql3);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.min.js"></script>
 
+    <!-- Set Today date in Raise Complaint-->
+    <script>
+        var today = new Date().toISOString().split('T')[0];
+        var dateInput = document.getElementById('date_of_reg');
+        dateInput.setAttribute('min', today);
+        dateInput.setAttribute('max', today);
+        dateInput.value = today;
+    </script>
+
+    <!--file size and type -->
+    <script>
+        function validateSize(input) {
+            const filesize = input.files[0].size / 1024; // Size in KB
+            var ext = input.value.split(".");
+            ext = ext[ext.length - 1].toLowerCase();
+            var arrayExtensions = ["jpg", "jpeg", "png"];
+            if (arrayExtensions.lastIndexOf(ext) == -1) {
+                swal("Invalid Image Format, Only .jpeg, .jpg, .png format allowed", "", "error");
+                $(input).val('');
+            } else if (filesize > 2048) {
+                swal("File is too large, Maximum 2 MB is allowed", "", "error");
+                $(input).val('');
+            }
+        }
+    </script>
+
     <script>
         //Tool Tip
         $(function() {
@@ -1153,9 +1248,9 @@ $result3 = mysqli_query($conn, $sql3);
             $('[data-toggle="tooltip"]').tooltip();
 
             // You can also set options manually if needed
-            $('.btnapproveall').tooltip({
+            $('.btnraisecomp').tooltip({
                 placement: 'top',
-                title: 'Approve All'
+                title: 'Raise Complaint'
             });
         });
 
@@ -1215,9 +1310,11 @@ $result3 = mysqli_query($conn, $sql3);
                             $('#myTable1').DataTable().destroy();
                             $('#myTable4').DataTable().destroy();
                             $("#myTable1").load(location.href + " #myTable1 > *", function() {
-                            $('#myTable1').DataTable();});
+                                $('#myTable1').DataTable();
+                            });
                             $("#myTable4").load(location.href + " #myTable4 > *", function() {
-                            $('#myTable4').DataTable();});
+                                $('#myTable4').DataTable();
+                            });
                             $('#navref1').load(location.href + " #navref1");
                             $('#navref4').load(location.href + " #navref4");
 
@@ -1262,11 +1359,14 @@ $result3 = mysqli_query($conn, $sql3);
                                 $('#myTable2').DataTable().destroy();
                                 $('#myTable3').DataTable().destroy();
                                 $("#myTable1").load(location.href + " #myTable1 > *", function() {
-                                $('#myTable1').DataTable();});
+                                    $('#myTable1').DataTable();
+                                });
                                 $("#myTable2").load(location.href + " #myTable2 > *", function() {
-                                $('#myTable2').DataTable();});
+                                    $('#myTable2').DataTable();
+                                });
                                 $("#myTable3").load(location.href + " #myTable3 > *", function() {
-                                $('#myTable3').DataTable();});
+                                    $('#myTable3').DataTable();
+                                });
                                 $('#navref1').load(location.href + " #navref1");
                                 $('#navref2').load(location.href + " #navref2");
                                 $('#navref3').load(location.href + " #navref3");
@@ -1300,14 +1400,17 @@ $result3 = mysqli_query($conn, $sql3);
                             $('#myTable2').DataTable().destroy();
                             $('#myTable3').DataTable().destroy();
                             $("#myTable1").load(location.href + " #myTable1 > *", function() {
-                            $('#myTable1').DataTable();});
+                                $('#myTable1').DataTable();
+                            });
                             $("#myTable2").load(location.href + " #myTable2 > *", function() {
-                            $('#myTable2').DataTable();});
+                                $('#myTable2').DataTable();
+                            });
                             $("#myTable3").load(location.href + " #myTable3 > *", function() {
-                            $('#myTable3').DataTable();});
+                                $('#myTable3').DataTable();
+                            });
                             $('#navref1').load(location.href + " #navref1");
                             $('#navref2').load(location.href + " #navref2");
-                            $('#navref3').load(location.href + " #navref3");                                
+                            $('#navref3').load(location.href + " #navref3");
                             $('#navref4').load(location.href + " #navref4");
                         }
                     }
