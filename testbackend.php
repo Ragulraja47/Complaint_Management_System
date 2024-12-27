@@ -500,3 +500,27 @@ if (isset($_POST["reassign_complaint"])) {
         echo json_encode($res);
     }
 }
+
+//Done_complaint
+if (isset($_POST["manager_feedbacks"])) {
+    try {
+        $id = mysqli_real_escape_string($conn, $_POST['id']);
+        $feedback = mysqli_real_escape_string($conn, $_POST['feedback12']);
+        $rating = mysqli_real_escape_string($conn, $_POST['ratings']);
+        $query = "UPDATE complaints_detail SET mfeedback = '$feedback', mrating = '$rating'  WHERE id = $id";
+        if (mysqli_query($conn, $query)) {
+            $res = [
+                'status' => 200,
+            ];
+            echo json_encode($res);
+        } else {
+            throw new Exception('Query Failed: ' . mysqli_error($conn));
+        }
+    } catch (Exception $e) {
+        $res = [
+            'status' => 500,
+            'message' => 'Error: ' . $e->getMessage()
+        ];
+        echo json_encode($res);
+    }
+}
