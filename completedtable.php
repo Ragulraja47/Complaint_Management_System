@@ -164,6 +164,20 @@ $row_count4 = mysqli_num_rows($result4);
         .spbutton:active {
             background-color: rgb(130, 0, 0);
         }
+
+        /*star rating*/
+        .stars span {
+            font-size: 2rem;
+            cursor: pointer;
+            color: gray;
+            /* Default color for unlit stars */
+            transition: color 0.3s;
+        }
+
+        .stars span.highlighted {
+            color: gold;
+            /* Color for lit stars */
+        }
     </style>
 </head>
 
@@ -636,7 +650,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                                     $s++;
                                                                 }
                                                                 ?>
-                                                            </tbody><!--ddddddddddddddddddd-->
+                                                            </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
@@ -721,13 +735,12 @@ $row_count4 = mysqli_num_rows($result4);
                                                                         $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_dept FROM manager WHERE problem_id = '$prblm_id')";
                                                                         $querry_run = mysqli_query($conn, $querry);
                                                                         $worker_name = mysqli_fetch_array($querry_run);
-                                                                        if($worker_name['worker_first_name']!= null){
-                                                                            echo $worker_name['worker_first_name']; 
-                                                                        }
-                                                                        else {
+                                                                        if ($worker_name['worker_first_name'] != null) {
+                                                                            echo $worker_name['worker_first_name'];
+                                                                        } else {
                                                                             echo "NA";
                                                                         }
-                                                                       ?>
+                                                                        ?>
                                                                     </button>
                                                                 </td>
                                                                 <td class="text-center">
@@ -766,7 +779,7 @@ $row_count4 = mysqli_num_rows($result4);
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary"
                                                                                         data-dismiss="modal">Close</button>
-                                                                                    </div>
+                                                                                </div>
                                                                             </form>
                                                                         </div>
                                                                     </div>
@@ -825,10 +838,20 @@ $row_count4 = mysqli_num_rows($result4);
                                                         <label for="satisfaction" class="form-label">Satisfaction</label>
                                                         <select name="satisfaction" id="satisfaction" class="form-control" required>
                                                             <option value="" disabled selected>Select an option</option>
-                                                            <option value="14">Satisfied</option>
-                                                            <option value="14">Reassign</option>
+                                                            <option value="Satisfied">Satisfied</option>
+                                                            <option value="Not Satisfied">Reassign</option>
                                                         </select>
                                                     </div>
+                                                    <div class="stars" id="star-rating">
+                                                        <h5>Give Rating:</h5>
+                                                        <span data-value="1">&#9733;</span>
+                                                        <span data-value="2">&#9733;</span>
+                                                        <span data-value="3">&#9733;</span>
+                                                        <span data-value="4">&#9733;</span>
+                                                        <span data-value="5">&#9733;</span>
+                                                    </div>
+                                                    <p id="rating-value">Rating: <span id="ratevalue">0</span></p>
+
                                                     <div class="mb-3">
                                                         <label for="feedback" class="form-label">Feedback</label>
                                                         <textarea name="feedback" id="feedback" class="form-control" placeholder="Enter Feedback" style="width: 100%; height: 150px;"></textarea>
@@ -1246,12 +1269,27 @@ $row_count4 = mysqli_num_rows($result4);
         // Handle feedback form submission
         $('#add_feedback').on('submit', function(e) {
             e.preventDefault(); // Prevent default form submission
-            var formData = $(this).serialize(); // Serialize form data
+            var formData = new FormData(this);
+            formData.append("get_feedback", true);
+
+            // Get the values of satisfaction and feedback
+            var satisfactionValue = $('#satisfaction').val();
+            var feedbackValue = $('#feedback').val();
+
+            // Combine satisfaction and feedback into a single value
+            var combinedFeedback = satisfactionValue + ": " + feedbackValue;
+            formData.append("satisfaction_feedback", combinedFeedback);
+
+            var store_rating = $(document).data("ratings");
+            console.log(store_rating);
+
+            formData.append("ratings", store_rating);
             $.ajax({
                 type: "POST",
                 url: "fbackend.php", // Adjust if necessary
                 data: formData,
-                dataType: "json",
+                processData: false,
+                contentType: false,
                 success: function(response) {
                     if (response.status == 200) {
                         swal("Done!", "Feedback Submitted!", "success");
@@ -1316,6 +1354,33 @@ $row_count4 = mysqli_num_rows($result4);
             // You can then send this data to the backend or process it further
             $("#oth").val(finalValue);
         }
+    </script>
+
+    <script>
+        //Star Rating Coding
+        const stars = document.querySelectorAll("#star-rating span");
+        const ratingValue = document.getElementById("rating-value");
+        const ratevalue = document.getElementById("ratevalue");
+
+
+
+        stars.forEach((star, index) => {
+            star.addEventListener("click", () => {
+                // Remove the "highlighted" class from all stars hidhlited is used in Style
+                stars.forEach(s => s.classList.remove("highlighted"));
+
+                // Add the "highlighted" class to all stars up to the clicked one
+                for (let i = 0; i <= index; i++) {
+                    stars[i].classList.add("highlighted");
+                }
+
+                // Update the rating value
+                ratingValue.textContent = `Rating: ${index + 1}`;
+                ratevalue.textContent = `${index + 1}`;
+                var rating = ratevalue.textContent;
+                $(document).data("ratings", rating);
+            });
+        });
     </script>
 </body>
 <div scrible-ignore="" id="skribel_annotation_ignore_browserExtensionFlag" class="skribel_chromeExtension"
