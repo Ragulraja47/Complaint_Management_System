@@ -791,10 +791,35 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center">
                                                                 <?php if ($row4['status'] == '8') { ?>
                                                                     <button type="button"
-                                                                        class="btn btn-success managerapprove"
-                                                                        value="<?php echo $row4['id']; ?>" data-toggle="modal"
-                                                                        data-target="#managerapproveModal">
-                                                                        <i class="fas fa-check"></i></button>
+                                                                        class="btn btn-success  managerapprove"
+                                                                        value="<?php echo $row4['id']; ?>" data-toggle="dropdown"><i class="fas fa-check"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu">
+                                                                    <center>
+                                                                            <li><a href="#" class="worker"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#managerapproveModal"
+                                                                                    data-value="electrical">ELECTRICAL</a></li>
+                                                                            <li><a href="#" class="worker"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#managerapproveModal"
+                                                                                    data-value="civil">CIVIL</a></li>
+                                                                            <li><a href="#" class="worker"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#managerapproveModal"
+                                                                                    data-value="itkm">ITKM</a></li>
+                                                                            <li><a href="#" class="worker"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#managerapproveModal"
+                                                                                    data-value="transport">TRANSPORT</a></li>
+                                                                            <li><a href="#" class="worker"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#managerapproveModal"
+                                                                                    data-value="house">HOUSE KEEPING</a></li>
+                                                                        </center>
+
+                                                                        </ul>
+                                                                    
 
                                                                 <?php }
                                                                 if ($row4['status'] == '19') { ?>
