@@ -554,7 +554,8 @@ $c6 = mysqli_num_rows($r6);
                                                                 </button>
 
                                                                 <!-- Align the second button to the right -->
-                                                                <button type="button" class="btn"
+                                                                <button type="button" class="btn I"
+                                                                data-task-id='<?php echo htmlspecialchars($row['task_id']); ?>'
                                                                     style="margin-left:2px;" data-toggle="modal"
                                                                     data-target="#Modal4">
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
