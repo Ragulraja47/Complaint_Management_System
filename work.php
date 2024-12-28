@@ -1080,6 +1080,7 @@ if (isset($_POST['form1'])) {
                 data: {
                     view_complaint: true,
                     user_id: user_id,
+                    fac_id:1,
                 },
                 success: function(response) {
                     var res = jQuery.parseJSON(response);

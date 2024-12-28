@@ -427,8 +427,9 @@ if (isset($_POST['form1'])) {
     $contact = $_POST['w_phone'];
     $gender = $_POST['w_gender'];
     $dept = $_POST['w_dept'];
+    $role = $_POST['w_role'];
 
-    $dept_prefix = strtoupper(substr($dept, 0, 3));  // Extract first 3 letters and convert to uppercase
+    $dept_prefix = strtoupper(substr($dept, 0, 3)); 
 
     $checkQuery = "SELECT SUBSTRING(worker_id, 4) AS id_number FROM worker_details 
                    WHERE worker_id LIKE '$dept_prefix%' 
@@ -443,12 +444,10 @@ if (isset($_POST['form1'])) {
         $number = 1;
     }
 
-    // Step 3: Format the number to always be 2 digits (e.g., 01, 02, 03, 04)
     $worker_id = $dept_prefix . str_pad($number, 2, '0', STR_PAD_LEFT);
 
-    // Step 4: Insert the new worker with the generated worker_id
     $insertQuery = "INSERT INTO worker_details (worker_id, worker_first_name, worker_dept, worker_mobile, worker_gender,usertype) 
-                    VALUES ('$worker_id', '$name', '$dept', '$contact', '$gender','worker')";
+                    VALUES ('$worker_id', '$name', '$dept', '$contact', '$gender','$role')";
 
     if (mysqli_query($conn, $insertQuery)) {
         echo "Success: Worker added with ID $worker_id!";

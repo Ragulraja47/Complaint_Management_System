@@ -518,6 +518,15 @@ $row_count7 = mysqli_num_rows($result7);
                                     <option value="civil">Civil</option>
                                     <option value="electrical">Electrical</option>
                                     <option value="itkm">itkm</option>
+                                    <option value="transport">Transport</option>
+                                    <option value="house">House Keeping</option>
+
+                                </select>
+                                <select id="role" name="w_role" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                                    <option value="all">Select Role</option>
+                                    <option value="head">Head</option>
+                                    <option value="worker">Worker</option>
+                                    
 
                                 </select>
 
