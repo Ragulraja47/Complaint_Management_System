@@ -728,7 +728,8 @@ $resultfac = mysqli_query($conn,$facquery);
                                                                         <button type="button" class="btn btn-danger extenddeadline"
                                                                             id="extendbutton" value="<?php echo $row['id']; ?>"
                                                                             data-toggle="modal"
-                                                                            data-target="#extendModal">
+                                                                            data-target="#extendModal"
+                                                                            data-reason="<?php echo $row['extend_reason']; ?>">
                                                                             <?php echo $row['days_to_complete']; ?>
                                                                         </button>
                                                                     <?php } else { ?>
@@ -760,10 +761,21 @@ $resultfac = mysqli_query($conn,$facquery);
                                                                         <button type="button" disabled>Feedback</button>
                                                                     <?php } ?>
                                                                 </td>
-                                                            </tr>
+                                                            </tr>                                                            
+                                                        <?php
+                                                            $s++;
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                                            <!-- Extend Modal -->
-                                                            <div class="modal fade" id="extendModal" tabindex="-1" role="dialog"
+
+                                <!-- Extend Modal -->
+                                <div class="modal fade" id="extendModal" tabindex="-1" role="dialog"
                                                                 aria-labelledby="extendModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
@@ -781,7 +793,7 @@ $resultfac = mysqli_query($conn,$facquery);
                                                                                     <label for="rejectReason" class="form-label">Reason for
                                                                                         Deadline Extension:</label> <br>
                                                                                     <br>
-                                                                                    <textarea readonly style="width: 100%; height: 80px; font-size: 14px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; color: #333; resize: none; overflow-y: auto;"><?php echo $row['extend_reason']; ?></textarea>
+                                                                                    <textarea id="extendReasonTextarea" readonly style="width: 100%; height: 80px; font-size: 14px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; color: #333; resize: none; overflow-y: auto;"></textarea>
 
 
                                                                                 </div>
@@ -794,18 +806,6 @@ $resultfac = mysqli_query($conn,$facquery);
                                                                     </div>
                                                                 </div>
                                                             </div>
-
-                                                        <?php
-                                                            $s++;
-                                                        }
-                                                        ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
 
 
                                 <!------------------Work in Progress Table Ends----------------->
@@ -1406,6 +1406,15 @@ $resultfac = mysqli_query($conn,$facquery);
                 }
             });
         });
+
+
+        $(document).on('click', '.extenddeadline', function () {
+    // Get the reason from the button's data attribute
+    var reason = $(this).data('reason');
+
+    // Set the reason in the modal's textarea
+    $('#extendReasonTextarea').val(reason);
+});
     </script>
 </body>
 <div scrible-ignore="" id="skribel_annotation_ignore_browserExtensionFlag" class="skribel_chromeExtension"
