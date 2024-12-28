@@ -239,12 +239,12 @@ $result1 = mysqli_query($conn,$sql1);
                                                     <td class="text-center"><?php echo $row['department'] ?></td>
                                                     <td class="text-center"><?php echo $row['block_venue'] ?> \ <?php echo $row['venue_name'] ?></td>
 
-                                                    <td class="text-center"><button type="button" class=" btn viewcomplaint margin-5" data-toggle="modal" data-target="#<?php echo $row['problem_id']; ?>" height="30px" width="30px"><i class="fas fa-eye" style="font-size: 25px;"></i></button></td>
+                                                    <td class="text-center"><button type="button" data-value="<?php echo $row['fac_id'];?>" class=" btn viewcomplaint margin-5" data-toggle="modal" data-target="#modal2" height="30px" width="30px"><i class="fas fa-eye" style="font-size: 25px;"></i></button></td>
                                                     <!--Description id=problem-->
 
 
                                                     <!-- Complaint Details Modal -->
-                                                    <div class="modal fade" id="<?php echo $row['problem_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
                                                             <div class="modal-content" style="border-radius: 8px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); background-color: #f9f9f9;">
 
@@ -265,26 +265,20 @@ $result1 = mysqli_query($conn,$sql1);
                                                                     <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
                                                                         <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
                                                                             <div class="ms-2 me-auto">
-                                                                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty ID</div>
-                                                                                <b><span id="faculty_name" style="color: #555;"><?php echo $row['faculty_id'] ?></span></b>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                                                                            <div class="ms-2 me-auto">
-                                                                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Name</div>
-                                                                                <b><span id="faculty_name" style="color: #555;"><?php echo $row['faculty_name'] ?></span></b>
+                                                                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Infra Faculty Name</div>
+                                                                                <b><span id="ifaculty_name" style="color: #555;"><?php echo $row['faculty_name'] ?></span></b>
                                                                             </div>
                                                                         </li>
                                                                         <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
                                                                             <div class="ms-2 me-auto">
                                                                                 <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Mobile Number</div>
-                                                                                <b><span id="faculty_contact" style="color: #555;"><?php echo $row['faculty_contact'] ?></span></b>
+                                                                                <b><span id="ifaculty_contact" style="color: #555;"><?php echo $row['faculty_contact'] ?></span></b>
                                                                             </div>
                                                                         </li>
                                                                         <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
                                                                             <div class="ms-2 me-auto">
                                                                                 <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">E-mail</div>
-                                                                                <b><span id="faculty_mail" style="color: #555;"><?php echo $row['faculty_mail'] ?></span></b>
+                                                                                <b><span id="ifaculty_mail" style="color: #555;"><?php echo $row['faculty_mail'] ?></span></b>
                                                                             </div>
                                                                         </li>
 
@@ -292,6 +286,24 @@ $result1 = mysqli_query($conn,$sql1);
                                                                             <div class="ms-2 me-auto">
                                                                                 <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Type of Problem</div>
                                                                                 <b><span id="type_of_problem" style="color: #555;"><?php echo $row['type_of_problem'] ?></span></b>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                                            <div class="ms-2 me-auto">
+                                                                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty ID</div>
+                                                                                <b><span id="faculty_id" style="color: #555;"></span></b>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                                            <div class="ms-2 me-auto">
+                                                                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Name</div>
+                                                                                <b><span id="faculty_name" style="color: #555;"></span></b>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                                                            <div class="ms-2 me-auto">
+                                                                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Desg</div>
+                                                                                <b><span id="faculty_desg" style="color: #555;"></span></b>
                                                                             </div>
                                                                         </li>
                                                                         <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
@@ -623,6 +635,39 @@ $result1 = mysqli_query($conn,$sql1);
                     } else {
                         $('#modalImage1').attr('src', 'uploads/' + res.data.images); // Dynamically set the image source
                         $('#imageModal1').modal('show'); // Show the modal
+                    }
+                }
+            });
+        });
+
+
+
+        $(document).on('click', '.viewcomplaint', function(e) {
+            e.preventDefault();
+            var fac_id = $(".viewcomplaint").data("value"); 
+
+            console.log(fac_id);
+            $.ajax({
+                type: "POST",
+                url: "backend1.php",
+                data: {
+                    'facultydetails': true,
+                    'fac_id':fac_id
+                },
+                success: function(response) {
+                    console.log(response);
+                    var res = jQuery.parseJSON(response);
+                    console.log(res)
+                    if (res.status == 500) {
+                        alert(res.message);
+                    } else {
+                        
+                        $('#faculty_name').text(res.data1.name);
+                        $('#faculty_id').text(res.data1.id);
+                        $('#faculty_dept').text(res.data1.dept);
+                        $('#faculty_desg').text(res.data1.design);
+                        $('#modal2').modal('show');
+                       
                     }
                 }
             });

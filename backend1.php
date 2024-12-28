@@ -327,4 +327,29 @@ if(isset($_POST['pverify'])){
     }
 }
 
+
+if (isset($_POST['facultydetails'])) {
+    $fac_id = $_POST['fac_id'];
+    $query1 = "SELECT * FROM facultys WHERE id='$fac_id'";
+
+    $query_run1 = mysqli_query($conn,$query1);
+    $fac_data = mysqli_fetch_array($query_run1);
+    if ($query_run1) {
+        $res = [
+            'status' => 200,
+            'message' => 'details Fetch Successfully by id',
+            'data1'=>$fac_data,
+        ];
+        echo json_encode($res);
+        return;
+    } else {
+        $res = [
+            'status' => 500,
+            'message' => 'Details Not Deleted'
+        ];
+        echo json_encode($res);
+        return;
+    }
+}
+
 ?>
