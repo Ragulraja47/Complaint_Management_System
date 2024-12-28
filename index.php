@@ -394,8 +394,8 @@ $notcount = mysqli_num_rows($result4);
                         <div class="card card-hover">
                             <div class="box bg-success text-center">
                                 <h1 class="font-light text-white"><i class="mdi mdi-account-multiple"></i></h1>
-                                <h3 class="text-white"><b>Employment Type<br></b></h3>
-                                <h5 class="text-white" id="employmentType"><?php echo $row['work_emp_type']?></h5>
+                                <h3 class="text-white"><b>Worker Department<br></b></h3>
+                                <h5 class="text-white" id="employmentType"><?php echo $row['worker_dept']?></h5>
 
                             </div>
                         </div>
