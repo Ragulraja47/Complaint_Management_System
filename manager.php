@@ -2422,6 +2422,7 @@ $row_count7 = mysqli_num_rows($result7);
                     e.preventDefault();
                     var user_id = $(this).val();
                     console.log(user_id);
+                    $(document).data("feedid",user_id);
                     $.ajax({
                         type: "POST",
                         url: "testbackend.php",
