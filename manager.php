@@ -637,6 +637,7 @@ $row_count7 = mysqli_num_rows($result7);
 
                                                             <td class="text-center"><button type="button" value="<?php echo $row['id']; ?>"
                                                                     class="btn viewcomplaint"
+                                                                    data-value="<?php echo $row['fac_id']; ?>"
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal"><i class="fas fa-eye" style="font-size: 25px;"></i></button>
                                                             </td>
@@ -893,6 +894,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row3['id']; ?>"
                                                                     class="btn viewcomplaint"
+                                                                    data-value="<?php echo $row['fac_id']; ?>"
+
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal"><i class="fas fa-eye" style="font-size: 25px;"></i></button>
                                                             </td>
@@ -999,6 +1002,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row5['id']; ?>"
                                                                     class="btn viewcomplaint"
+                                                                    data-value="<?php echo $row['fac_id']; ?>"
+
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
                                                                     <i class="fas fa-eye" style="font-size: 25px;"></i>
@@ -1099,6 +1104,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row7['id']; ?>"
                                                                     class="btn viewcomplaint"
+                                                                    data-value="<?php echo $row['fac_id']; ?>"
+
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
                                                                     <i class="fas fa-eye" style="font-size: 25px;"></i>
@@ -1183,6 +1190,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row6['id']; ?>"
                                                                     class="btn viewcomplaint"
+                                                                    data-value="<?php echo $row['fac_id']; ?>"
+
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
                                                                     <i class="fas fa-eye" style="font-size: 25px;"></i>
@@ -1463,7 +1472,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <div class="form-group">
-                                                        <label class="fw-bold" style="color: #007bff;">Faculty Name</label>
+                                                        <label class="fw-bold" style="color: #007bff;">Infra Name</label>
                                                         <div class="text-muted"><b id="faculty_name"></b></div>
                                                     </div>
                                                 </div>
@@ -1475,10 +1484,25 @@ $row_count7 = mysqli_num_rows($result7);
                                                         <div class="text-muted"><b id="faculty_contact"></b></div>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <div class="form-group">
                                                         <label class="fw-bold" style="color: #007bff;">E-mail</label>
                                                         <div class="text-muted"><b id="faculty_mail"></b></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" style="color: #007bff;">Faculty_name</label>
+                                                        <div class="text-muted"><b id="fac_name"></b></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" style="color: #007bff;">Faculty_ID</label>
+                                                        <div class="text-muted"><b id="fac_id"></b></div>
                                                     </div>
                                                 </div>
 
@@ -2208,6 +2232,7 @@ $row_count7 = mysqli_num_rows($result7);
                 $(document).on("click", ".viewcomplaint", function(e) {
                     e.preventDefault();
                     var user_id = $(this).val();
+                    var fac_id = $(".viewcomplaint").data("value");
                     console.log(user_id);
                     $.ajax({
                         type: "POST",
@@ -2215,6 +2240,7 @@ $row_count7 = mysqli_num_rows($result7);
                         data: {
                             view_complaint: true,
                             user_id: user_id,
+                            fac_id:fac_id,
                         },
                         success: function(response) {
                             var res = jQuery.parseJSON(response);
@@ -2231,6 +2257,8 @@ $row_count7 = mysqli_num_rows($result7);
                                 $("#faculty_contact").text(res.data.faculty_contact);
                                 $("#block_venue").text(res.data.block_venue);
                                 $("#venue_name").text(res.data.venue_name);
+                                $("#fac_name").text(res.data1.name);
+                                $("#fac_id").text(res.data1.id);
                                 $("#complaintDetailsModal").modal("show");
                             }
                         },
