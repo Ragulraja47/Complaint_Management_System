@@ -1380,42 +1380,42 @@ $result3 = mysqli_query($conn, $sql3);
                 });
         });
 
-        //approve all button 
-        $(document).on('click', '.btnapproveall', function(e) {
-            e.preventDefault();
-            if (confirm('Are you sure you want to Approve all complaints?')) {
-                $.ajax({
-                    type: "POST",
-                    url: "hodbackend.php",
-                    data: {
-                        'approveallbtn': true
-                    },
-                    success: function(response) {
+        // Add Faculty complaints to database
+        $(document).on('submit', '#addnewuser', function(e) {
+            e.preventDefault(); // Prevent form from submitting normally
+            var formData = new FormData(this);
+            console.log("alert");
+            $.ajax({
+                type: "POST",
+                url: "hodbackend.php",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    var res = typeof response === 'string' ? JSON.parse(response) : response;
+                    if (res.status === 200) {
+                        swal("Complaint Submitted!", "", "success");
+                        $('#cmodal').modal('hide');
+                        $('#addnewuser')[0].reset(); // Reset the form
+                        $('#navref1').load(location.href + " #navref1");
+                        $('#navref2').load(location.href + " #navref2");
+                        $('#navref3').load(location.href + " #navref3");
+                        $('#dashref').load(location.href + " #dashref");
 
-                        var res = jQuery.parseJSON(response);
-                        if (res.status == 500) {
-                            alert(res.message);
-                        } else {
-                            $('#myTable1').DataTable().destroy();
-                            $('#myTable2').DataTable().destroy();
-                            $('#myTable3').DataTable().destroy();
-                            $("#myTable1").load(location.href + " #myTable1 > *", function() {
-                                $('#myTable1').DataTable();
-                            });
-                            $("#myTable2").load(location.href + " #myTable2 > *", function() {
-                                $('#myTable2').DataTable();
-                            });
-                            $("#myTable3").load(location.href + " #myTable3 > *", function() {
-                                $('#myTable3').DataTable();
-                            });
-                            $('#navref1').load(location.href + " #navref1");
-                            $('#navref2').load(location.href + " #navref2");
-                            $('#navref3').load(location.href + " #navref3");
-                            $('#navref4').load(location.href + " #navref4");
-                        }
+                        $('#user').DataTable().destroy();
+                        $("#user").load(location.href + " #user > *", function() {
+                            $('#user').DataTable();
+                        });
+                    } else {
+                        console.error("Error:", res.message);
+                        alert("Something went wrong! Try again.");
                     }
-                });
-            }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX Error:", textStatus, errorThrown);
+                    alert("Failed to process response. Please try again.");
+                }
+            });
         });
 
         // problem description
