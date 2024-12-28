@@ -1315,7 +1315,22 @@ $row_count7 = mysqli_num_rows($result7);
                                                             </b></th>
                                                         <th class="text-center">
                                                             <b>
+                                                                <h5>Faculty Feedback</h5>
+                                                            </b>
+                                                        </th>
+                                                        <th class="text-center">
+                                                            <b>
+                                                                <h5>Manager Feedback</h5>
+                                                            </b>
+                                                        </th>
+                                                        <th class="text-center">
+                                                            <b>
                                                                 <h5>Completed On</h5>
+                                                            </b>
+                                                        </th>
+                                                        <th class="text-center">
+                                                            <b>
+                                                                <h5>Average Rating</h5>
                                                             </b>
                                                         </th>
                                                     </tr>
@@ -1344,7 +1359,15 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 Completed by: <?php echo $User_data['worker_first_name'] ?> | <br>
                                                                 Department: <?php echo $User_data['worker_dept'] ?>
                                                             </td>
+                                                            <td class="text-center"><?php echo $row['feedback'] ?>  <br>Ratings: <?php echo $row['rating'] ?></td>
+                                                            <td class="text-center"><?php echo $row['mfeedback'] ?>  <br>Ratings: <?php echo $row['mrating'] ?></td>
                                                             <td class="text-center"><?php echo $row['date_of_completion'] ?></td>
+                                                             <?php
+                                                             $mr = $row['mrating'];
+                                                             $fr = $row['rating'];
+                                                             $tot = ($mr + $fr)/2;
+                                                             ?>
+                                                            <td class="text-center"><?php echo $tot; ?></td>
                                                         </tr>
                                                     <?php
                                                         $s++;
