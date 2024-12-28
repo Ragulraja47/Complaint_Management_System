@@ -1450,7 +1450,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                         <td class="text-center"><?php echo $row['worker_id'] ?></td>
                                                         <td class="text-center"><?php echo $row['worker_first_name'] ?></td>
                                                         <td class="text-center"><?php echo $row['worker_dept'] ?></td>
-                                                        <td class="text-center"><?php echo $val;?></td>
+                                                        <td class="text-center"><span class="totalworks" data-value="<?php echo $row['worker_id']; ?>"></span></td>
                                                         <td class="text-center"><?php echo $s ?></td>
                                                         <td class="text-center"><?php echo $s ?></td> 
                                                     </tr>
@@ -2936,6 +2936,37 @@ $row_count7 = mysqli_num_rows($result7);
                     $(document).data("ratings", rating);
                 });
             });
+
+
+
+
+            $(document).ready(function() {
+    $('.totalworks').each(function() {
+        var element = $(this);
+        var id = element.data('value'); 
+        console.log(id);
+        $.ajax({
+            type:"POST",
+            url:"testbackend.php",
+            data:{
+                count:true,
+                id:id
+            },
+            success:function(response){
+                var res = jQuery.parseJSON(response);
+                if(res.status==200){
+                    element.text(res.data);
+                }
+                else{
+                    console.log("error");
+                }
+            }
+
+
+        })
+    });
+});
+
         </script>
 
 

@@ -531,6 +531,19 @@ if (isset($_POST["manager_feedbacks"])) {
     }
 }
 
+
+if(isset($_POST["count"])){
+    $id = $_POST['id'];
+    $query = "SELECT * FROM complaints_detail WHERE worker_id='$id' AND status='16'";
+    $query_run = mysqli_query($conn,$query);
+    $count = mysqli_num_rows($query_run);
+    $res=[
+        "status"=>200,
+        "data"=>$count
+    ];
+    echo json_encode($res);
+}
+
 //backend for worker details
 /* if (isset($_POST['fac_feed_rate'])) {
     header('Content-Type: application/json');
