@@ -1,9 +1,12 @@
 <?php
 session_start(); // Ensure the session is started
+
+
 if (!isset($_SESSION['faculty_id'])) {
     // Redirect to login page if not logged in
     header("Location: flogin.php");
     exit();
+
 }
 
 include('db.php'); // Include the configuration file
@@ -31,6 +34,11 @@ $row_count1 = mysqli_num_rows($result1);
 $row_count2 = mysqli_num_rows($result2);
 $row_count3 = mysqli_num_rows($result3);
 $row_count4 = mysqli_num_rows($result4);
+
+
+$facquery = "SELECT * FROM facultys WHERE dept=(SELECT department FROM faculty WHERE faculty_id='$faculty_id')";
+$resultfac = mysqli_query($conn,$facquery);
+
 
 ?>
 
@@ -450,6 +458,11 @@ $row_count4 = mysqli_num_rows($result4);
                                                                 <input type="hidden" id="hidden_faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>">
                                                                 <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>" readonly>
                                                             </div>
+                                                            <div class="form-group" style="margin-bottom: 15px;">
+                                                            <label for="faculty" class="font-weight-bold" style="display: block; margin-bottom: 5px;">Choose Faculty</label>
+                                                            <select class="form-control"  name="cfaculty" id="cfaculty" style="width: 100%; height: 40px; border-radius: 4px; border: 1px solid #ccc;">
+                                                            </select>
+                                                        </div>
 
                                                             <div class="mb-3">
                                                                 <label for="block" class="form-label">Block <span style="color: red;">*</span></label>
@@ -515,7 +528,7 @@ $row_count4 = mysqli_num_rows($result4);
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div>
-                                                        <button type="button" class="btn btn-info float-right" data-bs-toggle="modal" data-bs-target="#cmodal">Raise Compliant</button>
+                                                        <button type="button" class="btn btn-info float-right fac" data-bs-toggle="modal" data-bs-target="#cmodal">Raise Compliant</button>
                                                         <br>
                                                         <br>
                                                     </div>
@@ -1375,6 +1388,22 @@ $row_count4 = mysqli_num_rows($result4);
                 ratevalue.textContent = `${index + 1}`;
                 var rating = ratevalue.textContent;
                 $(document).data("ratings", rating);
+            });
+        });
+
+
+        $(document).on('click','.fac',function(e){
+            e.preventDefault();
+
+            $.ajax({
+                url: "backend.php",
+                type: "POST",
+                data: {
+                    "fac": true,
+                },
+                success: function(response) {
+                    $('#cfaculty').html(response);
+                }
             });
         });
     </script>

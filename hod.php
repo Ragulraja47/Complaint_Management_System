@@ -468,6 +468,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                         <center>
                                                                                             <button type="button"
                                                                                                 class="btn btn-link faculty" id="facultyinfo"
+                                                                                                data-value="<?php echo $row['fac_id']; ?>"
                                                                                                 data-toggle="modal" value="<?php echo $row['id']; ?>"
                                                                                                 data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?>
                                                                                             </button>
@@ -583,6 +584,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                         <center>
                                                                                             <button type="button"
                                                                                                 class="btn btn-link faculty" id="facultyinfo"
+                                                                                                data-value="<?php echo $row['fac_id']; ?>"
                                                                                                 data-toggle="modal" value="<?php echo $row['id']; ?>"
                                                                                                 data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?></button>
                                                                                         </center>
@@ -707,6 +709,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                         <center>
                                                                                             <button type="button"
                                                                                                 class="btn btn-link faculty" id="facultyinfo"
+                                                                                                data-value="<?php echo $row['fac_id']; ?>"
                                                                                                 data-toggle="modal" value="<?php echo $row['id']; ?>"
                                                                                                 data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?></button>
                                                                                         </center>
@@ -816,6 +819,7 @@ $result3 = mysqli_query($conn, $sql3);
                                                                                         <center>
                                                                                             <button type="button"
                                                                                                 class="btn btn-link faculty" id="facultyinfo"
+                                                                                                data-value="<?php echo $row['fac_id']; ?>"
                                                                                                 data-toggle="modal" value="<?php echo $row['id']; ?>"
                                                                                                 data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?></button>
                                                                                         </center>
@@ -929,20 +933,38 @@ $result3 = mysqli_query($conn, $sql3);
                     <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
                         <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
                             <div class="ms-2 me-auto">
+                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">INFRA Name</div>
+                                <b><span id="ifaculty_name" style="color: #555;"></span></b>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                            <div class="ms-2 me-auto">
                                 <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Name</div>
                                 <b><span id="faculty_name" style="color: #555;"></span></b>
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
                             <div class="ms-2 me-auto">
+                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Department</div>
+                                <b><span id="faculty_dept" style="color: #555;"></span></b>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Designation</div>
+                                <b><span id="faculty_desg" style="color: #555;"></span></b>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                            <div class="ms-2 me-auto">
                                 <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Mobile Number</div>
-                                <b><span id="faculty_contact" style="color: #555;"></span></b>
+                                <b><span id="ifaculty_contact" style="color: #555;"></span></b>
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">E-mail</div>
-                                <b><span id="faculty_mail" style="color: #555;"></span></b>
+                                <b><span id="ifaculty_mail" style="color: #555;"></span></b>
                             </div>
                         </li>
                     </ol>
@@ -1451,13 +1473,17 @@ $result3 = mysqli_query($conn, $sql3);
         $(document).on('click', '#facultyinfo', function(e) {
             e.preventDefault();
             var user_id = $(this).val();
-            console.log(user_id)
+            var fac_id = $("#facultyinfo").data("value"); 
+
+            console.log(user_id);
+            console.log(fac_id);
             $.ajax({
                 type: "POST",
                 url: "hodbackend.php",
                 data: {
                     'facultydetails': true,
-                    'user_id': user_id
+                    'user_id': user_id,
+                    'fac_id':fac_id
                 },
                 success: function(response) {
                     var res = jQuery.parseJSON(response);
@@ -1466,9 +1492,13 @@ $result3 = mysqli_query($conn, $sql3);
                         alert(res.message);
                     } else {
                         $("#id").val(res.data.id);
-                        $("#faculty_name").text(res.data.faculty_name);
-                        $("#faculty_mail").text(res.data.faculty_mail);
-                        $("#faculty_contact").text(res.data.faculty_contact);
+                        $("#ifaculty_name").text(res.data.faculty_name);
+                        $("#ifaculty_mail").text(res.data.faculty_mail);
+                        $("#ifaculty_contact").text(res.data.faculty_contact);
+                        $('#faculty_name').text(res.data1.name);
+                        $('#faculty_id').text(res.data1.id);
+                        $('#faculty_dept').text(res.data1.dept);
+                        $('#faculty_desg').text(res.data1.design);
                         $('#facultymodal').modal('show');
                     }
                 }

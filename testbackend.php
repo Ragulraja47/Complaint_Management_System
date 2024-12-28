@@ -4,19 +4,26 @@ include("db.php");
 
 if (isset($_POST['view_complaint'])) {
     $complain_id = mysqli_real_escape_string($conn, $_POST['user_id']);
+    $fac_id = mysqli_real_escape_string($conn,$_POST['fac_id']);
     $query = "
     SELECT cd.*, faculty.faculty_name, faculty.faculty_contact, faculty.faculty_mail, faculty.department, cd.block_venue
     FROM complaints_detail cd
     JOIN faculty ON cd.faculty_id = faculty.faculty_id
     WHERE cd.id = '$complain_id'
 ";
+
+
     $query_run = mysqli_query($conn, $query);
     $User_data = mysqli_fetch_array($query_run);
+    $query1 = "SELECT * FROM facultys WHERE id='$fac_id'";
+    $query1_run = mysqli_query($conn,$query1);
+    $fac_data = mysqli_fetch_array($query1_run);
     if ($query_run) {
         $res = [
             'status' => 200,
             'message' => 'details Fetch Successfully by id',
-            'data' => $User_data
+            'data' => $User_data,
+            'data1'=>$fac_data,
         ];
         echo json_encode($res);
         return;
@@ -500,3 +507,55 @@ if (isset($_POST["reassign_complaint"])) {
         echo json_encode($res);
     }
 }
+
+//Done_complaint
+if (isset($_POST["manager_feedbacks"])) {
+    try {
+        $id = mysqli_real_escape_string($conn, $_POST['id']);
+        $feedback = mysqli_real_escape_string($conn, $_POST['feedback12']);
+        $rating = mysqli_real_escape_string($conn, $_POST['ratings']);
+        $query = "UPDATE complaints_detail SET mfeedback = '$feedback', mrating = '$rating'  WHERE id = $id";
+        if (mysqli_query($conn, $query)) {
+            $res = [
+                'status' => 200,
+            ];
+            echo json_encode($res);
+        } else {
+            throw new Exception('Query Failed: ' . mysqli_error($conn));
+        }
+    } catch (Exception $e) {
+        $res = [
+            'status' => 500,
+            'message' => 'Error: ' . $e->getMessage()
+        ];
+        echo json_encode($res);
+    }
+}
+
+//backend for worker details
+/* if (isset($_POST['fac_feed_rate'])) {
+    header('Content-Type: application/json');
+
+    $id = mysqli_real_escape_string($conn, $_POST['id']);
+
+
+    $rate = "SELECT * FROM complaints_detail WHERE id='$id'";
+    $query_run1 = mysqli_query($conn, $rate);
+    $User_data = mysqli_fetch_array($query_run1);
+    if ($query_run1) {
+        $res = [
+            'status' => 200,
+            'message' => 'details Fetch Successfully by id',
+            'data' => $User_data
+        ];
+        echo json_encode($res);
+        return;
+    } else {
+        $res = [
+            'status' => 500,
+            'message' => 'Details Not Deleted'
+        ];
+        echo json_encode($res);
+        return;
+    }
+} */

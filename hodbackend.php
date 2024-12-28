@@ -79,16 +79,21 @@ if (isset($_POST['seedetails'])) {
 //Faculty Details
 if (isset($_POST['facultydetails'])) {
     $student_id1 = mysqli_real_escape_string($conn, $_POST['user_id']);
+    $fac_id = $_POST['fac_id'];
+    $query1 = "SELECT * FROM facultys WHERE id='$fac_id'";
     $query = "SELECT cd.*, faculty.faculty_name, faculty.department, faculty.faculty_contact, faculty.faculty_mail
 FROM complaints_detail cd
 JOIN faculty ON cd.faculty_id = faculty.faculty_id WHERE cd.id='$student_id1'";
     $query_run = mysqli_query($conn, $query);
+    $query_run1 = mysqli_query($conn,$query1);
     $User_data = mysqli_fetch_array($query_run);
+    $fac_data = mysqli_fetch_array($query_run1);
     if ($query_run) {
         $res = [
             'status' => 200,
             'message' => 'details Fetch Successfully by id',
-            'data' => $User_data
+            'data' => $User_data,
+            'data1'=>$fac_data
         ];
         echo json_encode($res);
         return;

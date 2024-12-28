@@ -378,6 +378,20 @@ $row_count7 = mysqli_num_rows($result7);
             /* Light background on hover */
             color: black;
         }
+
+        /*star rating*/
+        .stars span {
+            font-size: 2rem;
+            cursor: pointer;
+            color: gray;
+            /* Default color for unlit stars */
+            transition: color 0.3s;
+        }
+
+        .stars span.highlighted {
+            color: gold;
+            /* Color for lit stars */
+        }
     </style>
 </head>
 
@@ -623,6 +637,7 @@ $row_count7 = mysqli_num_rows($result7);
 
                                                             <td class="text-center"><button type="button" value="<?php echo $row['id']; ?>"
                                                                     class="btn viewcomplaint"
+                                                                    data-value="<?php echo $row['fac_id']; ?>"
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal"><i class="fas fa-eye" style="font-size: 25px;"></i></button>
                                                             </td>
@@ -636,68 +651,60 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center">
 
 
-                                                            <?php if ($row['status'] == 9) { ?>
-                                                                        <button type="button" class="btn btn-warning reassign"
-                                                                            id="reassignbutton" value="<?php echo $row['id']; ?>"
-                                                                            data-toggle="dropdown">
-                                                                            Reassign
-                                                                        </button>
-                                                                        <ul class="dropdown-menu">
+                                                                <?php if ($row['status'] == 9) { ?>
+                                                                    <button type="button" class="btn btn-warning reassign"
+                                                                        id="reassignbutton" value="<?php echo $row['id']; ?>"
+                                                                        data-toggle="dropdown">
+                                                                        Reassign
+                                                                    </button>
+                                                                    <ul class="dropdown-menu">
 
                                                                         <center>
-                                                                        <li><a href="#" class="reass1"                                                    
-                                                                                data-value="electrical">ELECTRICAL</a></li>
-                                                                        <li><a href="#" class="reass1"                                                                                
-                                                                                data-value="civil">CIVIL</a></li>
-                                                                        <li><a href="#" class="reass1"                                                                                
-                                                                                data-value="itkm">ITKM</a></li>
-                                                                        <li><a href="#" class="reass1"                                                                                
-                                                                                data-value="transport">TRANSPORT</a></li>
-                                                                        <li><a href="#" class="reass1"                                                                                
-                                                                                data-value="house">HOUSE KEEPING</a></li>
-                                                                    </center>
-                                                                    
-                                                                </ul>
+                                                                            <li><a href="#" class="reass1"
+                                                                                    data-value="electrical">ELECTRICAL</a></li>
+                                                                            <li><a href="#" class="reass1"
+                                                                                    data-value="civil">CIVIL</a></li>
+                                                                            <li><a href="#" class="reass1"
+                                                                                    data-value="itkm">ITKM</a></li>
+                                                                            <li><a href="#" class="reass1"
+                                                                                    data-value="transport">TRANSPORT</a></li>
+                                                                            <li><a href="#" class="reass1"
+                                                                                    data-value="house">HOUSE KEEPING</a></li>
+                                                                        </center>
 
+                                                                    </ul>
+                                                                <?php } else { ?>
+                                                                    <button type="button"
+                                                                        class="btn btn-success  managerapprove"
+                                                                        value="<?php echo $row['id']; ?>" data-toggle="dropdown"><i class="fas fa-check"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu">
 
-                                                                
-              
-                                                                    <?php } else { ?>
-                                                                        <button type="button"
-                                                                    class="btn btn-success  managerapprove"
-                                                                    value="<?php echo $row['id']; ?>" data-toggle="dropdown"><i class="fas fa-check"></i>
-                                                                </button>
-                                                                <ul class="dropdown-menu">
+                                                                        <center>
+                                                                            <li><a href="#" class="worker"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#managerapproveModal"
+                                                                                    data-value="electrical">ELECTRICAL</a></li>
+                                                                            <li><a href="#" class="worker"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#managerapproveModal"
+                                                                                    data-value="civil">CIVIL</a></li>
+                                                                            <li><a href="#" class="worker"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#managerapproveModal"
+                                                                                    data-value="itkm">ITKM</a></li>
+                                                                            <li><a href="#" class="worker"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#managerapproveModal"
+                                                                                    data-value="transport">TRANSPORT</a></li>
+                                                                            <li><a href="#" class="worker"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#managerapproveModal"
+                                                                                    data-value="house">HOUSE KEEPING</a></li>
+                                                                        </center>
 
-                                                                <center>
-                                                                        <li><a href="#" class="worker"
-                                                                                data-toggle="modal"
-                                                                                data-target="#managerapproveModal"
-                                                                                data-value="electrical">ELECTRICAL</a></li>
-                                                                        <li><a href="#" class="worker"
-                                                                                data-toggle="modal"
-                                                                                data-target="#managerapproveModal"
-                                                                                data-value="civil">CIVIL</a></li>
-                                                                        <li><a href="#" class="worker"
-                                                                                data-toggle="modal"
-                                                                                data-target="#managerapproveModal"
-                                                                                data-value="itkm">ITKM</a></li>
-                                                                        <li><a href="#" class="worker"
-                                                                                data-toggle="modal"
-                                                                                data-target="#managerapproveModal"
-                                                                                data-value="transport">TRANSPORT</a></li>
-                                                                        <li><a href="#" class="worker"
-                                                                                data-toggle="modal"
-                                                                                data-target="#managerapproveModal"
-                                                                                data-value="house">HOUSE KEEPING</a></li>
-                                                                    </center>
-                                                                    
-                                                                </ul>
-                                                                    <?php } ?>
-
-
-
-                                                                
+                                                                    </ul>
+                                                                <?php } ?>
 
                                                                 <button type="button" class="btn btn-danger rejectcomplaint"
                                                                     id="rejectbutton" value="<?php echo $row['id']; ?>"
@@ -887,6 +894,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row3['id']; ?>"
                                                                     class="btn viewcomplaint"
+                                                                    data-value="<?php echo $row['fac_id']; ?>"
+
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal"><i class="fas fa-eye" style="font-size: 25px;"></i></button>
                                                             </td>
@@ -993,6 +1002,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row5['id']; ?>"
                                                                     class="btn viewcomplaint"
+                                                                    data-value="<?php echo $row['fac_id']; ?>"
+
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
                                                                     <i class="fas fa-eye" style="font-size: 25px;"></i>
@@ -1002,17 +1013,16 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 <button type="button" class="btn btn-light worker_det" value="<?php echo $row5["id"]; ?>" data-toggle="modal"
                                                                     data-target="#workerdetailmodal">
                                                                     <?php
-                                                                        $prblm_id = $row5['id'];
-                                                                        $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_dept FROM manager WHERE problem_id = '$prblm_id')";
-                                                                        $querry_run = mysqli_query($conn, $querry);
-                                                                        $worker_name = mysqli_fetch_array($querry_run);
-                                                                        if($worker_name['worker_first_name']!= null){
-                                                                            echo $worker_name['worker_first_name']; 
-                                                                        }
-                                                                        else {
-                                                                            echo "NA";
-                                                                        }
-                                                                       ?>
+                                                                    $prblm_id = $row5['id'];
+                                                                    $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_dept FROM manager WHERE problem_id = '$prblm_id')";
+                                                                    $querry_run = mysqli_query($conn, $querry);
+                                                                    $worker_name = mysqli_fetch_array($querry_run);
+                                                                    if ($worker_name['worker_first_name'] != null) {
+                                                                        echo $worker_name['worker_first_name'];
+                                                                    } else {
+                                                                        echo "NA";
+                                                                    }
+                                                                    ?>
                                                                 </button>
                                                             </td>
                                                             <td class="text-center"><?php echo $row5['date_of_completion'] ?></td>
@@ -1094,6 +1104,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row7['id']; ?>"
                                                                     class="btn viewcomplaint"
+                                                                    data-value="<?php echo $row['fac_id']; ?>"
+
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
                                                                     <i class="fas fa-eye" style="font-size: 25px;"></i>
@@ -1178,6 +1190,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row6['id']; ?>"
                                                                     class="btn viewcomplaint"
+                                                                    data-value="<?php echo $row['fac_id']; ?>"
+
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
                                                                     <i class="fas fa-eye" style="font-size: 25px;"></i>
@@ -1458,7 +1472,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <div class="form-group">
-                                                        <label class="fw-bold" style="color: #007bff;">Faculty Name</label>
+                                                        <label class="fw-bold" style="color: #007bff;">Infra Name</label>
                                                         <div class="text-muted"><b id="faculty_name"></b></div>
                                                     </div>
                                                 </div>
@@ -1470,10 +1484,25 @@ $row_count7 = mysqli_num_rows($result7);
                                                         <div class="text-muted"><b id="faculty_contact"></b></div>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-md-6 mb-3">
                                                     <div class="form-group">
                                                         <label class="fw-bold" style="color: #007bff;">E-mail</label>
                                                         <div class="text-muted"><b id="faculty_mail"></b></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" style="color: #007bff;">Faculty_name</label>
+                                                        <div class="text-muted"><b id="fac_name"></b></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" style="color: #007bff;">Faculty_ID</label>
+                                                        <div class="text-muted"><b id="fac_id"></b></div>
                                                     </div>
                                                 </div>
 
@@ -1608,14 +1637,62 @@ $row_count7 = mysqli_num_rows($result7);
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <textarea name="ffeed" id="ffeed" readonly></textarea>
+                                            <h5>Rating: </h5>
+                                            <div class="stars" id="star-rating1">
+                                                <span data-value="1">&#9733;</span>
+                                                <span data-value="2">&#9733;</span>
+                                                <span data-value="3">&#9733;</span>
+                                                <span data-value="4">&#9733;</span>
+                                                <span data-value="5">&#9733;</span> <br>
+                                            </div>
+                                            <h5>Feedback: </h5>
+                                            <textarea name="ffeed" id="ffeed" readonly style="width: 100%; height: 150px;"></textarea>
                                             <!-- Change to complaintfeed_id -->
                                             <input type="hidden" id="complaintfeed_id" value="">
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-success done"
-                                                data-dismiss="modal">Done</button>
+                                            <button type="button" class="btn btn-success"
+                                                data-dismiss="modal" data-toggle="modal"
+                                                data-target="#DoneModal">Done</button>
                                             <button type="button" class="btn btn-danger reass">Reassign</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Manager Feedback Modal for complete work-->
+                            <div class="modal fade" id="DoneModal" tabindex="-1" aria-labelledby="DoneModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="principalModalLabel">Need Approval</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="manager_feedback">
+                                                <div class="stars" id="star-rating">
+                                                    <h5>Give Rating:</h5>
+                                                    <span data-value="1">&#9733;</span>
+                                                    <span data-value="2">&#9733;</span>
+                                                    <span data-value="3">&#9733;</span>
+                                                    <span data-value="4">&#9733;</span>
+                                                    <span data-value="5">&#9733;</span>
+                                                </div>
+                                                <p id="rating-value">Rating: <span id="ratevalue">0</span></p>
+
+                                                <div class="mb-3">
+                                                    <label for="feedback" class="form-label">Feedback</label>
+                                                    <textarea name="feedback12" id="mfeedback" class="form-control" placeholder="Enter Feedback" style="width: 100%; height: 150px;" require></textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger done">Submit</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -1706,10 +1783,10 @@ $row_count7 = mysqli_num_rows($result7);
                                                 <label for="extend_deadline">Extend Deadline Date:</label>
                                                 <input type="date" id="extend_deadline" name="extend_deadline" required> <br> <br>
                                                 <label for="extendReason" class="form-label">Reason for
-                                                        Extend:</label>
-                                                    <textarea class="form-control" name="reason"
-                                                        id="extendReason" rows="3"
-                                                        placeholder="Type the reason here..."></textarea>
+                                                    Extend:</label>
+                                                <textarea class="form-control" name="reason"
+                                                    id="extendReason" rows="3"
+                                                    placeholder="Type the reason here..."></textarea>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                                     <button type="submit" class="btn btn-primary">Set Deadline</button>
@@ -1966,7 +2043,7 @@ $row_count7 = mysqli_num_rows($result7);
                     $("#worker_id").val(worker);
                     $("#assignedWorker").text("Assigned Worker: " + worker);
                 })
-                
+
                 //reassign for manager
                 $(document).on("click", ".reassign", function(e) {
                     e.preventDefault();
@@ -1974,7 +2051,7 @@ $row_count7 = mysqli_num_rows($result7);
                     console.log("User ID:", user_id);
 
                     $(document).data("user_id2", user_id);
-                                  
+
                 });
 
                 $(document).on('click', ".reass1", function(e) {
@@ -1989,10 +2066,10 @@ $row_count7 = mysqli_num_rows($result7);
                         url: "testbackend.php",
                         type: "POST",
                         data: {
-                user_id: user_id,
-                worker: worker,
-                reassign_complaint: true,
-            },
+                            user_id: user_id,
+                            worker: worker,
+                            reassign_complaint: true,
+                        },
                         success: function(response) {
                             var res = jQuery.parseJSON(response);
                             console.log(res);
@@ -2033,7 +2110,7 @@ $row_count7 = mysqli_num_rows($result7);
                         },
                     });
 
-                    
+
                 });
 
                 $(document).on("submit", "#managerapproveForm", function(e) {
@@ -2155,6 +2232,7 @@ $row_count7 = mysqli_num_rows($result7);
                 $(document).on("click", ".viewcomplaint", function(e) {
                     e.preventDefault();
                     var user_id = $(this).val();
+                    var fac_id = $(".viewcomplaint").data("value");
                     console.log(user_id);
                     $.ajax({
                         type: "POST",
@@ -2162,6 +2240,7 @@ $row_count7 = mysqli_num_rows($result7);
                         data: {
                             view_complaint: true,
                             user_id: user_id,
+                            fac_id:fac_id,
                         },
                         success: function(response) {
                             var res = jQuery.parseJSON(response);
@@ -2178,6 +2257,8 @@ $row_count7 = mysqli_num_rows($result7);
                                 $("#faculty_contact").text(res.data.faculty_contact);
                                 $("#block_venue").text(res.data.block_venue);
                                 $("#venue_name").text(res.data.venue_name);
+                                $("#fac_name").text(res.data1.name);
+                                $("#fac_id").text(res.data1.id);
                                 $("#complaintDetailsModal").modal("show");
                             }
                         },
@@ -2296,8 +2377,21 @@ $row_count7 = mysqli_num_rows($result7);
                                 alert(res.message);
                             } else {
                                 //$('#student_id2').val(res.data.uid);
-                                $("#ffeed").val(res.data.feedback);
+                                $("#ffeed").val(res.data.feedback)
                                 $("#exampleModal").modal("show");
+
+                                var nu = res.data.rating;
+                                console.log(nu);
+
+                                if (!isNaN(nu) && nu > 0) {
+                                    const stars1 = document.querySelectorAll("#star-rating1 span");
+                                    
+                                    stars1.forEach(s => s.classList.remove("highlighted"));
+
+                                    for (let i = 0; i < nu; i++) {
+                                        stars1[i].classList.add("highlighted");
+                                    }
+                                }
                             }
                         },
                     });
@@ -2309,7 +2403,10 @@ $row_count7 = mysqli_num_rows($result7);
                     // Open the feedback modal and set the complaintfeed ID (Event Delegation)
                     $(document).on("click", ".facfeed", function() {
                         complaintfeedId = $(this).val();
-                        $("#complaintfeed_id").val(complaintfeedId); // Store complaintfeed ID in the hidden input
+                        
+
+                        // Send the rating ID to the PHP script via AJAX
+                       
                     });
 
                     // When 'Done' is clicked (Event Delegation)
@@ -2390,7 +2487,7 @@ $row_count7 = mysqli_num_rows($result7);
                             data: {
                                 complaintfeed_id: complaintfeedId,
                                 status: status,
-                                reassign_deadline: reassign_deadline, // Only pass this if status is 'reassign'
+                                reassign_deadline: reassign_deadline, // Only pass this when we give 'reassign'
                             },
                             success: function(response) {
                                 var res = jQuery.parseJSON(response);
@@ -2591,6 +2688,49 @@ $row_count7 = mysqli_num_rows($result7);
                         }
                     });
                 })
+
+                $(document).on("submit", "#manager_feedback", function(e) {
+                    e.preventDefault();
+                    var fd = new FormData(this);
+                    console.log(fd);
+
+                    var store_rating = $(document).data("ratings");
+                    console.log(store_rating);
+                    fd.append("ratings", store_rating);
+                    fd.append("manager_feedbacks", true);
+                    var manfeed = $(document).data("feedid")
+                    console.log(manfeed);
+                    fd.append("id", manfeed);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "testbackend.php",
+                        data: fd,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            var res = jQuery.parseJSON(response);
+
+                            if (res.status == 200) {
+                                // Close modal
+                                $("#DoneModal").modal("hide");
+
+                                // Reset the form
+                                $("#manager_feedback")[0].reset();
+
+
+                                // Display success message
+                            } else if (res.status == 500) {
+                                $("#DoneModal").modal("hide");
+                                $("#manager_feedback")[0].reset();
+                                alert(res.message);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            alert("An error occurred while processing your request.");
+                        },
+                    });
+                });
             </script>
 
             <script>
@@ -2626,6 +2766,33 @@ $row_count7 = mysqli_num_rows($result7);
                 dateInput.setAttribute('min', today);
             </script>
 
+            <script>
+                //Star Rating Coding
+                const stars = document.querySelectorAll("#star-rating span");
+                const ratingValue = document.getElementById("rating-value");
+                const ratevalue = document.getElementById("ratevalue");
+
+
+
+                stars.forEach((star, index) => {
+                    star.addEventListener("click", () => {
+                        // Remove the "highlighted" class from all stars hidhlited is used in Style
+                        stars.forEach(s => s.classList.remove("highlighted"));
+
+                        // Add the "highlighted" class to all stars up to the clicked one
+                        for (let i = 0; i <= index; i++) {
+                            stars[i].classList.add("highlighted");
+                        }
+
+                        // Update the rating value
+                        ratingValue.textContent = `Rating: ${index + 1}`;
+                        ratevalue.textContent = `${index + 1}`;
+                        var rating = ratevalue.textContent;
+                        $(document).data("ratings", rating);
+                    });
+                });
+            </script>
+
+
 </body>
 
-</html>
