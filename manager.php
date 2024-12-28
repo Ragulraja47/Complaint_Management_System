@@ -448,6 +448,8 @@ $row_count7 = mysqli_num_rows($result7);
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i>
                                     My Profile</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#addworker" ><i class="ti-user m-r-5 m-l-5"></i>
+                                    Add Worker</a>
                                 <a class="dropdown-item" href="javascript:void(0)"><i
                                         class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                                 <div class="dropdown-divider"></div>
@@ -497,8 +499,7 @@ $row_count7 = mysqli_num_rows($result7);
                     </div>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary" style="margin-left:1080px;" data-toggle="modal" data-target="#addworker">
-                Add worker</button>
+           
 
 
             <div class="modal fade" id="addworker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -569,6 +570,7 @@ $row_count7 = mysqli_num_rows($result7);
                                             <div id="navref1"> <span
                                                     class="hidden-xs-down"><b>Complaint Raised (<?php echo $row_count1; ?>)</b></span></div>
                                         </a> </li>
+
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#principal"
                                             role="tab"><span class="hidden-sm-up"></span>
                                             <div id="navref2"> <span
