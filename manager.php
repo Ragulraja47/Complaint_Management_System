@@ -894,7 +894,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row3['id']; ?>"
                                                                     class="btn viewcomplaint"
-                                                                    data-value="<?php echo $row['fac_id']; ?>"
+                                                                    data-value="<?php echo $row3['fac_id']; ?>"
 
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal"><i class="fas fa-eye" style="font-size: 25px;"></i></button>
@@ -1002,7 +1002,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row5['id']; ?>"
                                                                     class="btn viewcomplaint"
-                                                                    data-value="<?php echo $row['fac_id']; ?>"
+                                                                    data-value="<?php echo $row5['fac_id']; ?>"
 
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
@@ -1104,7 +1104,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row7['id']; ?>"
                                                                     class="btn viewcomplaint"
-                                                                    data-value="<?php echo $row['fac_id']; ?>"
+                                                                    data-value="<?php echo $row7['fac_id']; ?>"
 
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
@@ -1190,7 +1190,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center">
                                                                 <button type="button" value="<?php echo $row6['id']; ?>"
                                                                     class="btn viewcomplaint"
-                                                                    data-value="<?php echo $row['fac_id']; ?>"
+                                                                    data-value="<?php echo $row6['fac_id']; ?>"
 
                                                                     data-toggle="modal"
                                                                     data-target="#complaintDetailsModal">
