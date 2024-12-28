@@ -1394,14 +1394,16 @@ $resultfac = mysqli_query($conn,$facquery);
 
         $(document).on('click','.fac',function(e){
             e.preventDefault();
+            console.log("hiii");
 
             $.ajax({
-                url: "backend.php",
+                url: "login_backend.php",
                 type: "POST",
                 data: {
                     "fac": true,
                 },
                 success: function(response) {
+                    console.log(response);
                     $('#cfaculty').html(response);
                 }
             });

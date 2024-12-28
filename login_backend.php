@@ -45,3 +45,24 @@ elseif($user['role']=='staff'){
     header("Location: flogin.php"); // Redirect back to login page if accessed without form submission
     exit();
 }
+
+$fac_id = $_SESSION['faculty_id'];
+
+if(isset($_POST['fac'])) {
+    $sql8 =  "SELECT * FROM facultys WHERE dept=(SELECT department FROM faculty WHERE faculty_id='$fac_id')";
+    $result8 = mysqli_query($conn, $sql8);
+
+    $options = '';
+    $options .= '<option value="">Select a Faculty</option>';
+
+
+
+    while ($row = mysqli_fetch_assoc($result8)) {
+        $options .= '<option value="' . $row['id'] . '">' . $row['id'] . ' - ' . $row['name'] . '</option>';
+
+    }
+
+
+    echo $options;
+    exit();  
+}
