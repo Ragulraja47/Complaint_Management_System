@@ -546,7 +546,7 @@ if(isset($_POST["count"])){
 
 if(isset($_POST['ratings'])){
     $id=$_POST['id'];
-    $query = "SELECT sum(fac_rating+man_rating) AS total FROM complaints_detail WHERE worker_id='$id'";
+    $query = "SELECT sum(rating+mrating) AS total FROM complaints_detail WHERE worker_id='$id'";
     $query_run = mysqli_query($conn,$query);
     $count_data = mysqli_fetch_assoc($query_run);
     $total = $count_data['total']??0;
