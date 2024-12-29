@@ -1333,7 +1333,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                         </th>
                                                         <th class="text-center">
                                                             <b>
-                                                                <h5>Average Rating</h5>
+                                                                <h5 average Rating</h5>
                                                             </b>
                                                         </th>
                                                     </tr>
@@ -1434,7 +1434,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                     </th>
                                                     <th class="text-center">
                                                         <b>
-                                                            <h5>Average Rating</h5>
+                                                            <h5>average Rating</h5>
                                                         </b>
                                                     </th>
                                                 </tr>
@@ -1450,9 +1450,9 @@ $row_count7 = mysqli_num_rows($result7);
                                                         <td class="text-center"><?php echo $row['worker_id'] ?></td>
                                                         <td class="text-center"><?php echo $row['worker_first_name'] ?></td>
                                                         <td class="text-center"><?php echo $row['worker_dept'] ?></td>
-                                                        <td class="text-center"><span class="totalworks" data-value="<?php echo $row['worker_id']; ?>"></span></td>
-                                                        <td class="text-center"><?php echo $s ?></td>
-                                                        <td class="text-center"><?php echo $s ?></td> 
+                                                        <td class="text-center totalworks" data-value="<?php echo $row['worker_id']; ?>"></td>
+                                                        <td class="text-center totalratings" data-value="<?php echo $row['worker_id']; ?>"></td>
+                                                        <td class="text-center average"></td> 
                                                     </tr>
                                                 <?php
                                                     $s++;
@@ -2942,9 +2942,8 @@ $row_count7 = mysqli_num_rows($result7);
 
             $(document).ready(function() {
     $('.totalworks').each(function() {
-        var element = $(this);
-        var id = element.data('value'); 
-        console.log(id);
+        var works = $(this);
+        var id = works.data('value'); 
         $.ajax({
             type:"POST",
             url:"testbackend.php",
@@ -2955,7 +2954,7 @@ $row_count7 = mysqli_num_rows($result7);
             success:function(response){
                 var res = jQuery.parseJSON(response);
                 if(res.status==200){
-                    element.text(res.data);
+                    works.text(res.data);
                 }
                 else{
                     console.log("error");
@@ -2965,7 +2964,44 @@ $row_count7 = mysqli_num_rows($result7);
 
         })
     });
+    $('.totalratings').each(function(){
+        var ratings = $(this);
+        var id = ratings.data('value');
+        $.ajax({
+            type:"POST",
+            url:"testbackend.php",
+            data:{
+                ratings:true,
+                id:id
+            },
+            success:function(response){
+                console.log(response);
+                var res = jQuery.parseJSON(response);
+                if(res.status==200){
+                    ratings.text(res.data);
+                }
+                else{
+                    console.log(error);
+                }
+            }
+        })
+
+    })
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const tableRows = document.querySelectorAll("#Rworkers tbody tr");
+    tableRows.forEach(row => {
+        const works = parseInt(row.querySelector(".totalworks").textContent) || 0;
+        const ratings = parseInt(row.querySelector(".totalratings").textContent) || 0;
+        const avg = row.querySelector(".average");
+        console.log(avg);
+        const average = ratings/works;
+        avg.textContent = average;
+    });
+});
+
 
         </script>
 

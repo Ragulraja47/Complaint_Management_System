@@ -544,6 +544,19 @@ if(isset($_POST["count"])){
     echo json_encode($res);
 }
 
+if(isset($_POST['ratings'])){
+    $id=$_POST['id'];
+    $query = "SELECT sum(fac_rating+man_rating) AS total FROM complaints_detail WHERE worker_id='$id'";
+    $query_run = mysqli_query($conn,$query);
+    $count_data = mysqli_fetch_assoc($query_run);
+    $total = $count_data['total']??0;
+    $res=[
+        "status"=>200,
+        "data"=>$total
+    ];
+    echo json_encode($res);
+}
+
 //backend for worker details
 /* if (isset($_POST['fac_feed_rate'])) {
     header('Content-Type: application/json');
