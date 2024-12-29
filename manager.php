@@ -2547,8 +2547,8 @@ $row_count7 = mysqli_num_rows($result7);
 
                 // Open the feedback modal and set the complaintfeed ID (Event Delegation)
                 $(document).on("click", ".facfeed", function() {
-                    complaintfeedId = $(this).val();
-
+                   var complaintfeedId = $(this).val();
+                   $("#complaintfeed_id").val(complaintfeedId)
 
                     // Send the rating ID to the PHP script via AJAX
 
