@@ -2952,7 +2952,7 @@ $row_count7 = mysqli_num_rows($result7);
                         var id = works.data('value');
                         $.ajax({
                             type: "POST",
-                            url: "testbackend.php",
+                            url: "worker_count.php",
                             data: {
                                 count: true,
                                 id: id
@@ -2974,7 +2974,7 @@ $row_count7 = mysqli_num_rows($result7);
                         var id = ratings.data('value');
                         $.ajax({
                             type: "POST",
-                            url: "testbackend.php",
+                            url: "worker_count.php",
                             data: {
                                 ratings: true,
                                 id: id
@@ -2996,7 +2996,7 @@ $row_count7 = mysqli_num_rows($result7);
         var id = average.data('value');
         $.ajax({
             type:"POST",
-            url:"testbackend.php",
+            url:"worker_count.php",
             data:{
                 average:true,
                 id:id
