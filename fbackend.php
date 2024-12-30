@@ -308,7 +308,7 @@ $fac_id = $_SESSION['faculty_id'];
 
 
 if (isset($_POST['fac'])) {
-    $sql8 =  "SELECT * FROM facultys WHERE dept=(SELECT department FROM faculty WHERE faculty_id='$fac_id')";
+    $sql8 =  "SELECT * FROM faculty WHERE dept=(SELECT department FROM faculty_details WHERE faculty_id='$fac_id')";
     $result8 = mysqli_query($conn, $sql8);
 
     $options = '';

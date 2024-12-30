@@ -3,9 +3,9 @@ include("db.php");
 //query for 1st table input 
 //Faculty complaint table
 $sql1 = "
-SELECT cd.*, faculty.faculty_name, faculty.department, faculty.faculty_contact, faculty.faculty_mail
+SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
-JOIN faculty ON cd.faculty_id = faculty.faculty_id
+JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
 WHERE cd.status IN ('4','9')
 ";
 $result1 = mysqli_query($conn, $sql1);

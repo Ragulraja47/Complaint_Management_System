@@ -36,7 +36,7 @@ $row_count3 = mysqli_num_rows($result3);
 $row_count4 = mysqli_num_rows($result4);
 
 
-$facquery = "SELECT * FROM facultys WHERE dept=(SELECT department FROM faculty WHERE faculty_id='$faculty_id')";
+$facquery = "SELECT * FROM faculty WHERE dept=(SELECT department FROM faculty_details WHERE faculty_id='$faculty_id')";
 $resultfac = mysqli_query($conn,$facquery);
 
 

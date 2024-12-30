@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $faculty_dept = mysqli_real_escape_string($conn, $_POST['department']); // Get faculty department from form data
 
     // Query to check if faculty ID and password match
-    $query = "SELECT * FROM faculty WHERE faculty_id = '$faculty_id' AND password = '$password'";
+    $query = "SELECT * FROM faculty_details WHERE faculty_id = '$faculty_id' AND password = '$password'";
     $result = mysqli_query($conn, $query);
 
     $user = mysqli_fetch_array($result);
@@ -49,7 +49,7 @@ elseif($user['role']=='staff'){
 $fac_id = $_SESSION['faculty_id'];
 
 if(isset($_POST['fac'])) {
-    $sql8 =  "SELECT * FROM facultys WHERE dept=(SELECT department FROM faculty WHERE faculty_id='$fac_id')";
+    $sql8 =  "SELECT * FROM faculty WHERE dept=(SELECT department FROM faculty_details WHERE faculty_id='$fac_id')";
     $result8 = mysqli_query($conn, $sql8);
 
     $options = '';

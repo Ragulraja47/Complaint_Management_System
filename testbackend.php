@@ -6,16 +6,16 @@ if (isset($_POST['view_complaint'])) {
     $complain_id = mysqli_real_escape_string($conn, $_POST['user_id']);
     $fac_id = mysqli_real_escape_string($conn,$_POST['fac_id']);
     $query = "
-    SELECT cd.*, faculty.faculty_name, faculty.faculty_contact, faculty.faculty_mail, faculty.department, cd.block_venue
+    SELECT cd.*, faculty_details.faculty_name, faculty_details.faculty_contact, faculty_details.faculty_mail, faculty_details.department, cd.block_venue
     FROM complaints_detail cd
-    JOIN faculty ON cd.faculty_id = faculty.faculty_id
+    JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
     WHERE cd.id = '$complain_id'
 ";
 
 
     $query_run = mysqli_query($conn, $query);
     $User_data = mysqli_fetch_array($query_run);
-    $query1 = "SELECT * FROM facultys WHERE id='$fac_id'";
+    $query1 = "SELECT * FROM faculty WHERE id='$fac_id'";
     $query1_run = mysqli_query($conn,$query1);
     $fac_data = mysqli_fetch_array($query1_run);
     if ($query_run) {
