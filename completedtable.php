@@ -602,58 +602,13 @@ $resultfac = mysqli_query($conn,$facquery);
                                                                             </button>
                                                                         </td>
                                                                         <td class="text-center">
-                                                                            <?php if ($row['status'] == 2) { ?>
-                                                                                <center>
-                                                                                    <button class="btn btndelete btn-danger" type="button" value="<?php echo $row['id']; ?>">
-                                                                                        <i class="fas fa-times"></i>
-                                                                                    </button>
-                                                                                </center>
-                                                                            <?php } else { ?>
-
-                                                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approvaldetails">Approve Details</button>
-
-
-                                                                                <!--Approval Details Modal -->
-                                                                                <div class="modal fade" id="approvaldetails" tabindex="-1" role="dialog"
-                                                                                    aria-labelledby="approvaldetailsLabel" aria-hidden="true">
-                                                                                    <div class="modal-dialog" role="document">
-                                                                                        <div class="modal-content">
-                                                                                            <div class="modal-header">
-                                                                                                <h5 class="modal-title" id="approvaldetailsLabel" style="color: #000000;">Approval details</h5>
-                                                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                                                    aria-label="Close">
-                                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                                </button>
-                                                                                            </div>
-                                                                                            <div class="modal-body">
-
-
-                                                                                                <b>
-
-                                                                                                    <?php
-                                                                                                    echo $statusMessage . "<br>";
-                                                                                                    echo $infraforward . "<br>";
-                                                                                                    echo $hodforward . "<br>";
-                                                                                                    echo $managerforward . "<br>";
-                                                                                                    echo $forwardedtoprincipal . "<br>";
-                                                                                                    echo $principalforward . "<br>";
-                                                                                                    echo $sendtoworker;
-
-
-
-                                                                                                    ?>
-
-                                                                                                </b>
-                                                                                            <?php } ?>
-
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-
-
-                                                                        </td>
+                                                                    <?php if ($row['status'] == 11 || $row['status'] == 18) { ?>
+                                                                        <!-- Button to open the feedback modal -->
+                                                                        <button type="button" class="btn btn-info feedbackBtn" data-problem-id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#feedback_modal">Feedback</button>
+                                                                    <?php } else { ?>
+                                                                        <button type="button" disabled>Feedback</button>
+                                                                    <?php } ?>
+                                                                </td>
                                                                     </tr>
                                                                 <?php
                                                                     $s++;
@@ -667,7 +622,34 @@ $resultfac = mysqli_query($conn,$facquery);
                                         </div>
                                     </div>
                                 </div>
-
+                                <?php
+                                                                $s = 1;
+                                                                while ($row = mysqli_fetch_assoc($result5)) {
+                                                                    $statusMessage = '';
+                                                                    switch ($row['status']) {
+                                                                        case 1:
+                                                                            $statusMessage = 'Pending';
+                                                                            break;
+                                                                        case 2:
+                                                                            $statusMessage = 'Approved by Infra';
+                                                                            break;
+                                                                        case 4:
+                                                                            $statusMessage = 'Approved by HOD';
+                                                                            break;
+                                                                        case 6:
+                                                                            $statusMessage = 'Sent to Principal for Approval';
+                                                                            break;
+                                                                        case 8:
+                                                                            $statusMessage = 'Approved by Principal ';
+                                                                            break;
+                                                                        case 9:
+                                                                            $statusMessage = ' Approved by Manager';
+                                                                            break;
+                                                                        default:
+                                                                            $statusMessage = 'Unknown Status';
+                                                                    }
+                                                                }
+                                                                ?>
 
 
 
@@ -1417,6 +1399,9 @@ $resultfac = mysqli_query($conn,$facquery);
     // Set the reason in the modal's textarea
     $('#extendReasonTextarea').val(reason);
 });
+
+
+
     </script>
 </body>
 <div scrible-ignore="" id="skribel_annotation_ignore_browserExtensionFlag" class="skribel_chromeExtension"
