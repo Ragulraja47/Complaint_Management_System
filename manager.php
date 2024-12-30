@@ -2858,6 +2858,7 @@ $row_count7 = mysqli_num_rows($result7);
                         processData: false,
                         contentType: false,
                         success: function(response) {
+                            console.log(response);
                             var res = jQuery.parseJSON(response);
 
                             if (res.status == 200) {

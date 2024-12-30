@@ -116,22 +116,6 @@ if (isset($_POST['manager_approve'])) {
     echo json_encode($response);
 }
 
-
-// Check if ID is provided
-if (isset($_POST['id'])) {
-    $complaint_id = intval($_POST['id']);
-    // Prepare SQL query
-    $query = "SELECT feedback FROM complaints_detail WHERE id = ? AND status IN ('13', '14')";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $complaint_id);
-    $stmt->execute();
-    $stmt->bind_result($feedback);
-    $stmt->fetch();
-    $stmt->close();
-    // Return the feedback
-    echo $feedback;
-}
-
 // Handle reply submission for principal's query
 if (isset($_POST['submit_comment_reply'])) {
     $task_id = $_POST['task_id'];
