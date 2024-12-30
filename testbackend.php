@@ -390,37 +390,6 @@ if (isset($_POST['get_worker_phone'])) {
     }
 }
 
-//REquirement Reject
-
-if (isset($_POST["hod_reject"])) {
-    $id = $_POST["id"];
-    $reason = $_POST["feedback"];
-
-    $query = "UPDATE products SET status = 7 , reason = '$reason' WHERE id = '$id'";
-    $run = mysqli_query($conn, $query);
-    if ($run) {
-        $res = [
-            "status" => 200,
-            "msg" => "Product rejected successfully"
-        ];
-        echo json_encode($res);
-    }
-}
-
-if (isset($_POST["infra_reject"])) {
-    $id = $_POST["id"];
-    $reason = $_POST["feedback"];
-
-    $query = "UPDATE products SET status = 6 , reason = '$reason' WHERE id = '$id'";
-    $run = mysqli_query($conn, $query);
-    if ($run) {
-        $res = [
-            "status" => 200,
-            "msg" => "Product rejected successfully"
-        ];
-        echo json_encode($res);
-    }
-}
 
 if (isset($_POST['form1'])) {
     $name = $_POST['w_name'];
