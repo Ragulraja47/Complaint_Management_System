@@ -1452,7 +1452,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center"><?php echo $row['worker_dept'] ?></td>
                                                             <td class="text-center totalworks" data-value="<?php echo $row['worker_id']; ?>"></td>
                                                             <td class="text-center totalratings" data-value="<?php echo $row['worker_id']; ?>"></td>
-                                                            <td class="text-center average"></td>
+                                                            <td class="text-center average" data-value="<?php echo $row['worker_id']; ?>"></td>
                                                         </tr>
                                                     <?php
                                                         $s++;
@@ -2990,6 +2990,28 @@ $row_count7 = mysqli_num_rows($result7);
                         })
 
                     })
+                    $('.average').each(function(){
+        var average = $(this);
+        var id = average.data('value');
+        $.ajax({
+            type:"POST",
+            url:"testbackend.php",
+            data:{
+                average:true,
+                id:id
+            },
+            success:function(response){
+                console.log(response);
+                var res = jQuery.parseJSON(response);
+                if(res.status==200){
+                    average.text(res.data);
+                }
+                else{
+                    console.log("error");
+                }
+            }
+        })
+    })
                 });
 
 

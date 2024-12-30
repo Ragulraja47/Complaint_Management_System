@@ -526,6 +526,20 @@ if(isset($_POST['ratings'])){
     echo json_encode($res);
 }
 
+if(isset($_POST['average'])){
+    $id=$_POST['id'];
+    $query = "SELECT round(avg(rating+mrating),1) AS average FROM complaints_detail WHERE worker_id='$id'";
+    $query_run = mysqli_query($conn,$query);
+    $avg_data = mysqli_fetch_assoc($query_run);
+    $average = $avg_data['average']??0;
+    $res=[
+        "status"=>200,
+        "data"=>$average,
+    ];
+    echo json_encode($res);
+}
+
+
 //backend for worker details
 /* if (isset($_POST['fac_feed_rate'])) {
     header('Content-Type: application/json');
