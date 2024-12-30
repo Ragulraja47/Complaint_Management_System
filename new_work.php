@@ -34,10 +34,10 @@ $row_count3 = mysqli_num_rows($result3);
 $sql4 = "SELECT 
 cd.id,
 cd.faculty_id,
-faculty.faculty_name,
-faculty.department,
-faculty.faculty_contact,
-faculty.faculty_mail,
+faculty_details.faculty_name,
+faculty_details.department,
+faculty_details.faculty_contact,
+faculty_details.faculty_mail,
 cd.block_venue,
 cd.venue_name,
 cd.type_of_problem,
@@ -55,7 +55,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 JOIN 
-faculty ON cd.faculty_id = faculty.faculty_id
+faculty_details ON cd.faculty_id = faculty_details.faculty_id
 WHERE 
 (m.worker_dept = '$dept')
 AND 
