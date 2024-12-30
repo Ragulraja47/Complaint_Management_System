@@ -1834,7 +1834,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-danger done">Submit</button>
+                                                    <button type="submit" class="btn btn-danger">Submit</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -2099,6 +2099,9 @@ $row_count7 = mysqli_num_rows($result7);
                 });
                 $(document).ready(function() {
                     $("#record_table").DataTable();
+                });
+                $(document).ready(function() {
+                    $("#Rworkers").DataTable();
                 });
             </script>
             <script>
@@ -2554,38 +2557,6 @@ $row_count7 = mysqli_num_rows($result7);
 
                     });
 
-                    // When 'Done' is clicked (Event Delegation)
-                    $(document).on("click", ".done", function() {
-                        var complaintfeedId = $("#complaintfeed_id").val();
-                        updateComplaintStatus(complaintfeedId, 16); // Status '16' for Done
-                        swal({
-                            title: "success!",
-                            text: "Completed sucessfully!",
-                            icon: "success",
-                            button: "Ok",
-                            timer: null
-                        });
-
-                        $("#DoneModal").modal("hide");
-
-                        // Reset the form
-                        $("#manager_feedback")[0].reset();
-                        $('#finished_table').DataTable().destroy();
-                        $('#completed_table').DataTable().destroy();
-
-                        $("#finished_table").load(location.href + " #finished_table > *", function() {
-                            // Reinitialize the DataTable after the content is loaded
-                            $('#finished_table').DataTable();
-                        });
-                        $("#completed_table").load(location.href + " #completed_table > *", function() {
-                            // Reinitialize the DataTable after the content is loaded
-                            $('#completed_table').DataTable();
-                        });
-                        $("#navref3").load(location.href + " #navref3");
-                        $("#navref4").load(location.href + " #navref4");
-                        $("#navref5").load(location.href + " #navref5");
-                    });
-
                     // When 'Reassign' is clicked (Event Delegation)
                     $(document).on("click", ".reass", function() {
                         $("#datePickerModal").modal("show"); // Show the modal to select deadline
@@ -2862,12 +2833,43 @@ $row_count7 = mysqli_num_rows($result7);
                             var res = jQuery.parseJSON(response);
 
                             if (res.status == 200) {
-                                // Close modal
-                                console.log("Sucess");
-                                $("#DoneModal").modal("hide");
+                                swal({
+                            title: "success!",
+                            text: "Completed sucessfully!",
+                            icon: "success",
+                            button: "Ok",
+                            timer: null
+                        });
 
-                                // Reset the form
-                                $("#manager_feedback")[0].reset();
+                        $("#DoneModal").modal("hide");
+
+                        // Reset the form
+                        $("#manager_feedback")[0].reset();
+                        $('#finished_table').DataTable().destroy();
+                        $('#completed_table').DataTable().destroy();
+                        $('#record_table').DataTable().destroy();
+                        $('#completed_table').DataTable().destroy();
+
+                        $("#finished_table").load(location.href + " #finished_table > *", function() {
+                            // Reinitialize the DataTable after the content is loaded
+                            $('#finished_table').DataTable();
+                        });
+                        $("#completed_table").load(location.href + " #completed_table > *", function() {
+                            // Reinitialize the DataTable after the content is loaded
+                            $('#completed_table').DataTable();
+                        });
+                        $("#record_table").load(location.href + " #record_table > *", function() {
+                            // Reinitialize the DataTable after the content is loaded
+                            $('#record_table').DataTable();
+                        });
+                        $("#Rworkers").load(location.href + " #Rworkers > *", function() {
+                            // Reinitialize the DataTable after the content is loaded
+                            $('#Rworkers').DataTable();
+                        });
+                        $("#navref3").load(location.href + " #navref3");
+                        $("#navref4").load(location.href + " #navref4");
+                        $("#navref5").load(location.href + " #navref5");
+                    
 
 
                                 // Display success message

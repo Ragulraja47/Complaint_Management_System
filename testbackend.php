@@ -466,7 +466,7 @@ if (isset($_POST["manager_feedbacks"])) {
         $id = mysqli_real_escape_string($conn, $_POST['id']);
         $feedback = mysqli_real_escape_string($conn, $_POST['feedback12']);
         $rating = mysqli_real_escape_string($conn, $_POST['ratings']);
-        $query = "UPDATE complaints_detail SET mfeedback = '$feedback', mrating = '$rating'  WHERE id = $id";
+        $query = "UPDATE complaints_detail SET mfeedback = '$feedback', mrating = '$rating', status ='16'  WHERE id = $id";
         if (mysqli_query($conn, $query)) {
             $res = [
                 'status' => 200,
