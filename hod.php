@@ -1,5 +1,6 @@
 <?php
 include("db.php");
+
 $sql = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
@@ -1053,6 +1054,12 @@ $result3 = mysqli_query($conn, $sql3);
                             <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>" readonly>
                         </div>
 
+                        <div class="form-group mb-3">
+                            <label for="faculty" class="font-weight-bold">Choose Faculty</label>
+                            <select class="form-control" name="cfaculty" id="cfaculty">
+                            </select>
+                        </div>
+
                         <div class="mb-3">
                             <label for="block" class="form-label">Block <span style="color: red;">*</span></label>
                             <input type="text" class="form-control" name="block_venue" placeholder="Eg:RK-206" required>
@@ -1409,7 +1416,7 @@ $result3 = mysqli_query($conn, $sql3);
             console.log("alert");
             $.ajax({
                 type: "POST",
-                url: "hodbackend.php",
+                url: "fbackend.php",
                 data: formData,
                 processData: false,
                 contentType: false,
