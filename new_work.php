@@ -6,6 +6,7 @@ session_start();
 
 
 
+
 if (isset($_SESSION['worker_id'])) {
     $worker_id = $_SESSION['worker_id'];
 } else {
@@ -33,10 +34,10 @@ $row_count3 = mysqli_num_rows($result3);
 $sql4 = "SELECT 
 cd.id,
 cd.faculty_id,
-faculty.faculty_name,
-faculty.department,
-faculty.faculty_contact,
-faculty.faculty_mail,
+faculty_details.faculty_name,
+faculty_details.department,
+faculty_details.faculty_contact,
+faculty_details.faculty_mail,
 cd.block_venue,
 cd.venue_name,
 cd.type_of_problem,
@@ -54,7 +55,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 JOIN 
-faculty ON cd.faculty_id = faculty.faculty_id
+faculty_details ON cd.faculty_id = faculty_details.faculty_id
 WHERE 
 (m.worker_dept = '$dept')
 AND 
@@ -107,21 +108,7 @@ $c5 = mysqli_num_rows($r5);
 
 $c6 = mysqli_num_rows($r6);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //count for side bar ends
-
 
 if (isset($_POST['work'])) {
     $work = $_POST['worker_dept'];  // The department value
@@ -145,16 +132,11 @@ if (isset($_POST['work'])) {
     exit();  // Stop script execution after output
 }
 
-
-
-
 if (isset($_POST['form'])) {
     $problem_id = $_POST['user_id'] ?? null;
    
-
-
     if ($problem_id) {
-            $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
+            $updateQuery = "UPDATE complaints_detail SET status='10' WHERE id='$problem_id'";
             if (mysqli_query($conn, $updateQuery)) {
                 echo "Success: Complaint accepted and status updated successfully!";
                 exit;
@@ -211,407 +193,155 @@ if (isset($_POST['form1'])) {
 
 
 
+
+
+
 ?>
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>MIC - MKCE</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <link rel="stylesheet" type="text/css" href="assets/extra-libs/multicheck/multicheck.css">
-    <link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+    <title>worker</title>
+    <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
-
-    <!-- CSS Alertify-->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css" />
-    <!-- Bootstrap theme alertify-->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
     <style>
-        .nav-tabs .nav-link {
-            color: #0033cc;
-        }
-
+        .nav-tabs .nav-item.show .nav-link,
         .nav-tabs .nav-link.active {
+            color: white;
+            background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
+            padding: 11px 15px;
+        }
+
+        .nav-tabs .nav-item.show .nav-link,
+        .nav-tabs .nav-link.active:hover {
+            border: none;
+        }
+
+        a {
+            color: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
+            padding: 11px 15px;
+        }
+
+        .nav-tabs .nav-item.show .nav-link,
+        .nav-tabs a:hover {
+            color: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
+            border: 4px solid gray;
+            /* Include the border within the button size */
+            padding: 8px 15px;
+            /* Adjust padding to maintain the button's size */
+        }
+
+        th {
+            /* background-color: #7460ee; */
             background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
             color: white;
         }
 
-        /* Dropdown animation */
-        .dropdown-menu {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+        @media (min-width:1300px) and (max-width:1800px) {
+            /* For mobile phones: */
 
-        .dropdown-menu.show {
-            opacity: 1;
-        }
-
-        .selected-priority {
-            background-color: blue;
-            color: white;
         }
     </style>
-
-    <!-- Additional CSS for Modal -->
-    <style>
-        .close span {
-            display: inline-block;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .close:hover span {
-            transform: rotate(45deg);
-            color: white;
-        }
-
-        /* Close Button */
-        .modal-header .close {
-            font-size: 1.5rem;
-            color: white;
-            opacity: 1;
-            transition: transform 0.3s ease;
-            outline: none;
-            /* Removes the focus outline */
-            border: none;
-            /* Ensures no border around the button */
-        }
-
-        .modal-header .close:focus {
-            outline: none;
-            /* Removes focus outline when the button is clicked */
-            box-shadow: none;
-            /* Ensures no shadow or box effect appears */
-        }
-
-        .modal-header .close:hover {
-            transform: rotate(90deg);
-            color: #ff8080;
-        }
-
-
-        /* priority modal */
-        /* Modal Background */
-        .modal-content {
-            border-radius: 12px;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-            background-color: #f5f5f5;
-
-            border: none;
-        }
-
-        /* Header Styling with Gradient */
-        .modal-header {
-            background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);
-            color: white;
-            border-bottom: none;
-            padding: 10px 20px;
-            border-radius: 12px 12px 0 0;
-        }
-
-        .modal-title {
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-
-        /* Close Button */
-        .modal-header .close {
-            font-size: 1.5rem;
-            color: white;
-            opacity: 1;
-            transition: transform 0.3s ease;
-        }
-
-        .modal-header .close:hover {
-            transform: rotate(90deg);
-            color: #ff8080;
-        }
-
-        /* Modal Body */
-        .modal-body {
-            font-family: 'Arial', sans-serif;
-            color: #333;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        /* Form Inputs and Labels */
-        label {
-            font-weight: bold;
-            color: #555;
-        }
-
-        input[type="date"],
-        input[type="text"] {
-            border: none;
-            /* Removed border */
-            border-radius: 8px;
-            padding: 5px;
-            width: 100%;
-            margin-top: 10px;
-            transition: all 0.3s ease;
-        }
-
-        input[type="date"]:focus,
-        input[type="text"]:focus {
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
-        }
-
-        /* Radio Buttons */
-        .form-check-input[type="radio"] {
-            transform: scale(1.2);
-            margin-right: 10px;
-            outline: none;
-            /* Removes the focus outline */
-            box-shadow: none !important;
-            /* Removes the box-like effect when clicked */
-        }
-
-        .form-check-input[type="radio"]:focus {
-            box-shadow: none;
-            /* Ensures no shadow appears when focused */
-        }
-
-        /* Checkbox (No toggle effect) */
-        #flexSwitchCheckDefault {
-            width: auto;
-            height: auto;
-            background-color: transparent;
-            cursor: pointer;
-            transition: none;
-            position: relative;
-        }
-
-        #flexSwitchCheckDefault:checked {
-            background-color: transparent;
-        }
-
-        #flexSwitchCheckDefault::after {
-            content: none;
-        }
-
-        /* Reason Input */
-        #reasonInput {
-            margin-top: 10px;
-        }
-
-        /* Modal Footer Buttons */
-        .modal-footer .btn-primary {
-            background-color: #007bff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            transition: background-color 0.3s;
-        }
-
-        .modal-footer .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-        .modal-footer .btn-secondary {
-            background-color: #6c757d;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            transition: background-color 0.3s;
-        }
-
-        .modal-footer .btn-secondary:hover {
-            background-color: #5a6268;
-        }
-
-
-
-
-        /* Dropdown styling */
-        ul.dropdown-menu {
-            background-color: #f8f9fa;
-            border: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            padding: 7px 0;
-            text-align: center;
-            opacity: 0;
-            /* Start hidden */
-            transform: translateY(-20px);
-            /* Slightly above */
-            /* Smooth transition */
-            visibility: hidden;
-            /* Initially hidden */
-        }
-
-        ul.dropdown-menu.show {
-            opacity: 1;
-            /* Fully visible */
-            transform: translateY(0);
-            /* Return to original position */
-            visibility: visible;
-            /* Visible */
-        }
-
-        ul.dropdown-menu li {
-            display: block;
-        }
-
-        ul.dropdown-menu li a {
-            display: block;
-            padding: 5px 12px;
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
-            /* Smooth hover effect */
-        }
-
-        ul.dropdown-menu li a:hover {
-            background-color: #e9ecef;
-            color: #0056b3;
-            border-radius: 10px;
-            transform: scale(1.05);
-            /* Slight zoom effect on hover */
-        }
-
-        /* Center the dropdown items */
-        ul.dropdown-menu center {
-            display: block;
-        }
-
-        /* Animation for dropdown items (staggered effect) */
-        ul.dropdown-menu li {
-            animation: fadeIn 0.4s ease forwards;
-            opacity: 0;
-            /* Initially invisible */
-        }
-
-        /* Staggering delay for each item */
-        ul.dropdown-menu li:nth-child(1) {
-            animation-delay: 0.05s;
-        }
-
-        ul.dropdown-menu li:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-
-        ul.dropdown-menu li:nth-child(3) {
-            animation-delay: 0.15s;
-        }
-
-        ul.dropdown-menu li:nth-child(4) {
-            animation-delay: 0.2s;
-        }
-
-        ul.dropdown-menu li:nth-child(5) {
-            animation-delay: 0.25s;
-        }
-
-        ul.dropdown-menu li:nth-child(6) {
-            animation-delay: 0.30s;
-        }
-
-        /* Keyframes for dropdown items */
-        @keyframes fadeIn {
-            0% {
-                transform: translateY(-20px);
-                /* Move vertically */
-                opacity: 0;
-            }
-
-            100% {
-                transform: translateY(0);
-                /* Move to original position */
-                opacity: 1;
-            }
-        }
-    </style>
+    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
 </head>
 
 <body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
     <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>
             <div class="lds-pos"></div>
         </div>
     </div>
-
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
     <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
         <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin5">
-                    <!-- This is for the sidebar toggle which is visible on mobile only -->
-                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
-                            class="ti-menu ti-close"></i></a>
+                    <!-- Sidebar toggle for mobile -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+
+                    <!-- Logo -->
                     <a class="navbar-brand" href="index.html">
-                        <!-- Logo icon -->
-                        <b class="logo-icon p-l-8">
-                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            <!-- Dark Logo icon -->
-                            <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo" />
-                        </b>
-                        <!--End Logo icon -->
-                        <!-- Logo text -->
+
                         <span class="logo-text">
-                            <!-- dark Logo text -->
-                            <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" />
+                            <img src="assets/images/mkcenavlogo.png" alt="homepage" class="light-logo" />
                         </span>
                     </a>
-                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
-                        data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
-                            class="ti-more"></i></a>
+
+                    <!-- Toggle for mobile -->
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
                 </div>
 
+                <!-- Navbar items -->
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
                     <ul class="navbar-nav float-left mr-auto">
-                        <li class="nav-item d-none d-md-block"><a
-                                class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
-                                data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
-                    </ul>
-                    <ul class="navbar-nav float-right">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                                    src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
-                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i>
-                                    My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i
-                                        class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                                <div class="dropdown-divider"></div>
-                            </div>
+                        <li class="nav-item d-none d-md-block">
+                            <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
                         </li>
+                        <!-- Additional items can be added here -->
                     </ul>
+                    <a href="login.php" class="btn btn-danger">
+                        <i class=" fas fa-sign-out-alt" style="font-size: 15px;"></i>
+                    </a>
+
+
                 </div>
             </nav>
         </header>
-
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
         <aside class="left-sidebar" data-sidebarbg="skin5">
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
-                    <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="workall.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu"><?php echo $srow['worker_dept'] ?></span></a></li>
-
-
-
-                    </ul>
+                <ul id="sidebarnav" class="p-t-30">
+                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
+                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="new_work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
+                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="workall.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu"><?php echo $srow['worker_dept'] ?></span></a></li>
+                </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
         </aside>
 
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
         <div class="page-wrapper">
             <div class="page-breadcrumb">
                 <div class="row">
@@ -628,78 +358,221 @@ if (isset($_POST['form1'])) {
                     </div>
                 </div>
             </div>
-
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
             <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-12">
-                        <div class="card">
+                    <div class="col-md-12">
+
+                        <!-- Tabs -->
+                       
+                        <!-- Tabs -->
+                        <div class="card" >
                             <div class="card-body">
                                 <div class="card">
-                                    <ul class="nav nav-tabs mb-3" role="tablist" id="navrefresh">
-
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="principal-tab" href="#principal" role="tab"
-                                                aria-selected="false">
-                                                <span class="hidden-xs-down">
-                                                    <i class="bi bi-people-fill"></i><b>Assign work</b>
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="record-tab" href="#record" role="tab"
-                                                aria-selected="false">
-                                                <span class="hidden-xs-down">
-                                                    <i class="bi bi-repeat"></i><b>Work Record</b>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-
+                            <div id="navref">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs mb-3" role="tablist">
+                           
+                                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#principal"
+                                        role="tab"><span class="hidden-sm-up"></span> <div id="ref4"><span
+                                            class="hidden-xs-down"><b>Work Assign</b></span></div></a> </li>
+                                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#record"
+                                        role="tab"><span class="hidden-sm-up"></span> <div id="ref5"><span
+                                            class="hidden-xs-down"><b>Work Record</b></span></div></a> </li>
+                                            
                                 
-                                <div class="modal fade" id="addworker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content" style="border-radius: 8px; border: 1px solid #ccc;">
-                                            <div class="modal-header" style="background-color: #f8f9fa; border-bottom: 2px solid #e9ecef;">
-                                                <h5 class="modal-title" id="exampleModalLabel">Add Worker</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
+                               
+                                
+                               
+                            </ul>
+                            </div>
+
+    
+                            <!-- Tab panes -->
+                            <div class="tab-content tabcontent-border">
+                                <!--completed start-->
+                                <div class="tab-pane active p-20" id="principal" role="tabpanel">
+                                    <div class="p-20">
+                                        <div class="table-responsive">
+                                            <h5 class="card-title">Work Assign</h5>
+                                            <table id="principal_table" class="table table-striped table-bordered">
+                                            <thead
+                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                    <tr>
+                                                        <th><b>S.No</b></th>
+                                                        <th><b>raised Date</b></th>
+                                                        <th><b>Venue</b></th>
+                                                        <th><b>Complaint</b></th>
+                                                        <th><b>Picture</b></th>
+                                                        <th><b>Action</b></th>
+                                                        <th><b>Status</b></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $s = 1;
+                                                    while ($row4 = mysqli_fetch_assoc($result4)) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $s ?></td>
+                                                            <td><?php echo $row4['date_of_reg'] ?></td>
+                                                            <td><?php echo $row4['block_venue'] ?></td>
+                                                            <td>
+                                                                <button type="button" value="<?php echo $row4['id']; ?>"
+                                                                    class="btn btn viewcomplaint"
+                                                                    data-toggle="modal"
+                                                                    data-target="#complaintDetailsModal">
+                                                                    <i class="fas fa-eye" style="font-size: 25px;"></i>
+                                                                </button>
+                                                            </td>
+
+                                                            <td>
+                                                                <button type="button" class="btn btn-light btn-sm showImage"
+                                                                    value="<?php echo $row4['id']; ?>" data-toggle="modal">
+                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <button type="button"
+                                                                    class="btn btn-success acceptcomplaint worker"
+                                                                    value="<?php echo $row4['id']; ?>"
+                                                                    ><i class="fas fa-check"></i></button>
+                                                               
+                                                            </td>
+                                                            <td>
+                                                                <span class="btn btn-success">Approved</span>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                        $s++;
+                                                    }
+                                                    ?>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- WOrk Assign end-->
+
+
+                                <!-- Record table start-->
+                                <?php
+                                    // Set default month as the current month if no input is provided
+                                    $selectedMonth = isset($_POST['selectmonth']) ? $_POST['selectmonth'] : date('m');
+                                    
+
+
+
+                                    // Fetch data based on the selected month
+                                    $sql8 = "SELECT * FROM complaints_detail WHERE status='16'AND type_of_problem='$dept' AND MONTH(date_of_completion) = $selectedMonth AND YEAR(date_of_completion) = YEAR(CURDATE())";
+                                    $result8 = mysqli_query($conn, $sql8);
+                                    ?>
+                              
+                                <div class="tab-pane p-10" id="record" role="tabpanel">
+                                    <div class="p-10">
+                                        <div class="p-10">
+                                            <div class="card">
+                                                <div class="card-body" style="padding: 10px;">
+                                                    <h5 class="card-title">Work Completed records</h5>
+                                                    <form method="POST" action="">
+                                                    <label for="selectmonth">Select Month (1-12): </label>
+                                                    <input type="number" name="selectmonth" min="1" max="12" value="<?php echo $selectedMonth; ?>" required>
+                                                    <button type="submit" class="btn btn-primary">Enter</button>
+                                                </form><span style="float:right">
+                                                    <button id="download" class="btn btn-success">Download as Excel</button></span><br><br>
+                                                    <div class="table-responsive">
+                                                    <table id="record_table" class="table table-striped table-bordered">
+                                                    <thead style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                        <tr>
+                                                            <th class="text-center"><b>
+                                                                    <h5>S.No</h5>
+                                                                </b></th>
+                                                            <th class="col-md-2 text-center"><b>
+                                                                    <h5>Work ID</h5>
+                                                                </b></th>
+                                                            <th class="text-center"><b>
+                                                                    <h5>Venue Details</h5>
+                                                                </b></th>
+                                                            <th class="text-center"><b>
+                                                                    <h5>Completed Details</h5>
+                                                                </b></th>
+                                                            <th class="text-center">
+                                                                <b>
+                                                                    <h5>Completed On</h5>
+                                                                </b>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $s = 1;
+                                                        while ($row = mysqli_fetch_assoc($result8)) {
+                                                            $pid = $row['id'];
+                                                        ?>
+                                                            <tr>
+                                                                <td class="text-center"><?php echo $s ?></td>
+                                                                <td class="text-center"><?php echo $row['id'] ?></td>
+                                                                <td class="text-center">Venue: <?php echo $row['block_venue'] ?> | <br>Problem: <?php echo $row['problem_description'] ?></td>
+                                                                <td class="text-center">
+                                                                    <?php
+                                                                    $id = "SELECT * FROM manager WHERE problem_id=$pid";
+                                                                    $query_run1 = mysqli_query($conn, $id);
+                                                                    $roww = mysqli_fetch_array($query_run1);
+                                                                    $worker_id = $roww['worker_id'];
+
+                                                                    // Fetch worker details
+                                                                    $query = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
+                                                                    $query_run = mysqli_query($conn, $query);
+                                                                    $User_data = mysqli_fetch_array($query_run); ?>
+                                                                    Completed by: <?php echo $User_data['worker_first_name'] ?> | <br>
+                                                                    Department: <?php echo $User_data['worker_dept'] ?>
+                                                                </td>
+                                                                <td class="text-center"><?php echo $row['date_of_completion'] ?></td>
+                                                            </tr>
+                                                        <?php
+                                                            $s++;
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                                    </div>
+
+                                                </div>
                                             </div>
-                                            <form id="workers">
-                                                <div class="modal-body" style="padding: 20px; background-color: #f5f5f5;">
-                                                    <input type="text" name="w_name" placeholder="Enter Worker Name" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
-
-                                                    <select id="gender" name="w_gender" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
-                                                        <option value="all">Select Gender</option>
-                                                        <option value="male">Male</option>
-                                                        <option value="female">Female</option>
-                                                    </select>
-
-                                                
-
-                                                    <input type="text" name="w_phone" placeholder="Enter Phone Number" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" style="background-color: #6c757d; border: none; padding: 10px 20px;">Close</button>
-                                                    <button type="submit" class="btn btn-primary" style="background-color: #007bff; border: none; padding: 10px 20px;">Add</button>
-                                                </div>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
+                            
+
+                               
 
 
-                                <!-- Tables Start -->
-                                <div class="tab-content tabcontent-border">
+
+                         
 
 
-                                    
 
-                                    <!--Principal | Need Approve Modal -->
-                                   
-                                    <!-- Complaint Details Modal -->
-                                    <div class="modal fade" id="complaintDetailsModal" tabindex="-1" role="dialog" aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+           <!-- Complaint Details Modal -->
+           <div class="modal fade" id="complaintDetailsModal" tabindex="-1" role="dialog" aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
                                             <div class="modal-content" style="border-radius: 8px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); background-color: #f9f9f9;">
 
@@ -768,9 +641,8 @@ if (isset($_POST['form1'])) {
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- Priority Modal Box -->
-                                    <div class="modal fade" id="prioritymodal1" tabindex="-1" role="dialog" aria-labelledby="priorityModalLabel1" aria-hidden="true">
+                                      <!-- Priority Modal Box -->
+                                      <div class="modal fade" id="prioritymodal1" tabindex="-1" role="dialog" aria-labelledby="priorityModalLabel1" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content" style="border-radius: 8px; border: 1px solid #ccc;">
                                                 <div class="modal-header" style="background-color: #f8f9fa; border-bottom: 2px solid #e9ecef;">
@@ -807,163 +679,8 @@ if (isset($_POST['form1'])) {
                                     </div>
 
 
-
-
-
-                                
-
-                                
-
-                                    <!-- Principal Table -->
-                                    <div class="tab-pane active show" id="principal" role="tabpanel">
-                                        <div class="table-responsive">
-                                            <table id="principal_table" class="table table-striped table-bordered">
-                                                <thead
-                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                    <tr>
-                                                        <th><b>S.No</b></th>
-                                                        <th><b>Raised Date</b></th>
-                                                        <th><b>Venue</b></th>
-                                                        <th><b>Complaint</b></th>
-                                                        <th><b>Picture</b></th>
-                                                        <th><b>Action</b></th>
-                                                        <th><b>Status</b></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $s = 1;
-                                                    while ($row4 = mysqli_fetch_assoc($result4)) {
-                                                    ?>
-                                                        <tr>
-                                                            <td><?php echo $s ?></td>
-                                                            <td><?php echo $row4['date_of_reg'] ?></td>
-                                                            <td><?php echo $row4['block_venue'] ?></td>
-                                                            <td>
-                                                                <button type="button" value="<?php echo $row4['id']; ?>"
-                                                                    class="btn btn viewcomplaint"
-                                                                    data-toggle="modal"
-                                                                    data-target="#complaintDetailsModal">
-                                                                    <i class="fas fa-eye" style="font-size: 25px;"></i>
-                                                                </button>
-                                                            </td>
-
-                                                            <td>
-                                                                <button type="button" class="btn btn-light btn-sm showImage"
-                                                                    value="<?php echo $row4['id']; ?>" data-toggle="modal">
-                                                                    <i class="fas fa-image" style="font-size: 25px;"></i>
-                                                                </button>
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <button type="button"
-                                                                    class="btn btn-success acceptcomplaint worker"
-                                                                    value="<?php echo $row4['id']; ?>"
-                                                                    ><i class="fas fa-check"></i></button>
-                                                               
-                                                            </td>
-                                                            <td>
-                                                                <span class="btn btn-success">Approved</span>
-                                                            </td>
-                                                        </tr>
-                                                    <?php
-                                                        $s++;
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                 
-
-                               
-
-                                  
-
-                                    <!-- Record Table -->
-
-                                    <?php
-                                    // Set default month as the current month if no input is provided
-                                    $selectedMonth = isset($_POST['selectmonth']) ? $_POST['selectmonth'] : date('m');
-
-                                    // Fetch data based on the selected month
-                                    $sql8 = "SELECT * FROM complaints_detail WHERE status='16' AND MONTH(date_of_completion) = $selectedMonth AND YEAR(date_of_completion) = YEAR(CURDATE())";
-                                    $result8 = mysqli_query($conn, $sql8);
-                                    ?>
-
-                                    <div class="tab-pane p-20" id="record" role="tabpanel">
-                                        <div class="p-20">
-                                            <div class="table-responsive">
-                                                <h5 class="card-title">Work Completed Records</h5>
-
-                                                <form method="POST" action="">
-                                                    <label for="selectmonth">Select Month (1-12): </label>
-                                                    <input type="number" name="selectmonth" min="1" max="12" value="<?php echo $selectedMonth; ?>" required>
-                                                    <button type="submit" class="btn btn-primary">Enter</button>
-                                                </form><span style="float:right">
-                                                    <button id="download" class="btn btn-success">Download as Excel</button></span><br><br>
-
-                                                <table id="record_table" class="table table-striped table-bordered">
-                                                    <thead style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                        <tr>
-                                                            <th class="text-center"><b>
-                                                                    <h5>S.No</h5>
-                                                                </b></th>
-                                                            <th class="col-md-2 text-center"><b>
-                                                                    <h5>Work ID</h5>
-                                                                </b></th>
-                                                            <th class="text-center"><b>
-                                                                    <h5>Venue Details</h5>
-                                                                </b></th>
-                                                            <th class="text-center"><b>
-                                                                    <h5>Completed Details</h5>
-                                                                </b></th>
-                                                            <th class="text-center">
-                                                                <b>
-                                                                    <h5>Completed On</h5>
-                                                                </b>
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                        $s = 1;
-                                                        while ($row = mysqli_fetch_assoc($result8)) {
-                                                            $pid = $row['id'];
-                                                        ?>
-                                                            <tr>
-                                                                <td class="text-center"><?php echo $s ?></td>
-                                                                <td class="text-center"><?php echo $row['id'] ?></td>
-                                                                <td class="text-center">Venue: <?php echo $row['block_venue'] ?> | <br>Problem: <?php echo $row['problem_description'] ?></td>
-                                                                <td class="text-center">
-                                                                    <?php
-                                                                    $id = "SELECT * FROM manager WHERE problem_id=$pid";
-                                                                    $query_run1 = mysqli_query($conn, $id);
-                                                                    $roww = mysqli_fetch_array($query_run1);
-                                                                    $worker_id = $roww['worker_id'];
-
-                                                                    // Fetch worker details
-                                                                    $query = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
-                                                                    $query_run = mysqli_query($conn, $query);
-                                                                    $User_data = mysqli_fetch_array($query_run); ?>
-                                                                    Completed by: <?php echo $User_data['worker_first_name'] ?> | <br>
-                                                                    Department: <?php echo $User_data['worker_dept'] ?>
-                                                                </td>
-                                                                <td class="text-center"><?php echo $row['date_of_completion'] ?></td>
-                                                            </tr>
-                                                        <?php
-                                                            $s++;
-                                                        }
-                                                        ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <!-- Worker Details Modal -->
-                                    <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog"
+                                      <!-- Worker Details Modal -->
+                                      <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog"
                                         aria-labelledby="detailsModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -1002,34 +719,8 @@ if (isset($_POST['form1'])) {
                                         </div>
                                     </div>
 
-                                    <!-- Ans query Modal -->
-                                    <div class="modal fade" id="ansquery" tabindex="-1" role="dialog"
-                                        aria-labelledby="detailsModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="detailsModalLabel">Query Details</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p><strong>Query:</strong> <br>
-                                                        <input type="text" name="query2" id="query2" readonly>
-                                                    <p><strong>Reply</strong> <br>
-                                                        <input type="text" name="reply2" id="reply2" readonly>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Before Image Modal -->
-                                    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog"
+                                     <!-- Before Image Modal -->
+                                     <div class="modal fade" id="imageModal" tabindex="-1" role="dialog"
                                         aria-labelledby="imageModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -1076,8 +767,8 @@ if (isset($_POST['form1'])) {
                                         </div>
                                     </div>
 
-                                    <!-- Feedback Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                      <!-- Feedback Modal -->
+                                      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -1102,8 +793,8 @@ if (isset($_POST['form1'])) {
                                         </div>
                                     </div>
 
-                                    <!-- Date Picker Modal -->
-                                    <div class="modal fade" id="datePickerModal" tabindex="-1" role="dialog" aria-labelledby="datePickerModalLabel" aria-hidden="true">
+                                        <!-- Date Picker Modal -->
+                                        <div class="modal fade" id="datePickerModal" tabindex="-1" role="dialog" aria-labelledby="datePickerModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -1124,8 +815,8 @@ if (isset($_POST['form1'])) {
                                         </div>
                                     </div>
 
-                                    <!-- Completed Table Feedback Modal -->
-                                    <div class="modal fade" id="completedfeedbackModal" tabindex="-1" role="dialog"
+                                     <!-- Completed Table Feedback Modal -->
+                                     <div class="modal fade" id="completedfeedbackModal" tabindex="-1" role="dialog"
                                         aria-labelledby="completedfeedbackModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -1147,47 +838,60 @@ if (isset($_POST['form1'])) {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+        <!--image before and complaint end-->
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        <!-- .right-sidebar -->
+        <!-- ============================================================== -->
+        <!-- End Right sidebar -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- footer -->
+    <!-- ============================================================== -->
     <footer class="footer text-center">
         <b>2024 © M.Kumarasamy College of Engineering All Rights Reserved.<br>
-            Developed and Maintained by Technology Innovation Hub.
-        </b>
+            Developed and Maintained by Technology Innovation Hub.</b>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- End footer -->
+    <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Popper.js for Bootstrap 4 -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <!-- Bootstrap 4 JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <!-- Other JavaScript files -->
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
     <script src="dist/js/waves.js"></script>
+    <!--Menu sidebar -->
     <script src="dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
     <script src="dist/js/custom.min.js"></script>
-    <script src="assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
-    <script src="assets/extra-libs/DataTables/datatables.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!--Download as XL-Sheet-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
-
-
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script>
-        $(function() {
+         $(function() {
             // Initialize the tooltip
             $('[data-toggle="tooltip"]').tooltip();
 
@@ -1213,41 +917,11 @@ if (isset($_POST['form1'])) {
         $(document).ready(function() {
             $("#principal_table").DataTable();
         });
-        $(document).ready(function() {
-            $("#complain_table").DataTable();
-        });
-        $(document).ready(function() {
-            $("#worker_table").DataTable();
-        });
-        $(document).ready(function() {
-            $("#finished_table").DataTable();
-        });
-        $(document).ready(function() {
-            $("#reassigned_table").DataTable();
-        });
-        $(document).ready(function() {
-            $("#completed_table").DataTable();
-        });
+       
         $(document).ready(function() {
             $("#record_table").DataTable();
         });
 
-        $(document).ready(function() {
-            $(".nav-link").click(function(e) {
-                e.preventDefault(); // Prevent default anchor behavior
-                // Remove 'active show' class from all nav links
-                $(".nav-link").removeClass("active show");
-                // Add 'active show' class to the clicked nav link
-                $(this).addClass("active show");
-                // Hide all tab panes
-                $(".tab-pane").removeClass("active show");
-                // Show the associated tab pane
-                var target = $(this).attr("href");
-                $(target).addClass("active show");
-            });
-        });
-    </script>
-    <script>
         $(function() {
             // Initialize the tooltip
             $('[data-toggle="tooltip"]').tooltip();
@@ -1258,6 +932,7 @@ if (isset($_POST['form1'])) {
                 title: 'Accept'
             });
         });
+
         $(document).on("click", ".worker", function(e) {
             e.preventDefault();
             var worker_dept = $(this).data("value");
@@ -1276,8 +951,6 @@ if (isset($_POST['form1'])) {
                 }
             });
         });
-
-
 
         $(document).on("click", ".acceptcomplaint", function(e) {
             e.preventDefault();
@@ -1310,30 +983,6 @@ if (isset($_POST['form1'])) {
             });
         });
 
-
-
-
-
-      
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $(".nav-link").click(function(e) {
-                e.preventDefault(); // Prevent default anchor behavior
-                // Remove 'active show' class from all nav links
-                $(".nav-link").removeClass("active show");
-                // Add 'active show' class to the clicked nav link
-                $(this).addClass("active show");
-                // Hide all tab panes
-                $(".tab-pane").removeClass("active show");
-                // Show the associated tab pane
-                var target = $(this).attr("href");
-                $(target).addClass("active show");
-            });
-        });
-
-
         $(document).on("click", ".viewcomplaint", function(e) {
             e.preventDefault();
             var user_id = $(this).val();
@@ -1344,6 +993,7 @@ if (isset($_POST['form1'])) {
                 data: {
                     view_complaint: true,
                     user_id: user_id,
+                    fac_id:1,
                 },
                 success: function(response) {
                     var res = jQuery.parseJSON(response);
@@ -1365,8 +1015,6 @@ if (isset($_POST['form1'])) {
                 },
             });
         });
-
-
         $(document).on("click", ".showImage", function() {
             var problem_id = $(this).val(); // Get the problem_id from button value
             console.log(problem_id); // Ensure this logs correctly
@@ -1437,22 +1085,6 @@ if (isset($_POST['form1'])) {
             });
         });
 
-        function checkIfOthers() {
-    const dropdown = document.getElementById('oth');
-    const othersInput = document.getElementById('othersInput');
-    const sel = document.getElementById('worker');
-
-    // Show the input field if "Others" is selected
-    if (dropdown.checked) {
-        othersInput.style.display = 'block';
-        sel.value="";
-    } else {
-        othersInput.style.display = 'none';
-
-    }
-}
-
-
 
         $(document).on("submit", "#workers", function(e) {
             e.preventDefault();
@@ -1480,7 +1112,7 @@ if (isset($_POST['form1'])) {
                     alert("An error occurred: " + error);
                 }
             });
-        })
+        });
 
         document.getElementById('download').addEventListener('click', function() {
             var wb = XLSX.utils.book_new();
@@ -1490,10 +1122,24 @@ if (isset($_POST['form1'])) {
             // Create and trigger the download
             XLSX.writeFile(wb, 'complaints_data.xlsx');
         });
-    </script>
 
-    <!-- JavaScript Alertify-->
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+      
+
+
+
+
+
+
+
+
+       
+
+        </script>
+
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+
+
+
 
 
 </body>

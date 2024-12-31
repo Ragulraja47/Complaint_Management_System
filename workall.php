@@ -25,10 +25,10 @@ $sql = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty.faculty_name,
-        faculty.department,
-        faculty.faculty_contact,
-        faculty.faculty_mail,
+        faculty_details.faculty_name,
+        faculty_details.department,
+        faculty_details.faculty_contact,
+        faculty_details.faculty_mail,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -46,7 +46,7 @@ $sql = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty ON cd.faculty_id = faculty.faculty_id
+        faculty_details ON cd.faculty_id = faculty_details.faculty_id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -67,10 +67,10 @@ $sql1 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty.faculty_name,
-        faculty.department,
-        faculty.faculty_contact,
-        faculty.faculty_mail,
+        faculty_details.faculty_name,
+        faculty_details.department,
+        faculty_details.faculty_contact,
+        faculty_details.faculty_mail,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -88,7 +88,7 @@ $sql1 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty ON cd.faculty_id = faculty.faculty_id
+        faculty_details ON cd.faculty_id = faculty_details.faculty_id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -107,10 +107,10 @@ $sql2 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty.faculty_name,
-        faculty.department,
-        faculty.faculty_contact,
-        faculty.faculty_mail,
+        faculty_details.faculty_name,
+        faculty_details.department,
+        faculty_details.faculty_contact,
+        faculty_details.faculty_mail,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -129,7 +129,7 @@ $sql2 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty ON cd.faculty_id = faculty.faculty_id
+        faculty_details ON cd.faculty_id = faculty_details.faculty_id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -148,10 +148,10 @@ $sql3 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty.faculty_name,
-        faculty.department,
-        faculty.faculty_contact,
-        faculty.faculty_mail,
+        faculty_details.faculty_name,
+        faculty_details.department,
+        faculty_details.faculty_contact,
+        faculty_details.faculty_mail,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -170,7 +170,7 @@ $sql3 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty ON cd.faculty_id = faculty.faculty_id
+        faculty_details ON cd.faculty_id = faculty_details.faculty_id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -189,10 +189,10 @@ $sql4 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty.faculty_name,
-        faculty.department,
-        faculty.faculty_contact,
-        faculty.faculty_mail,
+        faculty_details.faculty_name,
+        faculty_details.department,
+        faculty_details.faculty_contact,
+        faculty_details.faculty_mail,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -211,7 +211,7 @@ $sql4 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty ON cd.faculty_id = faculty.faculty_id
+        faculty_details ON cd.faculty_id = faculty_details.faculty_id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -405,7 +405,7 @@ $c6 = mysqli_num_rows($r6);
                 <nav class="sidebar-nav">
                 <ul id="sidebarnav" class="p-t-30">
                 <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
+                        <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="new_work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
                         <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="workall.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu"><?php echo $srow['worker_dept'] ?></span></a></li>
                     </ul>
                 </nav>

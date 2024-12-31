@@ -12,7 +12,7 @@ FROM
 LEFT JOIN 
     comments AS c ON cd.id = c.problem_id 
 JOIN 
-    faculty AS f ON cd.faculty_id = f.faculty_id 
+    faculty_details AS f ON cd.faculty_id = f.faculty_id 
 WHERE 
     cd.status = 6";
 

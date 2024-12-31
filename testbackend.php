@@ -6,15 +6,15 @@ if (isset($_POST['view_complaint'])) {
     $complain_id = mysqli_real_escape_string($conn, $_POST['user_id']);
     $fac_id = mysqli_real_escape_string($conn,$_POST['fac_id']);
     $query = "
-    SELECT cd.*, faculty.faculty_name, faculty.faculty_contact, faculty.faculty_mail, faculty.department, cd.block_venue
+    SELECT cd.*, faculty_details.faculty_name, faculty_details.faculty_contact, faculty_details.faculty_mail, faculty_details.department, cd.block_venue
     FROM complaints_detail cd
-    JOIN faculty ON cd.faculty_id = faculty.faculty_id
+    JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
     WHERE cd.id = '$complain_id'
 ";
 
     $query_run = mysqli_query($conn, $query);
     $User_data = mysqli_fetch_array($query_run);
-    $query1 = "SELECT * FROM facultys WHERE id='$fac_id'";
+    $query1 = "SELECT * FROM faculty WHERE id='$fac_id'";
     $query1_run = mysqli_query($conn,$query1);
     $fac_data = mysqli_fetch_array($query1_run);
     if ($query_run) {
@@ -113,22 +113,6 @@ if (isset($_POST['manager_approve'])) {
         $response = ['status' => 500, 'message' => 'Failed to insert data into manager table.'];
     }
     echo json_encode($response);
-}
-
-
-// Check if ID is provided
-if (isset($_POST['id'])) {
-    $complaint_id = intval($_POST['id']);
-    // Prepare SQL query
-    $query = "SELECT feedback FROM complaints_detail WHERE id = ? AND status IN ('13', '14')";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $complaint_id);
-    $stmt->execute();
-    $stmt->bind_result($feedback);
-    $stmt->fetch();
-    $stmt->close();
-    // Return the feedback
-    echo $feedback;
 }
 
 // Handle reply submission for principal's query
@@ -389,37 +373,6 @@ if (isset($_POST['get_worker_phone'])) {
     }
 }
 
-//REquirement Reject
-
-if (isset($_POST["hod_reject"])) {
-    $id = $_POST["id"];
-    $reason = $_POST["feedback"];
-
-    $query = "UPDATE products SET status = 7 , reason = '$reason' WHERE id = '$id'";
-    $run = mysqli_query($conn, $query);
-    if ($run) {
-        $res = [
-            "status" => 200,
-            "msg" => "Product rejected successfully"
-        ];
-        echo json_encode($res);
-    }
-}
-
-if (isset($_POST["infra_reject"])) {
-    $id = $_POST["id"];
-    $reason = $_POST["feedback"];
-
-    $query = "UPDATE products SET status = 6 , reason = '$reason' WHERE id = '$id'";
-    $run = mysqli_query($conn, $query);
-    if ($run) {
-        $res = [
-            "status" => 200,
-            "msg" => "Product rejected successfully"
-        ];
-        echo json_encode($res);
-    }
-}
 
 if (isset($_POST['form1'])) {
     $name = $_POST['w_name'];
@@ -512,7 +465,7 @@ if (isset($_POST["manager_feedbacks"])) {
         $id = mysqli_real_escape_string($conn, $_POST['id']);
         $feedback = mysqli_real_escape_string($conn, $_POST['feedback12']);
         $rating = mysqli_real_escape_string($conn, $_POST['ratings']);
-        $query = "UPDATE complaints_detail SET mfeedback = '$feedback', mrating = '$rating'  WHERE id = $id";
+        $query = "UPDATE complaints_detail SET mfeedback = '$feedback', mrating = '$rating', status ='16'  WHERE id = $id";
         if (mysqli_query($conn, $query)) {
             $res = [
                 'status' => 200,
@@ -529,6 +482,7 @@ if (isset($_POST["manager_feedbacks"])) {
         echo json_encode($res);
     }
 }
+
 
 //backend for worker details
 /* if (isset($_POST['fac_feed_rate'])) {

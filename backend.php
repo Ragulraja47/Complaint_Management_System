@@ -114,13 +114,11 @@ if (isset($_POST['update'])) {
 
     $insertQuery = "UPDATE manager SET worker_id='$name' WHERE task_id='$taskId'";
     if (mysqli_query($conn, $insertQuery)) {
-        $updateQuery = "UPDATE complaints_detail SET status='7' WHERE id='$problem_id'";
-        if (mysqli_query($conn, $updateQuery)) {
           
         
             // Update status and task_completion in the complaints_detail table
             $updateComplaintSql = "UPDATE complaints_detail 
-                                   SET status = 11, task_completion = ?,reason = ?,date_of_completion = NOW()
+                                   SET status = 11,worker_id='$name', task_completion = ?,reason = ?,date_of_completion = NOW()
                                    WHERE id = (SELECT problem_id FROM manager WHERE task_id = ?)";
             if ($stmt = $conn->prepare($updateComplaintSql)) {
                 $stmt->bind_param("ssi", $completionStatus,$reason,$taskId);
@@ -166,7 +164,7 @@ if (isset($_POST['update'])) {
                 echo "No file uploaded or file upload error.";
             }   
 
-        }
+        
     }
     // Database connection
 }

@@ -3,9 +3,9 @@ include("db.php");
 //query for 1st table input 
 //Faculty complaint table
 $sql1 = "
-SELECT cd.*, faculty.faculty_name, faculty.department, faculty.faculty_contact, faculty.faculty_mail
+SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
-JOIN faculty ON cd.faculty_id = faculty.faculty_id
+JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
 WHERE cd.status IN ('4','9')
 ";
 $result1 = mysqli_query($conn, $sql1);
@@ -448,7 +448,7 @@ $row_count7 = mysqli_num_rows($result7);
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i>
                                     My Profile</a>
-                                    <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#addworker" ><i class="ti-user m-r-5 m-l-5"></i>
+                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#addworker"><i class="ti-user m-r-5 m-l-5"></i>
                                     Add Worker</a>
                                 <a class="dropdown-item" href="javascript:void(0)"><i
                                         class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
@@ -499,7 +499,7 @@ $row_count7 = mysqli_num_rows($result7);
                     </div>
                 </div>
             </div>
-           
+
 
 
             <div class="modal fade" id="addworker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -527,7 +527,7 @@ $row_count7 = mysqli_num_rows($result7);
                                     <option value="all">Select Role</option>
                                     <option value="head">Head</option>
                                     <option value="worker">Worker</option>
-                                    
+
 
                                 </select>
 
@@ -579,24 +579,27 @@ $row_count7 = mysqli_num_rows($result7);
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#worker"
                                             role="tab"><span class="hidden-sm-up"></span>
                                             <div id="navref3"> <span
-                                                    class="hidden-xs-down"><b>Work Assigned (<?php echo $row_count3; ?>)</b></span> </div>
+                                                    class="hidden-xs-down"><b>Assigned (<?php echo $row_count3; ?>)</b></span> </div>
                                         </a> </li>
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#finished"
                                             role="tab"><span class="hidden-sm-up"></span>
                                             <div id="navref4"> <span
-                                                    class="hidden-xs-down"><b>Worker Response (<?php echo $row_count5; ?>)</b></span></div>
+                                                    class="hidden-xs-down"><b>Response (<?php echo $row_count5; ?>)</b></span></div>
                                         </a> </li>
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#reassigned"
                                             role="tab"><span class="hidden-sm-up"></span>
                                             <div id="navref5"> <span
-                                                    class="hidden-xs-down"><b>Work Re-assigned (<?php echo $row_count7; ?>)</b></span></div>
+                                                    class="hidden-xs-down"><b>Reassigned (<?php echo $row_count7; ?>)</b></span></div>
                                         </a> </li>
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#completed"
                                             role="tab"><span class="hidden-sm-up"></span><span
-                                                class="hidden-xs-down"><b>Work Completed</b></span></a> </li>
+                                                class="hidden-xs-down"><b>Completed works</b></span></a> </li>
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#record"
                                             role="tab"><span class="hidden-sm-up"></span> <span
                                                 class="hidden-xs-down"><b>Work Record</b></span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#workersr"
+                                            role="tab"><span class="hidden-sm-up"></span> <span
+                                                class="hidden-xs-down"><b>Workers Record</b></span></a> </li>
                                 </ul>
                             </div>
 
@@ -806,7 +809,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                                         value="<?php echo $row4['id']; ?>" data-toggle="dropdown"><i class="fas fa-check"></i>
                                                                     </button>
                                                                     <ul class="dropdown-menu">
-                                                                    <center>
+                                                                        <center>
                                                                             <li><a href="#" class="worker"
                                                                                     data-toggle="modal"
                                                                                     data-target="#managerapproveModal"
@@ -829,8 +832,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                                                     data-value="house">HOUSE KEEPING</a></li>
                                                                         </center>
 
-                                                                        </ul>
-                                                                    
+                                                                    </ul>
+
 
                                                                 <?php }
                                                                 if ($row4['status'] == '19') { ?>
@@ -1359,15 +1362,103 @@ $row_count7 = mysqli_num_rows($result7);
                                                                 Completed by: <?php echo $User_data['worker_first_name'] ?> | <br>
                                                                 Department: <?php echo $User_data['worker_dept'] ?>
                                                             </td>
-                                                            <td class="text-center"><?php echo $row['feedback'] ?>  <br>Ratings: <?php echo $row['rating'] ?></td>
-                                                            <td class="text-center"><?php echo $row['mfeedback'] ?>  <br>Ratings: <?php echo $row['mrating'] ?></td>
+                                                            <td class="text-center"><?php echo $row['feedback'] ?> <br>Ratings: <?php echo $row['rating'] ?></td>
+                                                            <td class="text-center"><?php echo $row['mfeedback'] ?> <br>Ratings: <?php echo $row['mrating'] ?></td>
                                                             <td class="text-center"><?php echo $row['date_of_completion'] ?></td>
-                                                             <?php
-                                                             $mr = $row['mrating'];
-                                                             $fr = $row['rating'];
-                                                             $tot = ($mr + $fr)/2;
-                                                             ?>
+                                                            <?php
+                                                            $mr = $row['mrating'];
+                                                            $fr = $row['rating'];
+                                                            $tot = ($mr + $fr) / 2;
+                                                            ?>
                                                             <td class="text-center"><?php echo $tot; ?></td>
+                                                        </tr>
+                                                    <?php
+                                                        $s++;
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Workers Record Table -->
+
+                                <?php
+                                // Set default month as the current month if no input is provided
+                                $selectedMonth = isset($_POST['selectmonth']) ? $_POST['selectmonth'] : date('m');
+
+                                // Fetch data based on the selected month
+                                $sql9 = "SELECT * FROM worker_details WHERE usertype ='worker' ";
+                                $result9 = mysqli_query($conn, $sql9);
+                                $sql10 = "SELECT COUNT(*) AS noofworks FROM complaints_detail WHERE status='16'";
+                                $res = mysqli_query($conn, $sql10);
+                                $val = mysqli_num_rows($res);
+
+                                ?>
+                                <div class="tab-pane p-20" id="workersr" role="tabpanel">
+                                    <div class="p-20">
+                                        <div class="table-responsive">
+                                            <h5 class="card-title">Worker's Record</h5>
+
+                                            <form method="POST" action="">
+                                                <label for="selectmonth">Select Month (1-12): </label>
+                                                <input type="number" name="selectmonth" min="1" max="12" value="<?php echo $selectedMonth; ?>" required>
+                                                <button type="submit" class="btn btn-primary">Enter</button>
+                                            </form><span style="float:right">
+                                                <button id="download" class="btn btn-success">Download as Excel</button></span><br><br>
+
+                                            <table id="Rworkers" class="table table-striped table-bordered">
+                                                <thead style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                    <tr>
+                                                        <th class="text-center"><b>
+                                                                <h5>S.No</h5>
+                                                            </b></th>
+                                                        <th class="col-md-2 text-center"><b>
+                                                                <h5>Worker ID</h5>
+                                                            </b></th>
+                                                        <th class="col-md-2 text-center"><b>
+                                                                <h5>Worker Name</h5>
+                                                            </b></th>
+                                                        <th class="text-center"><b>
+                                                                <h5>Department</h5>
+                                                            </b></th>
+                                                        <th class="text-center"><b>
+                                                                <h5>Completed Works</h5>
+                                                            </b></th>
+                                                        <th class="text-center">
+                                                            <b>
+                                                                <h5>Faculty Ratings</h5>
+                                                            </b>
+                                                        </th>
+                                                        <th class="text-center">
+                                                            <b>
+                                                                <h5>Manager Ratings</h5>
+                                                            </b>
+                                                        </th>
+                                                        <th class="text-center">
+                                                            <b>
+                                                                <h5>average Rating</h5>
+                                                            </b>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $s = 1;
+                                                    while ($row = mysqli_fetch_assoc($result9)) {
+                                                        $pid = $row['id'];
+                                                    ?>
+                                                        <tr>
+                                                            <td class="text-center"><?php echo $s ?></td>
+                                                            <td class="text-center"><?php echo $row['worker_id'] ?></td>
+                                                            <td class="text-center"><?php echo $row['worker_first_name'] ?></td>
+                                                            <td class="text-center"><?php echo $row['worker_dept'] ?></td>
+                                                            <td class="text-center totalworks" data-value="<?php echo $row['worker_id']; ?>"></td>
+                                                            <td class="text-center facultyr" data-value="<?php echo $row['worker_id']; ?>"></td>
+                                                            <td class="text-center managerr" data-value="<?php echo $row['worker_id']; ?>"></td>
+                                                            <td class="text-center average" data-value="<?php echo $row['worker_id']; ?>"></td>
                                                         </tr>
                                                     <?php
                                                         $s++;
@@ -1749,7 +1840,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-danger done">Submit</button>
+                                                    <button type="submit" class="btn btn-danger">Submit</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -2014,6 +2105,9 @@ $row_count7 = mysqli_num_rows($result7);
                 });
                 $(document).ready(function() {
                     $("#record_table").DataTable();
+                });
+                $(document).ready(function() {
+                    $("#Rworkers").DataTable();
                 });
             </script>
             <script>
@@ -2299,7 +2393,7 @@ $row_count7 = mysqli_num_rows($result7);
                         data: {
                             view_comp: true,
                             user_id: user_id,
-                            fac_id:fac_id,
+                            fac_id: fac_id,
                         },
                         success:function(response) {
                             console.log(response);
@@ -2423,7 +2517,7 @@ $row_count7 = mysqli_num_rows($result7);
                     e.preventDefault();
                     var user_id = $(this).val();
                     console.log(user_id);
-                    $(document).data("feedid",user_id);
+                    $(document).data("feedid", user_id);
                     $.ajax({
                         type: "POST",
                         url: "backend.php",
@@ -2446,7 +2540,7 @@ $row_count7 = mysqli_num_rows($result7);
 
                                 if (!isNaN(nu) && nu > 0) {
                                     const stars1 = document.querySelectorAll("#star-rating1 span");
-                                    
+
                                     stars1.forEach(s => s.classList.remove("highlighted"));
 
                                     for (let i = 0; i < nu; i++) {
@@ -2463,39 +2557,11 @@ $row_count7 = mysqli_num_rows($result7);
 
                     // Open the feedback modal and set the complaintfeed ID (Event Delegation)
                     $(document).on("click", ".facfeed", function() {
-                        complaintfeedId = $(this).val();
-                        
+                        var complaintfeedId = $(this).val();
+                        $("#complaintfeed_id").val(complaintfeedId)
 
                         // Send the rating ID to the PHP script via AJAX
-                       
-                    });
 
-                    // When 'Done' is clicked (Event Delegation)
-                    $(document).on("click", ".done", function() {
-                        var complaintfeedId = $("#complaintfeed_id").val();
-                        updateComplaintStatus(complaintfeedId, 16); // Status '16' for Done
-                        swal({
-                            title: "success!",
-                            text: "Completed sucessfully!",
-                            icon: "success",
-                            button: "Ok",
-                            timer: null
-                        });
-
-                        $('#finished_table').DataTable().destroy();
-                        $('#completed_table').DataTable().destroy();
-
-                        $("#finished_table").load(location.href + " #finished_table > *", function() {
-                            // Reinitialize the DataTable after the content is loaded
-                            $('#finished_table').DataTable();
-                        });
-                        $("#completed_table").load(location.href + " #completed_table > *", function() {
-                            // Reinitialize the DataTable after the content is loaded
-                            $('#completed_table').DataTable();
-                        });
-                        $("#navref3").load(location.href + " #navref3");
-                        $("#navref4").load(location.href + " #navref4");
-                        $("#navref5").load(location.href + " #navref5");
                     });
 
                     // When 'Reassign' is clicked (Event Delegation)
@@ -2769,14 +2835,47 @@ $row_count7 = mysqli_num_rows($result7);
                         processData: false,
                         contentType: false,
                         success: function(response) {
+                            console.log(response);
                             var res = jQuery.parseJSON(response);
 
                             if (res.status == 200) {
-                                // Close modal
-                                $("#DoneModal").modal("hide");
+                                swal({
+                            title: "success!",
+                            text: "Completed sucessfully!",
+                            icon: "success",
+                            button: "Ok",
+                            timer: null
+                        });
 
-                                // Reset the form
-                                $("#manager_feedback")[0].reset();
+                        $("#DoneModal").modal("hide");
+
+                        // Reset the form
+                        $("#manager_feedback")[0].reset();
+                        $('#finished_table').DataTable().destroy();
+                        $('#completed_table').DataTable().destroy();
+                        $('#record_table').DataTable().destroy();
+                        $('#completed_table').DataTable().destroy();
+
+                        $("#finished_table").load(location.href + " #finished_table > *", function() {
+                            // Reinitialize the DataTable after the content is loaded
+                            $('#finished_table').DataTable();
+                        });
+                        $("#completed_table").load(location.href + " #completed_table > *", function() {
+                            // Reinitialize the DataTable after the content is loaded
+                            $('#completed_table').DataTable();
+                        });
+                        $("#record_table").load(location.href + " #record_table > *", function() {
+                            // Reinitialize the DataTable after the content is loaded
+                            $('#record_table').DataTable();
+                        });
+                        $("#Rworkers").load(location.href + " #Rworkers > *", function() {
+                            // Reinitialize the DataTable after the content is loaded
+                            $('#Rworkers').DataTable();
+                        });
+                        $("#navref3").load(location.href + " #navref3");
+                        $("#navref4").load(location.href + " #navref4");
+                        $("#navref5").load(location.href + " #navref5");
+                    
 
 
                                 // Display success message
@@ -2851,8 +2950,114 @@ $row_count7 = mysqli_num_rows($result7);
                         $(document).data("ratings", rating);
                     });
                 });
+
+
+
+
+                $(document).ready(function() {
+                    $('.totalworks').each(function() {
+                        var works = $(this);
+                        var id = works.data('value');
+                        $.ajax({
+                            type: "POST",
+                            url: "worker_count.php",
+                            data: {
+                                count: true,
+                                id: id
+                            },
+                            success: function(response) {
+                                var res = jQuery.parseJSON(response);
+                                if (res.status == 200) {
+                                    works.text(res.data);
+                                } else {
+                                    console.log("error");
+                                }
+                            }
+
+
+                        })
+                    });
+                    $('.facultyr').each(function() {
+                        var ratings = $(this);
+                        var id = ratings.data('value');
+                        $.ajax({
+                            type: "POST",
+                            url: "worker_count.php",
+                            data: {
+                                fratings: true,
+                                id: id
+                            },
+                            success: function(response) {
+                                console.log(response);
+                                var res = jQuery.parseJSON(response);
+                                if (res.status == 200) {
+                                    ratings.text(res.data);
+                                } else {
+                                    console.log(error);
+                                }
+                            }
+                        })
+
+                    });
+                    $('.managerr').each(function() {
+                        var ratings = $(this);
+                        var id = ratings.data('value');
+                        $.ajax({
+                            type: "POST",
+                            url: "worker_count.php",
+                            data: {
+                                mratings: true,
+                                id: id
+                            },
+                            success: function(response) {
+                                console.log(response);
+                                var res = jQuery.parseJSON(response);
+                                if (res.status == 200) {
+                                    ratings.text(res.data);
+                                } else {
+                                    console.log(error);
+                                }
+                            }
+                        })
+
+                    })
+                    $('.average').each(function(){
+        var average = $(this);
+        var id = average.data('value');
+        $.ajax({
+            type:"POST",
+            url:"worker_count.php",
+            data:{
+                average:true,
+                id:id
+            },
+            success:function(response){
+                console.log(response);
+                var res = jQuery.parseJSON(response);
+                if(res.status==200){
+                    average.text(res.data);
+                }
+                else{
+                    console.log("error");
+                }
+            }
+        })
+    })
+                });
+
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    const tableRows = document.querySelectorAll("#Rworkers tbody tr");
+                    tableRows.forEach(row => {
+                        const works = parseInt(row.querySelector(".totalworks").textContent) || 0;
+                        const ratings = parseInt(row.querySelector(".totalratings").textContent) || 0;
+                        const avg = row.querySelector(".average");
+                        console.log(avg);
+                        const average = ratings / works;
+                        avg.textContent = average;
+                    });
+                });
             </script>
 
 
 </body>
-
