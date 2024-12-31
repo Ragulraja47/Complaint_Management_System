@@ -1333,7 +1333,7 @@ $row_count7 = mysqli_num_rows($result7);
                                                         </th>
                                                         <th class="text-center">
                                                             <b>
-                                                                <h5 average Rating</h5>
+                                                                <h5>Average Rating</h5>
                                                             </b>
                                                         </th>
                                                     </tr>
@@ -1429,7 +1429,12 @@ $row_count7 = mysqli_num_rows($result7);
                                                             </b></th>
                                                         <th class="text-center">
                                                             <b>
-                                                                <h5>Total Rating</h5>
+                                                                <h5>Faculty Ratings</h5>
+                                                            </b>
+                                                        </th>
+                                                        <th class="text-center">
+                                                            <b>
+                                                                <h5>Manager Ratings</h5>
                                                             </b>
                                                         </th>
                                                         <th class="text-center">
@@ -1451,7 +1456,8 @@ $row_count7 = mysqli_num_rows($result7);
                                                             <td class="text-center"><?php echo $row['worker_first_name'] ?></td>
                                                             <td class="text-center"><?php echo $row['worker_dept'] ?></td>
                                                             <td class="text-center totalworks" data-value="<?php echo $row['worker_id']; ?>"></td>
-                                                            <td class="text-center totalratings" data-value="<?php echo $row['worker_id']; ?>"></td>
+                                                            <td class="text-center facultyr" data-value="<?php echo $row['worker_id']; ?>"></td>
+                                                            <td class="text-center managerr" data-value="<?php echo $row['worker_id']; ?>"></td>
                                                             <td class="text-center average" data-value="<?php echo $row['worker_id']; ?>"></td>
                                                         </tr>
                                                     <?php
@@ -2971,14 +2977,36 @@ $row_count7 = mysqli_num_rows($result7);
 
                         })
                     });
-                    $('.totalratings').each(function() {
+                    $('.facultyr').each(function() {
                         var ratings = $(this);
                         var id = ratings.data('value');
                         $.ajax({
                             type: "POST",
                             url: "worker_count.php",
                             data: {
-                                ratings: true,
+                                fratings: true,
+                                id: id
+                            },
+                            success: function(response) {
+                                console.log(response);
+                                var res = jQuery.parseJSON(response);
+                                if (res.status == 200) {
+                                    ratings.text(res.data);
+                                } else {
+                                    console.log(error);
+                                }
+                            }
+                        })
+
+                    });
+                    $('.managerr').each(function() {
+                        var ratings = $(this);
+                        var id = ratings.data('value');
+                        $.ajax({
+                            type: "POST",
+                            url: "worker_count.php",
+                            data: {
+                                mratings: true,
                                 id: id
                             },
                             success: function(response) {

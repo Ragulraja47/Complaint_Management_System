@@ -14,9 +14,22 @@ if(isset($_POST["count"])){
     echo json_encode($res);
 }
 
-if(isset($_POST['ratings'])){
+if(isset($_POST['fratings'])){
     $id=$_POST['id'];
-    $query = "SELECT sum(rating+mrating) AS total FROM complaints_detail WHERE worker_id='$id'";
+    $query = "SELECT sum(rating) AS total FROM complaints_detail WHERE worker_id='$id'";
+    $query_run = mysqli_query($conn,$query);
+    $count_data = mysqli_fetch_assoc($query_run);
+    $total = $count_data['total']??0;
+    $res=[
+        "status"=>200,
+        "data"=>$total
+    ];
+    echo json_encode($res);
+}
+
+if(isset($_POST['mratings'])){
+    $id=$_POST['id'];
+    $query = "SELECT sum(mrating) AS total FROM complaints_detail WHERE worker_id='$id'";
     $query_run = mysqli_query($conn,$query);
     $count_data = mysqli_fetch_assoc($query_run);
     $total = $count_data['total']??0;
