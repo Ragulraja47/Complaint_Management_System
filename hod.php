@@ -1317,7 +1317,7 @@ $result3 = mysqli_query($conn, $sql3);
                 formdata1.append("reject_id", reject_id);
                 $.ajax({
                     type: "POST",
-                    url: "hodbackend.php",
+                    url: "backend.php",
                     data: formdata1,
                     processData: false,
                     contentType: false,
@@ -1366,7 +1366,7 @@ $result3 = mysqli_query($conn, $sql3);
                 function() {
                     $.ajax({
                         type: "POST",
-                        url: "hodbackend.php",
+                        url: "backend.php",
                         data: {
                             'approvebtn': true,
                             'approve': approveid
@@ -1409,7 +1409,7 @@ $result3 = mysqli_query($conn, $sql3);
             console.log("alert");
             $.ajax({
                 type: "POST",
-                url: "hodbackend.php",
+                url: "backend.php",
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -1447,7 +1447,7 @@ $result3 = mysqli_query($conn, $sql3);
             console.log(user_id)
             $.ajax({
                 type: "POST",
-                url: "hodbackend.php",
+                url: "backend.php",
                 data: {
                     'seedetails': true,
                     'user_id': user_id
@@ -1473,17 +1473,17 @@ $result3 = mysqli_query($conn, $sql3);
         $(document).on('click', '#facultyinfo', function(e) {
             e.preventDefault();
             var user_id = $(this).val();
-            var fac_id = $("#facultyinfo").data("value"); 
+            var fac_id = $("#facultyinfo").data("value");
 
             console.log(user_id);
             console.log(fac_id);
             $.ajax({
                 type: "POST",
-                url: "hodbackend.php",
+                url: "backend.php",
                 data: {
                     'facultydetails': true,
                     'user_id': user_id,
-                    'fac_id':fac_id
+                    'fac_id': fac_id
                 },
                 success: function(response) {
                     var res = jQuery.parseJSON(response);
@@ -1512,9 +1512,9 @@ $result3 = mysqli_query($conn, $sql3);
 
             $.ajax({
                 type: "POST",
-                url: "hodbackend.php",
+                url: "backend.php",
                 data: {
-                    'get_image': true,
+                    'getimage': true,
                     'task_id': task_id
                 },
                 dataType: "json",
@@ -1541,7 +1541,7 @@ $result3 = mysqli_query($conn, $sql3);
             // Fetch the image from the server
             $.ajax({
                 type: "POST",
-                url: "hodbackend.php",
+                url: "backend.php",
                 data: {
                     'after_image': true,
                     'task_id': task_id
@@ -1569,7 +1569,7 @@ $result3 = mysqli_query($conn, $sql3);
             console.log(user_idrej)
             $.ajax({
                 type: "POST",
-                url: "hodbackend.php",
+                url: "backend.php",
                 data: {
                     'seefeedback': true,
                     'user_idrej': user_idrej

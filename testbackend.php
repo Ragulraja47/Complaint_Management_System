@@ -12,7 +12,6 @@ if (isset($_POST['view_complaint'])) {
     WHERE cd.id = '$complain_id'
 ";
 
-
     $query_run = mysqli_query($conn, $query);
     $User_data = mysqli_fetch_array($query_run);
     $query1 = "SELECT * FROM facultys WHERE id='$fac_id'";

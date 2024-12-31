@@ -2032,7 +2032,7 @@ $row_count7 = mysqli_num_rows($result7);
 
                     $.ajax({
                         type: "POST",
-                        url: "testbackend.php",
+                        url: "backend.php",
                         data: formData,
                         processData: false,
                         contentType: false,
@@ -2122,7 +2122,7 @@ $row_count7 = mysqli_num_rows($result7);
                     console.log("User ID:", user_id);
 
                     $.ajax({
-                        url: "testbackend.php",
+                        url: "backend.php",
                         type: "POST",
                         data: {
                             user_id: user_id,
@@ -2179,7 +2179,7 @@ $row_count7 = mysqli_num_rows($result7);
                     data.append("manager_approve", true);
 
                     $.ajax({
-                        url: "testbackend.php",
+                        url: "backend.php",
                         type: "POST",
                         data: data,
                         processData: false,
@@ -2241,7 +2241,7 @@ $row_count7 = mysqli_num_rows($result7);
 
                     $.ajax({
                         type: "POST",
-                        url: "testbackend.php",
+                        url: "backend.php",
                         data: formData,
                         processData: false,
                         contentType: false,
@@ -2295,13 +2295,14 @@ $row_count7 = mysqli_num_rows($result7);
                     console.log(user_id);
                     $.ajax({
                         type: "POST",
-                        url: "testbackend.php",
+                        url: "backend.php",
                         data: {
-                            view_complaint: true,
+                            view_comp: true,
                             user_id: user_id,
                             fac_id:fac_id,
                         },
-                        success: function(response) {
+                        success:function(response) {
+                            console.log(response);
                             var res = jQuery.parseJSON(response);
                             console.log(res);
                             if (res.status == 500) {
@@ -2330,9 +2331,9 @@ $row_count7 = mysqli_num_rows($result7);
                     console.log(problem_id); // Ensure this logs correctly
                     $.ajax({
                         type: "POST",
-                        url: "testbackend.php",
+                        url: "backend.php",
                         data: {
-                            get_image: true,
+                            get_image_manager: true,
                             problem_id: problem_id, // Correct POST key
                         },
                         dataType: "json", // Automatically parses JSON responses
@@ -2389,7 +2390,7 @@ $row_count7 = mysqli_num_rows($result7);
 
                         // AJAX request to send the reply to the backend
                         $.ajax({
-                            url: "testbackend.php", // Your backend file
+                            url: "backend.php", // Your backend file
                             type: "POST",
                             data: {
                                 task_id: taskId,
@@ -2425,7 +2426,7 @@ $row_count7 = mysqli_num_rows($result7);
                     $(document).data("feedid",user_id);
                     $.ajax({
                         type: "POST",
-                        url: "testbackend.php",
+                        url: "backend.php",
                         data: {
                             facfeedview: true,
                             user_id: user_id,
@@ -2543,7 +2544,7 @@ $row_count7 = mysqli_num_rows($result7);
                     function updateComplaintStatus(complaintfeedId, status, reassign_deadline = null) {
                         $.ajax({
                             type: "POST",
-                            url: "testbackend.php",
+                            url: "backend.php",
                             data: {
                                 complaintfeed_id: complaintfeedId,
                                 status: status,
@@ -2563,12 +2564,11 @@ $row_count7 = mysqli_num_rows($result7);
                 });
 
 
-
                 // Function to update the complaint status
                 function updateComplaintStatus(complaintfeedId, status, reassign_deadline = null) {
                     $.ajax({
                         type: "POST",
-                        url: "testbackend.php",
+                        url: "backend.php",
                         data: {
                             complaintfeed_id: complaintfeedId,
                             status: status,
@@ -2591,7 +2591,7 @@ $row_count7 = mysqli_num_rows($result7);
                     console.log(id12);
                     $.ajax({
                         type: "POST",
-                        url: "testbackend.php",
+                        url: "backend.php",
                         data: {
                             get_reject_reason: true,
                             problem_id: id12,
@@ -2615,7 +2615,7 @@ $row_count7 = mysqli_num_rows($result7);
                     console.log(problem_id); // Ensure this logs correctly
                     $.ajax({
                         type: "POST",
-                        url: "testbackend.php",
+                        url: "backend.php",
                         data: {
                             get_aimage: true,
                             problem2_id: problem_id, // Correct POST key
@@ -2658,7 +2658,7 @@ $row_count7 = mysqli_num_rows($result7);
                     console.log(prblm_id);
                     $.ajax({
                         type: "POST",
-                        url: "testbackend.php",
+                        url: "backend.php",
                         data: {
                             get_worker_phone: true,
                             prblm_id: prblm_id,
@@ -2692,7 +2692,7 @@ $row_count7 = mysqli_num_rows($result7);
                     console.log(data);
                     data.append("extend_deadlinedate", true);
                     $.ajax({
-                        url: "testbackend.php",
+                        url: "backend.php",
                         type: "POST",
                         data: data,
                         processData: false,
@@ -2727,7 +2727,7 @@ $row_count7 = mysqli_num_rows($result7);
                     console.log(dt);
                     dt.append("form1", true);
                     $.ajax({
-                        url: "testbackend.php",
+                        url: "backend.php",
                         type: "POST",
                         data: dt,
                         processData: false,
@@ -2764,7 +2764,7 @@ $row_count7 = mysqli_num_rows($result7);
 
                     $.ajax({
                         type: "POST",
-                        url: "testbackend.php",
+                        url: "backend.php",
                         data: fd,
                         processData: false,
                         contentType: false,

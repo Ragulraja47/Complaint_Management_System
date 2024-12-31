@@ -1124,7 +1124,7 @@ $resultfac = mysqli_query($conn,$facquery);
             var formData = new FormData(this);
             $.ajax({
                 type: "POST",
-                url: "fbackend.php",
+                url: "backend.php",
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -1163,7 +1163,7 @@ $resultfac = mysqli_query($conn,$facquery);
                 var user_id = $(this).val();
                 $.ajax({
                     type: "POST",
-                    url: "fbackend.php",
+                    url: "backend.php",
                     data: {
                         'delete_user': true,
                         'user_id': user_id
@@ -1210,9 +1210,9 @@ $resultfac = mysqli_query($conn,$facquery);
             console.log(id); // Ensure this logs correctly
             $.ajax({
                 type: "POST",
-                url: "fbackend.php",
+                url: "backend.php",
                 data: {
-                    'get_image': true,
+                    'getimagefac': true,
                     'id': id // Correct POST key
                 },
                 dataType: "json", // Automatically parses JSON responses
@@ -1240,7 +1240,7 @@ $resultfac = mysqli_query($conn,$facquery);
             console.log("Fetching worker details for id: " + id); // Debug log
             $.ajax({
                 type: "POST",
-                url: "fbackend.php", // Adjust if necessary
+                url: "backend.php", // Adjust if necessary
                 data: {
                     'get_worker_details': true,
                     'id': id
@@ -1295,7 +1295,7 @@ $resultfac = mysqli_query($conn,$facquery);
             formData.append("ratings", store_rating);
             $.ajax({
                 type: "POST",
-                url: "fbackend.php", // Adjust if necessary
+                url: "backend.php", // Adjust if necessary
                 data: formData,
                 processData: false,
                 contentType: false,
