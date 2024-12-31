@@ -2391,7 +2391,7 @@ $row_count7 = mysqli_num_rows($result7);
                         type: "POST",
                         url: "testbackend.php",
                         data: {
-                            view_comp: true,
+                            view_complaint: true,
                             user_id: user_id,
                             fac_id: fac_id,
                         },
@@ -2427,7 +2427,7 @@ $row_count7 = mysqli_num_rows($result7);
                         type: "POST",
                         url: "testbackend.php",
                         data: {
-                            get_image_manager: true,
+                            get_image: true,
                             problem_id: problem_id, // Correct POST key
                         },
                         dataType: "json", // Automatically parses JSON responses
