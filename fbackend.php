@@ -37,6 +37,7 @@ if (isset($_POST['faculty_id'])) {
     $fac_id = mysqli_real_escape_string($conn,$_POST['cfaculty']);
     $fac_id = preg_replace('/\D/', '', $fac_id); 
     $block_venue = mysqli_real_escape_string($conn, $_POST['block_venue']);
+    $bus_route = mysqli_real_escape_string($conn, $_POST['route']);
     $venue_name = mysqli_real_escape_string($conn, $_POST['venue_name']);
     $type_of_problem = mysqli_real_escape_string($conn, $_POST['type_of_problem']);
     $problem_description = mysqli_real_escape_string($conn, $_POST['problem_description']);

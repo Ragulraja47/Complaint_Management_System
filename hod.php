@@ -1050,8 +1050,8 @@ $result3 = mysqli_query($conn, $sql3);
                 <form id="addnewuser" enctype="multipart/form-data" onsubmit="handleSubmit(event)">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <input type="hidden" id="hidden_faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>">
-                            <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>" readonly>
+                            <input type="hidden" id="hidden_faculty_id" value="<?php echo $row['id']; ?>">
+                            <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value="<?php echo $row['faculty_id']; ?>" readonly>
                         </div>
 
                         <div class="form-group mb-3">

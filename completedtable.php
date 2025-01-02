@@ -6,7 +6,6 @@ if (!isset($_SESSION['faculty_id'])) {
     // Redirect to login page if not logged in
     header("Location: flogin.php");
     exit();
-
 }
 
 include('db.php'); // Include the configuration file
@@ -37,7 +36,7 @@ $row_count4 = mysqli_num_rows($result4);
 
 
 $facquery = "SELECT * FROM faculty WHERE dept=(SELECT department FROM faculty_details WHERE faculty_id='$faculty_id')";
-$resultfac = mysqli_query($conn,$facquery);
+$resultfac = mysqli_query($conn, $facquery);
 
 
 ?>
@@ -442,14 +441,12 @@ $resultfac = mysqli_query($conn,$facquery);
 
                                 <!------------------Pending Work Modal----------------->
                                 <div class="tab-pane p-20" id="home" role="tabpanel">
-                                    <div class="modal fade" id="cmodal" tabindex="-1"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="cmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header" style="background:linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%);background-color:#7460ee;">
                                                     <h5 class="modal-title" id="exampleModalLabel">Raise Complaint</h5>
-                                                    <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button class="spbutton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div>
                                                     <form id="addnewuser" enctype="multipart/form-data" onsubmit="handleSubmit(event)">
@@ -459,19 +456,34 @@ $resultfac = mysqli_query($conn,$facquery);
                                                                 <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value="<?php echo $_SESSION['faculty_id']; ?>" readonly>
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 15px;">
-                                                            <label for="faculty" class="font-weight-bold" style="display: block; margin-bottom: 5px;">Choose Faculty</label>
-                                                            <select class="form-control"  name="cfaculty" id="cfaculty" style="width: 100%; height: 40px; border-radius: 4px; border: 1px solid #ccc;">
-                                                            </select>
-                                                        </div>
+                                                                <label for="faculty" class="font-weight-bold" style="display: block; margin-bottom: 5px;">Choose Faculty</label>
+                                                                <select class="form-control" name="cfaculty" id="cfaculty" style="width: 100%; height: 40px; border-radius: 4px; border: 1px solid #ccc;">
+                                                                </select>
+                                                            </div>
 
+                                                            <!-- Type of Problem -->
                                                             <div class="mb-3">
-                                                                <label for="block" class="form-label">Block <span style="color: red;">*</span></label>
+                                                                <label for="type_of_problem" class="form-label">Type of Problem <span style="color: red;">*</span></label>
+                                                                <select class="form-control" name="type_of_problem" onchange="checkifTransport()" style="width: 100%; height:36px;">
+                                                                    <option>Select</option>
+                                                                    <option value="elecrtical">ELECTRICAL</option>
+                                                                    <option value="civil">CIVIL</option>
+                                                                    <option value="itkm">IT INFRA</option>
+                                                                    <option value="transport">TRANSPORT</option>
+                                                                    <option value="house">HOUSE KEEPING</option>
+                                                                </select>
+                                                            </div>
+
+                                                            <!-- Block -->
+                                                            <div class="mb-3" id="blockInput">
+                                                                <label for="block" class="form-label">Block\Bus No:<span style="color: red;">*</span></label>
                                                                 <input type="text" class="form-control" name="block_venue" placeholder="Eg:RK-206" required>
                                                             </div>
-                                                            <div class="mb-3">
+
+                                                            <!-- Venue -->
+                                                            <div class="mb-3" id="venueInput">
                                                                 <label for="venue" class="form-label">Venue <span style="color: red;">*</span></label>
-                                                                <select id="dropdown" class="form-control" name="venue_name" onchange="checkIfOthers()"
-                                                                    style="width: 100%; height:36px;">
+                                                                <select id="dropdown" class="form-control" name="venue_name" onchange="checkIfOthers()" style="width: 100%; height:36px;">
                                                                     <option>Select</option>
                                                                     <option value="class">Class Room</option>
                                                                     <option value="department">Department</option>
@@ -481,26 +493,19 @@ $resultfac = mysqli_query($conn,$facquery);
                                                                 </select>
                                                             </div>
 
+                                                            <!-- Optional Other Venue -->
                                                             <div id="othersInput" style="display: none;">
                                                                 <label class="form-label" for="otherValue">Please specify: <span style="color: red;">*</span></label>
                                                                 <input class="form-control" type="text" id="otherValue" name="otherValue"> <br>
                                                             </div>
 
-                                                            <div class="mb-3">
-                                                                <label for="type_of_problem" class="form-label">Type of Problem <span style="color: red;">*</span></label>
-                                                                <select class="form-control" name="type_of_problem" style="width: 100%; height:36px;">
-                                                                    <option>Select</option>
-                                                                    <option value="elecrtical">ELECTRICAL</option>
-                                                                    <option value="civil">CIVIL</option>
-                                                                    <option value="itkm">IT INFRA </option>
-                                                                    <option value="transport">TRANSPORT</option>
-                                                                    <option value="house">HOUSE KEEPING </option>
-                                                                </select>
-                                                            </div>
+                                                            <!-- Problem Description -->
                                                             <div class="mb-3">
                                                                 <label for="description" class="form-label">Problem Description <span style="color: red;">*</span></label>
                                                                 <input type="text" class="form-control" name="problem_description" placeholder="Enter Description" required>
                                                             </div>
+
+                                                            <!-- Image -->
                                                             <div class="mb-3">
                                                                 <label for="images" class="form-label">Image <span style="color: red;">*</span> </label>
                                                                 <input type="file" class="form-control" name="images" id="images" onchange="validateSize(this)" required>
@@ -602,13 +607,14 @@ $resultfac = mysqli_query($conn,$facquery);
                                                                             </button>
                                                                         </td>
                                                                         <td class="text-center">
-                                                                    <?php if ($row['status'] == 11 || $row['status'] == 18) { ?>
-                                                                        <!-- Button to open the feedback modal -->
-                                                                        <button type="button" class="btn btn-info feedbackBtn" data-problem-id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#feedback_modal">Feedback</button>
-                                                                    <?php } else { ?>
-                                                                        <button type="button" disabled>Feedback</button>
-                                                                    <?php } ?>
-                                                                </td>
+                                                                            <?php if ($row['status'] == 11 || $row['status'] == 18) { ?>
+                                                                                <!-- Button to open the feedback modal -->
+                                                                                <button type="button" class="btn btn-info feedbackBtn" data-problem-id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#feedback_modal">Feedback</button>
+                                                                            <?php } else { ?>
+                                                                                <button type="button" disabled>Feedback</button>
+                                                                            <?php } ?>
+                                                                                       
+                                                                        </td>
                                                                     </tr>
                                                                 <?php
                                                                     $s++;
@@ -623,33 +629,33 @@ $resultfac = mysqli_query($conn,$facquery);
                                     </div>
                                 </div>
                                 <?php
-                                                                $s = 1;
-                                                                while ($row = mysqli_fetch_assoc($result5)) {
-                                                                    $statusMessage = '';
-                                                                    switch ($row['status']) {
-                                                                        case 1:
-                                                                            $statusMessage = 'Pending';
-                                                                            break;
-                                                                        case 2:
-                                                                            $statusMessage = 'Approved by Infra';
-                                                                            break;
-                                                                        case 4:
-                                                                            $statusMessage = 'Approved by HOD';
-                                                                            break;
-                                                                        case 6:
-                                                                            $statusMessage = 'Sent to Principal for Approval';
-                                                                            break;
-                                                                        case 8:
-                                                                            $statusMessage = 'Approved by Principal ';
-                                                                            break;
-                                                                        case 9:
-                                                                            $statusMessage = ' Approved by Manager';
-                                                                            break;
-                                                                        default:
-                                                                            $statusMessage = 'Unknown Status';
-                                                                    }
-                                                                }
-                                                                ?>
+                                $s = 1;
+                                while ($row = mysqli_fetch_assoc($result5)) {
+                                    $statusMessage = '';
+                                    switch ($row['status']) {
+                                        case 1:
+                                            $statusMessage = 'Pending';
+                                            break;
+                                        case 2:
+                                            $statusMessage = 'Approved by Infra';
+                                            break;
+                                        case 4:
+                                            $statusMessage = 'Approved by HOD';
+                                            break;
+                                        case 6:
+                                            $statusMessage = 'Sent to Principal for Approval';
+                                            break;
+                                        case 8:
+                                            $statusMessage = 'Approved by Principal ';
+                                            break;
+                                        case 9:
+                                            $statusMessage = ' Approved by Manager';
+                                            break;
+                                        default:
+                                            $statusMessage = 'Unknown Status';
+                                    }
+                                }
+                                ?>
 
 
 
@@ -743,7 +749,7 @@ $resultfac = mysqli_query($conn,$facquery);
                                                                         <button type="button" disabled>Feedback</button>
                                                                     <?php } ?>
                                                                 </td>
-                                                            </tr>                                                            
+                                                            </tr>
                                                         <?php
                                                             $s++;
                                                         }
@@ -758,36 +764,36 @@ $resultfac = mysqli_query($conn,$facquery);
 
                                 <!-- Extend Modal -->
                                 <div class="modal fade" id="extendModal" tabindex="-1" role="dialog"
-                                                                aria-labelledby="extendModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title" id="extendModalLabel">Reject Complaint</h5>
-                                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                                aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <form id="rejectForm">
-                                                                                <input type="hidden" name="id" id="complaint_id99">
-                                                                                <div class="form-group">
-                                                                                    <label for="rejectReason" class="form-label">Reason for
-                                                                                        Deadline Extension:</label> <br>
-                                                                                    <br>
-                                                                                    <textarea id="extendReasonTextarea" readonly style="width: 100%; height: 80px; font-size: 14px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; color: #333; resize: none; overflow-y: auto;"></textarea>
+                                    aria-labelledby="extendModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="extendModalLabel">Reject Complaint</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="rejectForm">
+                                                    <input type="hidden" name="id" id="complaint_id99">
+                                                    <div class="form-group">
+                                                        <label for="rejectReason" class="form-label">Reason for
+                                                            Deadline Extension:</label> <br>
+                                                        <br>
+                                                        <textarea id="extendReasonTextarea" readonly style="width: 100%; height: 80px; font-size: 14px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; color: #333; resize: none; overflow-y: auto;"></textarea>
 
 
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-secondary"
-                                                                                        data-dismiss="modal">Close</button>
-                                                                                </div>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
                                 <!------------------Work in Progress Table Ends----------------->
@@ -1068,6 +1074,23 @@ $resultfac = mysqli_query($conn,$facquery);
         dateInput.value = today;
     </script>
 
+    <script>
+
+               function checkIfOthers() {
+            var dropdown = document.getElementById('dropdown');
+            var othersInput = document.getElementById('othersInput');
+            if (dropdown.value === 'Other') {
+                othersInput.style.display = 'block';
+            } else {
+                othersInput.style.display = 'none';
+            }
+        }
+
+        // Initialize state on DOM load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkifTransport();
+        });
+    </script>
 
     <!--file size and type -->
     <script>
@@ -1374,7 +1397,7 @@ $resultfac = mysqli_query($conn,$facquery);
         });
 
 
-        $(document).on('click','.fac',function(e){
+        $(document).on('click', '.fac', function(e) {
             e.preventDefault();
             console.log("hiii");
 
@@ -1392,16 +1415,13 @@ $resultfac = mysqli_query($conn,$facquery);
         });
 
 
-        $(document).on('click', '.extenddeadline', function () {
-    // Get the reason from the button's data attribute
-    var reason = $(this).data('reason');
+        $(document).on('click', '.extenddeadline', function() {
+            // Get the reason from the button's data attribute
+            var reason = $(this).data('reason');
 
-    // Set the reason in the modal's textarea
-    $('#extendReasonTextarea').val(reason);
-});
-
-
-
+            // Set the reason in the modal's textarea
+            $('#extendReasonTextarea').val(reason);
+        });
     </script>
 </body>
 <div scrible-ignore="" id="skribel_annotation_ignore_browserExtensionFlag" class="skribel_chromeExtension"
